@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ECW Document Labeling Master Template</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+      }
+      h1,
+      h2 {
+        color: #002b5c;
+      }
+      .nav {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: #f5f5f5;
+      }
+      .nav a {
+        margin-right: 12px;
+        text-decoration: none;
+        color: #005a9e;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 24px;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 6px 8px;
+        font-size: 0.9rem;
+      }
+      th {
+        background: #e6eef7;
+        text-align: left;
+      }
+      .label-format {
+        font-family: Consolas, monospace;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ECW Document Labeling Master Template</h1>
+    <p>
+      <strong>Standard format:</strong>
+      <span class="label-format"
+        >MM/DD/YYYY – [CATEGORY] – Description – Facility</span
+      >
+    </p>
+
+    <div class="nav">
+      <strong>Jump to:</strong>
+      <a href="#result">RESULT</a>
+      <a href="#order">ORDER</a>
+      <a href="#med">MED</a>
+      <a href="#pa-med">PA-MED</a>
+      <a href="#pa-img">PA-IMG</a>
+      <a href="#consult">CONSULT</a>
+      <a href="#records">RECORDS</a>
+      <a href="#dme">DME</a>
+      <a href="#referral">REFERRAL</a>
+      <a href="#hosp-er">HOSP/ER</a>
+    </div>
+
+    <hr />
+
+    <h2 id="result">RESULT</h2>
+    <p>
+      Used for lab and imaging results and other clinical results requiring
+      review or filing.
+    </p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Lab Result (non-electronic)</td>
+        <td>RESULT</td>
+        <td class="label-format">MM/DD/YYYY – RESULT – Lab – Facility</td>
+        <td>Lab Documents</td>
+        <td>
+          Attach to existing order if present; route to provider/CS as needed.
+        </td>
+      </tr>
+      <tr>
+        <td>Imaging Result (no originating order)</td>
+        <td>RESULT</td>
+        <td class="label-format">MM/DD/YYYY – RESULT – Imaging – Facility</td>
+        <td>Imaging (XR/US/CT/MRI)</td>
+        <td>File only unless ordered by our provider.</td>
+      </tr>
+      <tr>
+        <td>Positive Cologuard</td>
+        <td>RESULT</td>
+        <td class="label-format">MM/DD/YYYY – RESULT – Positive Cologuard</td>
+        <td>Lab Documents</td>
+        <td>Tag HP; notify via Teams.</td>
+      </tr>
+    </table>
+
+    <h2 id="order">ORDER</h2>
+    <p>
+      Used for any document reflecting an order or requiring provider signature.
+    </p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>PT/OT/HH Order</td>
+        <td>ORDER</td>
+        <td class="label-format">MM/DD/YYYY – ORDER – HH Order # – Facility</td>
+        <td>PT/OT/HH Orders</td>
+        <td>Tag HP if signature needed.</td>
+      </tr>
+      <tr>
+        <td>Plan of Care (POC)</td>
+        <td>ORDER</td>
+        <td class="label-format">MM/DD/YYYY – ORDER – POC – Facility</td>
+        <td>PT/OT/HH Orders</td>
+        <td>Route for signature as required.</td>
+      </tr>
+      <tr>
+        <td>Pre-Op Request</td>
+        <td>ORDER</td>
+        <td class="label-format">
+          MM/DD/YYYY – ORDER – Pre-Op Request – Facility
+        </td>
+        <td>Pre-Op</td>
+        <td>Tag HP.</td>
+      </tr>
+    </table>
+
+    <h2 id="med">MED</h2>
+    <p>Used for non-PA medication clarifications, changes, and messaging.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Rx Clarification</td>
+        <td>MED</td>
+        <td class="label-format">
+          MM/DD/YYYY – MED – Clarification – Medication
+        </td>
+        <td>Rx</td>
+        <td>Create TE to provider.</td>
+      </tr>
+      <tr>
+        <td>Rx Change</td>
+        <td>MED</td>
+        <td class="label-format">MM/DD/YYYY – MED – Change – Medication</td>
+        <td>Rx</td>
+        <td>TE to provider.</td>
+      </tr>
+      <tr>
+        <td>Message to Prescriber</td>
+        <td>MED</td>
+        <td class="label-format">MM/DD/YYYY – MED – Message – Medication</td>
+        <td>Rx</td>
+        <td>TE if action is required.</td>
+      </tr>
+    </table>
+
+    <h2 id="pa-med">PA-MED</h2>
+    <p>Used for medication prior authorization workflows.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>PA Medication Request</td>
+        <td>PA-MED</td>
+        <td class="label-format">MM/DD/YYYY – PA-MED – Request – Medication</td>
+        <td>Medication PA</td>
+        <td>Delete duplicates; include RX name.</td>
+      </tr>
+      <tr>
+        <td>PA Medication Denial</td>
+        <td>PA-MED</td>
+        <td class="label-format">MM/DD/YYYY – PA-MED – Denial – Medication</td>
+        <td>Medication PA</td>
+        <td>Tag HP; route to action owner.</td>
+      </tr>
+      <tr>
+        <td>PA Medication Approval</td>
+        <td>PA-MED</td>
+        <td class="label-format">
+          MM/DD/YYYY – PA-MED – Approval – Medication
+        </td>
+        <td>Medication PA</td>
+        <td>Close after updating patient.</td>
+      </tr>
+    </table>
+
+    <h2 id="pa-img">PA-IMG</h2>
+    <p>Used for imaging prior authorization workflows.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Imaging PA Request</td>
+        <td>PA-IMG</td>
+        <td class="label-format">MM/DD/YYYY – PA-IMG – Request – Facility</td>
+        <td>Imaging PA</td>
+        <td>Tag HP/STAT if needed.</td>
+      </tr>
+      <tr>
+        <td>Imaging PA Clarification</td>
+        <td>PA-IMG</td>
+        <td class="label-format">
+          MM/DD/YYYY – PA-IMG – Clarification – Study
+        </td>
+        <td>Imaging PA</td>
+        <td>Tag HP.</td>
+      </tr>
+      <tr>
+        <td>Imaging PA Denial</td>
+        <td>PA-IMG</td>
+        <td class="label-format">MM/DD/YYYY – PA-IMG – Denial – Facility</td>
+        <td>Imaging PA</td>
+        <td>Tag HP; escalate.</td>
+      </tr>
+    </table>
+
+    <h2 id="consult">CONSULT</h2>
+    <p>Used for specialist consult and recommendation notes.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Specialist Consult</td>
+        <td>CONSULT</td>
+        <td class="label-format">
+          MM/DD/YYYY – CONSULT – Specialty – Facility
+        </td>
+        <td>Consult Notes</td>
+        <td>Review and close.</td>
+      </tr>
+      <tr>
+        <td>Specialist Recommendation</td>
+        <td>CONSULT</td>
+        <td class="label-format">
+          MM/DD/YYYY – CONSULT – Recommendation – Specialty
+        </td>
+        <td>Consult Notes</td>
+        <td>Create TE if PCP action is required.</td>
+      </tr>
+    </table>
+
+    <h2 id="records">RECORDS</h2>
+    <p>Used for medical record requests and incoming records.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Medical Records Received</td>
+        <td>RECORDS</td>
+        <td class="label-format">MM/DD/YYYY – RECORDS – Incoming – Facility</td>
+        <td>Records Requests</td>
+        <td>Send to requestor if applicable; otherwise close.</td>
+      </tr>
+      <tr>
+        <td>Medical Records Request</td>
+        <td>RECORDS</td>
+        <td class="label-format">MM/DD/YYYY – RECORDS – Request – Facility</td>
+        <td>Records Requests</td>
+        <td>Route to AMS/STS per policy.</td>
+      </tr>
+      <tr>
+        <td>External Immunization Record</td>
+        <td>RECORDS</td>
+        <td class="label-format">MM/DD/YYYY – RECORDS – Immunization</td>
+        <td>Immunization Records</td>
+        <td>Review and close.</td>
+      </tr>
+    </table>
+
+    <h2 id="dme">DME</h2>
+    <p>Used for all durable medical equipment documentation.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>DME Equipment Order</td>
+        <td>DME</td>
+        <td class="label-format">MM/DD/YYYY – DME – Equipment – Item</td>
+        <td>DME</td>
+        <td>Tag HP if STAT.</td>
+      </tr>
+      <tr>
+        <td>Certificate of Medical Necessity</td>
+        <td>DME</td>
+        <td class="label-format">MM/DD/YYYY – DME – CMN – Item</td>
+        <td>DME</td>
+        <td>Route to appropriate team.</td>
+      </tr>
+    </table>
+
+    <h2 id="referral">REFERRAL</h2>
+    <p>Used for referral requests and responses.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Referral Request</td>
+        <td>REFERRAL</td>
+        <td class="label-format">
+          MM/DD/YYYY – REFERRAL – Request – Specialty
+        </td>
+        <td>Referral Correspondence</td>
+        <td>Send to appropriate referral location.</td>
+      </tr>
+      <tr>
+        <td>Referral Response</td>
+        <td>REFERRAL</td>
+        <td class="label-format">
+          MM/DD/YYYY – REFERRAL – Response – Specialty
+        </td>
+        <td>Referral Correspondence</td>
+        <td>Route to ordering provider.</td>
+      </tr>
+    </table>
+
+    <h2 id="hosp-er">HOSP/ER</h2>
+    <p>Used for hospital and emergency department documentation.</p>
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Category Tag</th>
+        <th>Label Format</th>
+        <th>File To</th>
+        <th>Notes / Action</th>
+      </tr>
+      <tr>
+        <td>Discharge Summary</td>
+        <td>HOSP</td>
+        <td class="label-format">MM/DD/YYYY – HOSP – Discharge – Facility</td>
+        <td>Admit / Discharge Notifications</td>
+        <td>Update tracker; TE to provider.</td>
+      </tr>
+      <tr>
+        <td>Admission Summary</td>
+        <td>HOSP</td>
+        <td class="label-format">MM/DD/YYYY – HOSP – Admission – Facility</td>
+        <td>Admit / Discharge Notifications</td>
+        <td>Attach; CS review.</td>
+      </tr>
+      <tr>
+        <td>ER Records (non-DS)</td>
+        <td>ER</td>
+        <td class="label-format">MM/DD/YYYY – ER – Records – Facility</td>
+        <td>Admit / Discharge Notifications</td>
+        <td>File and close; tracker DS remains N.</td>
+      </tr>
+    </table>
+  </body>
+</html>
