@@ -159,11 +159,54 @@
       .letterhead{ flex-direction:column; }
       .brand{ justify-content:flex-start; }
     }
-  </style>
+ /* Encounter indicators */
+.yes-te{
+  background:#e8f4ff;
+  border-left:5px solid #1f5aa6;
+}
+
+.no-te{
+  background:#f7f7f7;
+  border-left:5px solid #999999;
+}
+
+.te-pill{
+  display:inline-block;
+  font-size:11px;
+  padding:2px 8px;
+  border-radius:999px;
+  margin-left:6px;
+  font-weight:700;
+}
+
+.te-pill.yes{
+  background:#1f5aa6;
+  color:#ffffff;
+}
+
+.te-pill.no{
+  background:#999999;
+  color:#ffffff;
+}
+ </style>
 </head>
 
 <body>
   <div class="wrap">
+<!-- IMPORTANT WORKFLOW BANNER -->
+<div style="
+  background:#fff3cd;
+  border:2px solid #ffcc66;
+  border-radius:8px;
+  padding:14px 16px;
+  margin-bottom:18px;
+  font-size:14px;
+">
+  <b>IMPORTANT – ENCOUNTER WORKFLOW</b><br>
+  Most incoming documents require an encounter.<br>
+  Fax staff: create encounter, assign to <b>Clinical Admin</b>,
+  update <b>Provider</b> and <b>Facility</b>, then stop.
+</div>
 
     <div class="letterhead">
       <div>
@@ -203,10 +246,51 @@
       <a href="#referral">Referral Correspondence</a>
       <a href="#om">Route to OM</a>
     </div>
+<!-- ENCOUNTER CREATION RULES -->
+<div class="section" id="encounterrules">
+  <h2>Encounter Creation Rules</h2>
+  <p class="desc">
+    Create an encounter only when review, action, or follow-up is required.
+    Use the <b>main idea only</b> when naming (example: <i>Prior Auth</i>).
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Create Encounter</th>
+        <th>Do NOT Create Encounter</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="yes-te">
+          Prior Auth<br>
+          Results<br>
+          Hospital<br>
+          Orders / Clarifications<br>
+          Referral (action needed)<br>
+          DME
+        </td>
+        <td class="no-te">
+          Delete-only items<br>
+          Informational consult notes<br>
+          Immunization notices<br>
+          Final PA approvals only<br>
+          Duplicate faxes<br>
+          Records with no request
+        </td>
+        <td>
+          If unsure → create encounter → assign to Clinical Admin.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
     <!-- DELETE ONLY -->
     <div class="section" id="deleteonly">
-      <h2>Delete Only</h2>
+      <h2>Delete Only <span class="te-pill no">NO ENCOUNTER</span></h2>
       <p class="desc">These items should be deleted only (do not label or file).</p>
       <ul>
         <li>Rx Requests (general)</li>
@@ -382,7 +466,7 @@
 
     <!-- PA MED -->
     <div class="section" id="pamed">
-      <h2>Prior Auth – Medications</h2>
+      <h2>Prior Auth – Medications <span class="te-pill yes">ENCOUNTER REQUIRED</span></h2>
       <p class="desc">Medication PA items routed to Med PA team, with HP rules and action-owner routing as applicable.</p>
 
       <table>
