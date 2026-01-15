@@ -1,84 +1,38 @@
-<section style="max-width: 980px; margin: 0 auto; font-family: Arial, sans-serif; line-height: 1.35;">
-  <h1>FAX INTAKE – eCW WORKFLOW (Delegators → Reviewed Team → TE Team)</h1>
+INCOMING FAX
+     |
+     v
+Is this fax one of the following?
+(Labs, Imaging, Orders, Pre-Op, RX, PA, DME, Referral, Admit/Discharge)
+     |
+     |— YES →
+     |      Create TE from Fax Inbox
+     |      Assign TE to Clinical Admin
+     |      Use MAIN REASON as TE title
+     |      STOP
+     |
+     |— NO →
+           Is this a CONSULT NOTE?
+                 |
+                 |— NO →
+                 |      Label correctly
+                 |      Close document
+                 |      STOP
+                 |
+                 |— YES →
+                       Does the consult note include
+                       a recommendation requiring action?
+                       (follow-up, order, med change, timeframe)
+                             |
+                             |— YES →
+                             |      Create TE
+                             |      TE title: Consult Note
+                             |      Assign to Clinical Admin
+                             |      STOP
+                             |
+                             |— NO →
+                                    Label correctly
+                                    Close document
+                                    NO TE
+                                    STOP
 
-  <div style="padding:12px; border:2px solid #000; margin:16px 0;">
-    <h2 style="margin:0 0 8px 0;">CORE RULE</h2>
-    <p style="margin:0;"><strong>Most incoming documents REQUIRE a TE.</strong></p>
-    <p style="margin:6px 0 0 0;"><strong>If unsure → Create TE → Assign to Clinical Admin → STOP.</strong></p>
-  </div>
-
-  <h2>Step 1: Delegators (Fax Inbox)</h2>
-  <p><strong>Goal:</strong> Create a TE for MOST incoming faxes straight from the Fax Inbox, assign it to Clinical Admin, and stop.</p>
-
-  <h3>Delegators DO</h3>
-  <ul>
-    <li>Create TE (Encounter)</li>
-    <li>Assign TE to <strong>Clinical Admin</strong></li>
-    <li>Update <strong>Provider</strong> and <strong>Facility</strong></li>
-    <li>Use TE name: <strong>Main idea only</strong> (see TE naming below)</li>
-  </ul>
-
-  <h3>Delegators DO NOT</h3>
-  <ul>
-    <li>Label documents</li>
-    <li>Interpret content</li>
-    <li>Route to provider</li>
-  </ul>
-
-  <h2>Step 2: Document Reviewed Team (Relabel + Close)</h2>
-  <p><strong>Goal:</strong> Relabel documents correctly and close them. Add Document Insight notes into the TE so the TE Team can act fast.</p>
-  <ul>
-    <li>Relabel document correctly</li>
-    <li>Close the document</li>
-    <li>Add key Document Insight details into the <strong>existing TE</strong> (summary, urgency, next action)</li>
-  </ul>
-
-  <h2>Step 3: TE Team (Clinical Admin Queue)</h2>
-  <p><strong>Goal:</strong> Review TE + Document Insight notes, take action, and assign to provider when required.</p>
-  <ul>
-    <li>Review TE content + Document Insight notes</li>
-    <li>Route/assign to provider if provider review is required</li>
-    <li>Track follow-up ownership to completion</li>
-  </ul>
-
-  <hr style="margin:24px 0;" />
-
-  <h2>TE Creation Rules (Delegators)</h2>
-
-  <h3>Create a TE for:</h3>
-  <ul>
-    <li><strong>Prior Auth</strong> (Medication / Imaging)</li>
-    <li><strong>Results</strong> (Labs / Imaging)</li>
-    <li><strong>Hospital</strong> (ER / Admit / Discharge)</li>
-    <li><strong>Orders</strong> / Clarifications</li>
-    <li><strong>Referrals</strong> needing action</li>
-    <li><strong>DME</strong> / Equipment</li>
-  </ul>
-
-  <h3>Do NOT create a TE for:</h3>
-  <ul>
-    <li>Delete-only items</li>
-    <li>Informational consult notes</li>
-    <li>Immunization notices</li>
-    <li>Final PA approvals only</li>
-    <li>Duplicate faxes</li>
-    <li>Records with no request</li>
-  </ul>
-
-  <h2>TE Naming Standard (Main Idea Only)</h2>
-  <p>Use only one of the following as the TE title/category:</p>
-  <ul>
-    <li>Prior Auth</li>
-    <li>Results</li>
-    <li>Hospital</li>
-    <li>Orders</li>
-    <li>Referral</li>
-    <li>DME</li>
-  </ul>
-
-  <div style="padding:12px; border:2px solid #000; margin:16px 0;">
-    <h2 style="margin:0 0 8px 0;">GOLDEN RULE</h2>
-    <p style="margin:0;"><strong>If unsure → Create TE → Assign to Clinical Admin → STOP.</strong></p>
-  </div>
-</section>
 
