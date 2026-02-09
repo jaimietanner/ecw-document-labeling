@@ -2,622 +2,345 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ECW Document Labeling Master Template (Clinical Admin)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>eCW Document Labeling</title>
   <style>
     :root{
-      --ink:#0b1f33;
-      --blue:#1f5aa6;
-      --line:#d6dde6;
-      --head:#eef4fb;
-      --bg:#ffffff;
+      --border:#d0d7de;
+      --text:#111;
+      --muted:#57606a;
+      --bg:#fff;
+      --tableHead:#f6f8fa;
+      --link:#0969da;
     }
     body{
       font-family: Arial, Helvetica, sans-serif;
-      color: var(--ink);
-      margin: 0;
-      background: var(--bg);
-      line-height: 1.35;
+      color:var(--text);
+      background:var(--bg);
+      margin:0;
+      padding:0;
     }
     .wrap{
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 24px 20px 48px;
+      padding: 24px 16px 56px;
     }
-
-    /* Letterhead */
-    .letterhead{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 6px;
-    }
-
-    h1{
-      margin: 0 0 8px 0;
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .sub{
-      margin: 0 0 18px 0;
-      font-size: 13px;
-      color:#2b3c52;
-    }
-    .sub code{
-      background:#f4f6f9;
-      padding:2px 6px;
-      border:1px solid var(--line);
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    .jump{
-      border: 1px solid var(--line);
-      padding: 12px 12px;
-      border-radius: 6px;
-      margin: 10px 0 22px;
-      font-size: 13px;
-      background:#fbfdff;
-    }
-    .jump b{ margin-right:6px; }
-    .jump a{
-      color: var(--blue);
-      text-decoration: none;
-      margin-right: 12px;
-      white-space: nowrap;
-    }
-    .jump a:hover{ text-decoration: underline; }
-
-    .section{
-      margin-top: 26px;
-      padding-top: 10px;
-      border-top: 2px solid var(--line);
-    }
-    h2{
-      margin: 0 0 6px 0;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .desc{
-      margin: 0 0 10px 0;
-      font-size: 13px;
-      color:#2b3c52;
-    }
-
+    h1{ margin:0 0 8px; }
+    p{ margin:8px 0; line-height:1.4; }
+    .muted{ color:var(--muted); }
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .jump a{ margin-right:10px; white-space:nowrap; }
+    hr{ border:none; border-top:1px solid var(--border); margin:18px 0; }
     table{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin: 10px 0 6px;
+      width:100%;
+      border-collapse:collapse;
+      margin:10px 0 18px;
+      font-size:14px;
     }
     th, td{
-      border: 1px solid var(--line);
-      padding: 10px 10px;
-      vertical-align: top;
+      border:1px solid var(--border);
+      padding:10px;
+      vertical-align:top;
     }
     th{
-      background: var(--head);
-      font-weight: 800;
-      text-align: left;
+      background:var(--tableHead);
+      text-align:left;
     }
-    .note{
-      font-size: 12px;
-      color:#2b3c52;
-      margin: 8px 0 0;
-    }
-    ul{
-      margin: 8px 0 0 18px;
-      padding: 0;
-    }
-    li{ margin: 4px 0; }
-    .muted{ color:#5a6b80; }
     .pill{
       display:inline-block;
-      font-size: 11px;
-      border:1px solid var(--line);
-      background:#f8fafc;
+      font-size:12px;
       padding:2px 8px;
-      border-radius: 999px;
-      margin-left: 8px;
-      color:#2b3c52;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:#333;
+      margin-left:8px;
     }
-
-    /* Optional: make the letterhead stack nicely on small screens */
-    @media (max-width: 720px){
-      .letterhead{ flex-direction:column; }
+    .small{ font-size:13px; }
+    ul{ margin:8px 0 14px 18px; }
+    li{ margin:6px 0; }
+    .callout{
+      border:1px solid var(--border);
+      background:#fafbfc;
+      padding:10px 12px;
+      border-radius:8px;
+      margin:10px 0 16px;
     }
- /* Encounter indicators */
-.yes-te{
-  background:#e8f4ff;
-  border-left:5px solid #1f5aa6;
-}
-
-.no-te{
-  background:#f7f7f7;
-  border-left:5px solid #999999;
-}
-
-.te-pill{
-  display:inline-block;
-  font-size:11px;
-  padding:2px 8px;
-  border-radius:999px;
-  margin-left:6px;
-  font-weight:700;
-}
-
-.te-pill.yes{
-  background:#1f5aa6;
-  color:#ffffff;
-}
-
-.te-pill.no{
-  background:#999999;
-  color:#ffffff;
-}
- </style>
+  </style>
 </head>
-
 <body>
   <div class="wrap">
-<!-- IMPORTANT WORKFLOW BANNER -->
-<div style="
-  background:#fff3cd;
-  border:2px solid #ffcc66;
-  border-radius:8px;
-  padding:14px 16px;
-  margin-bottom:18px;
-  font-size:14px;
-">
-  <b>IMPORTANT – ENCOUNTER WORKFLOW</b><br>
-  Most incoming documents require an encounter.<br>
-  Fax staff: create encounter, assign to <b>Clinical Admin</b>,
-  update <b>Provider</b> and <b>Facility</b>, then stop.
-</div>
-
-    <div class="letterhead">
-      <div>
-        <h1>ECW Document Labeling Master Template</h1>
-        <p class="sub">
-          Standard format: <code>MM/DD/YYYY – [DESCRIPTION] / [WHERE]</code>
-          <span class="pill">Clinical Admin Version</span>
-        </p>
-      </div>
-
+    <h1>eCW Document Labeling</h1>
+    <p class="muted">Document labeling, routing, and TE creation rules.</p>
+    <p class="jump">
+      Jump to:
+      <a href="#te-creation-rules">TE Creation Rules</a>
+      <a href="#delete-only">Delete Only</a>
+      <a href="#ca-bucket">CA Bucket</a>
+      <a href="#hosp-er">Hospital / ER</a>
+      <a href="#prior-auth--imaging-services">Prior Auth – Imaging Services</a>
+      <a href="#medical-records--requests">Medical Records / Requests</a>
+      <a href="#dme--equipment">DME / Equipment</a>
+      <a href="#referral-correspondence">Referral Correspondence</a>
+      <a href="#review-only">Review Only</a>
+      <a href="#route-to-om">Route to OM</a>
+    </p>
+    <hr />
+    <!-- TE CREATION RULES -->
+    <h2 id="te-creation-rules">TE Creation Rules</h2>
+    <p>Create a TE only when review, action, or follow-up is required. Use the main idea only when naming (example: <em>Prior Auth</em>).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Create TE</th>
+          <th>Do NOT Create TE</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Prior Auth<br/>
+            Hospital<br/>
+            Medication Clarifications<br/>
+            Referral (action needed)<br/>
+            DME
+          </td>
+          <td>
+            Delete-only items<br/>
+            Informational consult notes<br/>
+            Immunization notices<br/>
+            Final PA approvals only<br/>
+            Duplicate faxes<br/>
+            Records with no request<br/>
+            <strong>Orders / forms / anything needing provider signature</strong>
+          </td>
+          <td>If unsure → create TE → assign to Clinical Admin.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <p><strong>Clarification:</strong> Orders, forms, and documents requiring provider signature <strong>no longer get a TE</strong>.</p>
+      <p class="small">TE creation is reserved for <strong>PA’s, Hospital, Medication Clarifications, Referrals (action needed), and DME</strong>.</p>
     </div>
-
-    <div class="jump">
-      <b>Jump to:</b>
-      <a href="#deleteonly">Delete Only</a>
-      <a href="#ca">CA Bucket</a>
-      <a href="#ordering">Ordering Provider or CA Bucket</a>
-      <a href="#reviewonly">Review Only</a>
-      <a href="#pamed">Prior Auth – Medications</a>
-      <a href="#paimg">Prior Auth – Imaging Services</a>
-      <a href="#records">Medical Records / Requests</a>
-      <a href="#dme">DME / Equipment</a>
-      <a href="#referral">Referral Correspondence</a>
-      <a href="#om">Route to OM</a>
-    </div>
-<!-- ENCOUNTER CREATION RULES -->
-<div class="section" id="encounterrules">
-  <h2>Encounter Creation Rules</h2>
-  <p class="desc">
-    Create an encounter only when review, action, or follow-up is required.
-    Use the <b>main idea only</b> when naming (example: <i>Prior Auth</i>).
-  </p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Create Encounter</th>
-        <th>Do NOT Create Encounter</th>
-        <th>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="yes-te">
-          Prior Auth<br>
-          Results<br>
-          Hospital<br>
-          Orders / Clarifications<br>
-          Referral (action needed)<br>
-          DME
-        </td>
-        <td class="no-te">
-          Delete-only items<br>
-          Informational consult notes<br>
-          Immunization notices<br>
-          Final PA approvals only<br>
-          Duplicate faxes<br>
-          Records with no request
-        </td>
-        <td>
-          If unsure → create encounter → assign to Clinical Admin.
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
+    <hr />
     <!-- DELETE ONLY -->
-    <div class="section" id="deleteonly">
-      <h2>Delete Only <span class="te-pill no">NO ENCOUNTER</span></h2>
-      <p class="desc">These items should be deleted only (do not label or file).</p>
-      <ul>
-        <li>Rx Requests (general)</li>
-        <li>CoverMyMeds PA Requests</li>
-        <li>Med Non Adherences</li>
-        <li>Temporary Rx Supplies</li>
-        <li>Auths that we are not Requesting Provider</li>
-        <li>Tango</li>
-        <li>Failure to Schedule</li>
-      </ul>
+    <h2 id="delete-only">Delete Only <span class="pill">NO TE</span></h2>
+    <p>These items are informational only. <strong>Do not label, file, or create a TE.</strong> Delete.</p>
+    <h3>Rx / Pharmacy</h3>
+    <ul>
+      <li><strong>Rx Requests (general)</strong> – Delete for <strong>active Optima providers</strong>.</li>
+      <li><strong>Offboarded provider Rx requests</strong> – Create TE and send to the <strong>new Optima provider</strong> within Optima.</li>
+      <li><strong>Temporary Rx Supplies</strong> – Delete (pharmacy notice that a small supply was dispensed; may be formulary-related or a maintenance refill notice).</li>
+      <li><strong>Medication Non-Adherence Notices</strong> – Delete.</li>
+      <li><strong>Tango approvals</strong> – Delete.</li>
+    </ul>
+    <h3>Prior Auth</h3>
+    <ul>
+      <li><strong>All PA requests with a Key listed</strong> – Delete.</li>
+      <li><strong>Auth notifications requested by outside provider</strong> – Delete.</li>
+    </ul>
+    <h3>Referrals</h3>
+    <ul>
+      <li><strong>Confirmations of receipt</strong> – Delete.</li>
+      <li><strong>Scheduled date notifications</strong> – Delete.</li>
+      <li><strong>Failure to schedule with specialist</strong> – <strong>Do NOT delete</strong>; assign to <strong>Referrals</strong> for follow-up.</li>
+    </ul>
+    <h3>Imaging</h3>
+    <ul>
+      <li><strong>Failure to schedule (Imaging)</strong> – Delete <strong>for now</strong> (will change once ticker workflow is aligned).</li>
+    </ul>
+    <hr />
+    <!-- CA BUCKET (kept as-is for now, full split + color comes in final formatting pass) -->
+    <h2 id="ca-bucket">CA Bucket</h2>
+    <p class="small muted">Documents routed to the appropriate Clinical Admin (CA) bucket, or provider bucket where noted.</p>
+    <div class="callout">
+      <p><strong>Hospital / ER note:</strong> Hospital/ER items are defined in their own section below to reduce confusion and keep TE rules consistent.</p>
+      <p class="small muted">Formatting update (split CA vs Provider + TE/NO TE colors) will be applied after all sections are fully reviewed.</p>
     </div>
-
-    <!-- CA BUCKET -->
-    <div class="section" id="ca">
-      <h2>CA Bucket</h2>
-      <p class="desc">Documents routed to the appropriate Clinical Admin (CA) bucket, or provider bucket where noted.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:17%;">File To</th>
-            <th style="width:13%;">Send To</th>
-            <th style="width:30%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Discharge Summary / Note</td>
-            <td>DATE – Discharge / WHERE</td>
-            <td>Admit / Discharge Notifications</td>
-            <td>CA Bucket</td>
-            <td>Route to correct CA bucket. Tag HP.</td>
-          </tr>
-          <tr>
-            <td>Admission Summary / Note</td>
-            <td>DATE – Admission / WHERE</td>
-            <td>Admit / Discharge Notifications</td>
-            <td>CA Bucket</td>
-            <td>Route to correct CA bucket.</td>
-          </tr>
-          <tr>
-            <td>Emergency Documents</td>
-            <td>DATE – ER Records / WHERE</td>
-            <td>Admit / Discharge Notifications</td>
-            <td>CA Bucket</td>
-            <td>Tag HP.</td>
-          </tr>
-          <tr>
-            <td>PT / OT / HH / Physician Order</td>
-            <td>DATE – HH Order # / WHERE</td>
-            <td>PT / OT / HH Orders</td>
-            <td>Provider’s Bucket</td>
-            <td>Note order #. Delete if duplicate.</td>
-          </tr>
-          <tr>
-            <td>Plan of Care (POC)</td>
-            <td>DATE – POC Sig Needed / WHERE</td>
-            <td>PT / OT / HH Orders</td>
-            <td>Provider’s Bucket</td>
-            <td>Tag HP if signature needed.</td>
-          </tr>
-          <tr>
-            <td>Pre-Op Request</td>
-            <td>DATE – Pre-Op Request / WHERE</td>
-            <td>Pre-Op Request</td>
-            <td>Provider’s Bucket</td>
-            <td>Tag HP.</td>
-          </tr>
-          <tr>
-            <td>Rx Clarification</td>
-            <td>DATE – Rx Name – Clarification / WHERE</td>
-            <td>Rx</td>
-            <td>CA Bucket</td>
-            <td>Tag HP. Route to correct CA bucket.</td>
-          </tr>
-          <tr>
-            <td>Rx Change</td>
-            <td>DATE – Rx Name – Change / WHERE</td>
-            <td>Rx</td>
-            <td>CA Bucket</td>
-            <td>Route to correct CA bucket. Include medication name.</td>
-          </tr>
-          <tr>
-            <td>Message to Prescriber</td>
-            <td>DATE – Rx Name – Message / WHERE</td>
-            <td>Rx</td>
-            <td>CA Bucket</td>
-            <td>Route to correct CA bucket. Include medication name.</td>
-          </tr>
-          <tr>
-            <td>Positive Cologuard</td>
-            <td>DATE – Positive Cologuard</td>
-            <td>Lab Documents &gt; Cologuard</td>
-            <td>Provider’s Bucket</td>
-            <td>Mark HP. Send to Clinical Support and send Teams message notifying of positive result going to bucket.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- ORDERING PROVIDER OR CA -->
-    <div class="section" id="ordering">
-      <h2>Ordering Provider or CA Bucket</h2>
-      <p class="desc">Results routed to ordering provider when applicable; otherwise routed for additional review (no clinical review by sorter).</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:30%;">Label Format</th>
-            <th style="width:17%;">File To</th>
-            <th style="width:13%;">Send To</th>
-            <th style="width:22%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Imaging Results</td>
-            <td>
-              DATE – Exam (if no originating order available)<br>
-              <span class="muted">When attaching to originating order: check “Make this the document name”.</span>
-            </td>
-            <td>Imaging – Xray / US / CT / MRI</td>
-            <td>Ordering Provider or CA Bucket</td>
-            <td>Send to ordering provider if with Optima. If not ordered by our provider or no order listed, send to CS Bucket for additional review. <b>DO NOT REVIEW.</b></td>
-          </tr>
-          <tr>
-            <td>Lab Results</td>
-            <td>DATE – Test</td>
-            <td>Lab Documents</td>
-            <td>Ordering Provider or CA Bucket</td>
-            <td>Attach to order using collection date. If order exists, attach and forward to provider for review. Only add if NOT received electronically.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- REVIEW ONLY -->
-    <div class="section" id="reviewonly">
-      <h2>Review Only</h2>
-      <p class="desc">Documents reviewed and closed without routing to provider buckets.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:20%;">File To</th>
-            <th style="width:14%;">Send To</th>
-            <th style="width:26%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Consult Notes</td>
-            <td>DATE – Specialty / WHERE</td>
-            <td>Consult Notes</td>
-            <td>Close/Review</td>
-            <td>Review &amp; close. Use DOS as date.</td>
-          </tr>
-          <tr>
-            <td>Immunization Notices</td>
-            <td>DATE – Immunization Received</td>
-            <td>Immunization Records/Notifications</td>
-            <td>Close/Review</td>
-            <td>Review &amp; close. Use DOS as date.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- PA MED -->
-    <div class="section" id="pamed">
-      <h2>Prior Auth – Medications <span class="te-pill yes">ENCOUNTER REQUIRED</span></h2>
-      <p class="desc">Medication PA items routed to Med PA team, with HP rules and action-owner routing as applicable.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:20%;">File To</th>
-            <th style="width:16%;">Send To</th>
-            <th style="width:24%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>PA Request for Medication</td>
-            <td>DATE – Rx Name – PA Request / WHERE</td>
-            <td>Medication Prior Authorization</td>
-            <td>Prior Auth, Medications</td>
-            <td>Follow if no action started. Delete duplicate if action exists. Include medication name. <b>DELETE ALL FROM CMM.</b></td>
-          </tr>
-          <tr>
-            <td>PA Medication Denial</td>
-            <td>DATE – Rx Name – PA Denial / WHERE</td>
-            <td>Medication Prior Authorization</td>
-            <td>Prior Auth, Medications (or last touch in action)</td>
-            <td>Mark HP. Check HUB for assigned person. If additional info/paperwork needed, route to action owner. Include medication name.</td>
-          </tr>
-          <tr>
-            <td>PA Medication Approval</td>
-            <td>DATE – Rx Name – PA Approval / WHERE</td>
-            <td>Medication Prior Authorization</td>
-            <td>Close/Review</td>
-            <td>Review, no further action needed.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- PA IMG -->
-    <div class="section" id="paimg">
-      <h2>Prior Auth – Imaging Services</h2>
-      <p class="desc">Imaging PA documents routed to Imaging PA/IH Sono team with date and HP/STAT rules.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:20%;">File To</th>
-            <th style="width:16%;">Send To</th>
-            <th style="width:24%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>PA Request for Imaging</td>
-            <td>DATE – Order Request / WHERE</td>
-            <td>Imaging Prior Authorization</td>
-            <td>Prior Auth, Imaging and IH Sono</td>
-            <td>Use order date. Tag HP / STAT if needed.</td>
-          </tr>
-          <tr>
-            <td>PA Imaging Order Clarifications</td>
-            <td>DATE – Imaging Type – Clarification</td>
-            <td>Imaging Prior Authorization</td>
-            <td>Prior Auth, Imaging and IH Sono</td>
-            <td>Use request date. Mark HP.</td>
-          </tr>
-          <tr>
-            <td>PA Imaging Denial</td>
-            <td>DATE – PA Imaging Denial / WHERE</td>
-            <td>Imaging Prior Authorization</td>
-            <td>Prior Auth, Imaging and IH Sono</td>
-            <td>Use denial date. Tag HP / STAT.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- RECORDS -->
-    <div class="section" id="records">
-      <h2>Medical Records / Requests</h2>
-      <p class="desc">Record requests and inbound records routed based on request status and destination rules.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:18%;">File To</th>
-            <th style="width:18%;">Send To</th>
-            <th style="width:24%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Medical Records Received</td>
-            <td>DATE – Incoming Recs / WHERE</td>
-            <td>Records Request</td>
-            <td>Requestor or Review</td>
-            <td>Send to requestor if requested. Close if not requested.</td>
-          </tr>
-          <tr>
-            <td>Medical Records Request</td>
-            <td>DATE – Records Request / WHERE</td>
-            <td>Records Request</td>
-            <td>AMS, AmericanMedicalRecords</td>
-            <td>Send to AMS unless for multiple patients, STS to Juanita. If related to referral, imaging, or DME, send to responsible department.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+    <hr />
+    <!-- HOSP/ER -->
+    <h2 id="hosp-er">Hospital / ER <span class="pill">TE REQUIRED</span></h2>
+    <p><strong>All Hospital/ER discharge summaries, notes, labs, etc.</strong> are sent to <strong>Clinical Admin</strong>.</p>
+    <ul>
+      <li>If an appointment is needed, Clinical Admin completes outreach to schedule.</li>
+      <li>If no appointment is needed, Clinical Admin documents that and sends to provider for review.</li>
+      <li><strong>Discharge summaries must be marked HP.</strong></li>
+    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hospital / ER Records (all types)</strong></td>
+          <td>DATE – Hospital/ER / WHERE</td>
+          <td>Admit / Discharge Notifications</td>
+          <td>CA Bucket</td>
+          <td>Route to correct CA bucket. If discharge summary, <strong>mark HP</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!-- PRIOR AUTH – IMAGING -->
+    <h2 id="prior-auth--imaging-services">Prior Auth – Imaging Services</h2>
+    <p class="small muted">Imaging PA documents routed to Imaging PA/IH Sono team with date and HP/STAT rules.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PA Request for Imaging</td>
+          <td><strong>Order DATE</strong> – Order Request / WHERE</td>
+          <td>Imaging Prior Authorization</td>
+          <td>Prior Auth, Imaging and IH Sono</td>
+          <td>Use order date. <strong>Mark HP / STAT</strong> if noted that way.</td>
+        </tr>
+        <tr>
+          <td>PA Imaging Order Clarifications</td>
+          <td>DATE – Imaging Type – Clarification</td>
+          <td>Imaging Prior Authorization</td>
+          <td>Prior Auth, Imaging and IH Sono</td>
+          <td>Use request date. <strong>Mark HP</strong>.</td>
+        </tr>
+        <tr>
+          <td>PA Imaging Denial</td>
+          <td>DATE – PA Imaging Denial / WHERE</td>
+          <td>Imaging Prior Authorization</td>
+          <td>Prior Auth, Imaging and IH Sono</td>
+          <td>Use denial date. <strong>Mark HP / STAT</strong>.</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!-- MEDICAL RECORDS -->
+    <h2 id="medical-records--requests">Medical Records / Requests</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Medical Records Incoming</td>
+          <td>DATE – Incoming Recs / WHERE</td>
+          <td>Records Request</td>
+          <td>Internal Requestor (or Admin if unknown)</td>
+          <td>Assign to internal requestor; if unknown, assign to Admin to determine.</td>
+        </tr>
+        <tr>
+          <td>Medical Records Request Outgoing</td>
+          <td class="muted">N/A (does not need to be attached to a patient)</td>
+          <td>Records Request</td>
+          <td>AMS (AmericanMedicalRecords)</td>
+          <td>If related to Referral, Imaging, or DME, send to Admin (they can send and close once complete).</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
     <!-- DME -->
-    <div class="section" id="dme">
-      <h2>DME / Equipment</h2>
-      <p class="desc">Durable medical equipment requests routed to DME team with STAT handling.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:22%;">File To</th>
-            <th style="width:18%;">Send To</th>
-            <th style="width:20%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>DME (Durable Medical Equipment)</td>
-            <td>DATE – What / WHERE</td>
-            <td>DME Requests</td>
-            <td>Medical Equipment, Durable</td>
-            <td>Label document as listed. If STAT, mark HP.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- REFERRAL -->
-    <div class="section" id="referral">
-      <h2>Referral Correspondence</h2>
-      <p class="desc">Referral request/response routed by referral location list.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:22%;">File To</th>
-            <th style="width:18%;">Send To</th>
-            <th style="width:20%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Referral Request / Response</td>
-            <td>DATE – Referral Response / Request / WHERE</td>
-            <td>Referral Correspondence</td>
-            <td>Corresponding Referral Location</td>
-            <td>Refer to referral location list.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+    <h2 id="dme--equipment">DME / Equipment</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DME (Durable Medical Equipment)</td>
+          <td>DATE – What / WHERE</td>
+          <td>DME Requests</td>
+          <td>Medical Equipment, Durable</td>
+          <td>
+            Label document as listed. If STAT, <strong>mark HP</strong>.
+            <br/><br/>
+            <strong>HP rule:</strong> All CGM, end of life, and nebulizers must be <strong>marked HP</strong>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!-- REFERRALS -->
+    <h2 id="referral-correspondence">Referral Correspondence</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Referral Request / Response</td>
+          <td>DATE – Referral Response / Request / WHERE</td>
+          <td>Referral Correspondence</td>
+          <td>Corresponding Referral bucket</td>
+          <td>Route to correct referral bucket.</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <!-- REVIEW ONLY -->
+    <h2 id="review-only">Review Only</h2>
+    <p class="muted small">This section remains as currently defined. (We will revise it during the full review pass.)</p>
+    <hr />
     <!-- ROUTE TO OM -->
-    <div class="section" id="om">
-      <h2>Route to OM</h2>
-      <p class="desc">Items routed to Office Manager for follow-up.</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width:18%;">Document Type</th>
-            <th style="width:22%;">Label Format</th>
-            <th style="width:22%;">File To</th>
-            <th style="width:18%;">Send To</th>
-            <th style="width:20%;">Notes / Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Test in Question</td>
-            <td>DATE – Test in Question / WHERE</td>
-            <td>Lab Documents</td>
-            <td>Office Manager</td>
-            <td>Tag HP.</td>
-          </tr>
-        </tbody>
-      </table>
+    <h2 id="route-to-om">Route to OM</h2>
+    <p class="muted small">This section remains as currently defined. (We will revise it during the full review pass.)</p>
+    <hr />
+    <!-- LAB CODING UPDATE REQUEST -->
+    <h2 id="lab-documents">Lab Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Document Type</th>
+          <th>Label Format</th>
+          <th>File To</th>
+          <th>Send To</th>
+          <th>Notes / Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Test in Question / Coding update request</td>
+          <td>DATE – Test in Question / WHERE</td>
+          <td>Lab Documents</td>
+          <td>Office Manager</td>
+          <td><strong>Mark HP.</strong> Note: these can also be updated on the portal.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <p><strong>Results attachment rule:</strong> All results ordered by Optima providers must be attached to the order.</p>
+      <p class="small">If the order is already electronically attached, the faxed result is a duplicate and should be deleted.</p>
     </div>
-
-    <p class="note"><b>Tip:</b> Keep label dates aligned to your rule (DOS vs request date vs denial date). If the label and “File To” disagree, fix the label first, then file.</p>
   </div>
 </body>
 </html>
