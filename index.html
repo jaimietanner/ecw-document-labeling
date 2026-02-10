@@ -37,6 +37,16 @@
       color:#4b5563;
       font-size:14px;
     }
+    .updated{
+      display:inline-block;
+      margin-left:8px;
+      padding-left:8px;
+      border-left:2px solid var(--optima-border);
+      color:#6b7280;
+      font-weight:700;
+      font-size:12px;
+      letter-spacing:.2px;
+    }
     h2{
       color:var(--optima-blue);
       margin:34px 0 10px 0;
@@ -58,6 +68,13 @@
       border-radius: 12px;
       padding: 16px 16px;
       margin: 14px 0 22px;
+      position: sticky;
+      top: 12px;
+      z-index: 50;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+    .jump-card.is-stuck{
+      box-shadow: 0 10px 24px rgba(17, 24, 39, .08);
     }
     .jump-title{
       margin:0 0 10px 0;
@@ -69,7 +86,7 @@
     }
     .jump-grid{
       display:grid;
-      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap:8px 18px;
       margin:0;
       padding:0;
@@ -88,6 +105,53 @@
       border-radius: 12px;
       padding: 12px 14px;
       margin: 12px 0 16px;
+    }
+    .rule-line{
+      margin-top: 10px;
+      padding: 10px 10px;
+      border-radius: 10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      border:1px solid var(--optima-border);
+      background: #fff;
+    }
+    .rule-badge{
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border:1px solid var(--optima-border);
+      color: var(--optima-blue);
+      background: var(--optima-bg);
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .rule-badge.do-not{
+      border-color: #FCA5A5;
+      color: #991B1B;
+      background: #FEF2F2;
+    }
+    .rule-badge.do{
+      border-color: #86EFAC;
+      color: #065F46;
+      background: #ECFDF5;
+    }
+    .rule-text{
+      font-size: 13px;
+      font-weight: 800;
+      color: #111827;
+    }
+    .rule-text .muted{
+      font-weight: 700;
+      color:#6b7280;
+    }
+    .callout.is-do-not{
+      border-left: 6px solid #DC2626;
+      background: #FFFBFB;
     }
     .rules{
       margin: 8px 0 0 18px;
@@ -135,7 +199,34 @@
       text-decoration:none;
     }
     .top-link:hover{ text-decoration: underline; }
-    @media (max-width: 760px){
+
+    .section-divider{
+      margin: 22px 0 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--optima-border);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#6b7280;
+      font-size:12px;
+      font-weight:900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+    .section-divider::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background: var(--optima-border);
+      opacity:.9;
+    }
+    .section-divider b{
+      color: var(--optima-blue);
+    }
+    @media (max-width: 900px){
+      .jump-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px){
       .jump-grid{ grid-template-columns: 1fr; }
     }
   </style>
@@ -144,8 +235,9 @@
   <div class="wrap">
     <a id="top"></a>
     <h1>eCW Document Labeling</h1>
-    <p class="subtitle">Document labeling, routing, and TE creation rules.</p>
-    <div class="jump-card">
+    <p class="subtitle">Document labeling, routing, and TE creation rules. <span class="updated">Last updated: Feb 10, 2026</span></p>
+    <div id="jump-sentinel" aria-hidden="true"></div>
+    <div class="jump-card" id="jump-card">
       <div class="jump-title">Jump to Section</div>
       <ul class="jump-grid">
         <li><a href="#te-rules">TE Creation Rules</a></li>
@@ -159,12 +251,15 @@
       </ul>
     </div>
     <h2 id="te-rules">TE Creation Rules</h2>
-    <div class="callout">
+    <div class="callout is-do-not">
       Create a TE only when review, action, or follow-up is required. Use the main idea only when naming (example: Prior Auth).
       <br><br>
       <strong>TE creation is reserved for:</strong> PA’s, Hospital/ER, Medication Clarifications, Referrals (action needed), and DME.
-      <br><br>
-      <strong>Note:</strong> Orders, forms, and documents requiring provider signature no longer get a TE.
+
+      <div class="rule-line">
+        <span class="rule-badge do-not">DO NOT</span>
+        <div class="rule-text">Create a TE for orders, forms, or documents requiring a provider signature.</div>
+      </div>
     </div>
     <table>
       <thead>
@@ -183,9 +278,20 @@
       </tbody>
     </table>
     <a class="top-link" href="#top">Back to top</a>
+
+    <div class="section-divider"><b>NON-TE</b> Delete only / no TE</div>
+
     <h2 id="delete-only">Delete Only (NO TE)</h2>
     <div class="callout">
-      These items are informational only. Do not label, file, or create a TE. <strong>Delete.</strong>
+      These items are informational only.
+      <div class="rule-line">
+        <span class="rule-badge do-not">DO NOT</span>
+        <div class="rule-text">Label, file, or create a TE. <span class="muted">(Informational only.)</span></div>
+      </div>
+      <div class="rule-line">
+        <span class="rule-badge do">DO</span>
+        <div class="rule-text">Delete.</div>
+      </div>
     </div>
     <h3>Rx / Pharmacy</h3>
     <ul class="rules">
@@ -210,6 +316,9 @@
       <li>Failure to schedule (Imaging) – Delete for now (will change once ticker workflow is aligned).</li>
     </ul>
     <a class="top-link" href="#top">Back to top</a>
+
+    <div class="section-divider"><b>TE REQUIRED</b> Action, follow-up, or provider review</div>
+
     <h2 id="hospital-er">Hospital / ER <span class="pill">TE REQUIRED</span></h2>
     <div class="callout">
       All Hospital/ER discharge summaries, notes, labs, etc. are sent to Clinical Admin.
@@ -383,11 +492,32 @@
           <td>DATE – Test in Question – WHERE</td>
           <td>Lab Documents</td>
           <td>Office Manager</td>
-          <td>Mark HP. Note: these can also be updated on the portal.</td>
+          <td>Mark HP. <span class="muted">These can also be updated on the portal.</span></td>
         </tr>
       </tbody>
     </table>
     <a class="top-link" href="#top">Back to top</a>
   </div>
+
+  <script>
+    (function(){
+      var card = document.getElementById('jump-card');
+      var sentinel = document.getElementById('jump-sentinel');
+      if(!card || !sentinel) return;
+
+      // Add a shadow only once the jump card has started sticking.
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            card.classList.remove('is-stuck');
+          } else {
+            card.classList.add('is-stuck');
+          }
+        });
+      }, { threshold: [0] });
+
+      observer.observe(sentinel);
+    })();
+  </script>
 </body>
 </html>
