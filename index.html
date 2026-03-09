@@ -1,523 +1,461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>eCW Document Labeling</title>
-  <style>
-    :root{
-      --optima-blue:#0B3C5D;     /* Optima Blue */
-      --optima-accent:#1F6FB2;   /* Accent Blue */
-      --optima-bg:#F3F7FB;       /* Light background */
-      --optima-border:#D6E4F2;   /* Light border */
-      --text:#1b1f24;
-    }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:#ffffff;
-      line-height:1.4;
-    }
-    .wrap{
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 26px 18px 60px;
-    }
-    h1{
-      color:var(--optima-blue);
-      margin:0 0 6px 0;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-    .subtitle{
-      margin:0 0 18px 0;
-      color:#4b5563;
-      font-size:14px;
-    }
-    .updated{
-      display:inline-block;
-      margin-left:8px;
-      padding-left:8px;
-      border-left:2px solid var(--optima-border);
-      color:#6b7280;
-      font-weight:700;
-      font-size:12px;
-      letter-spacing:.2px;
-    }
-    h2{
-      color:var(--optima-blue);
-      margin:34px 0 10px 0;
-      font-size: 20px;
-      font-weight: 800;
-      border-bottom: 2px solid var(--optima-border);
-      padding-bottom: 6px;
-    }
-    h3{
-      color:var(--optima-blue);
-      margin:18px 0 8px 0;
-      font-size: 16px;
-      font-weight: 800;
-    }
-    .jump-card{
-      background:var(--optima-bg);
-      border:1px solid var(--optima-border);
-      border-left:6px solid var(--optima-accent);
-      border-radius: 12px;
-      padding: 16px 16px;
-      margin: 14px 0 22px;
-      position: sticky;
-      top: 12px;
-      z-index: 50;
-      transition: box-shadow .2s ease, transform .2s ease;
-    }
-    .jump-card.is-stuck{
-      box-shadow: 0 10px 24px rgba(17, 24, 39, .08);
-    }
-    .jump-title{
-      margin:0 0 10px 0;
-      color:var(--optima-blue);
-      font-weight: 900;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-    }
-    .jump-grid{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:8px 18px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-    .jump-grid a{
-      color:var(--optima-accent);
-      text-decoration:none;
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .jump-grid a:hover{ text-decoration: underline; }
-    .callout{
-      background:#fff;
-      border:1px solid var(--optima-border);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin: 12px 0 16px;
-    }
-    .rule-line{
-      margin-top: 10px;
-      padding: 10px 10px;
-      border-radius: 10px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      border:1px solid var(--optima-border);
-      background: #fff;
-    }
-    .rule-badge{
-      flex: 0 0 auto;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border:1px solid var(--optima-border);
-      color: var(--optima-blue);
-      background: var(--optima-bg);
-      line-height: 1;
-      margin-top: 1px;
-    }
-    .rule-badge.do-not{
-      border-color: #FCA5A5;
-      color: #991B1B;
-      background: #FEF2F2;
-    }
-    .rule-badge.do{
-      border-color: #86EFAC;
-      color: #065F46;
-      background: #ECFDF5;
-    }
-    .rule-text{
-      font-size: 13px;
-      font-weight: 800;
-      color: #111827;
-    }
-    .rule-text .muted{
-      font-weight: 700;
-      color:#6b7280;
-    }
-    .callout.is-do-not{
-      border-left: 6px solid #DC2626;
-      background: #FFFBFB;
-    }
-    .rules{
-      margin: 8px 0 0 18px;
-    }
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin: 10px 0 18px;
-      overflow:hidden;
-      border:1px solid var(--optima-border);
-      border-radius: 10px;
-    }
-    th{
-      text-align:left;
-      padding:10px 10px;
-      color:var(--optima-blue);
-      background:var(--optima-bg);
-      border-bottom:1px solid var(--optima-border);
-      font-size: 13px;
-    }
-    td{
-      padding:10px 10px;
-      border-bottom:1px solid var(--optima-border);
-      vertical-align:top;
-      font-size: 13px;
-    }
-    tr:last-child td{ border-bottom:none; }
-    .pill{
-      display:inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      border:1px solid var(--optima-border);
-      background:#fff;
-      margin-left:6px;
-      color:var(--optima-blue);
-    }
-    .top-link{
-      display:inline-block;
-      margin-top: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--optima-accent);
-      text-decoration:none;
-    }
-    .top-link:hover{ text-decoration: underline; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fax Routing Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f1;
+    --surface: #ffffff;
+    --border: #e2e0db;
+    --text: #1a1917;
+    --muted: #7a7670;
+    --accent: #1d6a5e;
+    --accent-light: #e8f3f1;
+    --danger: #b84040;
+    --danger-light: #fdf0f0;
+    --warn: #8a6200;
+    --warn-light: #fdf6e3;
+    --tag-bg: #eeecea;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+  }
 
-    .section-divider{
-      margin: 22px 0 6px;
-      padding-top: 12px;
-      border-top: 1px solid var(--optima-border);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color:#6b7280;
-      font-size:12px;
-      font-weight:900;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-    }
-    .section-divider::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background: var(--optima-border);
-      opacity:.9;
-    }
-    .section-divider b{
-      color: var(--optima-blue);
-    }
-    @media (max-width: 900px){
-      .jump-grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px){
-      .jump-grid{ grid-template-columns: 1fr; }
-    }
-  </style>
+  /* ── HEADER ─────────────────────────────────────── */
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 20px 28px 18px;
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; flex: 1; min-width: 200px; }
+  header .meta { font-size: 12px; opacity: 0.72; white-space: nowrap; padding-bottom: 2px; }
+
+  /* ── SEARCH BAR ──────────────────────────────────── */
+  .search-wrap {
+    padding: 16px 28px 0;
+    max-width: 480px;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 9px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13.5px;
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--muted); }
+
+  /* ── FILTER PILLS ────────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 12px 28px 0;
+  }
+  .pill {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .pill.delete-pill.active { background: var(--danger); border-color: var(--danger); }
+
+  /* ── MAIN CONTENT ────────────────────────────────── */
+  main { padding: 20px 28px 60px; }
+
+  .section { margin-bottom: 28px; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+  }
+  .te-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .te-badge.required { background: var(--accent-light); color: var(--accent); }
+  .te-badge.delete { background: var(--danger-light); color: var(--danger); }
+
+  /* ── ROUTE CARDS ─────────────────────────────────── */
+  .cards { display: flex; flex-direction: column; gap: 8px; }
+
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: #c8c5be; }
+  .card.delete-card {
+    border-left: 3px solid var(--danger);
+    background: var(--danger-light);
+  }
+  .card.te-card {
+    border-left: 3px solid var(--accent);
+  }
+  .card.hidden { display: none; }
+
+  .doc-type {
+    font-weight: 600;
+    font-size: 13.5px;
+    grid-column: 1 / -1;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 2px; }
+  .field-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: var(--muted);
+  }
+  .field-value { font-size: 13px; }
+  .field-value.mono {
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    background: var(--tag-bg);
+    padding: 3px 7px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .field-value.send-to {
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .field-value.delete {
+    font-weight: 600;
+    color: var(--danger);
+  }
+  .note {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--tag-bg);
+    border-radius: 4px;
+    padding: 6px 9px;
+    line-height: 1.5;
+  }
+  .note.hp { background: var(--warn-light); color: var(--warn); font-weight: 500; }
+
+  .no-results {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 40px 0;
+    display: none;
+  }
+
+  @media (max-width: 560px) {
+    header, .search-wrap, .filter-bar, main { padding-left: 16px; padding-right: 16px; }
+    .card { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <a id="top"></a>
-    <h1>eCW Document Labeling</h1>
-    <p class="subtitle">Document labeling, routing, and TE creation rules. <span class="updated">Last updated: Feb 10, 2026</span></p>
-    <div id="jump-sentinel" aria-hidden="true"></div>
-    <div class="jump-card" id="jump-card">
-      <div class="jump-title">Jump to Section</div>
-      <ul class="jump-grid">
-        <li><a href="#te-rules">TE Creation Rules</a></li>
-        <li><a href="#delete-only">Delete Only (No TE)</a></li>
-        <li><a href="#hospital-er">Hospital / ER</a></li>
-        <li><a href="#imaging-pa">Prior Auth – Imaging</a></li>
-        <li><a href="#medical-records">Medical Records / Requests</a></li>
-        <li><a href="#dme">DME / Equipment</a></li>
-        <li><a href="#referrals">Referral Correspondence</a></li>
-        <li><a href="#labs">Lab Documents</a></li>
-      </ul>
-    </div>
-    <h2 id="te-rules">TE Creation Rules</h2>
-    <div class="callout is-do-not">
-      Create a TE only when review, action, or follow-up is required. Use the main idea only when naming (example: Prior Auth).
-      <br><br>
-      <strong>TE creation is reserved for:</strong> PA’s, Hospital/ER, Medication Clarifications, Referrals (action needed), and DME.
 
-      <div class="rule-line">
-        <span class="rule-badge do-not">DO NOT</span>
-        <div class="rule-text">Create a TE for orders, forms, or documents requiring a provider signature.</div>
+<header>
+  <h1>📠 Fax Routing Guide</h1>
+  <span class="meta">Optima Medical · Last updated: March 2026</span>
+</header>
+
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="Search document type, send-to, keywords…" oninput="render()">
+</div>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<main id="main"></main>
+<div class="no-results" id="noResults">No matching documents found.</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA — Edit this section to update the routing guide.
+   Each section has a name and an array of routes.
+
+   Fields per route:
+     doc        — document type (displayed as card title)
+     label      — label format (mono display); omit if N/A
+     fileTo     — File To field
+     sendTo     — Send To (highlighted)
+     notes      — optional note string
+     hp         — true = show HP warning styling on note
+     delete     — true = this is a delete-only item
+═══════════════════════════════════════════════════════════════ */
+const SECTIONS = [
+  {
+    name: "Delete Only — No TE",
+    teStatus: "delete",
+    routes: [
+      { doc: "Rx Requests (active Optima providers)", delete: true, sendTo: "DELETE" },
+      { doc: "Offboarded provider Rx requests", delete: false, sendTo: "New Optima Provider (via TE)", notes: "Create TE and route internally to the new Optima provider." },
+      { doc: "Temporary Rx Supplies", delete: true, sendTo: "DELETE" },
+      { doc: "Medication Non-Adherence Notices", delete: true, sendTo: "DELETE" },
+      { doc: "Tango Approvals", delete: true, sendTo: "DELETE" },
+      { doc: "PA Requests with a Key Listed", delete: true, sendTo: "DELETE" },
+      { doc: "Auth Notifications (requested by outside provider)", delete: true, sendTo: "DELETE" },
+      { doc: "Referral Confirmations of Receipt", delete: true, sendTo: "DELETE" },
+      { doc: "Referral Scheduled Date Notifications", delete: true, sendTo: "DELETE" },
+      { doc: "Failure to Schedule — Imaging", delete: true, sendTo: "DELETE", notes: "Delete for now. Will change once ticker workflow is aligned." },
+    ]
+  },
+  {
+    name: "Hospital / ER",
+    teStatus: "required",
+    routes: [
+      {
+        doc: "Hospital / ER Records (all types)",
+        label: "DATE – Hospital/ER – WHERE",
+        fileTo: "Admit / Discharge Notifications",
+        sendTo: "CA Bucket",
+        notes: "Route to correct CA bucket. Discharge summaries must be marked HP.",
+        hp: true
+      }
+    ]
+  },
+  {
+    name: "Prior Auth – Imaging",
+    teStatus: "required",
+    routes: [
+      {
+        doc: "PA Request for Imaging",
+        label: "Order DATE – Order Request – WHERE",
+        fileTo: "Imaging Prior Authorization",
+        sendTo: "Prior Auth, Imaging and IH Sono",
+        notes: "Use order date. Mark HP / STAT if noted."
+      },
+      {
+        doc: "PA Imaging Order Clarification",
+        label: "DATE – Imaging Type – Clarification",
+        fileTo: "Imaging Prior Authorization",
+        sendTo: "Prior Auth, Imaging and IH Sono",
+        notes: "Use request date. Mark HP.",
+        hp: true
+      },
+      {
+        doc: "PA Imaging Denial",
+        label: "DATE – PA Imaging Denial – WHERE",
+        fileTo: "Imaging Prior Authorization",
+        sendTo: "Prior Auth, Imaging and IH Sono",
+        notes: "Use denial date. Mark HP / STAT.",
+        hp: true
+      }
+    ]
+  },
+  {
+    name: "Medical Records",
+    teStatus: "none",
+    routes: [
+      {
+        doc: "Medical Records — Incoming",
+        label: "DATE – Incoming Recs – WHERE",
+        fileTo: "Records Request",
+        sendTo: "Internal Requestor (or Admin if unknown)",
+        notes: "If requestor is unknown, assign to Admin to determine."
+      },
+      {
+        doc: "Medical Records Request — Outgoing",
+        fileTo: "Records Request",
+        sendTo: "AMS (AmericanMedicalRecords)",
+        notes: "Does not need to be attached to a patient. If related to Referral, Imaging, or DME → send to Admin."
+      }
+    ]
+  },
+  {
+    name: "DME / Equipment",
+    teStatus: "required",
+    routes: [
+      {
+        doc: "DME — Durable Medical Equipment",
+        label: "DATE – What – WHERE",
+        fileTo: "DME Requests",
+        sendTo: "Medical Equipment, Durable",
+        notes: "CGM, end of life, and nebulizers must be marked HP. If STAT, mark HP.",
+        hp: true
+      }
+    ]
+  },
+  {
+    name: "Referral Correspondence",
+    teStatus: "required",
+    routes: [
+      {
+        doc: "Referral Request / Response",
+        label: "DATE – Referral Response/Request – WHERE",
+        fileTo: "Referral Correspondence",
+        sendTo: "Corresponding Referral Bucket"
+      },
+      {
+        doc: "Failure to Schedule with Specialist",
+        label: "DATE – Referral Scheduling Issue – WHERE",
+        fileTo: "Referral Correspondence",
+        sendTo: "Corresponding Referral Bucket",
+        notes: "Do NOT delete. Assign to Referrals for follow-up."
+      }
+    ]
+  },
+  {
+    name: "Lab Documents",
+    teStatus: "none",
+    routes: [
+      {
+        doc: "Test in Question / Coding Update Request",
+        label: "DATE – Test in Question – WHERE",
+        fileTo: "Lab Documents",
+        sendTo: "Office Manager",
+        notes: "Mark HP. Can also be updated on the portal.",
+        hp: true
+      },
+      {
+        doc: "Faxed Lab Result (order electronically attached)",
+        delete: true,
+        sendTo: "DELETE — Duplicate",
+        notes: "If the order is already electronically attached, the faxed result is a duplicate."
+      }
+    ]
+  }
+];
+/* ═══════════════════════════════════════════════════════════════ */
+
+// Build filter pills from section names
+const allSections = ["All", ...SECTIONS.map(s => s.name)];
+let activeFilter = "All";
+
+function buildFilters() {
+  const bar = document.getElementById("filterBar");
+  allSections.forEach(name => {
+    const pill = document.createElement("button");
+    pill.className = "pill" + (name === "All" ? " active" : "") + (name === "Delete Only — No TE" ? " delete-pill" : "");
+    pill.textContent = name === "Delete Only — No TE" ? "Delete Only" : name;
+    pill.onclick = () => {
+      activeFilter = name;
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      render();
+    };
+    bar.appendChild(pill);
+  });
+}
+
+function render() {
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  const main = document.getElementById("main");
+  const noResults = document.getElementById("noResults");
+  main.innerHTML = "";
+  let totalVisible = 0;
+
+  SECTIONS.forEach(section => {
+    if (activeFilter !== "All" && activeFilter !== section.name) return;
+
+    const filtered = section.routes.filter(r => {
+      if (!query) return true;
+      return [r.doc, r.label, r.fileTo, r.sendTo, r.notes].filter(Boolean)
+        .some(v => v.toLowerCase().includes(query));
+    });
+
+    if (filtered.length === 0) return;
+    totalVisible += filtered.length;
+
+    const secDiv = document.createElement("div");
+    secDiv.className = "section";
+
+    const badgeHTML = section.teStatus === "required"
+      ? `<span class="te-badge required">TE REQUIRED</span>`
+      : section.teStatus === "delete"
+      ? `<span class="te-badge delete">NO TE · DELETE</span>`
+      : "";
+
+    secDiv.innerHTML = `
+      <div class="section-header">
+        <span class="section-title">${section.name}</span>
+        ${badgeHTML}
       </div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Create TE</th>
-          <th>Do NOT Create TE</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Prior Auth<br>Hospital<br>Medication Clarifications<br>Referral (action needed)<br>DME</td>
-          <td>Delete-only items<br>Informational consult notes<br>Immunization notices<br>Final PA approvals only<br>Duplicate faxes<br>Records with no request<br>Orders/forms needing provider signature</td>
-          <td>If unsure → create TE → assign to Clinical Admin.</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
+      <div class="cards" id="cards-${section.name.replace(/\W/g,'_')}"></div>
+    `;
 
-    <div class="section-divider"><b>NON-TE</b> Delete only / no TE</div>
+    const cardsDiv = secDiv.querySelector(".cards");
 
-    <h2 id="delete-only">Delete Only (NO TE)</h2>
-    <div class="callout">
-      These items are informational only.
-      <div class="rule-line">
-        <span class="rule-badge do-not">DO NOT</span>
-        <div class="rule-text">Label, file, or create a TE. <span class="muted">(Informational only.)</span></div>
-      </div>
-      <div class="rule-line">
-        <span class="rule-badge do">DO</span>
-        <div class="rule-text">Delete.</div>
-      </div>
-    </div>
-    <h3>Rx / Pharmacy</h3>
-    <ul class="rules">
-      <li>Rx Requests (general) – Delete for active Optima providers.</li>
-      <li>Offboarded provider Rx requests – Create TE and send to the new Optima provider within Optima.</li>
-      <li>Temporary Rx Supplies – Delete.</li>
-      <li>Medication Non-Adherence Notices – Delete.</li>
-      <li>Tango approvals – Delete.</li>
-    </ul>
-    <h3>Prior Auth</h3>
-    <ul class="rules">
-      <li>All PA requests with a Key listed – Delete.</li>
-      <li>Auth notifications requested by outside provider – Delete.</li>
-    </ul>
-    <h3>Referrals</h3>
-    <ul class="rules">
-      <li>Confirmations of receipt – Delete.</li>
-      <li>Scheduled date notifications – Delete.</li>
-    </ul>
-    <h3>Imaging</h3>
-    <ul class="rules">
-      <li>Failure to schedule (Imaging) – Delete for now (will change once ticker workflow is aligned).</li>
-    </ul>
-    <a class="top-link" href="#top">Back to top</a>
+    filtered.forEach(r => {
+      const card = document.createElement("div");
+      card.className = "card" + (r.delete ? " delete-card" : r.doc !== undefined && section.teStatus === "required" ? " te-card" : "");
 
-    <div class="section-divider"><b>TE REQUIRED</b> Action, follow-up, or provider review</div>
+      let html = `<div class="doc-type">${r.doc}</div>`;
 
-    <h2 id="hospital-er">Hospital / ER <span class="pill">TE REQUIRED</span></h2>
-    <div class="callout">
-      All Hospital/ER discharge summaries, notes, labs, etc. are sent to Clinical Admin.
-      <ul class="rules">
-        <li>If an appointment is needed, Clinical Admin completes outreach to schedule.</li>
-        <li>If no appointment is needed, Clinical Admin documents that and sends to provider for review.</li>
-        <li><strong>Discharge summaries must be marked HP.</strong></li>
-      </ul>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Hospital / ER Records (all types)</td>
-          <td>DATE – Hospital/ER – WHERE</td>
-          <td>Admit / Discharge Notifications</td>
-          <td>CA Bucket</td>
-          <td>Route to correct CA bucket. If discharge summary, mark HP.</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-    <h2 id="imaging-pa">Prior Auth – Imaging Services</h2>
-    <div class="callout">
-      Imaging PA documents routed to Imaging PA/IH Sono team with date and HP/STAT rules.
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>PA Request for Imaging</td>
-          <td>Order DATE – Order Request – WHERE</td>
-          <td>Imaging Prior Authorization</td>
-          <td>Prior Auth, Imaging and IH Sono</td>
-          <td>Use order date. Mark HP / STAT if noted that way.</td>
-        </tr>
-        <tr>
-          <td>PA Imaging Order Clarifications</td>
-          <td>DATE – Imaging Type – Clarification</td>
-          <td>Imaging Prior Authorization</td>
-          <td>Prior Auth, Imaging and IH Sono</td>
-          <td>Use request date. Mark HP.</td>
-        </tr>
-        <tr>
-          <td>PA Imaging Denial</td>
-          <td>DATE – PA Imaging Denial – WHERE</td>
-          <td>Imaging Prior Authorization</td>
-          <td>Prior Auth, Imaging and IH Sono</td>
-          <td>Use denial date. Mark HP / STAT.</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-    <h2 id="medical-records">Medical Records / Requests</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Medical Records Incoming</td>
-          <td>DATE – Incoming Recs – WHERE</td>
-          <td>Records Request</td>
-          <td>Internal Requestor (or Admin if unknown)</td>
-          <td>Assign to internal requestor; if unknown, assign to Admin to determine.</td>
-        </tr>
-        <tr>
-          <td>Medical Records Request Outgoing</td>
-          <td>N/A (does not need to be attached to a patient)</td>
-          <td>Records Request</td>
-          <td>AMS (AmericanMedicalRecords)</td>
-          <td>If related to Referral, Imaging, or DME, send to Admin (they can send and close once complete).</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-    <h2 id="dme">DME / Equipment</h2>
-    <div class="callout">
-      <strong>HP rule:</strong> All CGM, end of life, and nebulizers must be marked HP.
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>DME (Durable Medical Equipment)</td>
-          <td>DATE – What – WHERE</td>
-          <td>DME Requests</td>
-          <td>Medical Equipment, Durable</td>
-          <td>Label document as listed. If STAT, mark HP.</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-    <h2 id="referrals">Referral Correspondence</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Referral Request / Response</td>
-          <td>DATE – Referral Response/Request – WHERE</td>
-          <td>Referral Correspondence</td>
-          <td>Corresponding Referral bucket</td>
-          <td>Route to correct referral bucket.</td>
-        </tr>
-        <tr>
-          <td>Failure to schedule with specialist</td>
-          <td>DATE – Referral Scheduling Issue – WHERE</td>
-          <td>Referral Correspondence</td>
-          <td>Corresponding Referral bucket</td>
-          <td><strong>Do NOT delete.</strong> Assign to Referrals for follow-up.</td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-    <h2 id="labs">Lab Documents</h2>
-    <div class="callout">
-      <strong>Results attachment rule:</strong> All results ordered by Optima providers must be attached to the order.<br>
-      If the order is already electronically attached, the faxed result is a duplicate and should be deleted.
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Document Type</th>
-          <th>Label Format</th>
-          <th>File To</th>
-          <th>Send To</th>
-          <th>Notes / Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Test in Question / Coding update request</td>
-          <td>DATE – Test in Question – WHERE</td>
-          <td>Lab Documents</td>
-          <td>Office Manager</td>
-          <td>Mark HP. <span class="muted">These can also be updated on the portal.</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <a class="top-link" href="#top">Back to top</a>
-  </div>
+      if (r.label) {
+        html += `<div class="field">
+          <span class="field-label">Label Format</span>
+          <span class="field-value mono">${r.label}</span>
+        </div>`;
+      }
 
-  <script>
-    (function(){
-      var card = document.getElementById('jump-card');
-      var sentinel = document.getElementById('jump-sentinel');
-      if(!card || !sentinel) return;
+      if (r.fileTo) {
+        html += `<div class="field">
+          <span class="field-label">File To</span>
+          <span class="field-value">${r.fileTo}</span>
+        </div>`;
+      }
 
-      // Add a shadow only once the jump card has started sticking.
-      var observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            card.classList.remove('is-stuck');
-          } else {
-            card.classList.add('is-stuck');
-          }
-        });
-      }, { threshold: [0] });
+      html += `<div class="field">
+        <span class="field-label">Send To</span>
+        <span class="field-value ${r.delete ? 'delete' : 'send-to'}">${r.sendTo}</span>
+      </div>`;
 
-      observer.observe(sentinel);
-    })();
-  </script>
+      if (r.notes) {
+        html += `<div class="note${r.hp ? ' hp' : ''}">${r.hp ? '⚑ HP — ' : ''}${r.notes}</div>`;
+      }
+
+      card.innerHTML = html;
+      cardsDiv.appendChild(card);
+    });
+
+    main.appendChild(secDiv);
+  });
+
+  noResults.style.display = totalVisible === 0 ? "block" : "none";
+}
+
+buildFilters();
+render();
+</script>
 </body>
 </html>
