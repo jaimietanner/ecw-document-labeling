@@ -7,18 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f5f4f1;
+    --bg: #f0f4f8;
     --surface: #ffffff;
-    --border: #e2e0db;
-    --text: #1a1917;
-    --muted: #7a7670;
-    --accent: #1d6a5e;
-    --accent-light: #e8f3f1;
+    --border: #d5e0ec;
+    --text: #0a1f44;
+    --muted: #5e7a99;
+    --accent: #1a5fa8;
+    --accent-light: #e6f0fb;
     --danger: #b84040;
     --danger-light: #fdf0f0;
-    --warn: #8a6200;
-    --warn-light: #fdf6e3;
-    --tag-bg: #eeecea;
+    --warn: #7a5c00;
+    --warn-light: #fdf4e0;
+    --tag-bg: #e8eff7;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -31,16 +31,19 @@
 
   /* ── HEADER ─────────────────────────────────────── */
   header {
-    background: var(--accent);
+    background: #0a1f44;
     color: #fff;
-    padding: 20px 28px 18px;
+    padding: 16px 28px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 18px;
     flex-wrap: wrap;
+    border-bottom: 3px solid #1a5fa8;
   }
-  header h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; flex: 1; min-width: 200px; }
-  header .meta { font-size: 12px; opacity: 0.72; white-space: nowrap; padding-bottom: 2px; }
+  header .logo-area { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 200px; }
+  header h1 { font-size: 15px; font-weight: 500; opacity: 0.8; letter-spacing: 0.2px; }
+  header .meta { font-size: 11px; opacity: 0.45; }
+  header img { height: 38px; width: auto; background: #fff; border-radius: 6px; padding: 4px 10px; }
 
   /* ── SEARCH BAR ──────────────────────────────────── */
   .search-wrap {
@@ -195,8 +198,11 @@
 <body>
 
 <header>
-  <h1>📠 Fax Routing Guide</h1>
-  <span class="meta">Optima Medical · Last updated: March 2026</span>
+  <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABPAO8DASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAAQFBwgCAwYBCf/EAEYQAAEDAwIDBAUIBQoHAAAAAAECAwQABREGBwgSIRMxQVEJFCJhcRUjMoGRobGyN0JidMEYNDU2OFJzdYLDFjNTY2Rlcv/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAKxEAAgIBAwMDAwQDAAAAAAAAAQIAAxESITEEE0EiMmEzUbFxocHwNJHR/9oADAMBAAIRAxEAPwC5dFFRhxFbrQtrdGqmgJfu0rLcJgnvVj6R9wqlUscCIkAZM67WuttL6NgmZqO8RoPfgFq9o/ADrUQ3Lix20iyC3H9cloz0cQkAH7agba7avW+/N6e1bq+6yGLUtw/Puk5c6/RbHgBVhmOHHabT1nW5Ktr8tDafaceXzKNdQqrUhTufiYl2IyNhHTRnEXtjqWS3ERekwZLhwhuQMZPx7qlth5qQyl5h1DrahlK0KBBHuIqsu4XCdpW72pU/Rcx+2zlI520Oqy2rpkD3VGuyO6urdnddnQWv/WDbO2DJDxKjHJOApJ8U1JpVwTWdx4jFhHul56K1xnmpMduQw4lxpxIUhSTkEHuNIb1f7LZS2LvdYcHtPodu6Ec3wzXLibRyorUzKjPREy2n21x1J50uhQ5Snzz5U0SNX6Vjv9g9qO1Ic/umUjP408GGY+UVphy4k1kPQ5LMhs/rtOBQ+0VupQka7xbyaa2vkQ2b6zJcVKBKOyA6Yru9OXWPfLDBvEQKDExhLzYV38qhkVUL0iAzddO9P1F1Yba3WWkou3GnmHtR2ttxFvZSpKpCQUnlGQRmt3rArVhyZmH9RBkjVGe6W9uitvL3Fs97kuKmPgKUhoZ7NJPequ7s1+st55/km6RJ3Z/T7B0L5fjioJ4iNl9F6z1jFvNz1ZGsc1aAHmn3QO2SD3gE/VU1KpbDxuTj0ye7Jc4N6tMa6219MiHKbDjLie5ST40spg0nb7NpHRFvtsSUhNrt8cIbecWMco8SfrpdZr7Zrz2nyTc4k7s/p9g6F8vxxWZH2lCONFNd01HYLWvs7jerfFWDgpdkJSofVnNb7XdrXdEc9tuMSYnGSWXkrx9howY8xbRRTPP1VpqA72U2/wBsYczjlXJQD9maQGYR4opNbrhAuLPbW+bHlt/3mXAsfdSmiEKKKarnqXT1sc7O4Xu3xVg4KXJCUkfVmgDMI60Uhtl5tNzGbdc4cvpnDLyVn7jWq7ahsVofQxdLtChuuDKEPPBJV8AaeDDMc6KxacbdaS60tK0KGUqByCKypQhVC+IB+duXxONaYSHTFiSUQijB5QkH2lD34NXeulvucmR2kW7KjI/uBsGoKO5GhmN23dIuoSxqJMosKmqt4BLnnze+u7p0VfUGGcfO37TmtYnbT+P+yT71GY03ZbTp2xs9nHhthXIjphKB3mnLW0lcjTEZLBy5KUjlHnkZpTH086gzZEuaqZIkMFoKKccox4UzWdwzpVlhKOTGDnOPLlOBXZV28Ky76NyfvsT/ABic9gbLBttW38TpNJvl7T8ZxZAKUlKvdg4qu/HlomHctGRdaQmkJmwV8jzyf1mj3ffUv2a3zbpIl25cpxiHGUsDszglROetcfxWtMWbh2vMB2QXVuhKG1K71HPhWF1a1XZDbk8fBmlTs6YI2xz8ib+DfVT2p9mISZKyt62uGIVE5JCe4moi9IugLk6USSRntR312Ho+o7yNrbi+oENrnqCc+JA61x/pFzyyNKny7WsUAHUbTYk9qc7Z9R7mb1Q7VojQ/bWaxWqK2zKkJXy8xCcEqV4/Cuw/kbJeilcrWbrk5QyXC0SM/bU08MWloWltn7MzFbSHJjIkvLx7Syrr1PuqTqh+oKthNhGtYIy0oVc4+6/DZqeLKVPduFhcXyj2ipl1OeoI/VVirnbY6ztevdHQtR2pY7KQn5xvOS0vxSab99NNw9U7WXy1y2kLzGU42ojqhSeoI8jVfvR63iQUal04pZMeOoPoB8FFXKabkW16/IgBobHgxs9IecXbTh/ZXSvSHCVY77pa13lWopCFTYrb6khJwCpIOO+knpEP6V07/wDC6tFtJ+jHTf8AlzP5RVGxkpXSYgoZzmchsHsvA2nVclQrm7N9eIKucY5cVXj0gKQd0tNE5/mfn/3BV36pF6QD9KOmv3T/AHBU9Mxa7JjtGEwJP+vAP5L8gdcfJCPH4VUHYbXl+0zZrvpjRcJ2RqW/LSzHcGT2QB6n7PHwq3+u/wCzDI/yhH8Kgb0fVgizNWX2/SWkrdhNJRHJHVJUcE/ZV1ECtifvIcEuAIva4TNX6ijfKWq9cYubw5loWku8qj5qqLNVaf3L4e9XxXmLg82wpXMw+0sll8A9Qofwr6NVBnG7b4szZOQ882kuR5Ta2146g9amrqGZgrcGU9QC5Ei/Vu+mrt14ln0XtjHfj3WayPlN9Pslo9xwrwT39a1K4PtRXKGZl21wldyWOYpW2V4V5FVPvo99PxUaaveo3G0mY7ISwheOoRjJH21aulZaam0V7QRNYy0+dSJu5PDruE1GlSHhFCgotc5UxJaz1x78VfzROoImqtKW7UELozNYS6E5yU5HUH4VX/0glvivbeWmcttPrDEtQQvHXBSOlddwozXI3DvEmLJWWA8oZ/ZGcU7j3Kw/mCelivicXxXb6XOx3VOgNCrKrw9hMmQ2Mqb5u5CP2q4vR3Cvq3VsNu9671K7FkyBz9gslxzr16nwPups4WrU1rHiQvF+u6fWRFdefQF9cL5vZP1Veaix+wAicwVe56mlNtScOO4G3rB1Bt1qyRJdjfOKipJQogdf9XwqH94Nxpm4150+/eoK4l4twRFl96QtQV1OPCvpTVB+M3S8LT+9sKbb2ktN3MIfdSkYHac2Cavp7dbYbmTamkbS7ugxjRdnH/ht/lFPdMuhP6mWf9zb/KKeq4TzOgcQqlPGxoy5aZ3Bt25NnZV6s6tJcUgdG3kHOVe49KutTXqvT9q1PYZVkvMREmHJQUrQofePeK0ps7bZkuuoYnHbDbn2jcrRsadHkti5tNhE2MThaFgdTjyNPWnrUuLq24PlpaUAeyo9x5uvSqka52I3K2t1KvUe2kqVMhpUVN+rn51seSk9xFexOJjeGyNCFdNMIlSEdFOOsLCifqFdiAqrCo5DCc7YJXXyJdwJYjpcdw20D7S1dB9ZNUm4xNy06+1NB2+0kszY8d8BxxrqHXicYGO8Cmu8a23/AN3R8k262TYkF88rrcdsoTjzKjg4qceG/h5haBcRqLUq2rhqBQygAZRHz5Z7zWaqKfU5yZoSbNlG0kfYfRY0Htna7EtIEoNhyUR3FxQ61XX0iw5pOlR59rVxKp36RZXLJ0qrGcdrWfTktcCZVgwmBJp4UtaQdXbS21tl5HrlubEaQzn2kcvQEj3ipbqkje1+4W3tssu4e08qTLYmQm3ZkNPU5KcqyO4inFzip3Jhx/Upm37InpHLzFDvf54xim9Gs5TiJbNIw0sPxD6ug6O2pvE+U+hDzzCmYzZPVxaumB9WahH0e9hkt2/UGp3EFLMtfYIJHeQrmOK4KHo7eDiB1RHnapRIt9kbVnmdBS22nxCB4mrpaE0vatG6Whaes7IbixWwkHHVR8VH3mh8VV6M7mC5dtXiVR9IklSbjpxwpPKUrAPnVnNmZDMravTbrDiXEfJ7Scg5wQkZFcZxUbVv7maIQi2cvyxblF2IFdy8j2k/E+FVc0JubvBs7Hc029ZJL0ZpZ5I0lpSg2fHBAqlXu1BVO4iJ0OSfM+glUi9IB+lHTX7p/uCpN4bNxt2Nb65kPansjsbTy45KFhrlQ254Dr1qN+PmLLf3P02piJIeSInVTbZUB84PKihCl2DCxtSZEnvXf9mGR/lCP4VEXo8Poam/0fjUv66bdVwySG0tOKc+SUDkCTzZ6eFRJ6PaPJYTqYSIzzOeTHaNlOep86S/Rf8AWB94ltqhbjP/AEG3D/Hb/jU01DPGU267shPQy046svt+yhJUfHwFYU/UE0s9pnLcAX6LLh++j8tWPqufAQy+xtfcEPsOsq9dGA4gpJ9n31Yyq6j6hhX7RK4cfv6LYH72fwFdJwkxhM4eYcRRwHi82T8Riue49mX39sICWGHXletnIbQVEdB5V1fB2261sbbEPNONLDzmUrSUnw8DWh/xx+sgfUldOHe8N7dcTF1sl9PqrMt92MlS+ntFXsH4Gr2AggEEEHuIqu/FNsI5rp5OrNKFMfUDCQHGweUSAO7B8FCol0xvpvLtvHTYdTaZeuYj/NpMptfOkDuGU99U6d8BlO8St29jxLwqISkqUQABkk+FfP3i71lB1ZvbHZtjyXotrKIpWk5SpYVkkGuxuu6m+W7jfyDpjTLlmiyfYefZSoYSe/JV1A+FR3vZtS5txedN21v1q43CShD859DalJ7Tm6gGr6eoVt6jvJtfUu3Ev5oT+pln/c2/yinqmXQoI0baAoFJENvII6j2RT1XCeZ0DiFFFFKOFJ3IMFw5chx1nzU0k/wpRRRCYNMssjDTTbY/ZSBWdFFEIVTn0jP/ADtLfB2rjVCPE5sncd3F2hUG9x7b6gF83atlXNzeWK2oYK4JkWAlcCSFs712r00P/XNflp8lJtDctpmQxFD7p+bCmxlX3Un0RZ3NP6RtVkdeS+uDFQwpxIwFFIxmmfXTMh+629ERQTJQCtsnzBq+nqW63STgbyLXNaZAzOqecjwoynXChllAyTjAFZsOtvspeaUFIWMpI8RXD6gu7t6tTcWJlHK32svm7gAcEfbXWadINjhkd3Yiru6U01Bm5zxJrvFjkDjEVS5DMVhT8hwNtp71Hwpn+WdOTH0oUph5xasJ5mc5PxIrLXGP+HJGfd+NI7H8rluL2kKEGeVPtADOKqqis09xuc/fH8RWWsLNI/E6VpttpPK02lCfJIwKSXUW1pky7i1HKGx9NxsKx91LaYNe4OnXM93On8a56EFlqofJmtraELDxFcO8WaeRFZfaXkYDak4BHwNL48WNHz6vHZZz38iAnP2VzmsGbejT4dw23JQEdipHRfN07q6G3l5UFlT4w6UDm+NXdUgQOmcEkb/Emt2LFWmcl9qMwt99YQ2gZUo+Arwpjy46SpDbzSwFAKTkEfXTdq/+rc3P/SNK7L/REP8AwEflFR2x2g/ziVrOvT8TcyzHitkNNNMI7zypCRTenUVnVI7ATE82cZwcZ+PdSXXa3U2FfIVJaUsB4p7wjPWlDsWy/IIQ6lgQ+zB5hjy78+da11JoDvk5ONv7+0h3bUVXG33jk8zHkthLzTTyO8BaQoffWTLTTKA2y2htA7koSAPupPZxHFrjiKtbjAR7Cld5FbZ8luHDdlOkBDaCo9fKucqdWkTUNtkzFM2KqaqEl5JkITzKb8QKyeiRXzl6My6fNbYP41HMW5JaksXwok+uLePbFSDy9iT5/CpKacS60lxBBSsAgjxBrp6vpT05Hz+fMxov7uf7tMG2o8dBLbTbSQMnlSB0+qtDabdc2kyQ1Hkp/VWpsK/Gt8z+aPf4avwpl0IpA02wOZPerx99YrWDUX8ggf7zNC+HCx+SAkBKQAB3AV7RRWM0hRRRRCFFFFEIUUUUQhRRRRCFJZMCNImsS3Ukus/QOe6lVFNWKnIiIB5jeLNACJSA1gSj85g/h5UriMNxoyI7QwhAwke6ttFU1jsMExBFXgRPcIbE6IuNISVNr7wDTZH0zBYdbcbkTPmyClJeOPsp7oqkvsQaVOBE1aMckQpNc4Me4w1xZKSptffg4NKaKzVipyOZRAIwYzw9N22O+h4h19SPodsvmCfhTxRRVWWvYcucxKipsommdGamRXIz4JbcGFAHwrOO0hhhtlsYQ2kJT8BWdFTqOMeI8DOZi82280pp1AWhQwpJHQimQaVtYWMmQpoHIZLnsfZT7RV13WV7KcSWrV/cJ42hLaAhCQlKRgAdwpPcoLFwimNJBLZIJAOM4pTRUhip1A7yiARgzS/EYehKhuNgsKRyFPuohRm4cVuMzzdm2MJycnFbqKNbYxnaGkZzPFpC0FKu4jBpia0rbmiOydltpByEpewKfqKqu568hTjMlq1f3CYtIDbaUAkhIwM99ZUUVnLn/9k=" alt="Optima Medical">
+  <div class="logo-area">
+    <h1>📠 Fax Routing Guide</h1>
+    <span class="meta">Last updated: March 2026</span>
+  </div>
 </header>
 
 <div class="search-wrap">
