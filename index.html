@@ -3,243 +3,264 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fax Routing Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Fax Routing Guide · Optima Medical</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f0f4f8;
-    --surface: #ffffff;
-    --border: #d5e0ec;
-    --text: #0a1f44;
-    --muted: #5e7a99;
-    --accent: #1a5fa8;
-    --accent-light: #e6f0fb;
-    --danger: #b84040;
-    --danger-light: #fdf0f0;
-    --warn: #7a5c00;
-    --warn-light: #fdf4e0;
-    --tag-bg: #e8eff7;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 14px;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0a1f44;
+  --navy-mid: #132d5e;
+  --blue: #1a5fa8;
+  --blue-light: #e8f2fc;
+  --blue-mid: #c5dcf5;
+  --red: #c0392b;
+  --red-light: #fef0ee;
+  --amber: #b45309;
+  --amber-light: #fffbeb;
+  --surface: #ffffff;
+  --bg: #eef2f8;
+  --border: #dce6f4;
+  --text: #0f2241;
+  --muted: #647a9b;
+  --sidebar-w: 228px;
+}
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* ── HEADER ─────────────────────────────────────── */
-  header {
-    background: #0a1f44;
-    color: #fff;
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-    border-bottom: 3px solid #1a5fa8;
-  }
-  header .logo-area { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 200px; }
-  header h1 { font-size: 15px; font-weight: 500; opacity: 0.8; letter-spacing: 0.2px; }
-  header .meta { font-size: 11px; opacity: 0.45; }
-  header img { height: 38px; width: auto; background: #fff; border-radius: 6px; padding: 4px 10px; }
+/* TOPBAR */
+.topbar {
+  background: var(--navy);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+.topbar-logo { height: 30px; background: #fff; border-radius: 5px; padding: 3px 9px; }
+.topbar-div { width: 1px; height: 22px; background: rgba(255,255,255,0.18); }
+.topbar-title {
+  color: rgba(255,255,255,0.88);
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.topbar-meta { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.38); }
 
-  /* ── SEARCH BAR ──────────────────────────────────── */
-  .search-wrap {
-    padding: 16px 28px 0;
-    max-width: 480px;
-  }
-  .search-wrap input {
-    width: 100%;
-    padding: 9px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 13.5px;
-    background: var(--surface);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .search-wrap input:focus { border-color: var(--accent); }
-  .search-wrap input::placeholder { color: var(--muted); }
+/* LAYOUT */
+.layout { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 58px); }
 
-  /* ── FILTER PILLS ────────────────────────────────── */
-  .filter-bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    padding: 12px 28px 0;
-  }
-  .pill {
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.12s;
-    user-select: none;
-  }
-  .pill:hover { border-color: var(--accent); color: var(--accent); }
-  .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .pill.delete-pill.active { background: var(--danger); border-color: var(--danger); }
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--navy-mid);
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding: 18px 0 40px;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+.sidebar-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: rgba(255,255,255,0.3);
+  padding: 0 16px 10px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.13s;
+  color: rgba(255,255,255,0.58);
+  font-size: 12.5px;
+  font-weight: 500;
+  user-select: none;
+  text-decoration: none;
+}
+.nav-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.9); }
+.nav-item.active { background: rgba(26,95,168,0.28); border-left-color: #4a9de0; color: #fff; }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.nav-icon { font-size: 14px; }
+.nav-count { margin-left: auto; font-size: 10px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.45); padding: 1px 6px; border-radius: 10px; font-weight: 600; }
 
-  /* ── MAIN CONTENT ────────────────────────────────── */
-  main { padding: 20px 28px 60px; }
+/* MAIN SCROLL AREA */
+.main { flex: 1; overflow-y: auto; padding: 22px 26px 60px; min-width: 0; }
+.main::-webkit-scrollbar { width: 6px; }
+.main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  .section { margin-bottom: 28px; }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1.5px solid var(--border);
-  }
-  .section-title {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--muted);
-  }
-  .te-badge {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-  }
-  .te-badge.required { background: var(--accent-light); color: var(--accent); }
-  .te-badge.delete { background: var(--danger-light); color: var(--danger); }
+/* CONTROLS */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 22px; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 380px; }
+.search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search-wrap input {
+  width: 100%;
+  padding: 9px 14px 9px 35px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-wrap input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); }
+.search-wrap input::placeholder { color: var(--muted); }
 
-  /* ── ROUTE CARDS ─────────────────────────────────── */
-  .cards { display: flex; flex-direction: column; gap: 8px; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s;
+  color: var(--muted);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.pill:hover { border-color: var(--blue); color: var(--blue); }
+.pill.active { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 2px 8px rgba(26,95,168,0.3); }
+.pill.del.active { background: var(--red); border-color: var(--red); box-shadow: 0 2px 8px rgba(192,57,43,0.3); }
 
-  .card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 13px 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 24px;
-    transition: border-color 0.15s;
-  }
-  .card:hover { border-color: #c8c5be; }
-  .card.delete-card {
-    border-left: 3px solid var(--danger);
-    background: var(--danger-light);
-  }
-  .card.te-card {
-    border-left: 3px solid var(--accent);
-  }
-  .card.hidden { display: none; }
+/* SECTION */
+.section { margin-bottom: 30px; animation: fadeUp 0.3s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-  .doc-type {
-    font-weight: 600;
-    font-size: 13.5px;
-    grid-column: 1 / -1;
-  }
+.section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.section-icon { width: 32px; height: 32px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+.section-name { font-size: 15px; font-weight: 700; }
+.te-chip { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px; letter-spacing: 0.4px; }
+.te-chip.req { background: var(--blue-light); color: var(--blue); }
+.te-chip.del { background: var(--red-light); color: var(--red); }
+.sec-line { flex: 1; height: 1px; background: var(--border); }
 
-  .field { display: flex; flex-direction: column; gap: 2px; }
-  .field-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.7px;
-    color: var(--muted);
-  }
-  .field-value { font-size: 13px; }
-  .field-value.mono {
-    font-family: 'DM Mono', monospace;
-    font-size: 11.5px;
-    background: var(--tag-bg);
-    padding: 3px 7px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  .field-value.send-to {
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .field-value.delete {
-    font-weight: 600;
-    color: var(--danger);
-  }
-  .note {
-    grid-column: 1 / -1;
-    font-size: 12px;
-    color: var(--muted);
-    background: var(--tag-bg);
-    border-radius: 4px;
-    padding: 6px 9px;
-    line-height: 1.5;
-  }
-  .note.hp { background: var(--warn-light); color: var(--warn); font-weight: 500; }
+/* CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 11px; }
 
-  .no-results {
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    padding: 40px 0;
-    display: none;
-  }
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.15s, transform 0.15s;
+  animation: fadeUp 0.25s ease both;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.card:hover { box-shadow: 0 6px 24px rgba(10,31,68,0.11); transform: translateY(-2px); }
+.card.del-card { border-color: #f5c0bb; background: #fff8f7; }
 
-  @media (max-width: 560px) {
-    header, .search-wrap, .filter-bar, main { padding-left: 16px; padding-right: 16px; }
-    .card { grid-template-columns: 1fr; }
-  }
+.card-top { height: 4px; }
+.card-body { padding: 14px 15px 0; }
+
+.doc-name { font-size: 13.5px; font-weight: 700; margin-bottom: 11px; line-height: 1.35; }
+
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 14px; }
+.field { display: flex; flex-direction: column; gap: 3px; }
+.field.full { grid-column: 1/-1; }
+.fl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px; color: var(--muted); }
+.fv { font-size: 13px; line-height: 1.35; }
+.fv.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  background: var(--blue-light);
+  color: #1a3d6e;
+  border: 1px solid var(--blue-mid);
+  padding: 4px 8px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.fv.blue { font-weight: 700; color: var(--blue); }
+.fv.red { font-weight: 700; color: var(--red); }
+.fex { font-size: 10.5px; color: var(--muted); font-style: italic; margin-top: 2px; }
+
+.note {
+  margin: 11px -15px 0;
+  padding: 8px 15px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--bg);
+  border-radius: 0 0 10px 10px;
+}
+.note.hp { background: var(--amber-light); color: var(--amber); font-weight: 600; border-top-color: #fde68a; }
+.note.danger { background: #fff0ee; color: var(--red); font-weight: 600; border-top-color: #fca5a5; }
+
+.no-results { text-align: center; color: var(--muted); font-size: 14px; padding: 60px 0; display: none; }
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .layout { height: auto; }
+  .main { padding: 14px 14px 40px; }
+  .cards { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABPAO8DASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAAQFBwgCAwYBCf/EAEYQAAEDAwIDBAUIBQoHAAAAAAECAwQABREGBwgSIRMxQVEJFCJhcRUjMoGRobGyN0JidMEYNDU2OFJzdYLDFjNTY2Rlcv/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAKxEAAgIBAwMDAwQDAAAAAAAAAQIAAxESITEEE0EiMmEzUbFxocHwNJHR/9oADAMBAAIRAxEAPwC5dFFRhxFbrQtrdGqmgJfu0rLcJgnvVj6R9wqlUscCIkAZM67WuttL6NgmZqO8RoPfgFq9o/ADrUQ3Lix20iyC3H9cloz0cQkAH7agba7avW+/N6e1bq+6yGLUtw/Puk5c6/RbHgBVhmOHHabT1nW5Ktr8tDafaceXzKNdQqrUhTufiYl2IyNhHTRnEXtjqWS3ERekwZLhwhuQMZPx7qlth5qQyl5h1DrahlK0KBBHuIqsu4XCdpW72pU/Rcx+2zlI520Oqy2rpkD3VGuyO6urdnddnQWv/WDbO2DJDxKjHJOApJ8U1JpVwTWdx4jFhHul56K1xnmpMduQw4lxpxIUhSTkEHuNIb1f7LZS2LvdYcHtPodu6Ec3wzXLibRyorUzKjPREy2n21x1J50uhQ5Snzz5U0SNX6Vjv9g9qO1Ic/umUjP408GGY+UVphy4k1kPQ5LMhs/rtOBQ+0VupQka7xbyaa2vkQ2b6zJcVKBKOyA6Yru9OXWPfLDBvEQKDExhLzYV38qhkVUL0iAzddO9P1F1Yba3WWkou3GnmHtR2ttxFvZSpKpCQUnlGQRmt3rArVhyZmH9RBkjVGe6W9uitvL3Fs97kuKmPgKUhoZ7NJPequ7s1+st55/km6RJ3Z/T7B0L5fjioJ4iNl9F6z1jFvNz1ZGsc1aAHmn3QO2SD3gE/VU1KpbDxuTj0ye7Jc4N6tMa6219MiHKbDjLie5ST40spg0nb7NpHRFvtsSUhNrt8cIbecWMco8SfrpdZr7Zrz2nyTc4k7s/p9g6F8vxxWZH2lCONFNd01HYLWvs7jerfFWDgpdkJSofVnNb7XdrXdEc9tuMSYnGSWXkrx9howY8xbRRTPP1VpqA72U2/wBsYczjlXJQD9maQGYR4opNbrhAuLPbW+bHlt/3mXAsfdSmiEKKKarnqXT1sc7O4Xu3xVg4KXJCUkfVmgDMI60Uhtl5tNzGbdc4cvpnDLyVn7jWq7ahsVofQxdLtChuuDKEPPBJV8AaeDDMc6KxacbdaS60tK0KGUqByCKypQhVC+IB+duXxONaYSHTFiSUQijB5QkH2lD34NXeulvucmR2kW7KjI/uBsGoKO5GhmN23dIuoSxqJMosKmqt4BLnnze+u7p0VfUGGcfO37TmtYnbT+P+yT71GY03ZbTp2xs9nHhthXIjphKB3mnLW0lcjTEZLBy5KUjlHnkZpTH086gzZEuaqZIkMFoKKccox4UzWdwzpVlhKOTGDnOPLlOBXZV28Ky76NyfvsT/ABic9gbLBttW38TpNJvl7T8ZxZAKUlKvdg4qu/HlomHctGRdaQmkJmwV8jzyf1mj3ffUv2a3zbpIl25cpxiHGUsDszglROetcfxWtMWbh2vMB2QXVuhKG1K71HPhWF1a1XZDbk8fBmlTs6YI2xz8ib+DfVT2p9mISZKyt62uGIVE5JCe4moi9IugLk6USSRntR312Ho+o7yNrbi+oENrnqCc+JA61x/pFzyyNKny7WsUAHUbTYk9qc7Z9R7mb1Q7VojQ/bWaxWqK2zKkJXy8xCcEqV4/Cuw/kbJeilcrWbrk5QyXC0SM/bU08MWloWltn7MzFbSHJjIkvLx7Syrr1PuqTqh+oKthNhGtYIy0oVc4+6/DZqeLKVPduFhcXyj2ipl1OeoI/VVirnbY6ztevdHQtR2pY7KQn5xvOS0vxSab99NNw9U7WXy1y2kLzGU42ojqhSeoI8jVfvR63iQUal04pZMeOoPoB8FFXKabkW16/IgBobHgxs9IecXbTh/ZXSvSHCVY77pa13lWopCFTYrb6khJwCpIOO+knpEP6V07/wDC6tFtJ+jHTf8AlzP5RVGxkpXSYgoZzmchsHsvA2nVclQrm7N9eIKucY5cVXj0gKQd0tNE5/mfn/3BV36pF6QD9KOmv3T/AHBU9Mxa7JjtGEwJP+vAP5L8gdcfJCPH4VUHYbXl+0zZrvpjRcJ2RqW/LSzHcGT2QB6n7PHwq3+u/wCzDI/yhH8Kgb0fVgizNWX2/SWkrdhNJRHJHVJUcE/ZV1ECtifvIcEuAIva4TNX6ijfKWq9cYubw5loWku8qj5qqLNVaf3L4e9XxXmLg82wpXMw+0sll8A9Qofwr6NVBnG7b4szZOQ882kuR5Ta2146g9amrqGZgrcGU9QC5Ei/Vu+mrt14ln0XtjHfj3WayPlN9Pslo9xwrwT39a1K4PtRXKGZl21wldyWOYpW2V4V5FVPvo99PxUaaveo3G0mY7ISwheOoRjJH21aulZaam0V7QRNYy0+dSJu5PDruE1GlSHhFCgotc5UxJaz1x78VfzROoImqtKW7UELozNYS6E5yU5HUH4VX/0glvivbeWmcttPrDEtQQvHXBSOlddwozXI3DvEmLJWWA8oZ/ZGcU7j3Kw/mCelivicXxXb6XOx3VOgNCrKrw9hMmQ2Mqb5u5CP2q4vR3Cvq3VsNu9671K7FkyBz9gslxzr16nwPups4WrU1rHiQvF+u6fWRFdefQF9cL5vZP1Veaix+wAicwVe56mlNtScOO4G3rB1Bt1qyRJdjfOKipJQogdf9XwqH94Nxpm4150+/eoK4l4twRFl96QtQV1OPCvpTVB+M3S8LT+9sKbb2ktN3MIfdSkYHac2Cavp7dbYbmTamkbS7ugxjRdnH/ht/lFPdMuhP6mWf9zb/KKeq4TzOgcQqlPGxoy5aZ3Bt25NnZV6s6tJcUgdG3kHOVe49KutTXqvT9q1PYZVkvMREmHJQUrQofePeK0ps7bZkuuoYnHbDbn2jcrRsadHkti5tNhE2MThaFgdTjyNPWnrUuLq24PlpaUAeyo9x5uvSqka52I3K2t1KvUe2kqVMhpUVN+rn51seSk9xFexOJjeGyNCFdNMIlSEdFOOsLCifqFdiAqrCo5DCc7YJXXyJdwJYjpcdw20D7S1dB9ZNUm4xNy06+1NB2+0kszY8d8BxxrqHXicYGO8Cmu8a23/AN3R8k262TYkF88rrcdsoTjzKjg4qceG/h5haBcRqLUq2rhqBQygAZRHz5Z7zWaqKfU5yZoSbNlG0kfYfRY0Htna7EtIEoNhyUR3FxQ61XX0iw5pOlR59rVxKp36RZXLJ0qrGcdrWfTktcCZVgwmBJp4UtaQdXbS21tl5HrlubEaQzn2kcvQEj3ipbqkje1+4W3tssu4e08qTLYmQm3ZkNPU5KcqyO4inFzip3Jhx/Upm37InpHLzFDvf54xim9Gs5TiJbNIw0sPxD6ug6O2pvE+U+hDzzCmYzZPVxaumB9WahH0e9hkt2/UGp3EFLMtfYIJHeQrmOK4KHo7eDiB1RHnapRIt9kbVnmdBS22nxCB4mrpaE0vatG6Whaes7IbixWwkHHVR8VH3mh8VV6M7mC5dtXiVR9IklSbjpxwpPKUrAPnVnNmZDMravTbrDiXEfJ7Scg5wQkZFcZxUbVv7maIQi2cvyxblF2IFdy8j2k/E+FVc0JubvBs7Hc029ZJL0ZpZ5I0lpSg2fHBAqlXu1BVO4iJ0OSfM+glUi9IB+lHTX7p/uCpN4bNxt2Nb65kPansjsbTy45KFhrlQ254Dr1qN+PmLLf3P02piJIeSInVTbZUB84PKihCl2DCxtSZEnvXf9mGR/lCP4VEXo8Poam/0fjUv66bdVwySG0tOKc+SUDkCTzZ6eFRJ6PaPJYTqYSIzzOeTHaNlOep86S/Rf8AWB94ltqhbjP/AEG3D/Hb/jU01DPGU267shPQy046svt+yhJUfHwFYU/UE0s9pnLcAX6LLh++j8tWPqufAQy+xtfcEPsOsq9dGA4gpJ9n31Yyq6j6hhX7RK4cfv6LYH72fwFdJwkxhM4eYcRRwHi82T8Riue49mX39sICWGHXletnIbQVEdB5V1fB2261sbbEPNONLDzmUrSUnw8DWh/xx+sgfUldOHe8N7dcTF1sl9PqrMt92MlS+ntFXsH4Gr2AggEEEHuIqu/FNsI5rp5OrNKFMfUDCQHGweUSAO7B8FCol0xvpvLtvHTYdTaZeuYj/NpMptfOkDuGU99U6d8BlO8St29jxLwqISkqUQABkk+FfP3i71lB1ZvbHZtjyXotrKIpWk5SpYVkkGuxuu6m+W7jfyDpjTLlmiyfYefZSoYSe/JV1A+FR3vZtS5txedN21v1q43CShD859DalJ7Tm6gGr6eoVt6jvJtfUu3Ev5oT+pln/c2/yinqmXQoI0baAoFJENvII6j2RT1XCeZ0DiFFFFKOFJ3IMFw5chx1nzU0k/wpRRRCYNMssjDTTbY/ZSBWdFFEIVTn0jP/ADtLfB2rjVCPE5sncd3F2hUG9x7b6gF83atlXNzeWK2oYK4JkWAlcCSFs712r00P/XNflp8lJtDctpmQxFD7p+bCmxlX3Un0RZ3NP6RtVkdeS+uDFQwpxIwFFIxmmfXTMh+629ERQTJQCtsnzBq+nqW63STgbyLXNaZAzOqecjwoynXChllAyTjAFZsOtvspeaUFIWMpI8RXD6gu7t6tTcWJlHK32svm7gAcEfbXWadINjhkd3Yiru6U01Bm5zxJrvFjkDjEVS5DMVhT8hwNtp71Hwpn+WdOTH0oUph5xasJ5mc5PxIrLXGP+HJGfd+NI7H8rluL2kKEGeVPtADOKqqis09xuc/fH8RWWsLNI/E6VpttpPK02lCfJIwKSXUW1pky7i1HKGx9NxsKx91LaYNe4OnXM93On8a56EFlqofJmtraELDxFcO8WaeRFZfaXkYDak4BHwNL48WNHz6vHZZz38iAnP2VzmsGbejT4dw23JQEdipHRfN07q6G3l5UFlT4w6UDm+NXdUgQOmcEkb/Emt2LFWmcl9qMwt99YQ2gZUo+Arwpjy46SpDbzSwFAKTkEfXTdq/+rc3P/SNK7L/REP8AwEflFR2x2g/ziVrOvT8TcyzHitkNNNMI7zypCRTenUVnVI7ATE82cZwcZ+PdSXXa3U2FfIVJaUsB4p7wjPWlDsWy/IIQ6lgQ+zB5hjy78+da11JoDvk5ONv7+0h3bUVXG33jk8zHkthLzTTyO8BaQoffWTLTTKA2y2htA7koSAPupPZxHFrjiKtbjAR7Cld5FbZ8luHDdlOkBDaCo9fKucqdWkTUNtkzFM2KqaqEl5JkITzKb8QKyeiRXzl6My6fNbYP41HMW5JaksXwok+uLePbFSDy9iT5/CpKacS60lxBBSsAgjxBrp6vpT05Hz+fMxov7uf7tMG2o8dBLbTbSQMnlSB0+qtDabdc2kyQ1Hkp/VWpsK/Gt8z+aPf4avwpl0IpA02wOZPerx99YrWDUX8ggf7zNC+HCx+SAkBKQAB3AV7RRWM0hRRRRCFFFFEIUUUUQhRRRRCFJZMCNImsS3Ukus/QOe6lVFNWKnIiIB5jeLNACJSA1gSj85g/h5UriMNxoyI7QwhAwke6ttFU1jsMExBFXgRPcIbE6IuNISVNr7wDTZH0zBYdbcbkTPmyClJeOPsp7oqkvsQaVOBE1aMckQpNc4Me4w1xZKSptffg4NKaKzVipyOZRAIwYzw9N22O+h4h19SPodsvmCfhTxRRVWWvYcucxKipsommdGamRXIz4JbcGFAHwrOO0hhhtlsYQ2kJT8BWdFTqOMeI8DOZi82280pp1AWhQwpJHQimQaVtYWMmQpoHIZLnsfZT7RV13WV7KcSWrV/cJ42hLaAhCQlKRgAdwpPcoLFwimNJBLZIJAOM4pTRUhip1A7yiARgzS/EYehKhuNgsKRyFPuohRm4cVuMzzdm2MJycnFbqKNbYxnaGkZzPFpC0FKu4jBpia0rbmiOydltpByEpewKfqKqu568hTjMlq1f3CYtIDbaUAkhIwM99ZUUVnLn/9k=" alt="Optima Medical">
-  <div class="logo-area">
-    <h1>📠 Fax Routing Guide</h1>
-    <span class="meta">Last updated: March 2026</span>
+<div class="topbar">
+  <img class="topbar-logo" src="data:image/png;base64,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" alt="Optima Medical">
+  <div class="topbar-div"></div>
+  <div class="topbar-title">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.72a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Fax Routing Guide
   </div>
-</header>
-
-<div class="search-wrap">
-  <input type="text" id="search" placeholder="Search document type, send-to, keywords…" oninput="render()">
+  <div class="topbar-meta">Optima Medical · March 2026</div>
 </div>
 
-<div class="filter-bar" id="filterBar"></div>
-
-<main id="main"></main>
-<div class="no-results" id="noResults">No matching documents found.</div>
+<div class="layout">
+  <nav class="sidebar" id="sidebar"></nav>
+  <div class="main">
+    <div class="controls">
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="search" placeholder="Search documents, routing, keywords…" oninput="render()">
+      </div>
+      <div class="pills" id="pills"></div>
+    </div>
+    <div id="content"></div>
+    <div class="no-results" id="noResults">No matching documents found.</div>
+  </div>
+</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   DATA — Edit this section to update the routing guide.
-   Each section has a name and an array of routes.
-
-   Fields per route:
-     doc        — document type (displayed as card title)
-     label      — label format (mono display); omit if N/A
-     fileTo     — File To field
-     sendTo     — Send To (highlighted)
-     notes      — optional note string
-     hp         — true = show HP warning styling on note
-     delete     — true = this is a delete-only item
+   DATA — Edit this section to update routing rules.
 ═══════════════════════════════════════════════════════════════ */
 const SECTIONS = [
   {
     name: "Delete Only — No TE",
+    icon: "🗑️", color: "#c0392b", bg: "#fef0ee",
     teStatus: "delete",
     routes: [
       { doc: "Rx Requests (active Optima providers)", delete: true, sendTo: "DELETE" },
-      { doc: "Offboarded provider Rx requests", delete: false, sendTo: "New Optima Provider (via TE)", notes: "Create TE and route internally to the new Optima provider." },
+      { doc: "Offboarded provider Rx requests", sendTo: "New Optima Provider (via TE)", notes: "Create TE and route internally to the new Optima provider." },
       { doc: "Temporary Rx Supplies", delete: true, sendTo: "DELETE" },
       { doc: "Medication Non-Adherence Notices", delete: true, sendTo: "DELETE" },
       { doc: "Tango Approvals", delete: true, sendTo: "DELETE" },
       { doc: "PA Requests with a Key Listed", delete: true, sendTo: "DELETE" },
-      { doc: "Auth Notifications (requested by outside provider)", delete: true, sendTo: "DELETE" },
+      { doc: "Auth Notifications (outside provider)", delete: true, sendTo: "DELETE" },
       { doc: "Referral Confirmations of Receipt", delete: true, sendTo: "DELETE" },
       { doc: "Referral Scheduled Date Notifications", delete: true, sendTo: "DELETE" },
       { doc: "Failure to Schedule — Imaging", delete: true, sendTo: "DELETE", notes: "Delete for now. Will change once ticker workflow is aligned." },
@@ -247,11 +268,13 @@ const SECTIONS = [
   },
   {
     name: "Hospital / ER",
+    icon: "🏥", color: "#0f6ac0", bg: "#e8f2fc",
     teStatus: "required",
     routes: [
       {
         doc: "Hospital / ER Records (all types)",
-        label: "DATE – Hospital/ER – WHERE",
+        label: "DATE – [Hospital/ER Discharge / Records / Notes] – WHERE",
+        example: "01/15/2026 – ER Discharge – Banner Gateway",
         fileTo: "Admit / Discharge Notifications",
         sendTo: "CA Bucket",
         notes: "Route to correct CA bucket. Discharge summaries must be marked HP.",
@@ -261,18 +284,21 @@ const SECTIONS = [
   },
   {
     name: "Prior Auth – Imaging",
+    icon: "🔬", color: "#7c3aed", bg: "#f5f3ff",
     teStatus: "required",
     routes: [
       {
         doc: "PA Request for Imaging",
-        label: "Order DATE – Order Request – WHERE",
+        label: "DATE – [Order Name] – WHERE",
+        example: "01/15/2026 – R Leg Xray – Simon Med",
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         notes: "Use order date. Mark HP / STAT if noted."
       },
       {
         doc: "PA Imaging Order Clarification",
-        label: "DATE – Imaging Type – Clarification",
+        label: "DATE – [Imaging Type] Clarification – WHERE",
+        example: "01/15/2026 – MRI Brain Clarification – Banner Imaging",
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         notes: "Use request date. Mark HP.",
@@ -280,7 +306,8 @@ const SECTIONS = [
       },
       {
         doc: "PA Imaging Denial",
-        label: "DATE – PA Imaging Denial – WHERE",
+        label: "DATE – [Imaging Type] Denial – WHERE",
+        example: "01/15/2026 – CT Abdomen Denial – Simon Med",
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         notes: "Use denial date. Mark HP / STAT.",
@@ -290,11 +317,13 @@ const SECTIONS = [
   },
   {
     name: "Medical Records",
+    icon: "📋", color: "#0e7490", bg: "#ecfeff",
     teStatus: "none",
     routes: [
       {
         doc: "Medical Records — Incoming",
-        label: "DATE – Incoming Recs – WHERE",
+        label: "DATE – Incoming Records – WHERE",
+        example: "01/15/2026 – Incoming Records – Banner Health",
         fileTo: "Records Request",
         sendTo: "Internal Requestor (or Admin if unknown)",
         notes: "If requestor is unknown, assign to Admin to determine."
@@ -309,11 +338,13 @@ const SECTIONS = [
   },
   {
     name: "DME / Equipment",
+    icon: "🩺", color: "#b45309", bg: "#fffbeb",
     teStatus: "required",
     routes: [
       {
         doc: "DME — Durable Medical Equipment",
-        label: "DATE – What – WHERE",
+        label: "DATE – [Equipment/Item] – WHERE",
+        example: "01/15/2026 – CGM Supplies – Apria",
         fileTo: "DME Requests",
         sendTo: "Medical Equipment, Durable",
         notes: "CGM, end of life, and nebulizers must be marked HP. If STAT, mark HP.",
@@ -323,17 +354,20 @@ const SECTIONS = [
   },
   {
     name: "Referral Correspondence",
+    icon: "↗️", color: "#166534", bg: "#f0fdf4",
     teStatus: "required",
     routes: [
       {
         doc: "Referral Request / Response",
-        label: "DATE – Referral Response/Request – WHERE",
+        label: "DATE – [Referral Request / Response] – WHERE",
+        example: "01/15/2026 – Referral Response – East Valley Urology",
         fileTo: "Referral Correspondence",
         sendTo: "Corresponding Referral Bucket"
       },
       {
         doc: "Failure to Schedule with Specialist",
         label: "DATE – Referral Scheduling Issue – WHERE",
+        example: "01/15/2026 – Referral Scheduling Issue – AZ Cardiology",
         fileTo: "Referral Correspondence",
         sendTo: "Corresponding Referral Bucket",
         notes: "Do NOT delete. Assign to Referrals for follow-up."
@@ -342,11 +376,13 @@ const SECTIONS = [
   },
   {
     name: "Lab Documents",
+    icon: "🧪", color: "#0f766e", bg: "#f0fdfa",
     teStatus: "none",
     routes: [
       {
         doc: "Test in Question / Coding Update Request",
-        label: "DATE – Test in Question – WHERE",
+        label: "DATE – [Test Name] – WHERE",
+        example: "01/15/2026 – A1C Test in Question – LabCorp",
         fileTo: "Lab Documents",
         sendTo: "Office Manager",
         notes: "Mark HP. Can also be updated on the portal.",
@@ -363,104 +399,140 @@ const SECTIONS = [
 ];
 /* ═══════════════════════════════════════════════════════════════ */
 
-// Build filter pills from section names
-const allSections = ["All", ...SECTIONS.map(s => s.name)];
 let activeFilter = "All";
 
-function buildFilters() {
-  const bar = document.getElementById("filterBar");
-  allSections.forEach(name => {
-    const pill = document.createElement("button");
-    pill.className = "pill" + (name === "All" ? " active" : "") + (name === "Delete Only — No TE" ? " delete-pill" : "");
-    pill.textContent = name === "Delete Only — No TE" ? "Delete Only" : name;
-    pill.onclick = () => {
-      activeFilter = name;
-      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-      pill.classList.add("active");
-      render();
-    };
-    bar.appendChild(pill);
+function buildSidebar() {
+  const nav = document.getElementById("sidebar");
+  nav.innerHTML = `<div class="sidebar-label">Sections</div>`;
+
+  const all = document.createElement("a");
+  all.className = "nav-item active";
+  all.href = "#";
+  all.dataset.filter = "All";
+  all.innerHTML = `<span class="nav-dot" style="background:#4a9de0"></span><span class="nav-icon">📂</span> All Sections <span class="nav-count">${SECTIONS.reduce((a,s)=>a+s.routes.length,0)}</span>`;
+  all.onclick = e => { e.preventDefault(); setFilter("All"); };
+  nav.appendChild(all);
+
+  SECTIONS.forEach(s => {
+    const a = document.createElement("a");
+    a.className = "nav-item";
+    a.href = "#";
+    a.dataset.filter = s.name;
+    const short = s.name.replace(" — No TE","").replace(" – Imaging","");
+    a.innerHTML = `<span class="nav-dot" style="background:${s.color}"></span><span class="nav-icon">${s.icon}</span> ${short} <span class="nav-count">${s.routes.length}</span>`;
+    a.onclick = e => { e.preventDefault(); setFilter(s.name); };
+    nav.appendChild(a);
   });
+}
+
+function buildPills() {
+  const container = document.getElementById("pills");
+  [{ name: "All", label: "All", isDel: false }, ...SECTIONS.map(s => ({
+    name: s.name, label: s.name.replace(" — No TE","").replace(" – Imaging",""), isDel: s.teStatus === "delete"
+  }))].forEach(({ name, label, isDel }) => {
+    const btn = document.createElement("button");
+    btn.className = "pill" + (name === "All" ? " active" : "") + (isDel ? " del" : "");
+    btn.textContent = label;
+    btn.dataset.filter = name;
+    btn.onclick = () => setFilter(name);
+    container.appendChild(btn);
+  });
+}
+
+function setFilter(name) {
+  activeFilter = name;
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.filter === name));
+  document.querySelectorAll(".pill").forEach(p => p.classList.toggle("active", p.dataset.filter === name));
+  render();
 }
 
 function render() {
-  const query = document.getElementById("search").value.trim().toLowerCase();
-  const main = document.getElementById("main");
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const content = document.getElementById("content");
   const noResults = document.getElementById("noResults");
-  main.innerHTML = "";
-  let totalVisible = 0;
+  content.innerHTML = "";
+  let total = 0;
 
-  SECTIONS.forEach(section => {
-    if (activeFilter !== "All" && activeFilter !== section.name) return;
+  SECTIONS.forEach((sec, si) => {
+    if (activeFilter !== "All" && activeFilter !== sec.name) return;
+    const filtered = sec.routes.filter(r =>
+      !q || [r.doc, r.label, r.fileTo, r.sendTo, r.notes, r.example].filter(Boolean).some(v => v.toLowerCase().includes(q))
+    );
+    if (!filtered.length) return;
+    total += filtered.length;
 
-    const filtered = section.routes.filter(r => {
-      if (!query) return true;
-      return [r.doc, r.label, r.fileTo, r.sendTo, r.notes].filter(Boolean)
-        .some(v => v.toLowerCase().includes(query));
-    });
-
-    if (filtered.length === 0) return;
-    totalVisible += filtered.length;
-
-    const secDiv = document.createElement("div");
-    secDiv.className = "section";
-
-    const badgeHTML = section.teStatus === "required"
-      ? `<span class="te-badge required">TE REQUIRED</span>`
-      : section.teStatus === "delete"
-      ? `<span class="te-badge delete">NO TE · DELETE</span>`
+    const badge = sec.teStatus === "required"
+      ? `<span class="te-chip req">TE Required</span>`
+      : sec.teStatus === "delete"
+      ? `<span class="te-chip del">No TE · Delete</span>`
       : "";
 
-    secDiv.innerHTML = `
-      <div class="section-header">
-        <span class="section-title">${section.name}</span>
-        ${badgeHTML}
+    const div = document.createElement("div");
+    div.className = "section";
+    div.style.animationDelay = `${si * 35}ms`;
+    div.innerHTML = `
+      <div class="section-head">
+        <div class="section-icon" style="background:${sec.bg}">${sec.icon}</div>
+        <span class="section-name" style="color:${sec.color}">${sec.name}</span>
+        ${badge}
+        <div class="sec-line"></div>
       </div>
-      <div class="cards" id="cards-${section.name.replace(/\W/g,'_')}"></div>
-    `;
+      <div class="cards"></div>`;
 
-    const cardsDiv = secDiv.querySelector(".cards");
+    const cards = div.querySelector(".cards");
 
-    filtered.forEach(r => {
+    filtered.forEach((r, ri) => {
+      const isDel = r.delete;
+      const isTE = !isDel && sec.teStatus === "required";
+      const stripeColor = isDel ? "#c0392b" : isTE ? sec.color : "#94a3b8";
+
       const card = document.createElement("div");
-      card.className = "card" + (r.delete ? " delete-card" : r.doc !== undefined && section.teStatus === "required" ? " te-card" : "");
+      card.className = "card" + (isDel ? " del-card" : "");
+      card.style.animationDelay = `${si * 35 + ri * 25}ms`;
 
-      let html = `<div class="doc-type">${r.doc}</div>`;
+      let html = `<div class="card-top" style="background:${stripeColor}"></div>`;
+      html += `<div class="card-body">`;
+      html += `<div class="doc-name">${r.doc}</div>`;
+      html += `<div class="fields">`;
 
       if (r.label) {
-        html += `<div class="field">
-          <span class="field-label">Label Format</span>
-          <span class="field-value mono">${r.label}</span>
+        html += `<div class="field full">
+          <span class="fl">Label Format</span>
+          <span class="fv mono">${r.label}</span>
+          ${r.example ? `<span class="fex">e.g. ${r.example}</span>` : ''}
         </div>`;
       }
-
       if (r.fileTo) {
         html += `<div class="field">
-          <span class="field-label">File To</span>
-          <span class="field-value">${r.fileTo}</span>
+          <span class="fl">File To</span>
+          <span class="fv">${r.fileTo}</span>
         </div>`;
       }
-
       html += `<div class="field">
-        <span class="field-label">Send To</span>
-        <span class="field-value ${r.delete ? 'delete' : 'send-to'}">${r.sendTo}</span>
+        <span class="fl">Send To</span>
+        <span class="fv ${isDel ? 'red' : 'blue'}">${r.sendTo}</span>
       </div>`;
 
+      html += `</div>`; // .fields
+
       if (r.notes) {
-        html += `<div class="note${r.hp ? ' hp' : ''}">${r.hp ? '⚑ HP — ' : ''}${r.notes}</div>`;
+        const cls = r.hp ? "hp" : isDel ? "danger" : "";
+        html += `<div class="note${cls ? ' '+cls : ''}">${r.hp ? '⚑ HP — ' : ''}${r.notes}</div>`;
       }
 
+      html += `</div>`; // .card-body
       card.innerHTML = html;
-      cardsDiv.appendChild(card);
+      cards.appendChild(card);
     });
 
-    main.appendChild(secDiv);
+    content.appendChild(div);
   });
 
-  noResults.style.display = totalVisible === 0 ? "block" : "none";
+  noResults.style.display = total === 0 ? "block" : "none";
 }
 
-buildFilters();
+buildSidebar();
+buildPills();
 render();
 </script>
 </body>
