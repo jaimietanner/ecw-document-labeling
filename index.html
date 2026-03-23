@@ -611,7 +611,7 @@ const SECTIONS = [
           "Clinical Admin sends to provider for review",
           "Provider creates referral or lab submission as needed"
         ],
-        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing."
+        notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing."
       },
       {
         doc: "Lab Auth Request — Provider Must Submit (e.g. Myriad, Natera, Guardant)",
@@ -777,7 +777,7 @@ const SECTIONS = [
         action: "create-te",
         label: "DATE – [Lab Name] Auth Request – WHERE",
         example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
-        fileTo: "Lab Documents",
+        fileTo: "Referral Correspondence",
         assignTo: "Clinical Admin",
         sendTo: "Clinical Admin (TE)",
         routeIf: [
@@ -800,7 +800,7 @@ const SECTIONS = [
           "Clinical Admin sends to provider for review",
           "Provider creates referral or lab submission to insurance"
         ],
-        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
+        notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
       }
     ]
   },
