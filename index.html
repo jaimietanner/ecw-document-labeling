@@ -260,6 +260,22 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .btn-welcome-go:hover { background:#1450a0; }
 .btn-welcome-guide { padding:12px 16px; background:none; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); transition:all .12s; }
 .btn-welcome-guide:hover { border-color:var(--blue); color:var(--blue); }
+
+/* DEFAULT RULE BANNER */
+.default-rule { background:#0a1f44; border-radius:10px; padding:11px 16px; margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.default-rule-text { flex:1; font-size:12px; color:rgba(255,255,255,.75); line-height:1.45; }
+.default-rule-text strong { color:#fff; font-size:12.5px; }
+
+/* 1-TOUCH GOAL */
+.one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
+
+/* TRIGGERS */
+.triggers-bar { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
+.trigger-chip { padding:3px 9px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:12px; font-size:11px; font-weight:600; color:var(--muted); }
+
+/* DO NOT ROUTE FOR FIXES */
+.fix-rule { background:#fff7ed; border:1.5px solid #fed7aa; border-radius:9px; padding:10px 14px; font-size:12.5px; color:#c2410c; font-weight:600; margin-bottom:14px; display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
+
 @media print {
   .topbar, .left, .overlay, .triage-btn, .r-btn, .tb-btn, .result-actions { display:none !important; }
   .wrap { display:block; }
@@ -436,6 +452,14 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <button class="triage-btn" onclick="openTriage()">🤔 Not sure what this is? Start here</button>
     </div>
     <div id="navTree"></div>
+    <div style="padding:12px 14px 20px;">
+      <div class="default-rule">
+        <div class="default-rule-text">
+          <strong>🔵 Default Rule</strong><br>
+          Not sure? → Send to <strong>Other / Unknown</strong>. Do NOT guess between categories.
+        </div>
+      </div>
+    </div>
   </div>
   <div class="right" id="right">
     <div class="empty-state" id="emptyState">
@@ -450,6 +474,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 const SECTIONS = [
   {
     name: "Fax → Convert to Portal", icon: "🌐", color: "#0369a1", bg: "#f0f9ff",
+    triggers: ["ASPN", "portal", "specialty pharmacy"],
     routes: [
       {
         doc: "ASPN Pharmacies — Med PA",
@@ -471,6 +496,7 @@ const SECTIONS = [
   },
   {
     name: "Signature Required", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
+    triggers: ["signature", "sign", "please sign", "requires signature", "authorization form", "consent form", "FMLA"],
     routes: [
       {
         doc: "Document Requiring Provider Signature",
@@ -486,6 +512,7 @@ const SECTIONS = [
   },
   {
     name: "Rx / Pharmacy", icon: "💊", color: "#be185d", bg: "#fdf2f8",
+    triggers: ["Rx", "prescription", "pharmacy", "medication request", "Tango", "refill", "non-adherence"],
     routes: [
       { doc: "Rx Request — Active Optima Provider", action: "delete" },
       { doc: "Temporary Rx Supplies", action: "delete" },
@@ -501,6 +528,7 @@ const SECTIONS = [
   },
   {
     name: "Hospital / ER", icon: "🏥", color: "#0f6ac0", bg: "#e8f2fc",
+    triggers: ["discharge", "ER", "emergency room", "hospital", "admission", "inpatient", "outpatient stay", "follow-up after hospitalization", "consult note", "admission summary"],
     routes: [
       {
         doc: "Hospital / ER Records — All Types",
@@ -542,6 +570,7 @@ const SECTIONS = [
   },
   {
     name: "Prior Auth — Med PA", icon: "💊", color: "#7c3aed", bg: "#f5f3ff",
+    triggers: ["prior auth", "PA", "authorization", "med PA", "medication approval", "pharmacy", "formulary", "step therapy", "denial", "appeal", "peer-to-peer", "MRI", "CT", "X-ray", "ultrasound", "imaging order", "IH Sono"],
     routes: [
       {
         doc: "PA Request — Key Listed",
@@ -641,6 +670,7 @@ const SECTIONS = [
   },
   {
     name: "Referrals", icon: "↗️", color: "#166534", bg: "#f0fdf4",
+    triggers: ["referral", "consult", "specialist", "consult note", "failure to schedule", "referral response", "referral request", "scheduling issue"],
     routes: [
       {
         doc: "Referral — Confirmation of Receipt",
@@ -703,6 +733,7 @@ const SECTIONS = [
   },
   {
     name: "Medical Records", icon: "📋", color: "#0e7490", bg: "#ecfeff",
+    triggers: ["medical records", "records request", "chart notes", "incoming records", "records release", "AMS", "AmericanMedical"],
     routes: [
       {
         doc: "Medical Records — Incoming",
@@ -724,6 +755,7 @@ const SECTIONS = [
   },
   {
     name: "DME / Equipment", icon: "🩺", color: "#b45309", bg: "#fffbeb",
+    triggers: ["DME", "durable medical", "equipment", "CGM", "nebulizer", "CPAP", "PAP", "oxygen", "wheelchair", "Apria", "compliance report"],
     routes: [
       {
         doc: "DME — Durable Medical Equipment",
@@ -748,6 +780,7 @@ const SECTIONS = [
   },
   {
     name: "Lab Results", icon: "🧪", color: "#0f766e", bg: "#f0fdfa",
+    triggers: ["lab", "lab result", "blood work", "urinalysis", "CBC", "A1C", "lipid", "panel", "LabCorp", "Quest", "test result", "coding update", "test in question"],
     routes: [
       {
         doc: "Faxed Lab Result — Order Already Electronically Attached",
@@ -781,6 +814,30 @@ const SECTIONS = [
         sendTo: "Office Manager",
         flags: ["hp", "no-chart"],
         notes: "Mark HP. Can also be updated on the portal. Do NOT attach to patient chart."
+      }
+    ]
+  },
+  {
+    name: "Other / Unknown", icon: "❓", color: "#64748b", bg: "#f8fafc",
+    triggers: ["unknown", "other", "not sure", "unclear"],
+    routes: [
+      {
+        doc: "Document Does Not Match Any Category",
+        action: "file",
+        fileTo: "Documents Team Queue",
+        sendTo: "Documents Team (Level 2+)",
+        notes: "Use this ONLY if you have reviewed all categories and the document does not clearly match any of them. Do NOT use as a default or shortcut — every misroute here creates rework for the Documents team.",
+        doNot: [
+          "Do NOT use 'Other' because you are in a hurry",
+          "Do NOT use 'Other' for documents that are hard to read — try your best first",
+          "Do NOT use 'Other' if it could be Hospital/ER, PA, or Referral — when in doubt on those, route to that team",
+          "Do NOT use 'Other' more than once without flagging for manager review"
+        ],
+        routeIf: [
+          "You have reviewed ALL categories above",
+          "The document truly does not match any category",
+          "You cannot identify a sender, document type, or routing indicator"
+        ]
       }
     ]
   }
@@ -940,6 +997,7 @@ function renderEmpty() {
   right.innerHTML = `
     <div class="empty-state" style="justify-content:${recent.length ? 'flex-start' : 'center'}; padding-top:${recent.length ? '20px' : '0'}; height:${recent.length ? 'auto' : '100%'}">
       ${recentHTML}
+      <div class="one-touch">🎯 Goal: One-Touch Workflow — categorize correctly, route once, no rework.</div>
       <div class="big-icon">📠</div>
       <h2>What kind of fax is it?</h2>
       <p>Select a category on the left, search by keyword, or tap <strong>"Not sure?"</strong> to be guided.</p>
@@ -1059,6 +1117,19 @@ function showResult(r, sec) {
   const isFlagged = getFlags().some(f => f.key === r.doc);
   const updatedHTML = sec.updated ? `<div class="updated-badge">Last updated: ${sec.updated}</div>` : "";
 
+  // Trigger chips for this section
+  const triggersHTML = (sec.triggers && sec.triggers.length)
+    ? `<div class="triggers-bar">${sec.triggers.map(t => `<span class="trigger-chip">⚡ ${t}</span>`).join("")}</div>`
+    : "";
+
+  // Do-not-route-for-fixes (show on all file/create-te actions)
+  const fixRuleHTML = (actionType === "file" || actionType === "create-te")
+    ? `<div class="fix-rule">🔧 <span>If something is missing or needs a small correction — <strong>fix it before routing.</strong> Do NOT send to another team just to fix small issues.</span></div>`
+    : "";
+
+  // 1-touch goal reminder
+  const oneTouchHTML = `<div class="one-touch" style="margin-top:14px">🎯 One-Touch Goal — route it correctly, route it once.</div>`;
+
   right.innerHTML = `
     <div class="result">
       <div class="result-header">
@@ -1070,6 +1141,7 @@ function showResult(r, sec) {
           <button class="r-btn ${isFlagged ? 'flagged' : ''}" id="flagResultBtn" onclick="flagCurrentResult()">🚩 ${isFlagged ? 'Flagged' : 'Flag for Review'}</button>
         </div>
       </div>
+      ${triggersHTML}
       <div class="action-banner ${actionConfig.cls}">
         <div class="action-icon">${actionConfig.icon}</div>
         <div class="action-text">
@@ -1078,10 +1150,12 @@ function showResult(r, sec) {
         </div>
       </div>
       ${flagsHTML}
+      ${fixRuleHTML}
       ${detailsHTML ? `<div class="details">${detailsHTML}</div>` : ""}
       ${noteHTML}
       ${briefHTML}
       ${portalHTML}
+      ${oneTouchHTML}
       ${updatedHTML}
     </div>`;
 }
@@ -1097,7 +1171,8 @@ function handleSearch(q) {
   }
   if (!trimmed) { renderEmpty(); return; }
   const hits = ALL_ROUTES.filter(r =>
-    [r.doc, r.label, r.fileTo, r.sendTo, r.notes, r.example, r.section.name, ...(r.routeIf||[]), ...(r.closeIf||[])]
+    [r.doc, r.label, r.fileTo, r.sendTo, r.notes, r.example, r.section.name,
+     ...(r.routeIf||[]), ...(r.closeIf||[]), ...(r.section.triggers||[])]
       .filter(Boolean).some(v => v.toLowerCase().includes(trimmed))
   );
   if (!hits.length) {
