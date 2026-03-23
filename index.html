@@ -63,18 +63,24 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .cat-count { margin-left:auto; font-size:10px; font-weight:700; background:var(--border); color:var(--muted); padding:1px 6px; border-radius:10px; }
 .sub-list { display:none; }
 .sub-list.open { display:block; }
-.sub-btn { display:flex; align-items:center; gap:8px; padding:7px 14px 7px 40px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:11.5px; font-weight:500; color:var(--muted); transition:all .12s; line-height:1.35; }
-.sub-btn:hover { background:var(--bg); color:var(--text); }
-.sub-btn.active { background:#e8f2fc; color:var(--blue); font-weight:700; }
+.sub-btn { display:flex; flex-direction:column; align-items:flex-start; gap:3px; padding:8px 14px 8px 14px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:11.5px; font-weight:500; color:var(--muted); transition:all .12s; line-height:1.35; border-left:2px solid transparent; }
+.sub-btn:hover { background:var(--bg); color:var(--text); border-left-color:var(--border); }
+.sub-btn.active { background:#e8f2fc; color:var(--blue); font-weight:700; border-left-color:var(--blue); }
+.sub-btn-row { display:flex; align-items:center; gap:6px; width:100%; }
+.sub-btn-doc { flex:1; text-align:left; }
+.level-badge { display:inline-flex; align-items:center; gap:5px; padding:2px 8px 2px 4px; border-radius:12px; font-size:10.5px; font-weight:700; white-space:nowrap; flex-shrink:0; }
+.level-badge .lvl-num { width:17px; height:17px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#fff; flex-shrink:0; }
+.level-badge.l1 { background:#f3f0ff; color:#6d28d9; }
+.level-badge.l1 .lvl-num { background:#6d28d9; }
+.level-badge.l2 { background:#eff6ff; color:#1d4ed8; }
+.level-badge.l2 .lvl-num { background:#1d4ed8; }
+.level-badge.l3 { background:#fefce8; color:#92400e; }
+.level-badge.l3 .lvl-num { background:#ca8a04; }
 .sub-action { font-size:9px; font-weight:800; padding:2px 6px; border-radius:4px; margin-left:auto; flex-shrink:0; letter-spacing:.3px; }
 .sub-action.delete { background:#fde8e6; color:var(--red); }
 .sub-action.file { background:#dbeafe; color:#1d4ed8; }
 .sub-action.create-te { background:#fef3c7; color:var(--amber); }
 .sub-action.portal { background:#fee2e2; color:#7c3aed; }
-.level-badge { font-size:9px; font-weight:800; padding:2px 6px; border-radius:4px; letter-spacing:.3px; flex-shrink:0; }
-.level-badge.l1 { background:#dcfce7; color:#166534; }
-.level-badge.l2 { background:#dbeafe; color:#1d4ed8; }
-.level-badge.l3 { background:#ede9fe; color:#6d28d9; }
 
 /* RIGHT */
 .right { flex:1; padding:22px 26px; overflow-y:auto; min-width:0; }
@@ -161,6 +167,52 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .brief-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
 .brief-list li { font-size:12.5px; display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
 .brief-list li::before { content:""; flex-shrink:0; margin-top:6px; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.5; }
+
+/* LEVEL ACCORDION */
+.levels { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.level-block { border-radius:11px; border:1.5px solid var(--border); overflow:hidden; }
+.level-header {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 16px; cursor:pointer; user-select:none;
+  background:var(--surface); transition:background .12s;
+}
+.level-header:hover { background:var(--bg); }
+.level-num {
+  width:24px; height:24px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:800; flex-shrink:0;
+}
+.level-num.blue  { background:#dbeafe; color:#1d4ed8; }
+.level-num.purple { background:#ede9fe; color:#7c3aed; }
+.level-num.amber { background:#fef3c7; color:#b45309; }
+.level-num.green { background:#dcfce7; color:#166534; }
+.level-title { font-size:13px; font-weight:700; flex:1; }
+.level-badge {
+  font-size:10px; font-weight:800; padding:2px 9px;
+  border-radius:12px; letter-spacing:.3px;
+}
+.level-badge.blue   { background:#dbeafe; color:#1d4ed8; }
+.level-badge.purple { background:#ede9fe; color:#7c3aed; }
+.level-badge.amber  { background:#fef3c7; color:#b45309; }
+.level-badge.green  { background:#dcfce7; color:#166534; }
+.level-chevron { font-size:12px; color:var(--muted); transition:transform .2s; flex-shrink:0; }
+.level-block.open .level-chevron { transform:rotate(180deg); }
+.level-body { display:none; padding:0 15px 14px; border-top:1px solid var(--border); background:var(--surface); }
+.level-block.open .level-body { display:block; }
+.level-section { margin-top:12px; }
+.level-section-label {
+  font-size:9.5px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.9px; margin-bottom:7px; display:flex; align-items:center; gap:5px;
+}
+.level-section-label.red    { color:#c2410c; }
+.level-section-label.green  { color:#166534; }
+.level-section-label.blue   { color:#1d4ed8; }
+.level-section-label.muted  { color:var(--muted); }
+.level-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.level-list li { font-size:12.5px; line-height:1.45; display:flex; align-items:flex-start; gap:8px; }
+.level-list li::before { content:""; flex-shrink:0; margin-top:6px; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.4; }
+.level-list li.del { color:var(--red); font-weight:600; }
+.level-list li.del::before { background:var(--red); opacity:.7; }
 
 /* UPDATED BADGE */
 .updated-badge { font-size:10px; color:var(--muted); font-weight:500; margin-top:16px; padding-top:12px; border-top:1px solid var(--border); }
@@ -295,40 +347,57 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
 
 /* LEVEL ACCORDIONS */
-.levels { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
-.level-block { border-radius:10px; overflow:hidden; border:1.5px solid var(--border); }
+.levels { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+.level-block { border-radius:12px; border:1.5px solid var(--border); overflow:hidden; background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.05); }
 .level-header {
-  display:flex; align-items:center; gap:10px;
-  padding:11px 16px; cursor:pointer; user-select:none;
+  display:flex; align-items:center; gap:12px;
+  padding:13px 16px; cursor:pointer; user-select:none;
   background:var(--surface); transition:background .12s;
-  border:none; width:100%; text-align:left; font-family:inherit;
 }
 .level-header:hover { background:var(--bg); }
-.level-badge { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; font-size:11px; font-weight:800; flex-shrink:0; }
-.level-badge.l1 { background:#dbeafe; color:#1d4ed8; }
-.level-badge.l2 { background:#ede9fe; color:#6d28d9; }
-.level-badge.l3 { background:#fef3c7; color:#b45309; }
-.level-title { font-size:13px; font-weight:700; flex:1; }
-.level-subtitle { font-size:11px; color:var(--muted); }
-.level-chevron { font-size:12px; color:var(--muted); transition:transform .15s; margin-left:auto; }
-.level-header.open .level-chevron { transform:rotate(180deg); }
-.level-body { display:none; padding:12px 16px 14px; border-top:1px solid var(--border); background:#fafbfd; }
-.level-body.open { display:block; animation: fadeUp .15s ease; }
-.level-section-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:6px; margin-top:10px; }
-.level-section-label:first-child { margin-top:0; }
-.level-steps { display:flex; flex-direction:column; gap:5px; }
-.level-step { display:flex; align-items:flex-start; gap:9px; font-size:12.5px; line-height:1.45; }
-.step-num { font-size:10px; font-weight:800; color:var(--muted); width:16px; flex-shrink:0; margin-top:2px; }
-.level-step.delete-step { color:var(--red); font-weight:600; }
-.level-step.delete-step .step-num { color:var(--red); }
-.level-route-if { background:#fff7ed; border:1px solid #fed7aa; border-radius:7px; padding:9px 12px; margin-bottom:8px; }
-.level-close-if { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:7px; padding:9px 12px; margin-bottom:8px; }
-.level-list-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; margin-bottom:5px; }
-.level-route-if .level-list-label { color:#c2410c; }
-.level-close-if .level-list-label { color:#166534; }
-.level-list { list-style:none; display:flex; flex-direction:column; gap:4px; }
-.level-list li { font-size:12px; line-height:1.4; display:flex; align-items:flex-start; gap:7px; }
-.level-list li::before { content:""; flex-shrink:0; margin-top:5px; width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.6; }
+.level-num {
+  width:26px; height:26px; border-radius:50%;
+  font-size:12px; font-weight:800; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.level-num.blue   { background:#dbeafe; color:#1d4ed8; }
+.level-num.purple { background:#ede9fe; color:#6d28d9; }
+.level-num.amber  { background:#fef3c7; color:#b45309; }
+.level-title { font-size:13.5px; font-weight:700; flex:1; color:var(--text); }
+.level-right-badge {
+  font-size:11px; font-weight:800; padding:3px 10px;
+  border-radius:12px; margin-left:auto;
+}
+.level-right-badge.blue   { background:#dbeafe; color:#1d4ed8; }
+.level-right-badge.purple { background:#ede9fe; color:#6d28d9; }
+.level-right-badge.amber  { background:#fef3c7; color:#b45309; }
+.level-chevron { font-size:11px; color:var(--muted); transition:transform .15s; flex-shrink:0; }
+.level-block.open .level-chevron { transform:rotate(180deg); }
+.level-body { display:none; border-top:1px solid var(--border); padding:14px 16px 16px; background:#fafbfd; }
+.level-block.open .level-body { display:block; }
+
+.lv-section { margin-bottom:12px; }
+.lv-section:last-child { margin-bottom:0; }
+.lv-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px; }
+.lv-label.red    { color:#c2410c; }
+.lv-label.green  { color:#166534; }
+.lv-label.blue   { color:#1d4ed8; }
+.lv-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.lv-list li {
+  font-size:12.5px; line-height:1.45;
+  display:flex; align-items:flex-start; gap:8px;
+}
+.lv-list li::before { content:"•"; flex-shrink:0; color:var(--muted); font-size:14px; line-height:1.2; }
+.lv-list li.lv-del { color:var(--red); font-weight:600; }
+.lv-list li.lv-del::before { content:"🗑"; font-size:13px; }
+.lv-steps { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.lv-steps li {
+  font-size:12.5px; line-height:1.45;
+  display:flex; align-items:flex-start; gap:9px;
+}
+.lv-step-num { font-size:11px; font-weight:800; color:var(--muted); flex-shrink:0; margin-top:1px; min-width:16px; }
+.lv-steps li.lv-del { color:var(--red); font-weight:600; }
+.lv-steps li.lv-del .lv-step-num { color:var(--red); }
 
 /* TRIGGERS */
 .triggers-bar { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
@@ -548,15 +617,56 @@ const SECTIONS = [
       {
         doc: "Document Requiring Provider Signature",
         action: "file",
-        label: "DATE – [Document Name] – WHERE",
-        example: "01/15/2026 – FMLA Form – Banner Gateway",
-        fileTo: "Patient Chart",
-        sendTo: "Provider (direct)",
-        flags: ["hp-if-noted"],
-        notes: "Attach directly to patient chart and send to provider. Mark HP if noted on the form."
+        levels: [
+          {
+            num: 1,
+            title: "Scan Team",
+            badge: "Scan Team",
+            color: "blue",
+            routeIf: [
+              "Document has a signature line or states 'Provider Signature Required'",
+              "FMLA, consent form, authorization form, or any clinical form needing provider sign-off",
+              "Any form returned from an outside facility requiring provider review and signature"
+            ],
+            closeIf: [],
+            steps: [
+              "Label: DATE – [Document Name] – WHERE",
+              "⚠️ Use the DATE on the document — NOT the fax received date",
+              "Attach directly to patient chart",
+              "Mark HP if noted on the form",
+              "Route directly to provider — Level 1 action stops here"
+            ],
+            notes: "⚠️ Scan team routes directly to provider. If provider sends back stating OK to sign — Level 2 takes over."
+          },
+          {
+            num: 2,
+            title: "Admin Doc Team",
+            badge: "Admin Doc",
+            color: "purple",
+            deleteIf: [
+              "🗑 Document is already signed — attach to chart, no TE needed",
+              "🗑 Duplicate of a document already in the chart"
+            ],
+            routeIf: [
+              "Provider has reviewed and sent back stating OK to sign"
+            ],
+            routeIfStyle: "green",
+            steps: [
+              "Confirm document is attached to the correct patient chart",
+              "Verify label format is correct — DATE – [Document Name] – WHERE",
+              "Confirm HP is marked if required",
+              "Receive signed document back from provider",
+              { text: "Update document name: SIG REQUIRED → SIGNED/SENT", bold: true },
+              "Stamp and document completed",
+              "Fax signed document back to requesting facility",
+              "Review and close document"
+            ]
+          }
+        ]
       },
       {
         doc: "Request Conversion — Fax to Electronic (HL7 / Electronic Note)",
+        level: 1,
         action: "snip",
         sendTo: "Team Chat — tag @Megan and @Jaimie",
         notes: "Level 1 action. Snip the document and send to the team chat tagging Megan and Jaimie. No filing required."
@@ -567,12 +677,13 @@ const SECTIONS = [
     name: "Rx / Pharmacy", icon: "💊", color: "#be185d", bg: "#fdf2f8",
     triggers: ["Rx", "prescription", "pharmacy", "medication request", "Tango", "refill", "non-adherence"],
     routes: [
-      { doc: "Rx Request — Active Optima Provider", action: "delete" },
-      { doc: "Temporary Rx Supplies", action: "delete" },
-      { doc: "Medication Non-Adherence Notice", action: "delete" },
-      { doc: "Tango Approval", action: "delete" },
+      { doc: "Rx Request — Active Optima Provider", level: 1, action: "delete" },
+      { doc: "Temporary Rx Supplies", level: 1, action: "delete" },
+      { doc: "Medication Non-Adherence Notice", level: 1, action: "delete" },
+      { doc: "Tango Approval", level: 1, action: "delete" },
       {
         doc: "Rx Request — Offboarded Provider",
+        level: 2,
         action: "create-te",
         assignTo: "New Optima Provider (internal)",
         sendTo: "New Optima Provider (internal)",
@@ -586,6 +697,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "Hospital / ER Records — All Types",
+        level: 1,
         action: "file",
         label: "HOSP/ER – ACTION  or  HOSP/ER – FYI",
         example: "HOSP/ER – ACTION (needs follow-up)   |   HOSP/ER – FYI (no action needed)",
@@ -611,12 +723,46 @@ const SECTIONS = [
           "Do NOT send to Imaging",
           "Do NOT hold in Documents for review"
         ],
-        nextSteps: [
-          "Review discharge summary / ER note",
-          "Confirm patient has follow-up within 7–14 days",
-          "Schedule or adjust appointment if needed",
-          "Route to provider AFTER follow-up is addressed",
-          "Ensure documentation is complete in chart"
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            routeIf: [
+              "Discharge Summary",
+              "Emergency Room (ER) Visit",
+              "Hospital Admission or Stay",
+              "Inpatient or Outpatient Hospital Records",
+              "\"Follow-up after hospitalization\"",
+              "ER notes, hospital consult notes, or admission summaries"
+            ],
+            closeIf: [
+              "Document is clearly old and already addressed",
+              "Marked as FYI only with no follow-up needed",
+              "Duplicate of already attached hospital record"
+            ],
+            steps: [
+              { type: "action", text: "Label — HOSP/ER – ACTION or HOSP/ER – FYI" },
+              { type: "action", text: "Mark HP — always" },
+              { type: "action", text: "File to Admit / Discharge Notifications" },
+              { type: "action", text: "Send to TE Team (Clinical Admin)" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Review discharge summary or ER note" },
+              { type: "action", text: "Confirm patient has follow-up within 7–14 days" },
+              { type: "action", text: "Schedule or adjust appointment if needed" },
+              { type: "action", text: "Route to provider AFTER follow-up is addressed" }
+            ]
+          },
+          {
+            num: 3, title: "Clinical — Dept Dependent",
+            steps: [
+              { type: "action", text: "Provider reviews post-hospital documentation" },
+              { type: "action", text: "Ensure documentation is complete in chart" },
+              { type: "action", text: "Order any follow-up labs, referrals, or medication changes" }
+            ]
+          }
         ],
         notes: "When in doubt → SEND TO HOSP/ER. Always High Priority. Do NOT treat as routine. Do NOT delay for review."
       }
@@ -628,15 +774,18 @@ const SECTIONS = [
     routes: [
       {
         doc: "PA Request — Key Listed",
+        level: 1,
         action: "delete"
       },
       {
         doc: "Auth Approval Notification — Outside Facility",
+        level: 1,
         action: "delete",
         notes: "Delete at Level 1 — no action needed."
       },
       {
         doc: "Med PA — Medication Prior Authorization",
+        level: 1,
         action: "create-te",
         label: "DATE – [Medication Name] PA – WHERE",
         example: "01/15/2026 – Ozempic PA – CVS Specialty",
@@ -661,12 +810,32 @@ const SECTIONS = [
           "Do NOT send to Referrals",
           "Do NOT hold — attach to TE and send immediately"
         ],
-        nextSteps: [
-          "Attach fax to TE",
-          "Send TE to Clinical Admin",
-          "Clinical Admin documents what is needed",
-          "Clinical Admin sends to provider for review",
-          "Provider creates referral or lab submission as needed"
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "action", text: "Attach fax to TE" },
+              { type: "action", text: "Label — DATE – [Medication Name] PA – WHERE" },
+              { type: "action", text: "Assign TE to Clinical Admin" },
+              { type: "action", text: "Send immediately — do not hold" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Review TE and document what is needed from payer" },
+              { type: "action", text: "Gather supporting clinical documentation" },
+              { type: "action", text: "Send to provider for review and sign-off" }
+            ]
+          },
+          {
+            num: 3, title: "Clinical — Dept Dependent",
+            steps: [
+              { type: "action", text: "Provider reviews PA request" },
+              { type: "action", text: "Creates referral or lab submission as needed" },
+              { type: "action", text: "PA team submits to payer and tracks response" }
+            ]
+          }
         ],
         notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing."
       },
@@ -715,6 +884,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "Auth Approval Notification",
+        level: 1,
         action: "file",
         label: "DATE – Auth Approval – WHERE",
         example: "01/15/2026 – Auth Approval – Banner Imaging",
@@ -736,52 +906,52 @@ const SECTIONS = [
         label: "DATE – [Advanced Imaging Order Name] PA Request – WHERE",
         example: "<strong>01/15/2026 – MRI Lumbar Spine PA Request – Banner Imaging</strong>",
         fileTo: "Imaging Prior Authorization",
-        sendTo: "Prior Auth, Imaging and IH Sono",
-        flags: ["hp"],
+        sendTo: "Provider",
         notes: "⚠️ Use the ORDER date — NOT the fax received date. Mark HP / STAT if noted on the form.",
         hp: true,
         levels: [
           {
-            num: 1, title: "Scan Team",
+            num: "1", color: "blue", title: "Scan Team", badge: "Scan Team",
             routeIf: [
               "PA request for any ADVANCED imaging order (MRI, CT, Ultrasound, etc.)",
               "Imaging PA denial or appeal — Mark HP",
-              "Auth notification from outside facility — route and note for L2 to delete"
+              "Auth notification from outside facility — Level 2 will delete"
             ],
             closeIf: [
-              "Duplicate — route to L2 to verify and delete"
+              "Duplicate of an already submitted imaging PA — Level 2 will delete"
             ],
             steps: [
-              { type: "action", text: "Identify imaging type and ordering provider" },
-              { type: "action", text: "Label with ORDER date, imaging type, and facility" },
-              { type: "action", text: "Mark HP or STAT if indicated on the form" },
-              { type: "action", text: "Route to Imaging PA / IH Sono bucket" }
+              "Identify imaging type and ordering provider",
+              "Label with ORDER date, imaging type, and facility",
+              "Mark HP or STAT if indicated on the form",
+              "Route to Imaging PA / IH Sono bucket"
             ]
           },
           {
-            num: 2, title: "Admin Doc Team",
+            num: "2", color: "purple", title: "Admin Doc Team", badge: "Admin Doc",
             steps: [
-              { type: "action", text: "Verify PA request is complete and correctly labeled" },
-              { type: "delete", text: "Delete any auth notifications from outside facilities" },
-              { type: "delete", text: "Delete confirmed duplicates" },
-              { type: "action", text: "Confirm HP / STAT flag is applied if required" },
-              { type: "action", text: "Assign to PA team queue for submission" }
+              "Verify PA request is complete and correctly labeled",
+              "🗑 Delete auth notifications from outside facilities",
+              "🗑 Delete confirmed duplicates",
+              "Confirm HP / STAT flag is applied if required",
+              "Assign to PA team queue for submission"
             ]
           },
           {
-            num: 3, title: "PA Team",
+            num: "3", color: "amber", title: "Imaging PA Team", badge: "Imaging PA",
             steps: [
-              { type: "action", text: "Review PA request — confirm imaging type, ordering provider, and payer" },
-              { type: "action", text: "Submit PA to payer" },
-              { type: "action", text: "Track response and update eCW accordingly" },
-              { type: "action", text: "Initiate peer-to-peer or appeal if denied" },
-              { type: "action", text: "Notify provider of approval or denial outcome" }
+              "Review PA — confirm imaging type, ordering provider, and payer",
+              "Submit PA to payer",
+              "Track response and update eCW accordingly",
+              "Initiate peer-to-peer or appeal if denied",
+              "Notify provider of approval or denial outcome"
             ]
           }
         ]
       },
       {
         doc: "PA Imaging Order Clarification",
+        level: 1,
         action: "file",
         label: "DATE – [Imaging Type] Clarification – WHERE",
         example: "01/15/2026 – MRI Brain Clarification – Banner Imaging",
@@ -819,6 +989,7 @@ const SECTIONS = [
       },
       {
         doc: "PA Imaging Denial",
+        level: 1,
         action: "file",
         label: "DATE – [Imaging Type] Denial – WHERE",
         example: "01/15/2026 – CT Abdomen Denial – Simon Med",
@@ -864,19 +1035,23 @@ const SECTIONS = [
     routes: [
       {
         doc: "Referral — Confirmation of Receipt",
+        level: 1,
         action: "delete"
       },
       {
         doc: "Referral — Scheduled Date Notification",
+        level: 1,
         action: "delete"
       },
       {
         doc: "Failure to Schedule — Imaging",
+        level: 1,
         action: "delete",
         notes: "Delete for now. Will update once ticker workflow is aligned."
       },
       {
         doc: "Referral Request / Response",
+        level: 1,
         action: "file",
         label: "DATE – [Referral Request / Response] – WHERE",
         example: "01/15/2026 – Referral Response – East Valley Urology",
@@ -901,17 +1076,37 @@ const SECTIONS = [
           "Do NOT delete a failure-to-schedule with specialist — route it",
           "Do NOT route without identifying the correct referral bucket"
         ],
-        nextSteps: [
-          "Identify specialty and referring facility from the fax",
-          "Label with date, request or response type, and facility name",
-          "Route to the corresponding regional referral bucket",
-          "Referral coordinator reviews and acts within SLA",
-          "Provider notified if consult note requires review or follow-up"
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "action", text: "Identify specialty and referring facility from the fax" },
+              { type: "action", text: "Label — DATE – [Referral Request / Response] – WHERE" },
+              { type: "action", text: "File to Referral Correspondence" },
+              { type: "action", text: "Route to corresponding regional referral bucket" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Review referral and confirm correct bucket routing" },
+              { type: "action", text: "Flag any STAT or urgent referrals for immediate action" },
+              { type: "action", text: "Coordinate with referral coordinator for follow-up" }
+            ]
+          },
+          {
+            num: 3, title: "Clinical — Dept Dependent",
+            steps: [
+              { type: "action", text: "Referral coordinator reviews and acts within SLA" },
+              { type: "action", text: "Provider notified if consult note requires review or follow-up" }
+            ]
+          }
         ],
         notes: "Failure to Schedule with a Specialist is NOT a delete — route it to the referral bucket for follow-up."
       },
       {
         doc: "Failure to Schedule with Specialist",
+        level: 1,
         action: "file",
         label: "DATE – Referral Scheduling Issue – WHERE",
         example: "01/15/2026 – Referral Scheduling Issue – AZ Cardiology",
@@ -921,6 +1116,7 @@ const SECTIONS = [
       },
       {
         doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
+        level: 1,
         action: "create-te",
         label: "DATE – [Lab Name] Auth Request – WHERE",
         example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
@@ -940,12 +1136,31 @@ const SECTIONS = [
           "Do NOT delete — this requires provider action",
           "Do NOT hold — attach to TE and send immediately"
         ],
-        nextSteps: [
-          "Attach fax to TE",
-          "Send TE to Clinical Admin",
-          "Clinical Admin documents what is needed (test name, CPT, Dx, DOS)",
-          "Clinical Admin sends to provider for review",
-          "Provider creates referral or lab submission to insurance"
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "action", text: "Attach fax to TE" },
+              { type: "action", text: "Label — DATE – [Lab Name] Auth Request – WHERE" },
+              { type: "action", text: "File to Referral Correspondence" },
+              { type: "action", text: "Assign TE to Clinical Admin — send immediately" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Document what is needed: test name, CPT code, Dx code, DOS" },
+              { type: "action", text: "Send TE to provider for review" }
+            ]
+          },
+          {
+            num: 3, title: "Clinical — Dept Dependent",
+            steps: [
+              { type: "action", text: "Provider reviews the authorization request" },
+              { type: "action", text: "Creates referral or lab submission to insurance" },
+              { type: "action", text: "Documents outcome in eCW" }
+            ]
+          }
         ],
         notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
       }
@@ -957,6 +1172,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "Medical Records — Incoming",
+        level: 1,
         action: "file",
         label: "DATE – Incoming Records – WHERE",
         example: "01/15/2026 – Incoming Records – Banner Health",
@@ -966,6 +1182,7 @@ const SECTIONS = [
       },
       {
         doc: "Medical Records Request — Outgoing",
+        level: 1,
         action: "file",
         fileTo: "Records Request",
         sendTo: "AMS (AmericanMedicalRecords)",
@@ -979,6 +1196,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "DME — Durable Medical Equipment",
+        level: 1,
         action: "file",
         label: "DATE – [Equipment/Item] – WHERE",
         example: "01/15/2026 – CGM Supplies – Apria",
@@ -989,10 +1207,11 @@ const SECTIONS = [
       },
       {
         doc: "PAP Compliance Report",
+        level: 1,
         action: "file",
         label: "DATE – PAP Compliance Report – WHERE",
         example: "01/15/2026 – PAP Compliance Report – Apria",
-        fileTo: "Patient Chart",
+        fileTo: "Patient Chart — based on document type",
         sendTo: "Provider (direct)",
         notes: "Attach to patient chart and send directly to provider."
       }
@@ -1004,11 +1223,13 @@ const SECTIONS = [
     routes: [
       {
         doc: "Faxed Lab Result — Order Already Electronically Attached",
+        level: 1,
         action: "delete",
         notes: "Already attached electronically — fax is a duplicate."
       },
       {
         doc: "Faxed Lab Result — Ordered by Optima (no electronic attachment)",
+        level: 1,
         action: "file",
         label: "DATE – [Lab Name / Test] – WHERE",
         example: "01/15/2026 – CBC Results – LabCorp",
@@ -1018,6 +1239,7 @@ const SECTIONS = [
       },
       {
         doc: "Faxed Lab Result — NOT Ordered by Optima",
+        level: 1,
         action: "file",
         label: "DATE – [Lab Name / Test] – WHERE",
         example: "01/15/2026 – Lipid Panel – Quest Diagnostics",
@@ -1027,6 +1249,7 @@ const SECTIONS = [
       },
       {
         doc: "Test in Question / Coding Update",
+        level: 2,
         action: "file",
         label: "DATE – [Test Name] – WHERE",
         example: "01/15/2026 – A1C Test in Question – LabCorp",
@@ -1044,6 +1267,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "ASPN Pharmacies — Med PA (Portal Submission)",
+        level: 2,
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
         sendTo: "Documents Team — Manager",
@@ -1052,6 +1276,7 @@ const SECTIONS = [
       },
       {
         doc: "ASPN Pharmacies — Referral (Portal Submission)",
+        level: 2,
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
         sendTo: "Documents Team — Manager",
@@ -1066,6 +1291,7 @@ const SECTIONS = [
     routes: [
       {
         doc: "Document Does Not Match Any Category",
+        level: 1,
         action: "file",
         fileTo: "Documents Team Queue",
         sendTo: "Documents Team — Manager",
@@ -1292,8 +1518,11 @@ function buildNav() {
       sub.className = "sub-btn";
       sub.dataset.si = si; sub.dataset.ri = ri;
       const ab = ACTION_BADGE[r.action] || ACTION_BADGE["file"];
-      const levelBadge = r.level ? `<span class="level-badge l${r.level}">L${r.level}</span>` : "";
-      sub.innerHTML = `<span style="flex:1;text-align:left">${r.doc}</span>${levelBadge}<span class="sub-action ${ab.cls}">${ab.label}</span>`;
+      sub.innerHTML = `
+        <div class="sub-btn-row">
+          <span class="sub-btn-doc">${r.doc}</span>
+          <span class="sub-action ${ab.cls}">${ab.label}</span>
+        </div>`;
       sub.onclick = e => { e.stopPropagation(); selectRoute(r, sec, si, ri); };
       subList.appendChild(sub);
     });
@@ -1348,7 +1577,12 @@ function showResult(r, sec) {
     : "";
 
   let detailsHTML = "";
-  if (r.label) detailsHTML += `<div class="detail-card full"><div class="detail-label">Label Format</div><span class="detail-value mono">${r.label}</span>${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}</div>`;
+  if (r.label) detailsHTML += `<div class="detail-card full">
+    <div class="detail-label">Label Format</div>
+    <span class="detail-value mono">${r.label}</span>
+    ${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}
+    <div style="margin-top:6px;font-size:11px;font-weight:700;color:#c2410c;display:flex;align-items:center;gap:5px;">⚠️ Use the DATE on the document — NOT the fax received date</div>
+  </div>`;
   const pairs = [];
   if (r.fileTo) pairs.push({ label: "File To", value: r.fileTo });
   if (actionType === "create-te" && r.assignTo) pairs.push({ label: "Assigned To", value: r.assignTo });
@@ -1362,39 +1596,6 @@ function showResult(r, sec) {
       : `<div class="note-box">${r.notes}</div>`
     : "";
 
-  // Level accordions
-  let levelsHTML = "";
-  if (r.levels && r.levels.length) {
-    const levelColors = { 1: "l1", 2: "l2", 3: "l3" };
-    const levelNames = { 1: "Level 1 — Scan Team", 2: "Level 2 — Admin Doc Team", 3: "Level 3 — PA Team" };
-    levelsHTML = `<div class="levels">`;
-    r.levels.forEach((lv, idx) => {
-      const cls = levelColors[lv.num] || "l1";
-      const id = `lv-${r.doc.replace(/\W/g,'')}-${lv.num}`;
-      let bodyHTML = "";
-      if (lv.routeIf) bodyHTML += `<div class="level-route-if"><div class="level-list-label">🔴 Route if you see</div><ul class="level-list">${lv.routeIf.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
-      if (lv.closeIf) bodyHTML += `<div class="level-close-if"><div class="level-list-label">🟢 Close if</div><ul class="level-list">${lv.closeIf.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
-      if (lv.steps && lv.steps.length) {
-        bodyHTML += `<div class="level-section-label">Steps</div><div class="level-steps">`;
-        lv.steps.forEach((s, n) => {
-          const isDel = s.type === "delete";
-          bodyHTML += `<div class="level-step${isDel ? " delete-step" : ""}"><span class="step-num">${n+1}.</span><span>${isDel ? "🗑 " : ""}${s.text}</span></div>`;
-        });
-        bodyHTML += `</div>`;
-      }
-      levelsHTML += `
-        <div class="level-block">
-          <button class="level-header${idx===0?' open':''}" onclick="toggleLevel('${id}',this)">
-            <span class="level-badge ${cls}">${lv.num}</span>
-            <span class="level-title">${levelNames[lv.num] || lv.title}</span>
-            <span class="level-chevron">${idx===0?'▲':'▼'}</span>
-          </button>
-          <div class="level-body${idx===0?' open':''}" id="${id}">${bodyHTML}</div>
-        </div>`;
-    });
-    levelsHTML += `</div>`;
-  }
-
   // TE checklist
   const teChecklistHTML = (r.teChecklist && r.teChecklist.length)
     ? `<div class="te-checklist">
@@ -1406,11 +1607,83 @@ function showResult(r, sec) {
   let briefHTML = "";
   if (r.routeIf || r.closeIf || r.doNot || r.nextSteps) {
     briefHTML = `<div class="brief">`;
-    if (r.routeIf) briefHTML += `<div class="brief-block route-if"><div class="brief-label">🔴 Route immediately if you see ANY of these</div><ul class="brief-list">${r.routeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
+    if (r.routeIf) briefHTML += `<div class="brief-block route-if"><div class="brief-label">🔴 Process immediately if you see ANY of these</div><ul class="brief-list">${r.routeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
     if (r.closeIf) briefHTML += `<div class="brief-block close-if"><div class="brief-label">🟢 Close — Do Not Route if</div><ul class="brief-list">${r.closeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
     if (r.nextSteps) briefHTML += `<div class="brief-block next-steps"><div class="brief-label">${r.nextStepsLabel || "🔄 What happens next"}</div><ul class="brief-list">${r.nextSteps.map((i, n) => `<li><strong>${n+1}.</strong> ${i}</li>`).join("")}</ul></div>`;
     if (r.doNot) briefHTML += `<div class="brief-block do-not"><div class="brief-label">🚫 Do NOT</div><ul class="brief-list">${r.doNot.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
     briefHTML += `</div>`;
+  }
+
+  // Levels accordion
+  let levelsHTML = "";
+  if (r.levels && r.levels.length) {
+    const colorMap = { blue:"blue", purple:"purple", amber:"amber", "1":"blue", "2":"purple", "3":"amber", 1:"blue", 2:"purple", 3:"amber" };
+    levelsHTML = `<div class="levels">`;
+    r.levels.forEach((lv, idx) => {
+      const col = colorMap[lv.color] || colorMap[lv.num] || "blue";
+      const isOpen = idx === 0;
+      let body = "";
+
+      if (lv.deleteIf && lv.deleteIf.length) {
+        body += `<div class="lv-section">
+          <div class="lv-label red">🗑 Delete / Remove if</div>
+          <ul class="lv-list">${lv.deleteIf.map(i => `<li class="lv-del">${i}</li>`).join("")}</ul>
+        </div>`;
+      }
+      if (lv.routeIf && lv.routeIf.length) {
+        const riStyle = lv.routeIfStyle || "red";
+        const riIcon = riStyle === "green" ? "🟢" : "🔴";
+        const riLabel = riStyle === "green" ? "Process if you see ANY of these" : "Process immediately if you see ANY of these";
+        body += `<div class="lv-section">
+          <div class="lv-label ${riStyle}">${riIcon} ${riLabel}</div>
+          <ul class="lv-list">${lv.routeIf.map(i => `<li>${i}</li>`).join("")}</ul>
+        </div>`;
+      }
+      if (lv.closeIf && lv.closeIf.length) {
+        body += `<div class="lv-section">
+          <div class="lv-label green">🟢 Close — Do Not Route if</div>
+          <ul class="lv-list">${lv.closeIf.map(i => {
+            const isDel = i.toLowerCase().includes("delete");
+            return `<li class="${isDel ? 'lv-del' : ''}">${i}</li>`;
+          }).join("")}</ul>
+        </div>`;
+      }
+      if (lv.doNot && lv.doNot.length) {
+        body += `<div class="lv-section">
+          <div class="lv-label red">🚫 Do NOT</div>
+          <ul class="lv-list">${lv.doNot.map(i => `<li>${i}</li>`).join("")}</ul>
+        </div>`;
+      }
+      if (lv.steps && lv.steps.length) {
+        body += `<div class="lv-section">
+          <div class="lv-label blue">🔄 Steps</div>
+          <ul class="lv-steps">${lv.steps.map((i, n) => {
+            const text = typeof i === "object" ? i.text : i;
+            const isDel = text.startsWith("🗑");
+            const isBold = typeof i === "object" && i.bold;
+            return `<li class="${isDel ? 'lv-del' : ''}">
+              <span class="lv-step-num">${n+1}.</span>
+              <span style="${isBold ? 'font-weight:800;color:var(--text);background:#fef9c3;padding:1px 5px;border-radius:4px;' : ''}">${text}</span>
+            </li>`;
+          }).join("")}</ul>
+        </div>`;
+      }
+      if (lv.notes) {
+        body += `<div class="lv-section"><div class="note-box">${lv.notes}</div></div>`;
+      }
+
+      levelsHTML += `
+        <div class="level-block${isOpen ? ' open' : ''}" id="lvl-block-${idx}">
+          <div class="level-header" onclick="toggleLevel(${idx})">
+            <span class="level-num ${col}">${lv.num}</span>
+            <span class="level-title">${lv.title}</span>
+            <span class="level-right-badge ${col}">${lv.badge || lv.title}</span>
+            <span class="level-chevron">▼</span>
+          </div>
+          <div class="level-body">${body}</div>
+        </div>`;
+    });
+    levelsHTML += `</div>`;
   }
 
   const portalHTML = r.portal ? `<a href="${r.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 17px;background:#0369a1;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(3,105,161,.3);">🌐 Open Portal →</a><div style="font-size:10.5px;color:var(--muted);margin-top:5px;">${r.portal}</div>` : "";
@@ -1464,12 +1737,9 @@ function showResult(r, sec) {
 }
 
 // ── LEVEL ACCORDION ────────────────────────
-function toggleLevel(id, btn) {
-  const body = document.getElementById(id);
-  const isOpen = body.classList.contains("open");
-  body.classList.toggle("open", !isOpen);
-  btn.classList.toggle("open", !isOpen);
-  btn.querySelector(".level-chevron").textContent = !isOpen ? "▲" : "▼";
+function toggleLevel(idx) {
+  const block = document.getElementById(`lvl-block-${idx}`);
+  if (block) block.classList.toggle("open");
 }
 
 // ── SEARCH ─────────────────────────────────
