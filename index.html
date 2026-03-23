@@ -771,6 +771,36 @@ const SECTIONS = [
         sendTo: "Documents Team / Manager (Level 2+)",
         flags: ["escalate"],
         notes: "Do NOT process at intake level. Flag and route to your supervisor or documents team — they will submit this referral through the ASPN portal."
+      },
+      {
+        doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
+        action: "create-te",
+        label: "DATE – [Lab Name] Auth Request – WHERE",
+        example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
+        fileTo: "Lab Documents",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin (TE)",
+        routeIf: [
+          "Insurance will not allow the lab to submit the authorization",
+          "Fax states 'Ordering Healthcare Provider must submit the Referral/Authorization'",
+          "Document lists Test Name, CPT code, Dx code, and Date of Service",
+          "Sender is a lab (Myriad, LabCorp, Quest, etc.) requesting provider action",
+          "Fax says 'This insurance company will not allow [lab] to submit the request'"
+        ],
+        doNot: [
+          "Do NOT process or submit the authorization yourself",
+          "Do NOT route to Lab Results or Med PA",
+          "Do NOT delete — this requires provider action",
+          "Do NOT hold — attach to TE and send immediately"
+        ],
+        nextSteps: [
+          "Attach fax to TE",
+          "Send TE to Clinical Admin",
+          "Clinical Admin documents what is needed (test name, CPT, Dx, DOS)",
+          "Clinical Admin sends to provider for review",
+          "Provider creates referral or lab submission to insurance"
+        ],
+        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
       }
     ]
   },
@@ -825,36 +855,6 @@ const SECTIONS = [
     name: "Lab Results", icon: "🧪", color: "#0f766e", bg: "#f0fdfa",
     triggers: ["lab", "lab result", "blood work", "urinalysis", "CBC", "A1C", "lipid", "panel", "LabCorp", "Quest", "Myriad", "test result", "coding update", "test in question", "referral authorization", "insurance requires", "ordering provider submit", "CPT", "Dx code", "specimen"],
     routes: [
-      {
-        doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
-        action: "create-te",
-        label: "DATE – [Lab Name] Auth Request – WHERE",
-        example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
-        fileTo: "Lab Documents",
-        assignTo: "Clinical Admin",
-        sendTo: "Clinical Admin (TE)",
-        routeIf: [
-          "Insurance will not allow the lab to submit the authorization",
-          "Fax states 'Ordering Healthcare Provider must submit the Referral/Authorization'",
-          "Document lists Test Name, CPT code, Dx code, and Date of Service",
-          "Sender is a lab (Myriad, LabCorp, Quest, etc.) requesting provider action",
-          "Fax says 'This insurance company will not allow [lab] to submit the request'"
-        ],
-        doNot: [
-          "Do NOT process or submit the authorization yourself",
-          "Do NOT route to Referrals or Med PA",
-          "Do NOT delete — this requires provider action",
-          "Do NOT hold — attach to TE and send immediately"
-        ],
-        nextSteps: [
-          "Attach fax to TE",
-          "Send TE to Clinical Admin",
-          "Clinical Admin documents what is needed (test name, CPT, Dx, DOS)",
-          "Clinical Admin sends to provider for review",
-          "Provider creates referral or lab submission to insurance"
-        ],
-        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
-      },
       {
         doc: "Faxed Lab Result — Order Already Electronically Attached",
         action: "delete",
