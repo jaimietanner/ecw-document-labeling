@@ -433,7 +433,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <tr><td><span class="hbadge file">📁 FILE &amp; ROUTE</span></td><td>Label, file, and send to the correct team</td><td>Use the label format shown, file it, send to person listed.</td></tr>
           <tr><td><span class="hbadge te">✚ CREATE TE</span></td><td>A task entry needs to be created in eCW</td><td>Create TE, assign as shown, and send.</td></tr>
           <tr><td><span class="hbadge file">✂️ SNIP &amp; SEND</span></td><td>Fax to electronic conversion request</td><td>Snip the document, send to team chat — tag @Megan and @Jaimie. Level 1.</td></tr>
-          <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Level 2+ to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
+          <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Manager to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
         </table>
       </div>
 
@@ -1046,17 +1046,17 @@ const SECTIONS = [
         doc: "ASPN Pharmacies — Med PA (Portal Submission)",
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team / Manager (Level 2+)",
+        sendTo: "Documents Team — Manager",
         flags: ["escalate"],
-        notes: "Do NOT process at intake level. Manager or Documents team will log in and submit the Med PA via the ASPN portal."
+        notes: "Do NOT process at intake level. Route to Manager — they will log in and submit via the ASPN portal."
       },
       {
         doc: "ASPN Pharmacies — Referral (Portal Submission)",
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team / Manager (Level 2+)",
+        sendTo: "Documents Team — Manager",
         flags: ["escalate"],
-        notes: "Do NOT process at intake level. Manager or Documents team will log in and submit the referral via the ASPN portal."
+        notes: "Do NOT process at intake level. Route to Manager — they will log in and submit via the ASPN portal."
       }
     ]
   },
@@ -1068,7 +1068,7 @@ const SECTIONS = [
         doc: "Document Does Not Match Any Category",
         action: "file",
         fileTo: "Documents Team Queue",
-        sendTo: "Documents Team (Level 2+)",
+        sendTo: "Documents Team — Manager",
         notes: "Use this ONLY if you have reviewed all categories and the document does not clearly match any of them. Do NOT use as a default or shortcut — every misroute here creates rework for the Documents team.",
         doNot: [
           "Do NOT use 'Other' because you are in a hurry",
@@ -1270,7 +1270,7 @@ function buildNav() {
     if (sec.managerOnly) {
       const divider = document.createElement("div");
       divider.className = "nav-manager-divider";
-      divider.innerHTML = `🔒 Manager / Level 2+`;
+      divider.innerHTML = `🔒 Manager`;
       tree.appendChild(divider);
     }
     const catBtn = document.createElement("button");
@@ -1329,7 +1329,7 @@ function showResult(r, sec) {
     "delete":    { icon: "🗑️", label: "ACTION: DELETE", main: "Delete — Do Not File", cls: "delete" },
     "file":      { icon: "📁", label: "ACTION: FILE & ROUTE", main: r.sendTo || "See routing below", cls: "file" },
     "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: r.assignTo ? `Assign TE to: ${r.assignTo}` : "Create TE → Route Internally", cls: "create-te" },
-    "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team / Manager (Level 2+)", cls: "delete" },
+    "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team — Manager", cls: "delete" },
     "snip":      { icon: "✂️", label: "ACTION: SNIP & SEND — LEVEL 1", main: "Snip → Team Chat → Tag @Megan & @Jaimie", cls: "file" },
   }[actionType] || { icon: "📄", label: "ACTION", main: r.sendTo, cls: "file" };
 
@@ -1338,7 +1338,7 @@ function showResult(r, sec) {
     "hp-if-noted": { icon: "⚑", label: "Mark HP if noted on form", cls: "hp" },
     "no-chart":    { icon: "🚫", label: "Do NOT attach to chart", cls: "no-chart" },
     "stat":        { icon: "⚡", label: "STAT", cls: "stat" },
-    "escalate":    { icon: "🔺", label: "Level 2+ / Manager Only — Do NOT process at intake", cls: "escalate" },
+    "escalate":    { icon: "🔺", label: "Manager Only — Do NOT process at intake", cls: "escalate" },
     "l1":          { icon: "✅", label: "L1 — Scan Team Action", cls: "l1" },
     "l2":          { icon: "🔵", label: "L2 — Documents Team Action", cls: "l2" },
     "l3":          { icon: "🟣", label: "L3 — Clinical / Provider Action", cls: "l3" },
