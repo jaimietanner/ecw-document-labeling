@@ -206,7 +206,60 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .btn-cancel { padding:8px 16px; border:1.5px solid var(--border); border-radius:7px; background:none; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--muted); }
 .btn-submit { padding:8px 16px; border:none; border-radius:7px; background:var(--blue); color:#fff; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; }
 
-/* PRINT */
+/* HELP PANEL */
+.help-panel { background:var(--surface); border-radius:16px; width:min(700px,95vw); max-height:88vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; display:flex; flex-direction:column; }
+.help-panel::-webkit-scrollbar { width:5px; }
+.help-panel::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.help-hero { background:var(--navy); padding:24px 28px 20px; border-radius:16px 16px 0 0; flex-shrink:0; }
+.help-hero-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.help-hero h2 { font-size:18px; font-weight:800; color:#fff; }
+.help-hero p { font-size:13px; color:rgba(255,255,255,.65); line-height:1.55; }
+.help-close { background:rgba(255,255,255,.12); border:none; color:#fff; border-radius:6px; width:28px; height:28px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.help-close:hover { background:rgba(255,255,255,.22); }
+.help-body { padding:22px 28px 28px; }
+.help-section { margin-bottom:22px; }
+.help-section h3 { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:10px; padding-bottom:6px; border-bottom:1.5px solid var(--border); }
+.help-steps { display:flex; flex-direction:column; gap:8px; }
+.help-step { display:flex; gap:12px; align-items:flex-start; }
+.help-num { width:24px; height:24px; border-radius:50%; background:var(--navy); color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.help-step-body { flex:1; }
+.help-step-body strong { font-size:13px; }
+.help-step-body p { font-size:12px; color:var(--muted); line-height:1.5; margin-top:2px; }
+.help-tip { display:inline-block; margin-top:5px; background:var(--bg); border:1px solid var(--border); border-radius:5px; padding:3px 9px; font-size:11px; font-weight:600; color:var(--muted); }
+.help-tip strong { color:var(--text); }
+.help-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.help-feat { background:var(--bg); border-radius:8px; padding:11px 13px; border:1px solid var(--border); }
+.help-feat .hf-icon { font-size:16px; margin-bottom:4px; }
+.help-feat strong { font-size:12.5px; display:block; margin-bottom:2px; }
+.help-feat p { font-size:11.5px; color:var(--muted); line-height:1.45; }
+.help-actions-table { width:100%; border-collapse:collapse; border-radius:8px; overflow:hidden; border:1.5px solid var(--border); }
+.help-actions-table th { background:var(--navy); color:#fff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:8px 12px; text-align:left; }
+.help-actions-table td { padding:9px 12px; font-size:12px; border-bottom:1px solid var(--border); vertical-align:top; }
+.help-actions-table tr:last-child td { border-bottom:none; }
+.help-actions-table tr:nth-child(even) td { background:#f8fafc; }
+.hbadge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10.5px; font-weight:800; }
+.hbadge.del { background:#fee2e2; color:var(--red); }
+.hbadge.file { background:#dbeafe; color:var(--blue); }
+.hbadge.te { background:#fef3c7; color:var(--amber); }
+.hbadge.esc { background:#ede9fe; color:var(--purple); }
+.help-rules { display:flex; flex-direction:column; gap:6px; }
+.help-rule { display:flex; gap:10px; align-items:flex-start; font-size:12.5px; line-height:1.5; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px 13px; }
+.help-rule-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+
+/* WELCOME SCREEN */
+.welcome-panel { background:var(--surface); border-radius:16px; width:min(560px,94vw); box-shadow:0 24px 60px rgba(0,0,0,.3); animation:popIn .25s ease; overflow:hidden; }
+.welcome-hero { background:var(--navy); padding:28px 28px 22px; }
+.welcome-hero h2 { font-size:20px; font-weight:800; color:#fff; margin-bottom:6px; }
+.welcome-hero p { font-size:13px; color:rgba(255,255,255,.65); line-height:1.6; }
+.welcome-body { padding:22px 28px 26px; }
+.welcome-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; }
+.welcome-chip { display:flex; align-items:center; gap:7px; padding:9px 14px; background:var(--bg); border:1.5px solid var(--border); border-radius:10px; font-size:13px; font-weight:600; }
+.welcome-chip .wc-icon { font-size:16px; }
+.welcome-actions { display:flex; gap:10px; align-items:center; }
+.btn-welcome-go { flex:1; padding:12px; background:var(--blue); color:#fff; border:none; border-radius:9px; font-family:inherit; font-size:14px; font-weight:800; cursor:pointer; transition:background .12s; }
+.btn-welcome-go:hover { background:#1450a0; }
+.btn-welcome-guide { padding:12px 16px; background:none; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); transition:all .12s; }
+.btn-welcome-guide:hover { border-color:var(--blue); color:var(--blue); }
 @media print {
   .topbar, .left, .overlay, .triage-btn, .r-btn, .tb-btn, .result-actions { display:none !important; }
   .wrap { display:block; }
@@ -234,8 +287,119 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   </div>
   <div class="topbar-meta">Optima Medical · March 2026</div>
   <div class="topbar-actions">
+    <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
+  </div>
+</div>
+
+<!-- HELP PANEL OVERLAY -->
+<div class="overlay" id="helpOverlay">
+  <div class="help-panel">
+    <div class="help-hero">
+      <div class="help-hero-top">
+        <h2>📠 How to Use the Fax Routing Tool</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>Get routing instructions for any fax in 2 clicks or less. No guessing, no asking, no delays.</p>
+    </div>
+    <div class="help-body">
+
+      <div class="help-section">
+        <h3>How to Use It</h3>
+        <div class="help-steps">
+          <div class="help-step">
+            <div class="help-num">1</div>
+            <div class="help-step-body">
+              <strong>Identify the document type</strong>
+              <p>Look at the fax — is it a hospital record? A lab result? A PA request? Pick the matching category on the left panel.</p>
+            </div>
+          </div>
+          <div class="help-step">
+            <div class="help-num">2</div>
+            <div class="help-step-body">
+              <strong>Click the category — then the document type</strong>
+              <p>If only one item is in a category, it opens instantly. If multiple, a list drops down — pick the match. The colored pill next to each shows the action at a glance.</p>
+              <span class="help-tip"><strong>DEL</strong> = delete · <strong>FILE</strong> = file &amp; route · <strong>TE</strong> = create TE · <strong>ESC</strong> = escalate</span>
+            </div>
+          </div>
+          <div class="help-step">
+            <div class="help-num">3</div>
+            <div class="help-step-body">
+              <strong>Follow the action banner</strong>
+              <p>The big colored banner tells you exactly what to do. Label format, File To, and Send To are shown below it.</p>
+            </div>
+          </div>
+          <div class="help-step">
+            <div class="help-num">4</div>
+            <div class="help-step-body">
+              <strong>Not sure? Use Triage or Search</strong>
+              <p>Click <strong>"Not sure what this is?"</strong> for a guided yes/no walkthrough. Or type a keyword in the search bar — "discharge", "lab result", "PA denial".</p>
+              <span class="help-tip">Press <strong>/</strong> on your keyboard to jump straight to search. Press <strong>Esc</strong> to close anything.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>The 4 Actions</h3>
+        <table class="help-actions-table">
+          <tr><th>Action</th><th>What it means</th><th>What you do</th></tr>
+          <tr><td><span class="hbadge del">🗑 DELETE</span></td><td>No action needed — informational or duplicate</td><td>Delete. Do not label or file.</td></tr>
+          <tr><td><span class="hbadge file">📁 FILE &amp; ROUTE</span></td><td>Label, file, and send to the correct team</td><td>Use the label format shown, file it, send to person listed.</td></tr>
+          <tr><td><span class="hbadge te">✚ CREATE TE</span></td><td>A task entry needs to be created in eCW</td><td>Create TE and route internally as shown.</td></tr>
+          <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Level 2+ or manager to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
+        </table>
+      </div>
+
+      <div class="help-section">
+        <h3>Built-In Features</h3>
+        <div class="help-grid">
+          <div class="help-feat"><div class="hf-icon">⏱</div><strong>Recently Used</strong><p>Last 5 routes on the home screen. One click to reuse.</p></div>
+          <div class="help-feat"><div class="hf-icon">⌨️</div><strong>/ Shortcut</strong><p>Press <strong>/</strong> to instantly focus the search bar from anywhere.</p></div>
+          <div class="help-feat"><div class="hf-icon">🤔</div><strong>Triage Mode</strong><p>Yes/no questions guide you to the right answer step by step.</p></div>
+          <div class="help-feat"><div class="hf-icon">🚩</div><strong>Flag for Review</strong><p>Flag any fax with a note. Manager sees it instantly in the Flagged list.</p></div>
+          <div class="help-feat"><div class="hf-icon">🖨️</div><strong>Print Cheat Sheet</strong><p>Full reference table of every route — ready to print for your desk.</p></div>
+          <div class="help-feat"><div class="hf-icon">🔴</div><strong>Execution Briefs</strong><p>Hospital/ER, Prior Auth, and Referrals include full route/close/do-not guides.</p></div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>Golden Rules</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">⚑</span><div>When in doubt on <strong>Hospital/ER — always route it.</strong> Do not hold or delay. Post-hospital follow-up has a 7–14 day window.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Failure to Schedule with Specialist is NOT a delete.</strong> It looks routine but requires referral team follow-up.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">📅</span><div>For imaging PAs, use the <strong>order date</strong> — not today's date.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">💊</span><div><strong>Med PAs are time-sensitive.</strong> Missing a payer deadline = automatic denial. Route immediately.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚩</span><div><strong>Use the Flag button — not a chat message.</strong> Flag the fax with a note and keep processing. Don't hold it.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WELCOME SCREEN OVERLAY -->
+<div class="overlay" id="welcomeOverlay">
+  <div class="welcome-panel">
+    <div class="welcome-hero">
+      <h2>👋 Welcome to Fax Routing</h2>
+      <p>This tool tells you exactly what to do with every fax — label format, where to file it, who to send it to — in 2 clicks or less. 3,000 faxes a day, handled consistently.</p>
+    </div>
+    <div class="welcome-body">
+      <div class="welcome-chips">
+        <div class="welcome-chip"><span class="wc-icon">🔍</span> Search any keyword</div>
+        <div class="welcome-chip"><span class="wc-icon">🤔</span> Guided triage if unsure</div>
+        <div class="welcome-chip"><span class="wc-icon">⏱</span> Recent routes saved</div>
+        <div class="welcome-chip"><span class="wc-icon">🚩</span> Flag anything unclear</div>
+        <div class="welcome-chip"><span class="wc-icon">⌨️</span> Press / to search instantly</div>
+        <div class="welcome-chip"><span class="wc-icon">🖨️</span> Print a cheat sheet</div>
+      </div>
+      <div class="welcome-actions">
+        <button class="btn-welcome-go" onclick="dismissWelcome()">Let's go →</button>
+        <button class="btn-welcome-guide" onclick="showGuideFromWelcome()">Show me how it works</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1087,6 +1251,30 @@ function buildPrintView() {
   });
   return html;
 }
+
+// ── HELP PANEL ─────────────────────────────
+function openHelp() {
+  closeOverlays();
+  document.getElementById("helpOverlay").classList.add("open");
+}
+
+// ── WELCOME SCREEN ──────────────────────────
+function dismissWelcome() {
+  document.getElementById("welcomeOverlay").classList.remove("open");
+  try { localStorage.setItem("fax_welcomed", "1"); } catch {}
+}
+function showGuideFromWelcome() {
+  document.getElementById("welcomeOverlay").classList.remove("open");
+  try { localStorage.setItem("fax_welcomed", "1"); } catch {}
+  document.getElementById("helpOverlay").classList.add("open");
+}
+
+// Show welcome on first visit
+try {
+  if (!localStorage.getItem("fax_welcomed")) {
+    document.getElementById("welcomeOverlay").classList.add("open");
+  }
+} catch {}
 
 buildNav();
 </script>
