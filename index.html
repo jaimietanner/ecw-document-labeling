@@ -42,7 +42,20 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .triage-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:7px; border:1.5px dashed var(--border); border-radius:8px; background:none; font-family:inherit; font-size:12px; font-weight:600; color:var(--muted); cursor:pointer; transition:all .12s; }
 .triage-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
 
-.sec-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1.1px; color:var(--muted); padding:10px 14px 4px; }
+.nav-manager-divider {
+  margin: 10px 14px 4px;
+  padding: 6px 8px;
+  background: #1e3a5f;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: rgba(255,255,255,.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 .cat-btn { display:flex; align-items:center; gap:9px; padding:9px 14px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:12.5px; font-weight:600; color:var(--text); border-left:3px solid transparent; transition:all .12s; }
 .cat-btn:hover { background:var(--bg); }
 .cat-btn.active { border-left-color:var(--blue); background:#f0f6ff; color:var(--blue); }
@@ -58,6 +71,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .sub-action.file { background:#dbeafe; color:#1d4ed8; }
 .sub-action.create-te { background:#fef3c7; color:var(--amber); }
 .sub-action.portal { background:#fee2e2; color:#7c3aed; }
+.level-badge { font-size:9px; font-weight:800; padding:2px 6px; border-radius:4px; letter-spacing:.3px; flex-shrink:0; }
+.level-badge.l1 { background:#dcfce7; color:#166534; }
+.level-badge.l2 { background:#dbeafe; color:#1d4ed8; }
+.level-badge.l3 { background:#ede9fe; color:#6d28d9; }
 
 /* RIGHT */
 .right { flex:1; padding:22px 26px; overflow-y:auto; min-width:0; }
@@ -82,8 +99,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .result { animation: pop .2s ease; }
 @keyframes pop { from { opacity:0; transform:scale(.97) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
 .result-header { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:18px; }
-.result-cat { font-size:11.5px; font-weight:600; color:var(--muted); margin-bottom:3px; }
-.result-title { font-size:21px; font-weight:800; line-height:1.2; }
+.result-cat { font-size:11.5px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+.result-title { font-size:28px; font-weight:800; line-height:1.15; color:var(--navy); letter-spacing:-0.5px; margin-bottom:4px; }
 .result-actions { display:flex; gap:8px; flex-shrink:0; }
 .r-btn { display:flex; align-items:center; gap:5px; padding:7px 12px; border-radius:7px; border:1.5px solid var(--border); background:var(--surface); font-family:inherit; font-size:11.5px; font-weight:700; cursor:pointer; transition:all .12s; color:var(--muted); }
 .r-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
@@ -120,6 +137,9 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .flag { display:flex; align-items:center; gap:5px; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; }
 .flag.hp { background:#fffbeb; color:var(--amber); border:1.5px solid #fcd34d; }
 .flag.no-chart { background:#fef2f2; color:var(--red); border:1.5px solid #fca5a5; }
+.flag.l1 { background:#dcfce7; color:#166534; border:1.5px solid #86efac; font-weight:800; }
+.flag.l2 { background:#dbeafe; color:#1d4ed8; border:1.5px solid #93c5fd; font-weight:800; }
+.flag.l3 { background:#ede9fe; color:#6d28d9; border:1.5px solid #c4b5fd; font-weight:800; }
 .flag.stat { background:#fff0ee; color:var(--red); border:1.5px solid #fca5a5; }
 .flag.escalate { background:#1e3a5f; color:#fff; border:1.5px solid #1e3a5f; font-size:12.5px; padding:8px 16px; border-radius:8px; width:100%; justify-content:center; }
 
@@ -274,6 +294,42 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 /* 1-TOUCH GOAL */
 .one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
 
+/* LEVEL ACCORDIONS */
+.levels { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+.level-block { border-radius:10px; overflow:hidden; border:1.5px solid var(--border); }
+.level-header {
+  display:flex; align-items:center; gap:10px;
+  padding:11px 16px; cursor:pointer; user-select:none;
+  background:var(--surface); transition:background .12s;
+  border:none; width:100%; text-align:left; font-family:inherit;
+}
+.level-header:hover { background:var(--bg); }
+.level-badge { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; font-size:11px; font-weight:800; flex-shrink:0; }
+.level-badge.l1 { background:#dbeafe; color:#1d4ed8; }
+.level-badge.l2 { background:#ede9fe; color:#6d28d9; }
+.level-badge.l3 { background:#fef3c7; color:#b45309; }
+.level-title { font-size:13px; font-weight:700; flex:1; }
+.level-subtitle { font-size:11px; color:var(--muted); }
+.level-chevron { font-size:12px; color:var(--muted); transition:transform .15s; margin-left:auto; }
+.level-header.open .level-chevron { transform:rotate(180deg); }
+.level-body { display:none; padding:12px 16px 14px; border-top:1px solid var(--border); background:#fafbfd; }
+.level-body.open { display:block; animation: fadeUp .15s ease; }
+.level-section-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:6px; margin-top:10px; }
+.level-section-label:first-child { margin-top:0; }
+.level-steps { display:flex; flex-direction:column; gap:5px; }
+.level-step { display:flex; align-items:flex-start; gap:9px; font-size:12.5px; line-height:1.45; }
+.step-num { font-size:10px; font-weight:800; color:var(--muted); width:16px; flex-shrink:0; margin-top:2px; }
+.level-step.delete-step { color:var(--red); font-weight:600; }
+.level-step.delete-step .step-num { color:var(--red); }
+.level-route-if { background:#fff7ed; border:1px solid #fed7aa; border-radius:7px; padding:9px 12px; margin-bottom:8px; }
+.level-close-if { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:7px; padding:9px 12px; margin-bottom:8px; }
+.level-list-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; margin-bottom:5px; }
+.level-route-if .level-list-label { color:#c2410c; }
+.level-close-if .level-list-label { color:#166534; }
+.level-list { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.level-list li { font-size:12px; line-height:1.4; display:flex; align-items:flex-start; gap:7px; }
+.level-list li::before { content:""; flex-shrink:0; margin-top:5px; width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.6; }
+
 /* TRIGGERS */
 .triggers-bar { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
 .trigger-chip { padding:3px 9px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:12px; font-size:11px; font-weight:600; color:var(--muted); }
@@ -341,7 +397,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <div class="help-step-body">
               <strong>Click the category — then the document type</strong>
               <p>If only one item is in a category, it opens instantly. If multiple, a list drops down — pick the match. The colored pill next to each shows the action at a glance.</p>
-              <span class="help-tip"><strong>DEL</strong> = delete · <strong>FILE</strong> = file &amp; route · <strong>TE</strong> = create TE · <strong>ESC</strong> = escalate</span>
+              <span class="help-tip"><strong>DEL</strong> = delete · <strong>FILE</strong> = file &amp; route · <strong>TE</strong> = create TE · <strong>SNIP</strong> = snip &amp; send to chat · <strong>ESC</strong> = escalate</span>
             </div>
           </div>
           <div class="help-step">
@@ -353,6 +409,13 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           </div>
           <div class="help-step">
             <div class="help-num">4</div>
+            <div class="help-step-body">
+              <strong>Fax to Electronic conversion request?</strong>
+              <p>Found under <strong>Signature Required</strong>. Snip the document and send to the team chat tagging <strong>@Megan</strong> and <strong>@Jaimie</strong>. No filing required — Level 1 action.</p>
+            </div>
+          </div>
+          <div class="help-step">
+            <div class="help-num">5</div>
             <div class="help-step-body">
               <strong>Not sure? Use Triage or Search</strong>
               <p>Click <strong>"Not sure what this is?"</strong> for a guided yes/no walkthrough. Or type a keyword in the search bar — "discharge", "lab result", "PA denial".</p>
@@ -368,8 +431,9 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <tr><th>Action</th><th>What it means</th><th>What you do</th></tr>
           <tr><td><span class="hbadge del">🗑 DELETE</span></td><td>No action needed — informational or duplicate</td><td>Delete. Do not label or file.</td></tr>
           <tr><td><span class="hbadge file">📁 FILE &amp; ROUTE</span></td><td>Label, file, and send to the correct team</td><td>Use the label format shown, file it, send to person listed.</td></tr>
-          <tr><td><span class="hbadge te">✚ CREATE TE</span></td><td>A task entry needs to be created in eCW</td><td>Create TE and route internally as shown.</td></tr>
-          <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Level 2+ or manager to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
+          <tr><td><span class="hbadge te">✚ CREATE TE</span></td><td>A task entry needs to be created in eCW</td><td>Create TE, assign as shown, and send.</td></tr>
+          <tr><td><span class="hbadge file">✂️ SNIP &amp; SEND</span></td><td>Fax to electronic conversion request</td><td>Snip the document, send to team chat — tag @Megan and @Jaimie. Level 1.</td></tr>
+          <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Level 2+ to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
         </table>
       </div>
 
@@ -478,22 +542,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 <script>
 const SECTIONS = [
   {
-    name: "Fax → Convert to Portal", icon: "🌐", color: "#0369a1", bg: "#f0f9ff",
-    triggers: ["ASPN", "portal", "specialty pharmacy"],
-    routes: [
-      {
-        doc: "ASPN Pharmacies — Referral",
-        action: "portal",
-        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team / Manager (Level 2+)",
-        flags: ["escalate"],
-        notes: "Do NOT process this fax at intake level. Flag and route to your supervisor or documents team — they will convert and submit via the ASPN portal."
-      }
-    ]
-  },
-  {
     name: "Signature Required", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
-    triggers: ["signature", "sign", "please sign", "requires signature", "authorization form", "consent form", "FMLA"],
+    triggers: ["signature", "sign", "please sign", "requires signature", "authorization form", "consent form", "FMLA", "conversion", "fax to electronic", "HL7", "electronic note"],
     routes: [
       {
         doc: "Document Requiring Provider Signature",
@@ -504,6 +554,12 @@ const SECTIONS = [
         sendTo: "Provider (direct)",
         flags: ["hp-if-noted"],
         notes: "Attach directly to patient chart and send to provider. Mark HP if noted on the form."
+      },
+      {
+        doc: "Request Conversion — Fax to Electronic (HL7 / Electronic Note)",
+        action: "snip",
+        sendTo: "Team Chat — tag @Megan and @Jaimie",
+        notes: "Level 1 action. Snip the document and send to the team chat tagging Megan and Jaimie. No filing required."
       }
     ]
   },
@@ -575,8 +631,9 @@ const SECTIONS = [
         action: "delete"
       },
       {
-        doc: "Auth Notification — Requested by Outside Provider",
-        action: "delete"
+        doc: "Auth Approval Notification — Outside Facility",
+        action: "delete",
+        notes: "Delete at Level 1 — no action needed."
       },
       {
         doc: "Med PA — Medication Prior Authorization",
@@ -649,37 +706,79 @@ const SECTIONS = [
           "Provider reviews TE and submits Referral/Auth to insurance"
         ],
         notes: "The lab cannot submit on behalf of the provider. The TE must contain all required fields so the provider can act immediately — CPT code, Dx code, lab/service provider, and date of service."
-      },
+      }
+    ]
+  },
+  {
+    name: "Imaging PA", icon: "🔬", color: "#0891b2", bg: "#ecfeff",
+    triggers: ["imaging PA", "MRI", "CT", "ultrasound", "imaging order", "IH Sono", "imaging denial", "imaging clarification", "imaging authorization", "radiology", "advanced imaging"],
+    routes: [
       {
+        doc: "Auth Approval Notification",
         action: "file",
-        label: "DATE – [Order Name] – WHERE",
-        example: "01/15/2026 – R Leg Xray – Simon Med",
+        label: "DATE – Auth Approval – WHERE",
+        example: "01/15/2026 – Auth Approval – Banner Imaging",
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
-        routeIf: [
-          "PA request for any imaging order (MRI, CT, X-ray, Ultrasound)",
-          "Imaging order clarification from payer or facility",
-          "Imaging PA denial or appeal",
-          "STAT or HP noted on imaging order"
-        ],
-        closeIf: [
-          "PA already has a key listed — delete",
-          "Auth notification from outside provider — delete",
-          "Duplicate of an already submitted imaging PA"
-        ],
-        doNot: [
-          "Do NOT send to Med PA team",
-          "Do NOT send to Referrals",
-          "Do NOT delay STAT or HP orders"
-        ],
-        nextSteps: [
-          "Identify imaging type and ordering provider",
-          "Label with order date, imaging type, and facility",
-          "Route to Imaging PA / IH Sono bucket",
-          "Mark HP or STAT if indicated on the form",
-          "PA team submits to payer and tracks response"
-        ],
-        notes: "Use the ORDER date, not the fax received date. Mark HP / STAT if noted on the form."
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "delete", text: "Outside facility — Delete" },
+              { type: "action", text: "Internal — Label and close" }
+            ]
+          }
+        ]
+      },
+      {
+        doc: "PA Request for Advanced Imaging",
+        action: "file",
+        label: "DATE – [Advanced Imaging Order Name] PA Request – WHERE",
+        example: "<strong>01/15/2026 – MRI Lumbar Spine PA Request – Banner Imaging</strong>",
+        fileTo: "Imaging Prior Authorization",
+        sendTo: "Prior Auth, Imaging and IH Sono",
+        flags: ["hp"],
+        notes: "⚠️ Use the ORDER date — NOT the fax received date. Mark HP / STAT if noted on the form.",
+        hp: true,
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            routeIf: [
+              "PA request for any ADVANCED imaging order (MRI, CT, Ultrasound, etc.)",
+              "Imaging PA denial or appeal — Mark HP",
+              "Auth notification from outside facility — route and note for L2 to delete"
+            ],
+            closeIf: [
+              "Duplicate — route to L2 to verify and delete"
+            ],
+            steps: [
+              { type: "action", text: "Identify imaging type and ordering provider" },
+              { type: "action", text: "Label with ORDER date, imaging type, and facility" },
+              { type: "action", text: "Mark HP or STAT if indicated on the form" },
+              { type: "action", text: "Route to Imaging PA / IH Sono bucket" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Verify PA request is complete and correctly labeled" },
+              { type: "delete", text: "Delete any auth notifications from outside facilities" },
+              { type: "delete", text: "Delete confirmed duplicates" },
+              { type: "action", text: "Confirm HP / STAT flag is applied if required" },
+              { type: "action", text: "Assign to PA team queue for submission" }
+            ]
+          },
+          {
+            num: 3, title: "PA Team",
+            steps: [
+              { type: "action", text: "Review PA request — confirm imaging type, ordering provider, and payer" },
+              { type: "action", text: "Submit PA to payer" },
+              { type: "action", text: "Track response and update eCW accordingly" },
+              { type: "action", text: "Initiate peer-to-peer or appeal if denied" },
+              { type: "action", text: "Notify provider of approval or denial outcome" }
+            ]
+          }
+        ]
       },
       {
         doc: "PA Imaging Order Clarification",
@@ -689,7 +788,34 @@ const SECTIONS = [
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         flags: ["hp"],
-        notes: "Use request date. Mark HP. Route to Imaging PA team for response."
+        notes: "Use request date. Mark HP. Route to Imaging PA team for response.",
+        hp: true,
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "action", text: "Label with request date, imaging type, and facility" },
+              { type: "action", text: "Mark HP" },
+              { type: "action", text: "Route to Imaging Prior Authorization bucket" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Review clarification request" },
+              { type: "action", text: "Confirm HP is marked" },
+              { type: "action", text: "Assign to PA team for response" }
+            ]
+          },
+          {
+            num: 3, title: "PA Team",
+            steps: [
+              { type: "action", text: "Review payer clarification request" },
+              { type: "action", text: "Gather additional documentation from provider if needed" },
+              { type: "action", text: "Respond to payer and document outcome in eCW" }
+            ]
+          }
+        ]
       },
       {
         doc: "PA Imaging Denial",
@@ -699,7 +825,36 @@ const SECTIONS = [
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         flags: ["hp"],
-        notes: "Use denial date. Mark HP / STAT. Imaging PA team will initiate appeal or peer-to-peer."
+        notes: "Use denial date. Mark HP / STAT.",
+        hp: true,
+        levels: [
+          {
+            num: 1, title: "Scan Team",
+            steps: [
+              { type: "action", text: "Label with denial date, imaging type, and facility" },
+              { type: "action", text: "Mark HP / STAT" },
+              { type: "action", text: "Route to Imaging Prior Authorization bucket immediately" }
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc Team",
+            steps: [
+              { type: "action", text: "Verify denial is correctly labeled and HP marked" },
+              { type: "action", text: "Flag for PA team — urgent" },
+              { type: "action", text: "Notify PA team of denial receipt" }
+            ]
+          },
+          {
+            num: 3, title: "PA Team",
+            steps: [
+              { type: "action", text: "Review denial reason from payer" },
+              { type: "action", text: "Determine whether to appeal or initiate peer-to-peer" },
+              { type: "action", text: "Notify provider of denial and next steps" },
+              { type: "action", text: "Submit appeal or peer-to-peer request to payer" },
+              { type: "action", text: "Document outcome in eCW" }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -763,14 +918,6 @@ const SECTIONS = [
         fileTo: "Referral Correspondence",
         sendTo: "Corresponding Referral Bucket",
         notes: "Do NOT delete. Assign to Referrals coordinator for follow-up with specialist."
-      },
-      {
-        doc: "ASPN Pharmacies — Referral (Portal Submission)",
-        action: "portal",
-        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team / Manager (Level 2+)",
-        flags: ["escalate"],
-        notes: "Do NOT process at intake level. Flag and route to your supervisor or documents team — they will submit this referral through the ASPN portal."
       },
       {
         doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
@@ -887,6 +1034,29 @@ const SECTIONS = [
         sendTo: "Office Manager",
         flags: ["hp", "no-chart"],
         notes: "Mark HP. Can also be updated on the portal. Do NOT attach to patient chart."
+      }
+    ]
+  },
+  {
+    name: "Fax → Convert to Portal", icon: "🌐", color: "#0369a1", bg: "#f0f9ff",
+    managerOnly: true,
+    triggers: ["ASPN", "portal", "specialty pharmacy"],
+    routes: [
+      {
+        doc: "ASPN Pharmacies — Med PA (Portal Submission)",
+        action: "portal",
+        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
+        sendTo: "Documents Team / Manager (Level 2+)",
+        flags: ["escalate"],
+        notes: "Do NOT process at intake level. Manager or Documents team will log in and submit the Med PA via the ASPN portal."
+      },
+      {
+        doc: "ASPN Pharmacies — Referral (Portal Submission)",
+        action: "portal",
+        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
+        sendTo: "Documents Team / Manager (Level 2+)",
+        flags: ["escalate"],
+        notes: "Do NOT process at intake level. Manager or Documents team will log in and submit the referral via the ASPN portal."
       }
     ]
   },
@@ -1089,13 +1259,20 @@ const ACTION_BADGE = {
   "delete":    { label: "DEL", cls: "delete" },
   "file":      { label: "FILE", cls: "file" },
   "create-te": { label: "TE", cls: "create-te" },
-  "portal":    { label: "ESC", cls: "portal" },
+  "snip":      { label: "SNIP", cls: "file" },
 };
 
 function buildNav() {
   const tree = document.getElementById("navTree");
   tree.innerHTML = "";
   SECTIONS.forEach((sec, si) => {
+    // Manager-only divider
+    if (sec.managerOnly) {
+      const divider = document.createElement("div");
+      divider.className = "nav-manager-divider";
+      divider.innerHTML = `🔒 Manager / Level 2+`;
+      tree.appendChild(divider);
+    }
     const catBtn = document.createElement("button");
     catBtn.className = "cat-btn";
     catBtn.dataset.si = si;
@@ -1115,7 +1292,8 @@ function buildNav() {
       sub.className = "sub-btn";
       sub.dataset.si = si; sub.dataset.ri = ri;
       const ab = ACTION_BADGE[r.action] || ACTION_BADGE["file"];
-      sub.innerHTML = `<span style="flex:1;text-align:left">${r.doc}</span><span class="sub-action ${ab.cls}">${ab.label}</span>`;
+      const levelBadge = r.level ? `<span class="level-badge l${r.level}">L${r.level}</span>` : "";
+      sub.innerHTML = `<span style="flex:1;text-align:left">${r.doc}</span>${levelBadge}<span class="sub-action ${ab.cls}">${ab.label}</span>`;
       sub.onclick = e => { e.stopPropagation(); selectRoute(r, sec, si, ri); };
       subList.appendChild(sub);
     });
@@ -1152,6 +1330,7 @@ function showResult(r, sec) {
     "file":      { icon: "📁", label: "ACTION: FILE & ROUTE", main: r.sendTo || "See routing below", cls: "file" },
     "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: r.assignTo ? `Assign TE to: ${r.assignTo}` : "Create TE → Route Internally", cls: "create-te" },
     "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team / Manager (Level 2+)", cls: "delete" },
+    "snip":      { icon: "✂️", label: "ACTION: SNIP & SEND — LEVEL 1", main: "Snip → Team Chat → Tag @Megan & @Jaimie", cls: "file" },
   }[actionType] || { icon: "📄", label: "ACTION", main: r.sendTo, cls: "file" };
 
   const flagDefs = {
@@ -1160,6 +1339,9 @@ function showResult(r, sec) {
     "no-chart":    { icon: "🚫", label: "Do NOT attach to chart", cls: "no-chart" },
     "stat":        { icon: "⚡", label: "STAT", cls: "stat" },
     "escalate":    { icon: "🔺", label: "Level 2+ / Manager Only — Do NOT process at intake", cls: "escalate" },
+    "l1":          { icon: "✅", label: "L1 — Scan Team Action", cls: "l1" },
+    "l2":          { icon: "🔵", label: "L2 — Documents Team Action", cls: "l2" },
+    "l3":          { icon: "🟣", label: "L3 — Clinical / Provider Action", cls: "l3" },
   };
   const flagsHTML = (r.flags && r.flags.length)
     ? `<div class="flags">${r.flags.map(f => `<span class="flag ${flagDefs[f].cls}">${flagDefs[f].icon} ${flagDefs[f].label}</span>`).join("")}</div>`
@@ -1174,7 +1356,44 @@ function showResult(r, sec) {
   if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
   else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
-  const noteHTML = r.notes ? `<div class="note-box">${r.notes}</div>` : "";
+  const noteHTML = r.notes
+    ? r.hp
+      ? `<div class="note-box" style="background:#fffbeb;border-left-color:#f59e0b;color:#92400e;font-weight:700;font-size:13px;">${r.notes}</div>`
+      : `<div class="note-box">${r.notes}</div>`
+    : "";
+
+  // Level accordions
+  let levelsHTML = "";
+  if (r.levels && r.levels.length) {
+    const levelColors = { 1: "l1", 2: "l2", 3: "l3" };
+    const levelNames = { 1: "Level 1 — Scan Team", 2: "Level 2 — Admin Doc Team", 3: "Level 3 — PA Team" };
+    levelsHTML = `<div class="levels">`;
+    r.levels.forEach((lv, idx) => {
+      const cls = levelColors[lv.num] || "l1";
+      const id = `lv-${r.doc.replace(/\W/g,'')}-${lv.num}`;
+      let bodyHTML = "";
+      if (lv.routeIf) bodyHTML += `<div class="level-route-if"><div class="level-list-label">🔴 Route if you see</div><ul class="level-list">${lv.routeIf.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+      if (lv.closeIf) bodyHTML += `<div class="level-close-if"><div class="level-list-label">🟢 Close if</div><ul class="level-list">${lv.closeIf.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+      if (lv.steps && lv.steps.length) {
+        bodyHTML += `<div class="level-section-label">Steps</div><div class="level-steps">`;
+        lv.steps.forEach((s, n) => {
+          const isDel = s.type === "delete";
+          bodyHTML += `<div class="level-step${isDel ? " delete-step" : ""}"><span class="step-num">${n+1}.</span><span>${isDel ? "🗑 " : ""}${s.text}</span></div>`;
+        });
+        bodyHTML += `</div>`;
+      }
+      levelsHTML += `
+        <div class="level-block">
+          <button class="level-header${idx===0?' open':''}" onclick="toggleLevel('${id}',this)">
+            <span class="level-badge ${cls}">${lv.num}</span>
+            <span class="level-title">${levelNames[lv.num] || lv.title}</span>
+            <span class="level-chevron">${idx===0?'▲':'▼'}</span>
+          </button>
+          <div class="level-body${idx===0?' open':''}" id="${id}">${bodyHTML}</div>
+        </div>`;
+    });
+    levelsHTML += `</div>`;
+  }
 
   // TE checklist
   const teChecklistHTML = (r.teChecklist && r.teChecklist.length)
@@ -1189,7 +1408,7 @@ function showResult(r, sec) {
     briefHTML = `<div class="brief">`;
     if (r.routeIf) briefHTML += `<div class="brief-block route-if"><div class="brief-label">🔴 Route immediately if you see ANY of these</div><ul class="brief-list">${r.routeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
     if (r.closeIf) briefHTML += `<div class="brief-block close-if"><div class="brief-label">🟢 Close — Do Not Route if</div><ul class="brief-list">${r.closeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
-    if (r.nextSteps) briefHTML += `<div class="brief-block next-steps"><div class="brief-label">🔄 What happens next</div><ul class="brief-list">${r.nextSteps.map((i, n) => `<li><strong>${n+1}.</strong> ${i}</li>`).join("")}</ul></div>`;
+    if (r.nextSteps) briefHTML += `<div class="brief-block next-steps"><div class="brief-label">${r.nextStepsLabel || "🔄 What happens next"}</div><ul class="brief-list">${r.nextSteps.map((i, n) => `<li><strong>${n+1}.</strong> ${i}</li>`).join("")}</ul></div>`;
     if (r.doNot) briefHTML += `<div class="brief-block do-not"><div class="brief-label">🚫 Do NOT</div><ul class="brief-list">${r.doNot.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
     briefHTML += `</div>`;
   }
@@ -1216,7 +1435,7 @@ function showResult(r, sec) {
     <div class="result">
       <div class="result-header">
         <div>
-          <div class="result-cat">${sec.icon} ${sec.name}</div>
+          <div class="result-cat">${sec.icon} ${sec.name}${r.level ? ` &nbsp;<span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;background:${['','#dcfce7','#dbeafe','#ede9fe'][r.level]};color:${['','#166534','#1d4ed8','#6d28d9'][r.level]}">Level ${r.level}</span>` : ''}</div>
           <div class="result-title">${r.doc}</div>
         </div>
         <div class="result-actions">
@@ -1236,11 +1455,21 @@ function showResult(r, sec) {
       ${detailsHTML ? `<div class="details">${detailsHTML}</div>` : ""}
       ${teChecklistHTML}
       ${noteHTML}
+      ${levelsHTML}
       ${briefHTML}
       ${portalHTML}
       ${oneTouchHTML}
       ${updatedHTML}
     </div>`;
+}
+
+// ── LEVEL ACCORDION ────────────────────────
+function toggleLevel(id, btn) {
+  const body = document.getElementById(id);
+  const isOpen = body.classList.contains("open");
+  body.classList.toggle("open", !isOpen);
+  btn.classList.toggle("open", !isOpen);
+  btn.querySelector(".level-chevron").textContent = !isOpen ? "▲" : "▼";
 }
 
 // ── SEARCH ─────────────────────────────────
@@ -1262,8 +1491,8 @@ function handleSearch(q) {
     right.innerHTML = `<div class="empty-state"><div class="big-icon">🔍</div><h2>No results</h2><p>Try "hospital", "PA denial", "lab result", "discharge"…</p></div>`;
     return;
   }
-  const actionLabel = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE" };
-  const actionCls   = { delete:"delete", file:"file", "create-te":"create-te", portal:"portal" };
+  const actionLabel = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE", snip:"SNIP & SEND" };
+  const actionCls   = { delete:"delete", file:"file", "create-te":"create-te", portal:"portal", snip:"file" };
   right.innerHTML = `
     <div class="search-count">${hits.length} result${hits.length!==1?"s":""} for "<strong>${q.trim()}</strong>"</div>
     <div class="search-results">
