@@ -8,274 +8,218 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy: #0a1f44;
-  --blue: #1a5fa8;
-  --bg: #eef2f8;
-  --surface: #fff;
-  --border: #dce6f4;
-  --text: #0f2241;
-  --muted: #647a9b;
-  --red: #c0392b;
-  --amber: #b45309;
-  --green: #166534;
-  --purple: #6d28d9;
-  --teal: #0e7490;
+  --navy: #0a1f44; --blue: #1a5fa8; --bg: #eef2f8; --surface: #fff;
+  --border: #dce6f4; --text: #0f2241; --muted: #647a9b;
+  --red: #c0392b; --amber: #b45309; --green: #166534; --purple: #6d28d9;
 }
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
-/* ── TOPBAR ─────────────────────────────── */
-.topbar {
-  background: var(--navy);
-  height: 54px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 14px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 12px rgba(0,0,0,.3);
-}
+/* TOPBAR */
+.topbar { background: var(--navy); height: 54px; display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
 .topbar img { height: 28px; background: #fff; border-radius: 4px; padding: 2px 8px; }
-.topbar-div { width: 1px; height: 20px; background: rgba(255,255,255,.2); }
-.topbar-title { color: rgba(255,255,255,.85); font-size: 13px; font-weight: 700; display:flex; align-items:center; gap:6px; }
-.topbar-meta { margin-left: auto; font-size: 11px; color: rgba(255,255,255,.35); }
+.topbar-div { width: 1px; height: 20px; background: rgba(255,255,255,.2); flex-shrink: 0; }
+.topbar-title { color: rgba(255,255,255,.85); font-size: 13px; font-weight: 700; display:flex; align-items:center; gap:6px; white-space:nowrap; }
+.topbar-meta { font-size: 11px; color: rgba(255,255,255,.35); white-space:nowrap; }
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.tb-btn { display:flex; align-items:center; gap:5px; padding:5px 11px; border-radius:6px; border:1.5px solid rgba(255,255,255,.2); background:rgba(255,255,255,.07); color:rgba(255,255,255,.8); font-family:inherit; font-size:11.5px; font-weight:600; cursor:pointer; transition:all .12s; white-space:nowrap; }
+.tb-btn:hover { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.35); }
+.tb-btn.flag-btn .badge { background: #ef4444; color:#fff; border-radius:10px; padding:0 5px; font-size:10px; font-weight:800; display:none; }
+.tb-btn.flag-btn .badge.show { display:inline; }
 
-/* ── LAYOUT ─────────────────────────────── */
+/* LAYOUT */
 .wrap { display: flex; flex: 1; min-height: 0; height: calc(100vh - 54px); }
 
-/* ── LEFT PANEL ─────────────────────────── */
-.left {
-  width: 260px;
-  flex-shrink: 0;
-  background: var(--surface);
-  border-right: 1.5px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-.left-search {
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: var(--surface);
-  z-index: 2;
-}
-.left-search input {
-  width: 100%;
-  padding: 8px 12px 8px 32px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 12.5px;
-  color: var(--text);
-  background: var(--bg);
-  outline: none;
-  transition: border-color .15s;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647a9b' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 10px center;
-}
-.left-search input:focus { border-color: var(--blue); background-color: #fff; }
+/* LEFT */
+.left { width: 264px; flex-shrink: 0; background: var(--surface); border-right: 1.5px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+.left::-webkit-scrollbar { width: 4px; }
+.left::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.left-top { padding: 12px 12px 8px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--surface); z-index: 2; display:flex; flex-direction:column; gap:8px; }
+.search-row { position:relative; }
+.search-row input { width:100%; padding:8px 12px 8px 32px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:12.5px; color:var(--text); background:var(--bg); outline:none; transition:border-color .15s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23647a9b' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:10px center; }
+.search-row input:focus { border-color:var(--blue); background-color:#fff; }
+.search-hint { font-size:10px; color:var(--muted); text-align:right; }
+.search-hint kbd { background:var(--border); padding:1px 5px; border-radius:3px; font-size:9px; font-family:monospace; }
+.triage-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:7px; border:1.5px dashed var(--border); border-radius:8px; background:none; font-family:inherit; font-size:12px; font-weight:600; color:var(--muted); cursor:pointer; transition:all .12s; }
+.triage-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
 
-.cat-label {
-  font-size: 9px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.1px;
-  color: var(--muted);
-  padding: 12px 14px 5px;
-}
-.cat-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  border-left: 3px solid transparent;
-  transition: all .12s;
-}
-.cat-btn:hover { background: var(--bg); }
-.cat-btn.active { border-left-color: var(--blue); background: #f0f6ff; color: var(--blue); }
-.cat-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.cat-count { margin-left: auto; font-size: 10px; font-weight: 700; background: var(--border); color: var(--muted); padding: 1px 6px; border-radius: 10px; }
+.sec-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:1.1px; color:var(--muted); padding:10px 14px 4px; }
+.cat-btn { display:flex; align-items:center; gap:9px; padding:9px 14px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:12.5px; font-weight:600; color:var(--text); border-left:3px solid transparent; transition:all .12s; }
+.cat-btn:hover { background:var(--bg); }
+.cat-btn.active { border-left-color:var(--blue); background:#f0f6ff; color:var(--blue); }
+.cat-icon { width:26px; height:26px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.cat-count { margin-left:auto; font-size:10px; font-weight:700; background:var(--border); color:var(--muted); padding:1px 6px; border-radius:10px; }
+.sub-list { display:none; }
+.sub-list.open { display:block; }
+.sub-btn { display:flex; align-items:center; gap:8px; padding:7px 14px 7px 40px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:11.5px; font-weight:500; color:var(--muted); transition:all .12s; line-height:1.35; }
+.sub-btn:hover { background:var(--bg); color:var(--text); }
+.sub-btn.active { background:#e8f2fc; color:var(--blue); font-weight:700; }
+.sub-action { font-size:9px; font-weight:800; padding:2px 6px; border-radius:4px; margin-left:auto; flex-shrink:0; letter-spacing:.3px; }
+.sub-action.delete { background:#fde8e6; color:var(--red); }
+.sub-action.file { background:#dbeafe; color:#1d4ed8; }
+.sub-action.create-te { background:#fef3c7; color:var(--amber); }
+.sub-action.portal { background:#fee2e2; color:#7c3aed; }
 
-.sub-list { display: none; }
-.sub-list.open { display: block; }
-.sub-btn {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 8px 14px 8px 40px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  transition: all .12s;
-  line-height: 1.35;
-}
-.sub-btn:hover { background: var(--bg); color: var(--text); }
-.sub-btn.active { background: #e8f2fc; color: var(--blue); font-weight: 700; }
-
-/* ── RIGHT PANEL ─────────────────────────── */
-.right {
-  flex: 1;
-  padding: 24px 28px;
-  overflow-y: auto;
-  min-width: 0;
-}
+/* RIGHT */
+.right { flex:1; padding:22px 26px; overflow-y:auto; min-width:0; }
+.right::-webkit-scrollbar { width: 5px; }
+.right::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
 /* EMPTY STATE */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 12px;
-  color: var(--muted);
-  text-align: center;
-  padding-bottom: 60px;
-}
-.empty-state .big-icon { font-size: 48px; opacity: .4; }
-.empty-state h2 { font-size: 18px; font-weight: 700; color: var(--text); opacity: .5; }
-.empty-state p { font-size: 13px; max-width: 280px; line-height: 1.6; }
+.empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:10px; color:var(--muted); text-align:center; padding-bottom:60px; }
+.empty-state .big-icon { font-size:44px; opacity:.35; }
+.empty-state h2 { font-size:17px; font-weight:700; color:var(--text); opacity:.5; }
+.empty-state p { font-size:12.5px; max-width:260px; line-height:1.6; }
 
-/* RESULT CARD */
+/* RECENTLY USED */
+.recent-section { margin-bottom:20px; }
+.recent-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:8px; }
+.recent-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.recent-chip { display:flex; align-items:center; gap:6px; padding:5px 11px; border:1.5px solid var(--border); border-radius:20px; background:var(--surface); font-size:11.5px; font-weight:600; cursor:pointer; transition:all .12s; color:var(--text); }
+.recent-chip:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
+.recent-chip .rc-icon { font-size:13px; }
+
+/* RESULT */
 .result { animation: pop .2s ease; }
 @keyframes pop { from { opacity:0; transform:scale(.97) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
-
-.result-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-.result-cat { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
-.result-title { font-size: 22px; font-weight: 800; line-height: 1.2; }
+.result-header { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:18px; }
+.result-cat { font-size:11.5px; font-weight:600; color:var(--muted); margin-bottom:3px; }
+.result-title { font-size:21px; font-weight:800; line-height:1.2; }
+.result-actions { display:flex; gap:8px; flex-shrink:0; }
+.r-btn { display:flex; align-items:center; gap:5px; padding:7px 12px; border-radius:7px; border:1.5px solid var(--border); background:var(--surface); font-family:inherit; font-size:11.5px; font-weight:700; cursor:pointer; transition:all .12s; color:var(--muted); }
+.r-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
+.r-btn.flagged { border-color:#ef4444; color:#ef4444; background:#fff5f5; }
+.r-btn.print-btn:hover { border-color:var(--green); color:var(--green); }
 
 /* ACTION BANNER */
-.action-banner {
-  border-radius: 12px;
-  padding: 18px 22px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.action-banner.delete { background: #fff0ee; border: 2px solid #fca5a5; }
-.action-banner.file { background: #eff8ff; border: 2px solid #93c5fd; }
-.action-banner.create-te { background: #fffbeb; border: 2px solid #fcd34d; }
+.action-banner { border-radius:12px; padding:16px 20px; margin-bottom:18px; display:flex; align-items:center; gap:14px; }
+.action-banner.delete { background:#fff0ee; border:2px solid #fca5a5; }
+.action-banner.file { background:#eff8ff; border:2px solid #93c5fd; }
+.action-banner.create-te { background:#fffbeb; border:2px solid #fcd34d; }
+.action-icon { font-size:30px; flex-shrink:0; }
+.action-text { flex:1; }
+.action-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+.action-banner.delete .action-label { color:var(--red); }
+.action-banner.file .action-label { color:var(--blue); }
+.action-banner.create-te .action-label { color:var(--amber); }
+.action-main { font-size:19px; font-weight:800; }
+.action-banner.delete .action-main { color:var(--red); }
+.action-banner.file .action-main { color:var(--blue); }
+.action-banner.create-te .action-main { color:var(--amber); }
 
-.action-icon { font-size: 32px; flex-shrink: 0; }
-.action-text { flex: 1; }
-.action-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
-.action-banner.delete .action-label { color: var(--red); }
-.action-banner.file .action-label { color: var(--blue); }
-.action-banner.create-te .action-label { color: var(--amber); }
-.action-main { font-size: 20px; font-weight: 800; }
-.action-banner.delete .action-main { color: var(--red); }
-.action-banner.file .action-main { color: var(--blue); }
-.action-banner.create-te .action-main { color: var(--amber); }
-
-/* DETAILS GRID */
-.details { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-.detail-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-.detail-card.full { grid-column: 1/-1; }
-.detail-label { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .9px; color: var(--muted); margin-bottom: 5px; }
-.detail-value { font-size: 15px; font-weight: 700; }
-.detail-value.mono {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 500;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  padding: 6px 10px;
-  border-radius: 6px;
-  display: block;
-  color: #1e3a5f;
-}
-.detail-example { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 4px; }
+/* DETAILS */
+.details { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+.detail-card { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:13px 15px; }
+.detail-card.full { grid-column:1/-1; }
+.detail-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:4px; }
+.detail-value { font-size:15px; font-weight:700; }
+.detail-value.mono { font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:500; background:#eff6ff; border:1px solid #bfdbfe; padding:5px 9px; border-radius:5px; display:block; color:#1e3a5f; }
+.detail-example { font-size:11px; color:var(--muted); font-style:italic; margin-top:4px; }
 
 /* FLAGS */
-.flags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.flag {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-}
-.flag.hp { background: #fffbeb; color: var(--amber); border: 1.5px solid #fcd34d; }
-.flag.no-chart { background: #fef2f2; color: var(--red); border: 1.5px solid #fca5a5; }
-.flag.stat { background: #fff0ee; color: var(--red); border: 1.5px solid #fca5a5; }
-.flag.te { background: #f5f3ff; color: var(--purple); border: 1.5px solid #c4b5fd; }
+.flags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+.flag { display:flex; align-items:center; gap:5px; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; }
+.flag.hp { background:#fffbeb; color:var(--amber); border:1.5px solid #fcd34d; }
+.flag.no-chart { background:#fef2f2; color:var(--red); border:1.5px solid #fca5a5; }
+.flag.stat { background:#fff0ee; color:var(--red); border:1.5px solid #fca5a5; }
+.flag.escalate { background:#1e3a5f; color:#fff; border:1.5px solid #1e3a5f; font-size:12.5px; padding:8px 16px; border-radius:8px; width:100%; justify-content:center; }
 
 /* NOTE */
-.note-box {
-  background: var(--bg);
-  border-left: 3px solid var(--border);
-  border-radius: 0 8px 8px 0;
-  padding: 10px 14px;
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.55;
-}
+.note-box { background:var(--bg); border-left:3px solid var(--border); border-radius:0 8px 8px 0; padding:9px 13px; font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+
+/* BRIEF */
+.brief { display:flex; flex-direction:column; gap:10px; }
+.brief-block { border-radius:10px; padding:12px 15px; border:1.5px solid var(--border); }
+.brief-block.route-if { background:#fff7ed; border-color:#fed7aa; }
+.brief-block.close-if { background:#f0fdf4; border-color:#bbf7d0; }
+.brief-block.do-not { background:#fef2f2; border-color:#fecaca; }
+.brief-block.next-steps { background:#eff6ff; border-color:#bfdbfe; }
+.brief-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; margin-bottom:7px; display:flex; align-items:center; gap:6px; }
+.brief-block.route-if .brief-label { color:#c2410c; }
+.brief-block.close-if .brief-label { color:#166534; }
+.brief-block.do-not .brief-label { color:#b91c1c; }
+.brief-block.next-steps .brief-label { color:#1d4ed8; }
+.brief-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.brief-list li { font-size:12.5px; display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
+.brief-list li::before { content:""; flex-shrink:0; margin-top:6px; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.5; }
+
+/* UPDATED BADGE */
+.updated-badge { font-size:10px; color:var(--muted); font-weight:500; margin-top:16px; padding-top:12px; border-top:1px solid var(--border); }
 
 /* SEARCH RESULTS */
-.search-results { display: flex; flex-direction: column; gap: 8px; }
-.search-hit {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: all .12s;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.search-hit:hover { border-color: var(--blue); background: #f5f9ff; transform: translateX(2px); }
-.search-hit-icon { font-size: 18px; }
-.search-hit-name { font-size: 13.5px; font-weight: 700; }
-.search-hit-cat { font-size: 11px; color: var(--muted); margin-top: 1px; }
-.search-hit-action { margin-left: auto; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
-.search-hit-action.delete { background: #fef0ee; color: var(--red); }
-.search-hit-action.file { background: #eff8ff; color: var(--blue); }
-.search-hit-action.create-te { background: #fffbeb; color: var(--amber); }
+.search-count { font-size:12px; color:var(--muted); margin-bottom:10px; }
+.search-results { display:flex; flex-direction:column; gap:7px; }
+.search-hit { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:11px 15px; cursor:pointer; transition:all .12s; display:flex; align-items:center; gap:11px; }
+.search-hit:hover { border-color:var(--blue); background:#f5f9ff; transform:translateX(2px); }
+.search-hit-icon { font-size:17px; }
+.search-hit-name { font-size:13px; font-weight:700; }
+.search-hit-cat { font-size:11px; color:var(--muted); margin-top:1px; }
+.search-hit-action { margin-left:auto; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:12px; white-space:nowrap; }
+.search-hit-action.delete { background:#fef0ee; color:var(--red); }
+.search-hit-action.file { background:#eff8ff; color:var(--blue); }
+.search-hit-action.create-te { background:#fffbeb; color:var(--amber); }
+.search-hit-action.portal { background:#faf5ff; color:var(--purple); }
 
-.search-count { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+/* ── TRIAGE OVERLAY ─────────────────────── */
+.overlay { display:none; position:fixed; inset:0; background:rgba(10,31,68,.55); z-index:200; align-items:center; justify-content:center; backdrop-filter:blur(3px); }
+.overlay.open { display:flex; }
+.triage-panel { background:var(--surface); border-radius:16px; padding:28px; width:min(520px,92vw); max-height:85vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
+@keyframes popIn { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
+.triage-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.triage-header h2 { font-size:17px; font-weight:800; }
+.triage-close { background:none; border:none; font-size:20px; cursor:pointer; color:var(--muted); padding:2px 6px; border-radius:4px; }
+.triage-close:hover { background:var(--bg); }
+.triage-q { font-size:15px; font-weight:700; margin-bottom:14px; line-height:1.4; }
+.triage-sub { font-size:12.5px; color:var(--muted); margin-bottom:16px; line-height:1.5; }
+.triage-opts { display:flex; flex-direction:column; gap:8px; }
+.triage-opt { display:flex; align-items:center; gap:12px; padding:13px 16px; border:2px solid var(--border); border-radius:10px; cursor:pointer; transition:all .15s; background:none; font-family:inherit; text-align:left; width:100%; }
+.triage-opt:hover { border-color:var(--blue); background:#f5f9ff; }
+.triage-opt .opt-icon { font-size:20px; flex-shrink:0; }
+.triage-opt .opt-text { font-size:13px; font-weight:600; color:var(--text); }
+.triage-opt .opt-sub { font-size:11px; color:var(--muted); margin-top:1px; }
+.triage-back { margin-top:14px; background:none; border:none; color:var(--muted); font-family:inherit; font-size:12.5px; cursor:pointer; display:flex; align-items:center; gap:5px; }
+.triage-back:hover { color:var(--text); }
+.triage-progress { display:flex; gap:4px; margin-bottom:18px; }
+.triage-progress span { height:3px; flex:1; border-radius:2px; background:var(--border); }
+.triage-progress span.done { background:var(--blue); }
 
-@media (max-width: 640px) {
-  .left { width: 100%; height: auto; border-right: none; border-bottom: 1.5px solid var(--border); }
-  .wrap { flex-direction: column; height: auto; }
-  .details { grid-template-columns: 1fr; }
+/* ── FLAG PANEL OVERLAY ─────────────────── */
+.flag-panel { background:var(--surface); border-radius:16px; padding:24px; width:min(560px,94vw); max-height:85vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
+.flag-panel h2 { font-size:16px; font-weight:800; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; }
+.flag-item { background:var(--bg); border:1.5px solid var(--border); border-radius:9px; padding:11px 14px; margin-bottom:8px; display:flex; align-items:flex-start; gap:12px; }
+.flag-item-info { flex:1; }
+.flag-item-doc { font-size:13px; font-weight:700; }
+.flag-item-sec { font-size:11px; color:var(--muted); margin-top:1px; }
+.flag-item-time { font-size:10.5px; color:var(--muted); margin-top:4px; }
+.flag-item-note { font-size:12px; color:var(--text); margin-top:5px; font-style:italic; }
+.flag-remove { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:2px; flex-shrink:0; }
+.flag-remove:hover { color:var(--red); }
+.flag-empty { text-align:center; color:var(--muted); font-size:13px; padding:30px 0; }
+.flag-clear { margin-top:14px; width:100%; padding:9px; border:1.5px solid var(--border); border-radius:8px; background:none; font-family:inherit; font-size:12.5px; font-weight:700; color:var(--muted); cursor:pointer; transition:all .12s; }
+.flag-clear:hover { border-color:var(--red); color:var(--red); }
+
+/* FLAG NOTE MODAL */
+.flag-note-panel { background:var(--surface); border-radius:16px; padding:24px; width:min(420px,94vw); box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
+.flag-note-panel h3 { font-size:15px; font-weight:800; margin-bottom:12px; }
+.flag-note-panel textarea { width:100%; padding:10px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:13px; resize:vertical; min-height:80px; outline:none; margin-bottom:12px; }
+.flag-note-panel textarea:focus { border-color:var(--blue); }
+.flag-note-btns { display:flex; gap:8px; justify-content:flex-end; }
+.btn-cancel { padding:8px 16px; border:1.5px solid var(--border); border-radius:7px; background:none; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--muted); }
+.btn-submit { padding:8px 16px; border:none; border-radius:7px; background:var(--blue); color:#fff; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+
+/* PRINT */
+@media print {
+  .topbar, .left, .overlay, .triage-btn, .r-btn, .tb-btn, .result-actions { display:none !important; }
+  .wrap { display:block; }
+  .right { padding:0; overflow:visible; height:auto; }
+  body { background:#fff; }
+  .print-table { width:100%; border-collapse:collapse; font-size:11px; }
+  .print-table th { background:#0a1f44; color:#fff; padding:6px 8px; text-align:left; font-size:10px; }
+  .print-table td { padding:5px 8px; border-bottom:1px solid #ddd; vertical-align:top; }
+  .print-table tr:nth-child(even) td { background:#f8f9fb; }
+  .print-header { margin-bottom:14px; }
+  .print-header h1 { font-size:16px; font-weight:800; }
+  .print-header p { font-size:11px; color:#666; }
+  .print-section-head { background:#eef2f8; padding:5px 8px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; margin-top:14px; }
 }
 </style>
 </head>
@@ -285,16 +229,47 @@ body {
   <img src="data:image/png;base64,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" alt="Optima Medical">
   <div class="topbar-div"></div>
   <div class="topbar-title">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.4 1.13 2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.72a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    Fax Routing — Quick Lookup
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.72a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Fax Routing
   </div>
   <div class="topbar-meta">Optima Medical · March 2026</div>
+  <div class="topbar-actions">
+    <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
+    <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
+  </div>
+</div>
+
+<!-- TRIAGE OVERLAY -->
+<div class="overlay" id="triageOverlay">
+  <div class="triage-panel" id="triagePanel"></div>
+</div>
+
+<!-- FLAG PANEL OVERLAY -->
+<div class="overlay" id="flagOverlay">
+  <div class="flag-panel" id="flagPanel"></div>
+</div>
+
+<!-- FLAG NOTE OVERLAY -->
+<div class="overlay" id="flagNoteOverlay">
+  <div class="flag-note-panel">
+    <h3>🚩 Flag for Review</h3>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:10px;">Add an optional note for your manager:</p>
+    <textarea id="flagNoteInput" placeholder="e.g. Not sure if this is a duplicate, patient name unclear..."></textarea>
+    <div class="flag-note-btns">
+      <button class="btn-cancel" onclick="closeFlagNote()">Cancel</button>
+      <button class="btn-submit" onclick="submitFlag()">Submit Flag</button>
+    </div>
+  </div>
 </div>
 
 <div class="wrap">
   <div class="left">
-    <div class="left-search">
-      <input type="text" id="globalSearch" placeholder="Type to search any fax…" oninput="handleSearch(this.value)">
+    <div class="left-top">
+      <div class="search-row">
+        <input type="text" id="globalSearch" placeholder="Search any fax type…" oninput="handleSearch(this.value)">
+      </div>
+      <div class="search-hint">Press <kbd>/</kbd> to search instantly</div>
+      <button class="triage-btn" onclick="openTriage()">🤔 Not sure what this is? Start here</button>
     </div>
     <div id="navTree"></div>
   </div>
@@ -302,15 +277,12 @@ body {
     <div class="empty-state" id="emptyState">
       <div class="big-icon">📠</div>
       <h2>What kind of fax is it?</h2>
-      <p>Select a category on the left — or type keywords to search — and get instant routing instructions.</p>
+      <p>Select a category on the left, search by keyword, or tap <strong>"Not sure?"</strong> to be guided to the right answer.</p>
     </div>
   </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   DATA  —  edit only this section to update rules
-═══════════════════════════════════════════════════════ */
 const SECTIONS = [
   {
     name: "Fax → Convert to Portal", icon: "🌐", color: "#0369a1", bg: "#f0f9ff",
@@ -319,15 +291,17 @@ const SECTIONS = [
         doc: "ASPN Pharmacies — Med PA",
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Submit via ASPN Portal (do not fax back)",
-        notes: "Register or log in at the ASPN portal and submit the medication PA there instead of processing the fax."
+        sendTo: "Documents Team / Manager (Level 2+)",
+        flags: ["escalate"],
+        notes: "Do NOT process this fax at intake level. Flag and route to your supervisor or documents team — they will convert and submit via the ASPN portal."
       },
       {
         doc: "ASPN Pharmacies — Referral",
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Submit via ASPN Portal (do not fax back)",
-        notes: "Register or log in at the ASPN portal and submit the referral there instead of processing the fax."
+        sendTo: "Documents Team / Manager (Level 2+)",
+        flags: ["escalate"],
+        notes: "Do NOT process this fax at intake level. Flag and route to your supervisor or documents team — they will convert and submit via the ASPN portal."
       }
     ]
   },
@@ -337,6 +311,8 @@ const SECTIONS = [
       {
         doc: "Document Requiring Provider Signature",
         action: "file",
+        label: "DATE – [Document Name] – WHERE",
+        example: "01/15/2026 – FMLA Form – Banner Gateway",
         fileTo: "Patient Chart",
         sendTo: "Provider (direct)",
         flags: ["hp-if-noted"],
@@ -365,20 +341,86 @@ const SECTIONS = [
       {
         doc: "Hospital / ER Records — All Types",
         action: "file",
-        label: "DATE – [Discharge / Records / Notes] – WHERE",
-        example: "01/15/2026 – ER Discharge – Banner Gateway",
+        label: "HOSP/ER – ACTION  or  HOSP/ER – FYI",
+        example: "HOSP/ER – ACTION (needs follow-up)   |   HOSP/ER – FYI (no action needed)",
         fileTo: "Admit / Discharge Notifications",
-        sendTo: "CA Bucket",
+        sendTo: "TE Team (Clinical Admin)",
         flags: ["hp"],
-        notes: "Route to correct CA bucket. Discharge summaries must be marked HP."
+        routeIf: [
+          "Discharge Summary",
+          "Emergency Room (ER) Visit",
+          "Hospital Admission or Stay",
+          "Inpatient or Outpatient Hospital Records",
+          "\"Follow-up after hospitalization\"",
+          "ER notes, hospital consult notes, or admission summaries"
+        ],
+        closeIf: [
+          "Document is clearly old and already addressed",
+          "Marked as FYI only with no follow-up needed",
+          "Duplicate of already attached hospital record"
+        ],
+        doNot: [
+          "Do NOT send to Referrals",
+          "Do NOT send to Med PA",
+          "Do NOT send to Imaging",
+          "Do NOT hold in Documents for review"
+        ],
+        nextSteps: [
+          "Review discharge summary / ER note",
+          "Confirm patient has follow-up within 7–14 days",
+          "Schedule or adjust appointment if needed",
+          "Route to provider AFTER follow-up is addressed",
+          "Ensure documentation is complete in chart"
+        ],
+        notes: "When in doubt → SEND TO HOSP/ER. Always High Priority. Do NOT treat as routine. Do NOT delay for review."
       }
     ]
   },
   {
-    name: "Prior Auth", icon: "🔬", color: "#7c3aed", bg: "#f5f3ff",
+    name: "Prior Auth — Med PA", icon: "💊", color: "#7c3aed", bg: "#f5f3ff",
     routes: [
-      { doc: "PA Request — Key Listed", action: "delete" },
-      { doc: "Auth Notification — Requested by Outside Provider", action: "delete" },
+      {
+        doc: "PA Request — Key Listed",
+        action: "delete"
+      },
+      {
+        doc: "Auth Notification — Requested by Outside Provider",
+        action: "delete"
+      },
+      {
+        doc: "Med PA — Medication Prior Authorization",
+        action: "file",
+        label: "DATE – [Medication Name] PA – WHERE",
+        example: "01/15/2026 – Ozempic PA – CVS Specialty",
+        fileTo: "Med PA Bucket",
+        sendTo: "Med PA Team",
+        routeIf: [
+          "PA request for a medication requiring authorization",
+          "Denial or appeal for a medication PA",
+          "Peer-to-peer request related to a medication",
+          "PA clarification or additional info request from pharmacy/payer",
+          "Step therapy or formulary exception request"
+        ],
+        closeIf: [
+          "PA already has a key listed — delete, do not route",
+          "Auth notification requested by an outside provider — delete",
+          "Duplicate of an already active PA request"
+        ],
+        doNot: [
+          "Do NOT send to Imaging PA team",
+          "Do NOT send to Referrals",
+          "Do NOT hold — Med PAs are time-sensitive",
+          "Do NOT route without labeling the medication name"
+        ],
+        nextSteps: [
+          "Verify medication name and payer from the fax",
+          "Label using date, medication name, and sender",
+          "Route to Med PA bucket immediately",
+          "Med PA team submits or responds to payer",
+          "Provider notified if peer-to-peer or denial requires action"
+        ],
+        notes: "Med PAs are time-sensitive. Missing a deadline can result in denial. When in doubt → route to Med PA team."
+      },
       {
         doc: "PA Request for Imaging",
         action: "file",
@@ -386,7 +428,30 @@ const SECTIONS = [
         example: "01/15/2026 – R Leg Xray – Simon Med",
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
-        notes: "Use order date. Mark HP / STAT if noted."
+        routeIf: [
+          "PA request for any imaging order (MRI, CT, X-ray, Ultrasound)",
+          "Imaging order clarification from payer or facility",
+          "Imaging PA denial or appeal",
+          "STAT or HP noted on imaging order"
+        ],
+        closeIf: [
+          "PA already has a key listed — delete",
+          "Auth notification from outside provider — delete",
+          "Duplicate of an already submitted imaging PA"
+        ],
+        doNot: [
+          "Do NOT send to Med PA team",
+          "Do NOT send to Referrals",
+          "Do NOT delay STAT or HP orders"
+        ],
+        nextSteps: [
+          "Identify imaging type and ordering provider",
+          "Label with order date, imaging type, and facility",
+          "Route to Imaging PA / IH Sono bucket",
+          "Mark HP or STAT if indicated on the form",
+          "PA team submits to payer and tracks response"
+        ],
+        notes: "Use the ORDER date, not the fax received date. Mark HP / STAT if noted on the form."
       },
       {
         doc: "PA Imaging Order Clarification",
@@ -396,7 +461,7 @@ const SECTIONS = [
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         flags: ["hp"],
-        notes: "Use request date. Mark HP."
+        notes: "Use request date. Mark HP. Route to Imaging PA team for response."
       },
       {
         doc: "PA Imaging Denial",
@@ -406,23 +471,60 @@ const SECTIONS = [
         fileTo: "Imaging Prior Authorization",
         sendTo: "Prior Auth, Imaging and IH Sono",
         flags: ["hp"],
-        notes: "Use denial date. Mark HP / STAT."
+        notes: "Use denial date. Mark HP / STAT. Imaging PA team will initiate appeal or peer-to-peer."
       }
     ]
   },
   {
     name: "Referrals", icon: "↗️", color: "#166534", bg: "#f0fdf4",
     routes: [
-      { doc: "Referral — Confirmation of Receipt", action: "delete" },
-      { doc: "Referral — Scheduled Date Notification", action: "delete" },
-      { doc: "Failure to Schedule — Imaging", action: "delete", notes: "Delete for now. Will update once ticker workflow is aligned." },
+      {
+        doc: "Referral — Confirmation of Receipt",
+        action: "delete"
+      },
+      {
+        doc: "Referral — Scheduled Date Notification",
+        action: "delete"
+      },
+      {
+        doc: "Failure to Schedule — Imaging",
+        action: "delete",
+        notes: "Delete for now. Will update once ticker workflow is aligned."
+      },
       {
         doc: "Referral Request / Response",
         action: "file",
         label: "DATE – [Referral Request / Response] – WHERE",
         example: "01/15/2026 – Referral Response – East Valley Urology",
         fileTo: "Referral Correspondence",
-        sendTo: "Corresponding Referral Bucket"
+        sendTo: "Corresponding Referral Bucket",
+        routeIf: [
+          "New referral request from a specialist or outside facility",
+          "Referral response or consult note returned from specialist",
+          "Referral status update requiring action",
+          "Referral with outstanding documentation needed",
+          "Any referral marked STAT or urgent"
+        ],
+        closeIf: [
+          "Confirmation of receipt only — delete, no action needed",
+          "Scheduled date notification only — delete",
+          "Duplicate of an already routed referral",
+          "Failure to schedule — Imaging (delete for now)"
+        ],
+        doNot: [
+          "Do NOT send to Hospital/ER team",
+          "Do NOT send to Med PA",
+          "Do NOT delete a failure-to-schedule with specialist — route it",
+          "Do NOT route without identifying the correct referral bucket"
+        ],
+        nextSteps: [
+          "Identify specialty and referring facility from the fax",
+          "Label with date, request or response type, and facility name",
+          "Route to the corresponding regional referral bucket",
+          "Referral coordinator reviews and acts within SLA",
+          "Provider notified if consult note requires review or follow-up"
+        ],
+        notes: "Failure to Schedule with a Specialist is NOT a delete — route it to the referral bucket for follow-up."
       },
       {
         doc: "Failure to Schedule with Specialist",
@@ -431,7 +533,7 @@ const SECTIONS = [
         example: "01/15/2026 – Referral Scheduling Issue – AZ Cardiology",
         fileTo: "Referral Correspondence",
         sendTo: "Corresponding Referral Bucket",
-        notes: "Do NOT delete. Assign to Referrals for follow-up."
+        notes: "Do NOT delete. Assign to Referrals coordinator for follow-up with specialist."
       }
     ]
   },
@@ -472,6 +574,8 @@ const SECTIONS = [
       {
         doc: "PAP Compliance Report",
         action: "file",
+        label: "DATE – PAP Compliance Report – WHERE",
+        example: "01/15/2026 – PAP Compliance Report – Apria",
         fileTo: "Patient Chart",
         sendTo: "Provider (direct)",
         notes: "Attach to patient chart and send directly to provider."
@@ -489,6 +593,8 @@ const SECTIONS = [
       {
         doc: "Faxed Lab Result — Ordered by Optima (no electronic attachment)",
         action: "file",
+        label: "DATE – [Lab Name / Test] – WHERE",
+        example: "01/15/2026 – CBC Results – LabCorp",
         fileTo: "Lab Documents",
         sendTo: "Ordering Provider",
         notes: "Attach to patient chart and assign to the ordering provider."
@@ -496,6 +602,8 @@ const SECTIONS = [
       {
         doc: "Faxed Lab Result — NOT Ordered by Optima",
         action: "file",
+        label: "DATE – [Lab Name / Test] – WHERE",
+        example: "01/15/2026 – Lipid Panel – Quest Diagnostics",
         fileTo: "Lab Documents",
         sendTo: "Provider (FYI)",
         notes: "Attach to patient chart. Send to provider as FYI only."
@@ -513,24 +621,186 @@ const SECTIONS = [
     ]
   }
 ];
-/* ═══════════════════════════════════════════════════════ */
 
-let activeCat = null;
-let activeRoute = null;
-
-// flatten for search
+// ── FLATTEN ────────────────────────────────
 const ALL_ROUTES = [];
 SECTIONS.forEach(s => s.routes.forEach(r => ALL_ROUTES.push({ ...r, section: s })));
+
+// ── KEYBOARD SHORTCUT ──────────────────────
+document.addEventListener("keydown", e => {
+  const tag = document.activeElement.tagName;
+  if (e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA") {
+    e.preventDefault();
+    document.getElementById("globalSearch").focus();
+  }
+  if (e.key === "Escape") {
+    closeOverlays();
+    document.getElementById("globalSearch").blur();
+  }
+});
+
+// ── RECENTLY USED (localStorage) ───────────
+function getRecent() {
+  try { return JSON.parse(localStorage.getItem("fax_recent") || "[]"); } catch { return []; }
+}
+function addRecent(r, sec) {
+  let recent = getRecent();
+  const key = r.doc;
+  recent = recent.filter(x => x.key !== key);
+  recent.unshift({ key, doc: r.doc, icon: sec.icon, action: r.action, si: SECTIONS.indexOf(sec), ri: sec.routes.indexOf(r) });
+  recent = recent.slice(0, 5);
+  try { localStorage.setItem("fax_recent", JSON.stringify(recent)); } catch {}
+  renderEmpty();
+}
+
+// ── FLAGS (localStorage) ───────────────────
+function getFlags() {
+  try { return JSON.parse(localStorage.getItem("fax_flags") || "[]"); } catch { return []; }
+}
+function saveFlags(flags) {
+  try { localStorage.setItem("fax_flags", JSON.stringify(flags)); } catch {}
+  updateFlagBadge();
+}
+function updateFlagBadge() {
+  const flags = getFlags();
+  const badge = document.getElementById("flagBadge");
+  if (flags.length > 0) { badge.textContent = flags.length; badge.classList.add("show"); }
+  else { badge.classList.remove("show"); }
+}
+updateFlagBadge();
+
+let _pendingFlagData = null;
+function flagCurrentResult() {
+  if (!_currentRoute) return;
+  const flags = getFlags();
+  const isAlready = flags.some(f => f.key === _currentRoute.doc);
+  if (isAlready) { unflagResult(); return; }
+  _pendingFlagData = _currentRoute;
+  document.getElementById("flagNoteOverlay").classList.add("open");
+  document.getElementById("flagNoteInput").value = "";
+  document.getElementById("flagNoteInput").focus();
+}
+function closeFlagNote() {
+  document.getElementById("flagNoteOverlay").classList.remove("open");
+  _pendingFlagData = null;
+}
+function submitFlag() {
+  if (!_pendingFlagData) return;
+  const note = document.getElementById("flagNoteInput").value.trim();
+  const flags = getFlags();
+  flags.unshift({
+    key: _pendingFlagData.doc,
+    doc: _pendingFlagData.doc,
+    section: _pendingFlagData.section.name,
+    icon: _pendingFlagData.section.icon,
+    note: note || null,
+    time: new Date().toLocaleString()
+  });
+  saveFlags(flags);
+  closeFlagNote();
+  // update button state
+  const fb = document.getElementById("flagResultBtn");
+  if (fb) { fb.textContent = "🚩 Flagged"; fb.classList.add("flagged"); }
+}
+function unflagResult() {
+  if (!_currentRoute) return;
+  let flags = getFlags();
+  flags = flags.filter(f => f.key !== _currentRoute.doc);
+  saveFlags(flags);
+  const fb = document.getElementById("flagResultBtn");
+  if (fb) { fb.textContent = "🚩 Flag for Review"; fb.classList.remove("flagged"); }
+}
+function openFlagPanel() {
+  const flags = getFlags();
+  const panel = document.getElementById("flagPanel");
+  panel.innerHTML = `
+    <h2>🚩 Flagged for Review
+      <button class="triage-close" onclick="closeOverlays()">✕</button>
+    </h2>
+    ${flags.length === 0
+      ? `<div class="flag-empty">No items flagged yet.<br>Use the 🚩 button on any result card.</div>`
+      : flags.map((f, i) => `
+        <div class="flag-item">
+          <div class="flag-item-info">
+            <div class="flag-item-doc">${f.icon} ${f.doc}</div>
+            <div class="flag-item-sec">${f.section}</div>
+            <div class="flag-item-time">Flagged: ${f.time}</div>
+            ${f.note ? `<div class="flag-item-note">"${f.note}"</div>` : ""}
+          </div>
+          <button class="flag-remove" onclick="removeFlagItem(${i})" title="Remove flag">✕</button>
+        </div>`).join("")}
+    ${flags.length > 0 ? `<button class="flag-clear" onclick="clearAllFlags()">Clear All Flags</button>` : ""}`;
+  document.getElementById("flagOverlay").classList.add("open");
+}
+function removeFlagItem(i) {
+  let flags = getFlags();
+  flags.splice(i, 1);
+  saveFlags(flags);
+  openFlagPanel();
+  // refresh flag button if showing current
+  if (_currentRoute) {
+    const fb = document.getElementById("flagResultBtn");
+    if (fb && !flags.some(f => f.key === _currentRoute.doc)) {
+      fb.textContent = "🚩 Flag for Review";
+      fb.classList.remove("flagged");
+    }
+  }
+}
+function clearAllFlags() {
+  saveFlags([]);
+  openFlagPanel();
+}
+
+// ── OVERLAYS ───────────────────────────────
+function closeOverlays() {
+  document.querySelectorAll(".overlay").forEach(o => o.classList.remove("open"));
+}
+document.querySelectorAll(".overlay").forEach(o => {
+  o.addEventListener("click", e => { if (e.target === o) closeOverlays(); });
+});
+
+// ── EMPTY STATE WITH RECENT ────────────────
+function renderEmpty() {
+  const recent = getRecent();
+  const right = document.getElementById("right");
+  const recentHTML = recent.length ? `
+    <div class="recent-section">
+      <div class="recent-title">⏱ Recently Used</div>
+      <div class="recent-chips">
+        ${recent.map(r => `
+          <button class="recent-chip" onclick="pickRecent(${r.si},${r.ri})">
+            <span class="rc-icon">${r.icon}</span>${r.doc}
+          </button>`).join("")}
+      </div>
+    </div>` : "";
+  right.innerHTML = `
+    <div class="empty-state" style="justify-content:${recent.length ? 'flex-start' : 'center'}; padding-top:${recent.length ? '20px' : '0'}; height:${recent.length ? 'auto' : '100%'}">
+      ${recentHTML}
+      <div class="big-icon">📠</div>
+      <h2>What kind of fax is it?</h2>
+      <p>Select a category on the left, search by keyword, or tap <strong>"Not sure?"</strong> to be guided.</p>
+    </div>`;
+}
+renderEmpty();
+
+function pickRecent(si, ri) {
+  const sec = SECTIONS[si];
+  const r = sec.routes[ri];
+  if (r) selectRoute(r, sec, si, ri);
+}
+
+// ── NAV ────────────────────────────────────
+const ACTION_BADGE = {
+  "delete":    { label: "DEL", cls: "delete" },
+  "file":      { label: "FILE", cls: "file" },
+  "create-te": { label: "TE", cls: "create-te" },
+  "portal":    { label: "ESC", cls: "portal" },
+};
 
 function buildNav() {
   const tree = document.getElementById("navTree");
   tree.innerHTML = "";
   SECTIONS.forEach((sec, si) => {
-    const label = document.createElement("div");
-    label.className = "cat-label";
-    label.style.paddingTop = si === 0 ? "10px" : "14px";
-    label.textContent = sec.name;
-
     const catBtn = document.createElement("button");
     catBtn.className = "cat-btn";
     catBtn.dataset.si = si;
@@ -539,27 +809,21 @@ function buildNav() {
       ${sec.name}
       <span class="cat-count">${sec.routes.length}</span>`;
     catBtn.onclick = () => {
-      if (sec.routes.length === 1) {
-        selectRoute(sec.routes[0], sec, si, 0);
-      } else {
-        toggleSublist(si);
-      }
+      if (sec.routes.length === 1) { selectRoute(sec.routes[0], sec, si, 0); }
+      else { toggleSublist(si); }
     };
-
     const subList = document.createElement("div");
     subList.className = "sub-list";
     subList.id = `sub-${si}`;
-
     sec.routes.forEach((r, ri) => {
       const sub = document.createElement("button");
       sub.className = "sub-btn";
-      sub.dataset.si = si;
-      sub.dataset.ri = ri;
-      sub.textContent = r.doc;
-      sub.onclick = (e) => { e.stopPropagation(); selectRoute(r, sec, si, ri); };
+      sub.dataset.si = si; sub.dataset.ri = ri;
+      const ab = ACTION_BADGE[r.action] || ACTION_BADGE["file"];
+      sub.innerHTML = `<span style="flex:1;text-align:left">${r.doc}</span><span class="sub-action ${ab.cls}">${ab.label}</span>`;
+      sub.onclick = e => { e.stopPropagation(); selectRoute(r, sec, si, ri); };
       subList.appendChild(sub);
     });
-
     tree.appendChild(catBtn);
     tree.appendChild(subList);
   });
@@ -570,82 +834,66 @@ function toggleSublist(si) {
     if (i === si) el.classList.toggle("open");
     else el.classList.remove("open");
   });
-  document.querySelectorAll(".cat-btn").forEach((btn, i) => {
-    btn.classList.toggle("active", i === si);
-  });
+  document.querySelectorAll(".cat-btn").forEach((btn, i) => btn.classList.toggle("active", i === si));
 }
 
+let _currentRoute = null;
 function selectRoute(r, sec, si, ri) {
-  // update nav highlight
   document.querySelectorAll(".cat-btn").forEach((b, i) => b.classList.toggle("active", i === si));
-  document.querySelectorAll(".sub-btn").forEach(b => {
-    b.classList.toggle("active", parseInt(b.dataset.si) === si && parseInt(b.dataset.ri) === ri);
-  });
-  // open sublist
+  document.querySelectorAll(".sub-btn").forEach(b => b.classList.toggle("active", parseInt(b.dataset.si) === si && parseInt(b.dataset.ri) === ri));
   document.querySelectorAll(".sub-list").forEach((el, i) => el.classList.toggle("open", i === si));
+  document.getElementById("globalSearch").value = "";
+  _currentRoute = { ...r, section: sec };
+  addRecent(r, sec);
   showResult(r, sec);
 }
 
+// ── SHOW RESULT ────────────────────────────
 function showResult(r, sec) {
   const right = document.getElementById("right");
-
-  const actionType = r.action; // "delete" | "file" | "create-te"
+  const actionType = r.action;
   const actionConfig = {
     "delete":    { icon: "🗑️", label: "ACTION: DELETE", main: "Delete — Do Not File", cls: "delete" },
     "file":      { icon: "📁", label: "ACTION: FILE & ROUTE", main: r.sendTo || "See routing below", cls: "file" },
     "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: "Create TE → Route Internally", cls: "create-te" },
-    "portal":    { icon: "🌐", label: "ACTION: CONVERT TO PORTAL", main: "Submit via Portal — Do Not Fax", cls: "file" },
+    "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team / Manager (Level 2+)", cls: "delete" },
   }[actionType] || { icon: "📄", label: "ACTION", main: r.sendTo, cls: "file" };
 
-  let flagsHTML = "";
-  if (r.flags && r.flags.length) {
-    const flagDefs = {
-      "hp":        { icon: "⚑", label: "Mark HP", cls: "hp" },
-      "hp-if-noted": { icon: "⚑", label: "Mark HP if noted on form", cls: "hp" },
-      "no-chart":  { icon: "🚫", label: "Do NOT attach to chart", cls: "no-chart" },
-      "stat":      { icon: "⚡", label: "STAT", cls: "stat" },
-    };
-    flagsHTML = `<div class="flags">` +
-      r.flags.map(f => `<span class="flag ${flagDefs[f].cls}">${flagDefs[f].icon} ${flagDefs[f].label}</span>`).join("") +
-      `</div>`;
-  }
+  const flagDefs = {
+    "hp":          { icon: "⚑", label: "Mark HP", cls: "hp" },
+    "hp-if-noted": { icon: "⚑", label: "Mark HP if noted on form", cls: "hp" },
+    "no-chart":    { icon: "🚫", label: "Do NOT attach to chart", cls: "no-chart" },
+    "stat":        { icon: "⚡", label: "STAT", cls: "stat" },
+    "escalate":    { icon: "🔺", label: "Level 2+ / Manager Only — Do NOT process at intake", cls: "escalate" },
+  };
+  const flagsHTML = (r.flags && r.flags.length)
+    ? `<div class="flags">${r.flags.map(f => `<span class="flag ${flagDefs[f].cls}">${flagDefs[f].icon} ${flagDefs[f].label}</span>`).join("")}</div>`
+    : "";
 
   let detailsHTML = "";
-  if (r.label) {
-    detailsHTML += `<div class="detail-card full">
-      <div class="detail-label">Label Format</div>
-      <span class="detail-value mono">${r.label}</span>
-      ${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}
-    </div>`;
-  }
-
-  const detailPairs = [];
-  if (r.fileTo) detailPairs.push({ label: "File To", value: r.fileTo });
-  if (r.sendTo && actionType !== "delete") detailPairs.push({ label: "Send To", value: r.sendTo });
-
-  if (detailPairs.length === 2) {
-    detailsHTML += detailPairs.map(d => `<div class="detail-card">
-      <div class="detail-label">${d.label}</div>
-      <div class="detail-value">${d.value}</div>
-    </div>`).join("");
-  } else if (detailPairs.length === 1) {
-    detailsHTML += `<div class="detail-card full">
-      <div class="detail-label">${detailPairs[0].label}</div>
-      <div class="detail-value">${detailPairs[0].value}</div>
-    </div>`;
-  }
+  if (r.label) detailsHTML += `<div class="detail-card full"><div class="detail-label">Label Format</div><span class="detail-value mono">${r.label}</span>${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}</div>`;
+  const pairs = [];
+  if (r.fileTo) pairs.push({ label: "File To", value: r.fileTo });
+  if (r.sendTo && actionType !== "delete") pairs.push({ label: "Send To", value: r.sendTo });
+  if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
+  else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
   const noteHTML = r.notes ? `<div class="note-box">${r.notes}</div>` : "";
 
-  const portalHTML = r.portal ? `
-    <a href="${r.portal}" target="_blank" style="
-      display:inline-flex;align-items:center;gap:8px;margin-top:14px;
-      padding:11px 18px;background:#0369a1;color:#fff;text-decoration:none;
-      border-radius:8px;font-size:13px;font-weight:700;
-      box-shadow:0 2px 8px rgba(3,105,161,0.3);transition:background .15s;">
-      🌐 Open Portal →
-    </a>
-    <div style="font-size:11px;color:var(--muted);margin-top:6px;">${r.portal}</div>` : "";
+  let briefHTML = "";
+  if (r.routeIf || r.closeIf || r.doNot || r.nextSteps) {
+    briefHTML = `<div class="brief">`;
+    if (r.routeIf) briefHTML += `<div class="brief-block route-if"><div class="brief-label">🔴 Route immediately if you see ANY of these</div><ul class="brief-list">${r.routeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
+    if (r.closeIf) briefHTML += `<div class="brief-block close-if"><div class="brief-label">🟢 Close — Do Not Route if</div><ul class="brief-list">${r.closeIf.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
+    if (r.nextSteps) briefHTML += `<div class="brief-block next-steps"><div class="brief-label">🔄 What happens next</div><ul class="brief-list">${r.nextSteps.map((i, n) => `<li><strong>${n+1}.</strong> ${i}</li>`).join("")}</ul></div>`;
+    if (r.doNot) briefHTML += `<div class="brief-block do-not"><div class="brief-label">🚫 Do NOT</div><ul class="brief-list">${r.doNot.map(i => `<li>${i}</li>`).join("")}</ul></div>`;
+    briefHTML += `</div>`;
+  }
+
+  const portalHTML = r.portal ? `<a href="${r.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 17px;background:#0369a1;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(3,105,161,.3);">🌐 Open Portal →</a><div style="font-size:10.5px;color:var(--muted);margin-top:5px;">${r.portal}</div>` : "";
+
+  const isFlagged = getFlags().some(f => f.key === r.doc);
+  const updatedHTML = sec.updated ? `<div class="updated-badge">Last updated: ${sec.updated}</div>` : "";
 
   right.innerHTML = `
     <div class="result">
@@ -653,6 +901,9 @@ function showResult(r, sec) {
         <div>
           <div class="result-cat">${sec.icon} ${sec.name}</div>
           <div class="result-title">${r.doc}</div>
+        </div>
+        <div class="result-actions">
+          <button class="r-btn ${isFlagged ? 'flagged' : ''}" id="flagResultBtn" onclick="flagCurrentResult()">🚩 ${isFlagged ? 'Flagged' : 'Flag for Review'}</button>
         </div>
       </div>
       <div class="action-banner ${actionConfig.cls}">
@@ -665,68 +916,176 @@ function showResult(r, sec) {
       ${flagsHTML}
       ${detailsHTML ? `<div class="details">${detailsHTML}</div>` : ""}
       ${noteHTML}
+      ${briefHTML}
       ${portalHTML}
+      ${updatedHTML}
     </div>`;
 }
 
+// ── SEARCH ─────────────────────────────────
 function handleSearch(q) {
   const right = document.getElementById("right");
   const trimmed = q.trim().toLowerCase();
-
-  // clear nav highlights when searching
   if (trimmed) {
     document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
     document.querySelectorAll(".sub-btn").forEach(b => b.classList.remove("active"));
     document.querySelectorAll(".sub-list").forEach(b => b.classList.remove("open"));
   }
-
-  if (!trimmed) {
-    right.innerHTML = `<div class="empty-state" id="emptyState">
-      <div class="big-icon">📠</div>
-      <h2>What kind of fax is it?</h2>
-      <p>Select a category on the left — or type keywords to search — and get instant routing instructions.</p>
-    </div>`;
-    return;
-  }
-
+  if (!trimmed) { renderEmpty(); return; }
   const hits = ALL_ROUTES.filter(r =>
-    [r.doc, r.label, r.fileTo, r.sendTo, r.notes, r.example, r.section.name]
+    [r.doc, r.label, r.fileTo, r.sendTo, r.notes, r.example, r.section.name, ...(r.routeIf||[]), ...(r.closeIf||[])]
       .filter(Boolean).some(v => v.toLowerCase().includes(trimmed))
   );
-
   if (!hits.length) {
-    right.innerHTML = `<div class="empty-state"><div class="big-icon">🔍</div><h2>No results</h2><p>Try different keywords — e.g. "hospital", "PA denial", "lab result"</p></div>`;
+    right.innerHTML = `<div class="empty-state"><div class="big-icon">🔍</div><h2>No results</h2><p>Try "hospital", "PA denial", "lab result", "discharge"…</p></div>`;
     return;
   }
-
-  const actionLabel = { delete: "DELETE", file: "FILE & ROUTE", "create-te": "CREATE TE" };
-  const actionCls   = { delete: "delete", file: "file", "create-te": "create-te" };
-
+  const actionLabel = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE" };
+  const actionCls   = { delete:"delete", file:"file", "create-te":"create-te", portal:"portal" };
   right.innerHTML = `
-    <div class="search-count">${hits.length} result${hits.length !== 1 ? "s" : ""} for "<strong>${q.trim()}</strong>"</div>
+    <div class="search-count">${hits.length} result${hits.length!==1?"s":""} for "<strong>${q.trim()}</strong>"</div>
     <div class="search-results">
-      ${hits.map((r, i) => `
+      ${hits.map((r,i) => `
         <div class="search-hit" onclick="pickSearchResult(${i})">
           <span class="search-hit-icon">${r.section.icon}</span>
-          <div>
-            <div class="search-hit-name">${r.doc}</div>
-            <div class="search-hit-cat">${r.section.name}</div>
-          </div>
-          <span class="search-hit-action ${actionCls[r.action] || 'file'}">${actionLabel[r.action] || 'FILE'}</span>
+          <div><div class="search-hit-name">${r.doc}</div><div class="search-hit-cat">${r.section.name}</div></div>
+          <span class="search-hit-action ${actionCls[r.action]||'file'}">${actionLabel[r.action]||'FILE'}</span>
         </div>`).join("")}
     </div>`;
-
-  // store hits for click
   window.__searchHits = hits;
 }
-
 function pickSearchResult(i) {
   const r = window.__searchHits[i];
   document.getElementById("globalSearch").value = "";
-  // find section index
   const si = SECTIONS.indexOf(r.section);
   const ri = r.section.routes.indexOf(r);
   selectRoute(r, r.section, si, ri);
+}
+
+// ── TRIAGE ─────────────────────────────────
+const TRIAGE_TREE = [
+  {
+    q: "Does the fax mention a hospital, ER, discharge, or admission?",
+    sub: "Look for: Discharge Summary, ER Visit, Hospital Stay, Follow-up after hospitalization",
+    opts: [
+      { icon: "🏥", text: "Yes — hospital or ER related", sub: null, result: { si: 3, ri: 0 } },
+      { icon: "➡️", text: "No — something else", sub: null, next: 1 }
+    ]
+  },
+  {
+    q: "Does it mention Prior Authorization, PA, or medication approval?",
+    sub: "Look for: PA Request, Auth, Approval Needed, Step Therapy, Formulary",
+    opts: [
+      { icon: "🔬", text: "Yes — it's for imaging (MRI, CT, X-ray, Ultrasound)", sub: null, result: { si: 4, ri: 3 } },
+      { icon: "💊", text: "Yes — it's for a medication", sub: null, result: { si: 4, ri: 2 } },
+      { icon: "➡️", text: "No — something else", sub: null, next: 2 }
+    ]
+  },
+  {
+    q: "Is it a referral to a specialist or consult note?",
+    sub: "Look for: Referral Request, Consult Note, Specialist Response, Scheduling",
+    opts: [
+      { icon: "↗️", text: "Yes — it's a referral or specialist response", sub: null, result: { si: 5, ri: 3 } },
+      { icon: "➡️", text: "No — something else", sub: null, next: 3 }
+    ]
+  },
+  {
+    q: "Is it a lab result or test result?",
+    sub: "Look for: Lab Results, Blood Work, Urinalysis, Panel Results, LabCorp, Quest",
+    opts: [
+      { icon: "🧪", text: "Yes — lab or test result", sub: null, result: { si: 8, ri: 1 } },
+      { icon: "➡️", text: "No — something else", sub: null, next: 4 }
+    ]
+  },
+  {
+    q: "Is it a prescription, Rx, or medication request?",
+    sub: "Look for: Rx Request, Prescription, Pharmacy fax",
+    opts: [
+      { icon: "💊", text: "Yes — it's an Rx or pharmacy fax", sub: null, result: { si: 2, ri: 0 } },
+      { icon: "✍️", text: "It needs a provider signature", sub: null, result: { si: 1, ri: 0 } },
+      { icon: "📋", text: "It's medical records", sub: null, result: { si: 6, ri: 0 } },
+      { icon: "🩺", text: "It's DME or equipment related", sub: null, result: { si: 7, ri: 0 } },
+      { icon: "❓", text: "Still not sure — search or flag it", sub: "Use the search bar or flag for manager review", result: null, search: true }
+    ]
+  }
+];
+
+let _triageStep = 0;
+let _triageHistory = [];
+
+function openTriage() {
+  _triageStep = 0;
+  _triageHistory = [];
+  renderTriage();
+  document.getElementById("triageOverlay").classList.add("open");
+}
+function renderTriage() {
+  const node = TRIAGE_TREE[_triageStep];
+  const panel = document.getElementById("triagePanel");
+  const progress = TRIAGE_TREE.map((_, i) => `<span class="${i <= _triageStep ? 'done' : ''}"></span>`).join("");
+  panel.innerHTML = `
+    <div class="triage-header">
+      <h2>🤔 What kind of fax is this?</h2>
+      <button class="triage-close" onclick="closeOverlays()">✕</button>
+    </div>
+    <div class="triage-progress">${progress}</div>
+    <div class="triage-q">${node.q}</div>
+    ${node.sub ? `<div class="triage-sub">${node.sub}</div>` : ""}
+    <div class="triage-opts">
+      ${node.opts.map((o, i) => `
+        <button class="triage-opt" onclick="triagePick(${i})">
+          <span class="opt-icon">${o.icon}</span>
+          <div><div class="opt-text">${o.text}</div>${o.sub ? `<div class="opt-sub">${o.sub}</div>` : ""}</div>
+        </button>`).join("")}
+    </div>
+    ${_triageHistory.length > 0 ? `<button class="triage-back" onclick="triageBack()">← Back</button>` : ""}`;
+}
+function triagePick(i) {
+  const opt = TRIAGE_TREE[_triageStep].opts[i];
+  if (opt.search) {
+    closeOverlays();
+    document.getElementById("globalSearch").focus();
+    return;
+  }
+  if (opt.result) {
+    const sec = SECTIONS[opt.result.si];
+    const r = sec.routes[opt.result.ri];
+    closeOverlays();
+    selectRoute(r, sec, opt.result.si, opt.result.ri);
+    return;
+  }
+  if (opt.next !== undefined) {
+    _triageHistory.push(_triageStep);
+    _triageStep = opt.next;
+    renderTriage();
+  }
+}
+function triageBack() {
+  _triageStep = _triageHistory.pop();
+  renderTriage();
+}
+
+// ── PRINT ──────────────────────────────────
+// Override print to show a full cheat sheet instead of current view
+window.addEventListener("beforeprint", () => {
+  document.getElementById("right").innerHTML = buildPrintView();
+});
+window.addEventListener("afterprint", () => {
+  renderEmpty();
+  _currentRoute = null;
+});
+function buildPrintView() {
+  let html = `<div class="print-header"><h1>📠 Fax Routing Quick Reference — Optima Medical</h1><p>March 2026 · All categories and routing actions</p></div>`;
+  SECTIONS.forEach(sec => {
+    html += `<div class="print-section-head">${sec.icon} ${sec.name}</div>`;
+    html += `<table class="print-table"><tr><th>Document Type</th><th>Action</th><th>File To</th><th>Send To</th><th>Label Format</th><th>Notes</th></tr>`;
+    sec.routes.forEach(r => {
+      const action = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE" }[r.action] || r.action;
+      html += `<tr><td><strong>${r.doc}</strong></td><td>${action}</td><td>${r.fileTo||""}</td><td>${r.sendTo||""}</td><td style="font-family:monospace;font-size:10px">${r.label||""}</td><td>${r.notes||""}</td></tr>`;
+    });
+    html += `</table>`;
+  });
+  return html;
 }
 
 buildNav();
