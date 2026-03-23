@@ -261,7 +261,12 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .btn-welcome-guide { padding:12px 16px; background:none; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); transition:all .12s; }
 .btn-welcome-guide:hover { border-color:var(--blue); color:var(--blue); }
 
-/* DEFAULT RULE BANNER */
+/* TE CHECKLIST */
+.te-checklist { background:#fffbeb; border:1.5px solid #fcd34d; border-radius:10px; padding:13px 16px; margin-bottom:14px; }
+.te-checklist-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--amber); margin-bottom:9px; display:flex; align-items:center; gap:6px; }
+.te-checklist ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.te-checklist li { display:flex; align-items:flex-start; gap:9px; font-size:13px; font-weight:600; color:var(--text); }
+.te-checklist li::before { content:"☐"; font-size:15px; flex-shrink:0; color:var(--amber); line-height:1.2; }
 .default-rule { background:#0a1f44; border-radius:10px; padding:11px 16px; margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
 .default-rule-text { flex:1; font-size:12px; color:rgba(255,255,255,.75); line-height:1.45; }
 .default-rule-text strong { color:#fff; font-size:12.5px; }
@@ -477,14 +482,6 @@ const SECTIONS = [
     triggers: ["ASPN", "portal", "specialty pharmacy"],
     routes: [
       {
-        doc: "ASPN Pharmacies — Med PA",
-        action: "portal",
-        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team / Manager (Level 2+)",
-        flags: ["escalate"],
-        notes: "Do NOT process this fax at intake level. Flag and route to your supervisor or documents team — they will convert and submit via the ASPN portal."
-      },
-      {
         doc: "ASPN Pharmacies — Referral",
         action: "portal",
         portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
@@ -521,6 +518,7 @@ const SECTIONS = [
       {
         doc: "Rx Request — Offboarded Provider",
         action: "create-te",
+        assignTo: "New Optima Provider (internal)",
         sendTo: "New Optima Provider (internal)",
         notes: "Create TE and route internally to the replacement Optima provider."
       },
@@ -582,11 +580,12 @@ const SECTIONS = [
       },
       {
         doc: "Med PA — Medication Prior Authorization",
-        action: "file",
+        action: "create-te",
         label: "DATE – [Medication Name] PA – WHERE",
         example: "01/15/2026 – Ozempic PA – CVS Specialty",
         fileTo: "Med PA Bucket",
-        sendTo: "Med PA Team",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin (TE)",
         routeIf: [
           "PA request for a medication requiring authorization",
           "Denial or appeal for a medication PA",
@@ -600,22 +599,58 @@ const SECTIONS = [
           "Duplicate of an already active PA request"
         ],
         doNot: [
+          "Do NOT process or evaluate the PA yourself",
           "Do NOT send to Imaging PA team",
           "Do NOT send to Referrals",
-          "Do NOT hold — Med PAs are time-sensitive",
-          "Do NOT route without labeling the medication name"
+          "Do NOT hold — attach to TE and send immediately"
         ],
         nextSteps: [
-          "Verify medication name and payer from the fax",
-          "Label using date, medication name, and sender",
-          "Route to Med PA bucket immediately",
-          "Med PA team submits or responds to payer",
-          "Provider notified if peer-to-peer or denial requires action"
+          "Attach fax to TE",
+          "Send TE to Clinical Admin",
+          "Clinical Admin documents what is needed",
+          "Clinical Admin sends to provider for review",
+          "Provider creates referral or lab submission as needed"
         ],
-        notes: "Med PAs are time-sensitive. Missing a deadline can result in denial. When in doubt → route to Med PA team."
+        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing."
       },
       {
-        doc: "PA Request for Imaging",
+        doc: "Lab Auth Request — Provider Must Submit (e.g. Myriad, Natera, Guardant)",
+        action: "create-te",
+        label: "DATE – [Lab Name] Auth Request – [Insurance/Payer]",
+        example: "01/05/2026 – Myriad Auth Request – Blue Cross",
+        fileTo: "Patient Chart (attach document)",
+        sendTo: "Ordering Provider (via TE)",
+        flags: ["hp"],
+        teChecklist: [
+          "CPT code(s) from the fax",
+          "Dx / diagnosis code(s)",
+          "Lab / service provider name (e.g. Myriad Genetics)",
+          "Date of Service / specimen collection date",
+          "Patient insurance / payer name",
+          "Attach the fax document to the TE"
+        ],
+        routeIf: [
+          "Lab states insurance will NOT allow them to submit the request",
+          "Fax says 'Ordering Healthcare Provider must submit the Referral/Authorization'",
+          "Fax includes CPT code(s), Dx code(s), and date of service",
+          "Sender is a genetic or specialty lab (Myriad, Natera, Guardant, etc.)"
+        ],
+        doNot: [
+          "Do NOT delete — provider action is required",
+          "Do NOT route to Med PA without creating a TE first",
+          "Do NOT create the TE without attaching the document",
+          "Do NOT omit CPT code, Dx code, or lab name from the TE"
+        ],
+        nextSteps: [
+          "Attach fax document to patient chart",
+          "Create TE for ordering provider",
+          "Include CPT code, Dx code, lab name, and date of service in TE body",
+          "Mark HP",
+          "Provider reviews TE and submits Referral/Auth to insurance"
+        ],
+        notes: "The lab cannot submit on behalf of the provider. The TE must contain all required fields so the provider can act immediately — CPT code, Dx code, lab/service provider, and date of service."
+      },
+      {
         action: "file",
         label: "DATE – [Order Name] – WHERE",
         example: "01/15/2026 – R Leg Xray – Simon Med",
@@ -728,6 +763,14 @@ const SECTIONS = [
         fileTo: "Referral Correspondence",
         sendTo: "Corresponding Referral Bucket",
         notes: "Do NOT delete. Assign to Referrals coordinator for follow-up with specialist."
+      },
+      {
+        doc: "ASPN Pharmacies — Referral (Portal Submission)",
+        action: "portal",
+        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
+        sendTo: "Documents Team / Manager (Level 2+)",
+        flags: ["escalate"],
+        notes: "Do NOT process at intake level. Flag and route to your supervisor or documents team — they will submit this referral through the ASPN portal."
       }
     ]
   },
@@ -780,8 +823,38 @@ const SECTIONS = [
   },
   {
     name: "Lab Results", icon: "🧪", color: "#0f766e", bg: "#f0fdfa",
-    triggers: ["lab", "lab result", "blood work", "urinalysis", "CBC", "A1C", "lipid", "panel", "LabCorp", "Quest", "test result", "coding update", "test in question"],
+    triggers: ["lab", "lab result", "blood work", "urinalysis", "CBC", "A1C", "lipid", "panel", "LabCorp", "Quest", "Myriad", "test result", "coding update", "test in question", "referral authorization", "insurance requires", "ordering provider submit", "CPT", "Dx code", "specimen"],
     routes: [
+      {
+        doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
+        action: "create-te",
+        label: "DATE – [Lab Name] Auth Request – WHERE",
+        example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
+        fileTo: "Lab Documents",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin (TE)",
+        routeIf: [
+          "Insurance will not allow the lab to submit the authorization",
+          "Fax states 'Ordering Healthcare Provider must submit the Referral/Authorization'",
+          "Document lists Test Name, CPT code, Dx code, and Date of Service",
+          "Sender is a lab (Myriad, LabCorp, Quest, etc.) requesting provider action",
+          "Fax says 'This insurance company will not allow [lab] to submit the request'"
+        ],
+        doNot: [
+          "Do NOT process or submit the authorization yourself",
+          "Do NOT route to Referrals or Med PA",
+          "Do NOT delete — this requires provider action",
+          "Do NOT hold — attach to TE and send immediately"
+        ],
+        nextSteps: [
+          "Attach fax to TE",
+          "Send TE to Clinical Admin",
+          "Clinical Admin documents what is needed (test name, CPT, Dx, DOS)",
+          "Clinical Admin sends to provider for review",
+          "Provider creates referral or lab submission to insurance"
+        ],
+        notes: "Scan team action is attach + send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
+      },
       {
         doc: "Faxed Lab Result — Order Already Electronically Attached",
         action: "delete",
@@ -1077,7 +1150,7 @@ function showResult(r, sec) {
   const actionConfig = {
     "delete":    { icon: "🗑️", label: "ACTION: DELETE", main: "Delete — Do Not File", cls: "delete" },
     "file":      { icon: "📁", label: "ACTION: FILE & ROUTE", main: r.sendTo || "See routing below", cls: "file" },
-    "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: "Create TE → Route Internally", cls: "create-te" },
+    "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: r.assignTo ? `Assign TE to: ${r.assignTo}` : "Create TE → Route Internally", cls: "create-te" },
     "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team / Manager (Level 2+)", cls: "delete" },
   }[actionType] || { icon: "📄", label: "ACTION", main: r.sendTo, cls: "file" };
 
@@ -1096,11 +1169,20 @@ function showResult(r, sec) {
   if (r.label) detailsHTML += `<div class="detail-card full"><div class="detail-label">Label Format</div><span class="detail-value mono">${r.label}</span>${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}</div>`;
   const pairs = [];
   if (r.fileTo) pairs.push({ label: "File To", value: r.fileTo });
-  if (r.sendTo && actionType !== "delete") pairs.push({ label: "Send To", value: r.sendTo });
+  if (actionType === "create-te" && r.assignTo) pairs.push({ label: "Assigned To", value: r.assignTo });
+  else if (r.sendTo && actionType !== "delete") pairs.push({ label: "Send To", value: r.sendTo });
   if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
   else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
   const noteHTML = r.notes ? `<div class="note-box">${r.notes}</div>` : "";
+
+  // TE checklist
+  const teChecklistHTML = (r.teChecklist && r.teChecklist.length)
+    ? `<div class="te-checklist">
+        <div class="te-checklist-title">✚ Include in TE — required fields</div>
+        <ul>${r.teChecklist.map(item => `<li>${item}</li>`).join("")}</ul>
+      </div>`
+    : "";
 
   let briefHTML = "";
   if (r.routeIf || r.closeIf || r.doNot || r.nextSteps) {
@@ -1152,6 +1234,7 @@ function showResult(r, sec) {
       ${flagsHTML}
       ${fixRuleHTML}
       ${detailsHTML ? `<div class="details">${detailsHTML}</div>` : ""}
+      ${teChecklistHTML}
       ${noteHTML}
       ${briefHTML}
       ${portalHTML}
