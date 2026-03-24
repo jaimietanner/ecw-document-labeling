@@ -351,6 +351,30 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 /* 1-TOUCH GOAL */
 .one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
 
+/* JELLY + ROUTE BAR */
+.jelly-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; align-items:center; }
+.jelly-chip { display:flex; align-items:center; gap:6px; padding:5px 12px; border-radius:7px; font-size:12px; font-weight:700; }
+.jelly-chip.inbound { background:#e0f2fe; color:#0369a1; border:1.5px solid #bae6fd; }
+.jelly-chip.route { background:#f0fdf4; color:#166534; border:1.5px solid #bbf7d0; }
+.jelly-arrow { font-size:14px; color:var(--muted); }
+
+/* ACTION SUBJECT */
+.action-subject { background:#fafafa; border:1.5px solid var(--border); border-radius:9px; padding:11px 14px; margin-bottom:14px; }
+.action-subject-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:5px; }
+.action-subject-val { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text); font-weight:600; }
+.action-subject-eg { font-size:11px; color:var(--muted); font-style:italic; margin-top:3px; }
+
+/* TE NOTE TEMPLATE */
+.te-note-template { background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:9px; padding:12px 14px; margin-bottom:14px; }
+.te-note-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:#0369a1; margin-bottom:8px; }
+.te-note-scenario { font-size:12.5px; line-height:1.6; padding:8px 10px; background:#fff; border-radius:6px; border:1px solid #bae6fd; margin-bottom:6px; color:var(--text); }
+.te-note-scenario:last-child { margin-bottom:0; }
+.te-note-scenario .or { font-weight:800; color:#0369a1; font-size:11px; display:block; margin-bottom:3px; }
+.note-template { background:#fffbeb; border:1.5px solid #fde68a; border-radius:9px; padding:12px 14px; margin-bottom:14px; }
+.note-template-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:#92400e; margin-bottom:8px; }
+.note-template-row { font-size:12.5px; margin-bottom:5px; line-height:1.45; }
+.note-template-row strong { color:#92400e; font-family:'JetBrains Mono',monospace; font-size:12px; }
+
 /* LEVEL ACCORDIONS */
 .levels { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
 .level-block { border-radius:12px; border:1.5px solid var(--border); overflow:hidden; background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.05); }
@@ -439,6 +463,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="topbar-meta">Optima Medical · March 2026</div>
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
+    <button class="tb-btn" onclick="openGeneralNotes()">📌 General Rules</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
   </div>
@@ -562,6 +587,196 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   </div>
 </div>
 
+<!-- GENERAL NOTES OVERLAY -->
+<div class="overlay" id="generalNotesOverlay">
+  <div class="help-panel">
+    <div class="help-hero" style="background:#0a1f44">
+      <div class="help-hero-top">
+        <h2>📌 General Rules & Reminders</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>Applies to every fax, every time. These do not live on individual cards — they apply across the board.</p>
+    </div>
+    <div class="help-body">
+
+      <div class="help-section">
+        <h3>🎯 One-Touch Goal</h3>
+        <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:9px;padding:12px 16px;font-size:13.5px;font-weight:600;color:#166534;line-height:1.6;">
+          Every document should be correctly categorized, routed once, and not require rework.<br>
+          <span style="font-weight:400;font-size:12.5px;">Route it right the first time. That is the only metric that matters at Level 1.</span>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>🔧 Fix Before Routing</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">🔧</span><div>If something is missing or needs a small correction — <strong>fix it before routing.</strong> Do NOT send to another team just to fix small issues. One touch, one action.</div></div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>⚑ HP Rules</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">⚑</span><div><strong>Hospital / ER is ALWAYS HP.</strong> No exceptions. Do not delay for review.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">⚑</span><div><strong>Mark HP if it is noted on the form</strong> — FMLA, PA requests, imaging orders, DME, lab requests.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">⚑</span><div><strong>STAT = HP.</strong> If the fax says STAT anywhere — it is HP.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">⚑</span><div>CGM, end of life, and nebulizers under DME — <strong>always HP.</strong></div></div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>📅 Date Rules</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">📅</span><div>For imaging PAs — use the <strong>order date</strong>, not the fax received date.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">📅</span><div>For signature documents — use the <strong>date on the document</strong>, not today's date.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">📅</span><div>When in doubt — use the date that appears on the actual document.</div></div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>🚫 Hard Stops</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>No multiple actions for the same issue.</strong> Denial, appeal, follow-up — all go in the same existing action. Do not create a new one.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Do not send to a provider unless it is clearly a provider decision.</strong> Providers are not triage.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Do not guess between categories.</strong> When unsure → Still Confused → Clinical Admin.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Failure to Schedule with Specialist is NOT a delete.</strong> Route it to Referrals for follow-up.</div></div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>📋 Standard Note Format — use this every time a TE is created</h3>
+        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:9px;padding:14px 16px;">
+          <div style="font-size:13px;line-height:1.8;">
+            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">WHAT:</span> &nbsp;What the document is</div>
+            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">NEEDED:</span> &nbsp;What action is required</div>
+            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">DONE:</span> &nbsp;What has already been completed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>📋 Standard Action Subject Format</h3>
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:2;">
+          <div><strong>MED PA</strong> – Ozempic</div>
+          <div><strong>IMAGING PA</strong> – MRI Lumbar</div>
+          <div><strong>REFERRAL</strong> – Cardiology</div>
+          <div><strong>PROVIDER REVIEW</strong> – Abnormal Labs</div>
+          <div><strong>RX</strong> – Metformin 500mg refill</div>
+          <div><strong>DME</strong> – CGM Supplies</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">No free typing in the subject. Use one of the types above followed by a short description.</p>
+      </div>
+
+      <div class="help-section">
+        <h3>🏗️ eCW Jelly Structure</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:6px;">Level 1 — Scan Team</div>
+            <div style="font-size:11.5px;font-family:var(--font-mono);line-height:2;color:#0369a1;">
+              INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:6px;">Level 2 — Clinical Admin</div>
+              <div style="font-size:11.5px;font-family:var(--font-mono);color:#166534;">TRIAGE – CLINICAL ADMIN</div>
+            </div>
+            <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:6px;">Level 3 — Work Queues</div>
+              <div style="font-size:11px;font-family:var(--font-mono);line-height:1.9;color:#7c3aed;">
+                WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – RX SUPPORT
+              </div>
+            </div>
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:6px;">Level 4 — Provider</div>
+              <div style="font-size:11.5px;font-family:var(--font-mono);color:#b45309;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>⚙️ Automation Roadmap — Top 5 eCW Rules</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">These 5 rules eliminate the most volume. Build in order — stop after each week and measure before adding more.</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+          <!-- Rule 1 -->
+          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;">
+            <div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span>
+              <span style="font-size:13px;font-weight:700;color:#166534;">1. Behavioral Health Auto-Routing</span>
+              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Removes triage entirely</span>
+            </div>
+            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF</div>Referral Type = Outgoing<br>To Provider = Optima Medical<br>Specialty = Behavioral Health</div>
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → Kimberlee (BH Pool)<br>Jelly → <span style="font-family:var(--font-mono);font-size:11px;">WORK – REFERRALS</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">REFERRAL</span></div>
+            </div>
+          </div>
+
+          <!-- Rule 2 -->
+          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;">
+            <div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span>
+              <span style="font-size:13px;font-weight:700;color:#166534;">2. Signature Document Auto-Route</span>
+              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Eliminates TE creation</span>
+            </div>
+            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>FMLA · Plan of Care · Home Health<br>PT/OT · Order Form · Signature Required</div>
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Route → <span style="font-family:var(--font-mono);font-size:11px;">PROVIDER – SIGN</span><br>No TE · No Clinical Admin</div>
+            </div>
+          </div>
+
+          <!-- Rule 3 -->
+          <div style="border:1.5px solid #e9d5ff;border-radius:10px;overflow:hidden;">
+            <div style="background:#faf5ff;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <span style="background:#7c3aed;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span>
+              <span style="font-size:13px;font-weight:700;color:#7c3aed;">3. Medication PA Auto-Funnel</span>
+              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;">Huge volume reducer</span>
+            </div>
+            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>CoverMyMeds · Prior Authorization<br>Medication name · Pharmacy sender</div>
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">WORK – MED PA</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">MED PA</span><br>Skips triage entirely</div>
+            </div>
+          </div>
+
+          <!-- Rule 4 -->
+          <div style="border:1.5px solid #bfdbfe;border-radius:10px;overflow:hidden;">
+            <div style="background:#eff6ff;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <span style="background:#1a5fa8;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span>
+              <span style="font-size:13px;font-weight:700;color:#1a5fa8;">4. Hospital / ER Auto-Priority</span>
+              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dbeafe;color:#1a5fa8;padding:2px 8px;border-radius:6px;">Prevents delays</span>
+            </div>
+            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Discharge · ER · Hospital · Admission</div>
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">TRIAGE – CLINICAL ADMIN</span><br>Priority → <strong>HIGH</strong></div>
+            </div>
+          </div>
+
+          <!-- Rule 5 -->
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:var(--bg);padding:10px 14px;display:flex;align-items:center;gap:10px;">
+              <span style="background:#64748b;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 3</span>
+              <span style="font-size:13px;font-weight:700;color:var(--text);">5. Duplicate / Record-Only Filter</span>
+              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:6px;">Cuts noise</span>
+            </div>
+            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Records · Medical Records<br>For Review Only · Copy</div>
+              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Attach only<br>No routing · No action</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:12px;background:#fff7ed;border:1.5px solid #fed7aa;border-radius:9px;padding:10px 14px;font-size:12px;color:#c2410c;line-height:1.6;">
+          <strong>After each week — stop and measure before adding more.</strong> Target: &lt;5% duplicate action rate · &lt;10% misroute rate · &lt;30 sec triage time per doc.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- TRIAGE OVERLAY -->
 <div class="overlay" id="triageOverlay">
   <div class="triage-panel" id="triagePanel"></div>
@@ -615,18 +830,421 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 
 <script>
 const SECTIONS = [
+
   {
-    name: "✂️ Snip & Notify", icon: "✂️", color: "#16a34a", bg: "#f0fdf4",
-    triggers: ["tired of receiving", "opt in", "electronic delivery", "go paperless", "unsubscribe", "fax opt out", "electronic notification", "no longer send fax"],
+    name: "Signature Needed", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
+    jelly: "INBOUND – SIGNATURE",
+    routeTo: "PROVIDER – SIGN",
+    triggers: ["signature", "sign", "please sign", "provider signature", "FMLA", "consent", "authorization form"],
+    routes: [
+      {
+        doc: "Signature Needed → Provider",
+        action: "file",
+        jelly: "INBOUND – SIGNATURE",
+        actionType: "PROVIDER REVIEW",
+        actionSubject: "PROVIDER REVIEW – [Document Name]",
+        actionSubjectExample: "PROVIDER REVIEW – FMLA Form",
+        routeTo: "PROVIDER – SIGN",
+        sendTo: "Provider (direct)",
+        label: "DATE – [Document Name] – WHERE",
+        example: "01/15/2026 – FMLA Form – Banner Gateway",
+        fileTo: "*Forms Appt/Signature Requested",
+        flags: ["hp-if-noted"],
+        noteFormat: true,
+        notes: "Scan team: attach, label, route to Provider – SIGN. Level 1 stops here.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Document has a signature line or says Provider Signature Required",
+              "FMLA, consent form, authorization form, clinical form needing provider sign-off",
+              "Any form from outside facility requiring provider signature"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Document Name] – WHERE",
+              "Jelly: INBOUND – SIGNATURE",
+              "Mark HP if noted on the form",
+              "Route to PROVIDER – SIGN"
+            ]
+          },
+          {
+            num: 2, title: "Admin Doc", badge: "Admin Doc", color: "purple",
+            steps: [
+              "Confirm document attached to correct patient",
+              "Follow up if provider has not signed within expected timeframe",
+              "Return signed document to requesting facility if needed"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Medication Related", icon: "💊", color: "#be185d", bg: "#fdf2f8",
+    jelly: "INBOUND – RX",
+    routeTo: "WORK – RX SUPPORT",
+    triggers: ["Rx", "prescription", "pharmacy", "medication", "refill", "drug", "Tango", "non-adherence", "offboarded provider"],
+    routes: [
+      {
+        doc: "Medication Related → Clinical Admin",
+        action: "create-te",
+        jelly: "INBOUND – RX",
+        actionType: "RX",
+        actionSubject: "RX – [Medication Name, Dose]",
+        actionSubjectExample: "RX – Ozempic 0.5mg  |  RX – Metformin 500mg refill",
+        routeTo: "TRIAGE – CLINICAL ADMIN",
+        sendTo: "Clinical Admin",
+        assignTo: "Clinical Admin",
+        fileTo: "*RX",
+        noteFormat: true,
+        notes: "Doc gets reviewed and closed by Clinical Admin. TE team preps TE for provider using the standard note below.",
+        teNoteTemplate: [
+          "Received faxed Rx request for [medication, dose]. Patient last seen by you on [date] — please send loaded Rx if OK (Level 2 to load).",
+          "— OR — Patient has not been seen by an active Optima provider. Needs to schedule follow-up. Bridge request can be sent to provider with appointment date once scheduled if needed.",
+          "— OR — Patient has an upcoming appointment with you on [date]. Please advise if OK to refill now, or send to MA to add to HPI to review and discuss at visit."
+        ],
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Mentions pharmacy, medication name, or refill",
+              "Rx request from any provider (active or offboarded)"
+            ],
+            deleteIf: [
+              "Rx Request — Active Optima Provider (delete)",
+              "Temporary Rx Supplies (delete)",
+              "Medication Non-Adherence Notice (delete)",
+              "Tango Approval (delete)"
+            ],
+            steps: [
+              "Is it one of the delete items above? → Delete. Done.",
+              "If not — jelly: INBOUND – RX",
+              "Route to Clinical Admin (TRIAGE – CLINICAL ADMIN)",
+              "Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
+            steps: [
+              "Review and close the document",
+              "Prep TE for provider using the standard note format",
+              "Check patient's last visit date and upcoming appointments",
+              "Select the correct note scenario: last seen / not seen / upcoming appt",
+              "Assign TE to provider for review"
+            ]
+          },
+          {
+            num: 3, title: "Provider", badge: "Provider", color: "amber",
+            steps: [
+              "Review TE from Clinical Admin",
+              "Approve refill — Level 2 will load",
+              "Or advise to schedule follow-up / bridge request",
+              "Or send to MA to add to HPI for upcoming visit"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Auth / Approval", icon: "🔐", color: "#7c3aed", bg: "#f5f3ff",
+    jelly: "INBOUND – AUTH",
+    routeTo: "TRIAGE – CLINICAL ADMIN",
+    triggers: ["prior auth", "PA", "authorization", "approval", "denial", "appeal", "insurance", "formulary", "step therapy", "peer-to-peer", "MRI", "CT", "ultrasound", "imaging PA", "med PA"],
+    routes: [
+      {
+        doc: "Auth / Approval → Clinical Admin Triage",
+        action: "file",
+        jelly: "INBOUND – AUTH",
+        actionType: "MED PA  or  IMAGING PA",
+        actionSubject: "MED PA – [Medication]  or  IMAGING PA – [Imaging Type]",
+        actionSubjectExample: "MED PA – Ozempic  |  IMAGING PA – MRI Lumbar",
+        routeTo: "TRIAGE – CLINICAL ADMIN",
+        sendTo: "Clinical Admin (triage)",
+        fileTo: "*Medication Prior Authorization  or  *Imaging Prior Authorization",
+        noteFormat: true,
+        notes: "Anything mentioning authorization, approval, denial, or insurance request. Level 1 routes to Clinical Admin triage — Level 2 assigns to correct PA queue.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Mentions prior authorization, PA request, approval, or denial",
+              "Insurance requires authorization before service",
+              "Any advanced imaging order (MRI, CT, Ultrasound) with PA attached",
+              "Medication PA from pharmacy or payer"
+            ],
+            deleteIf: [
+              "PA Request with a Key Listed — delete",
+              "Auth notification from outside facility — Level 2 deletes"
+            ],
+            steps: [
+              "Attach and label: DATE – [Item Name] PA Request – WHERE",
+              "Use the ORDER date — NOT today's date",
+              "Jelly: INBOUND – AUTH",
+              "Mark HP / STAT if noted on form",
+              "Route to TRIAGE – CLINICAL ADMIN"
+            ],
+            notes: "⚠️ Use the ORDER date — NOT the fax received date."
+          },
+          {
+            num: 2, title: "Admin Doc", badge: "Admin Doc", color: "purple",
+            deleteIf: [
+              "Delete auth notifications from outside facilities",
+              "Delete confirmed duplicate PAs"
+            ],
+            steps: [
+              "Search patient — if action exists update it, do not create a duplicate",
+              "Determine: Med PA or Imaging PA",
+              "Med PA → jelly WORK – MED PA, assign to Med PA Team",
+              "Imaging PA → jelly WORK – IMAGING PA, assign to Imaging Team",
+              "Confirm HP / STAT flag applied if required"
+            ]
+          },
+          {
+            num: 3, title: "PA Team", badge: "PA Team", color: "amber",
+            steps: [
+              "Submit PA to payer",
+              "Track response — update same action, do not create a new one",
+              "Initiate peer-to-peer or appeal if denied — update status to Denied"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Patient Care / Visit", icon: "🏥", color: "#0f6ac0", bg: "#e8f2fc",
+    jelly: "INBOUND – CLINICAL",
+    routeTo: "TRIAGE – CLINICAL ADMIN",
+    triggers: ["hospital", "ER", "discharge", "lab result", "specialist note", "consult note", "FYI for provider", "clinical", "CBC", "lab", "inpatient", "admission", "PAP", "DME", "equipment", "CGM"],
+    routes: [
+      {
+        doc: "Patient Care / Visit → Clinical Admin",
+        action: "create-te",
+        jelly: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        actionSubject: "PROVIDER REVIEW – [Description]",
+        actionSubjectExample: "PROVIDER REVIEW – Abnormal Labs  |  PROVIDER REVIEW – ER Discharge",
+        routeTo: "TRIAGE – CLINICAL ADMIN",
+        sendTo: "Clinical Admin",
+        assignTo: "Clinical Admin",
+        fileTo: "*Admit/Discharge Notifications  |  *Lab Documents  |  *Consult Notes  |  *DME Requests",
+        noteFormat: true,
+        notes: "Catch-all for anything clinical. Hospital, ER, lab results, specialist notes, discharge, DME, PAP. When unsure — this is the bucket. Clinical Admin is the brain.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Hospital or ER record, discharge summary, admission notes",
+              "Lab result of any kind",
+              "Specialist or consult note",
+              "DME, PAP compliance report, equipment-related",
+              "Anything FYI for provider or clinical in nature",
+              "Not sure where it goes — this is your safety bucket"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Document Type] – WHERE",
+              "Jelly: INBOUND – CLINICAL",
+              "Mark HP if Hospital/ER or HP noted",
+              "Create TE → assign to Clinical Admin",
+              "Route to TRIAGE – CLINICAL ADMIN"
+            ],
+            notes: "⚠️ Hospital / ER is ALWAYS HP. Do not delay."
+          },
+          {
+            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
+            steps: [
+              "Search patient — if action exists update it, do not create a duplicate",
+              "Determine action type: PROVIDER REVIEW, REFERRAL, DME, etc.",
+              "Subject format: [ACTION TYPE] – Short Description",
+              "Document using WHAT / NEEDED / DONE format",
+              "Hospital/ER: confirm follow-up within 7–14 days",
+              "Assign to correct WORK jelly or PROVIDER – REVIEW"
+            ]
+          },
+          {
+            num: 3, title: "Provider", badge: "Provider", color: "amber",
+            steps: [
+              "Review document in PROVIDER – REVIEW jelly",
+              "Take follow-up action — update same TE, do not create a new one",
+              "Order labs, referrals, or medication changes as needed"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Referral Related", icon: "↗️", color: "#166534", bg: "#f0fdf4",
+    jelly: "INBOUND – REFERRAL",
+    routeTo: "TRIAGE – CLINICAL ADMIN",
+    triggers: ["referral", "consult", "specialist", "scheduling", "outside office", "failure to schedule", "lab authorization", "Myriad", "insurance requires provider submit"],
+    routes: [
+      {
+        doc: "Referral Related → Clinical Admin Triage",
+        action: "file",
+        jelly: "INBOUND – REFERRAL",
+        actionType: "REFERRAL",
+        actionSubject: "REFERRAL – [Specialty or Description]",
+        actionSubjectExample: "REFERRAL – Cardiology  |  REFERRAL – Lab Auth Myriad",
+        routeTo: "TRIAGE – CLINICAL ADMIN",
+        sendTo: "Clinical Admin (triage)",
+        label: "DATE – [Referral Request / Response] – WHERE",
+        example: "01/15/2026 – Referral Response – East Valley Urology",
+        fileTo: "*Referral Correspondence",
+        noteFormat: true,
+        notes: "Referral requests, specialist coordination, scheduling with outside office, lab auth requests where insurance requires provider to submit.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Mentions referral, specialist, or consult",
+              "Scheduling with outside facility",
+              "Failure to schedule with a specialist — do NOT delete",
+              "Lab auth request where insurance requires provider to submit"
+            ],
+            deleteIf: [
+              "Referral confirmation of receipt — delete",
+              "Referral scheduled date notification — delete"
+            ],
+            steps: [
+              "Attach and label",
+              "Jelly: INBOUND – REFERRAL",
+              "Route to TRIAGE – CLINICAL ADMIN",
+              "Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Referrals Team", badge: "Referrals", color: "purple",
+            steps: [
+              "Search patient — if action exists update it, do not create a duplicate",
+              "Confirm patient is scheduled with correct specialist",
+              "Follow up on failure-to-schedule items",
+              "For lab auth: document CPT, Dx, DOS — send to provider",
+              "Route to WORK – REFERRALS"
+            ]
+          },
+          {
+            num: 3, title: "Provider", badge: "Provider", color: "amber",
+            steps: [
+              "Review referral or consult note",
+              "Create lab submission or referral to insurance if required",
+              "Update same action — do not create a new one"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "No Action / File Only", icon: "📁", color: "#64748b", bg: "#f8fafc",
+    jelly: "INBOUND – RECORD ONLY",
+    routeTo: "STOP — no action",
+    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records"],
+    routes: [
+      {
+        doc: "No Action / File Only → Attach and Close",
+        action: "file",
+        jelly: "INBOUND – RECORD ONLY",
+        actionType: "FILE ONLY",
+        routeTo: "STOP — no TE, no routing",
+        sendTo: "Patient Chart (file only)",
+        fileTo: "*Records Request",
+        notes: "Old records, informational documents, no next step. Attach, label, close. No TE, no routing, Level 1 stops here.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Incoming medical records with no action requested",
+              "Outgoing records request — route to AMS",
+              "Informational document with no follow-up needed"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Incoming Records – WHERE",
+              "Jelly: INBOUND – RECORD ONLY",
+              "For outgoing records: send to AMS (AmericanMedicalRecords)",
+              "No TE — Level 1 stops here"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Still Confused?", icon: "❓", color: "#0369a1", bg: "#f0f9ff",
+    jelly: "INBOUND – UNKNOWN",
+    routeTo: "TRIAGE – CLINICAL ADMIN",
+    triggers: ["unknown", "not sure", "unclear", "other", "confused"],
+    routes: [
+      {
+        doc: "Still Confused → Clinical Admin",
+        action: "create-te",
+        jelly: "INBOUND – UNKNOWN",
+        actionType: "PROVIDER REVIEW",
+        actionSubject: "PROVIDER REVIEW – Unknown Document",
+        routeTo: "TRIAGE – CLINICAL ADMIN",
+        sendTo: "Clinical Admin",
+        assignTo: "Clinical Admin",
+        fileTo: "*Important Notifications",
+        noteFormat: true,
+        notes: "Reviewed all buckets and still unsure? Send to Clinical Admin. Do NOT guess. Clinical Admin is the brain — they determine correct routing.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Reviewed all 6 buckets and still unsure",
+              "Document is unclear or unreadable",
+              "Cannot identify sender, document type, or patient"
+            ],
+            steps: [
+              "Attach to patient chart if patient is identifiable",
+              "Jelly: INBOUND – UNKNOWN",
+              "Create TE — note what you see on the fax",
+              "Assign to Clinical Admin",
+              "Route to TRIAGE – CLINICAL ADMIN"
+            ]
+          },
+          {
+            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
+            steps: [
+              "Review flagged document",
+              "Determine correct routing or action",
+              "If routing gap identified — flag for SOP update"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Snip & Notify", icon: "✂️", color: "#16a34a", bg: "#f0fdf4",
+    triggers: ["tired of receiving", "opt in", "electronic delivery", "go paperless", "unsubscribe", "fax opt out"],
     routes: [
       {
         doc: "Fax Opt-Out / Electronic Delivery Request",
         action: "snip",
         sendTo: "@Megan and @Jaimie (team chat)",
         routeIf: [
-          "Fax says \"Tired of receiving fax documents\" or similar language",
-          "Any fax promoting or requesting sign-up for electronic delivery",
-          "Opt-in or paperless delivery request from a facility or vendor"
+          "Fax says Tired of receiving fax documents or similar",
+          "Any fax requesting sign-up for electronic delivery",
+          "Opt-in or paperless delivery request from facility or vendor"
         ],
         nextSteps: [
           "Snip the document",
@@ -637,727 +1255,9 @@ const SECTIONS = [
         notes: "Level 1 action only. Snip, tag, done."
       }
     ]
-  },
-  {
-    name: "Signature Required", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
-    triggers: ["signature", "sign", "please sign", "requires signature", "authorization form", "consent form", "FMLA", "conversion", "fax to electronic", "HL7", "electronic note"],
-    routes: [
-      {
-        doc: "Document Requiring Provider Signature",
-        action: "file",
-        levels: [
-          {
-            num: 1,
-            title: "Scan Team",
-            badge: "Scan Team",
-            color: "blue",
-            routeIf: [
-              "Document has a signature line or states 'Provider Signature Required'",
-              "FMLA, consent form, authorization form, or any clinical form needing provider sign-off",
-              "Any form returned from an outside facility requiring provider review and signature"
-            ],
-            closeIf: [],
-            steps: [
-              "Label: DATE – [Document Name] – WHERE",
-              "⚠️ Use the DATE on the document — NOT the fax received date",
-              "Attach directly to patient chart",
-              "Mark HP if noted on the form",
-              "Route directly to provider — Level 1 action stops here"
-            ],
-            notes: "⚠️ Scan team routes directly to provider. If provider sends back stating OK to sign — Level 2 takes over."
-          },
-          {
-            num: 2,
-            title: "Admin Doc Team",
-            badge: "Admin Doc",
-            color: "purple",
-            deleteIf: [
-              "🗑 Document is already signed — attach to chart, no TE needed",
-              "🗑 Duplicate of a document already in the chart"
-            ],
-            routeIf: [
-              "Provider has reviewed and sent back stating OK to sign"
-            ],
-            routeIfStyle: "green",
-            steps: [
-              "Confirm document is attached to the correct patient chart",
-              "Verify label format is correct — DATE – [Document Name] – WHERE",
-              "Confirm HP is marked if required",
-              "Receive signed document back from provider",
-              { text: "Update document name: SIG REQUIRED → SIGNED/SENT", bold: true },
-              "Stamp and document completed",
-              "Fax signed document back to requesting facility",
-              "Review and close document"
-            ]
-          }
-        ]
-      },
-      {
-        doc: "Request Conversion — Fax to Electronic (HL7 / Electronic Note)",
-        action: "file",
-        levels: [
-          {
-            num: 1,
-            title: "Scan Team",
-            badge: "Scan Team",
-            color: "blue",
-            routeIf: [
-              "Fax from outside facility requesting to switch from fax to electronic delivery",
-              "Document references HL7, electronic notes, or electronic routing setup",
-              "Any setup or registration request for electronic document transmission"
-            ],
-            steps: [
-              "Label: DATE – [Facility Name] Conversion Request – WHERE",
-              "⚠️ Use the DATE on the document — NOT the fax received date",
-              "Attach directly to patient chart",
-              "Send to provider",
-              "Mark HP if noted on the form",
-              "Level 1 action stops here"
-            ],
-            notes: "⚠️ Use the DATE on the document — NOT the fax received date. Attach directly to patient chart and send to provider. Mark HP if noted on the form."
-          }
-        ],
-        snipIf: [
-          "Fax says \"Tired of receiving fax documents\" or similar opt-in language",
-          "Any fax promoting or requesting sign-up for electronic delivery services"
-        ],
-        snipAction: "Snip the document and send to the team chat — tag @Megan and @Jaimie. No filing required. Level 1 action."
-      }
-    ]
-  },
-  {
-    name: "Rx / Pharmacy", icon: "💊", color: "#be185d", bg: "#fdf2f8",
-    triggers: ["Rx", "prescription", "pharmacy", "medication request", "Tango", "refill", "non-adherence"],
-    routes: [
-      { doc: "Rx Request — Active Optima Provider", level: 1, action: "delete" },
-      { doc: "Temporary Rx Supplies", level: 1, action: "delete" },
-      { doc: "Medication Non-Adherence Notice", level: 1, action: "delete" },
-      { doc: "Tango Approval", level: 1, action: "delete" },
-      {
-        doc: "Rx Request — Offboarded Provider",
-        level: 2,
-        action: "create-te",
-        assignTo: "New Optima Provider (internal)",
-        sendTo: "New Optima Provider (internal)",
-        notes: "Create TE and route internally to the replacement Optima provider."
-      },
-    ]
-  },
-  {
-    name: "Hospital / ER", icon: "🏥", color: "#0f6ac0", bg: "#e8f2fc",
-    triggers: ["discharge", "ER", "emergency room", "hospital", "admission", "inpatient", "outpatient stay", "follow-up after hospitalization", "consult note", "admission summary"],
-    routes: [
-      {
-        doc: "Hospital / ER Records — All Types",
-        level: 1,
-        action: "file",
-        label: "HOSP/ER – ACTION  or  HOSP/ER – FYI",
-        example: "HOSP/ER – ACTION (needs follow-up)   |   HOSP/ER – FYI (no action needed)",
-        fileTo: "Admit / Discharge Notifications",
-        sendTo: "TE Team (Clinical Admin)",
-        flags: ["hp"],
-        routeIf: [
-          "Discharge Summary",
-          "Emergency Room (ER) Visit",
-          "Hospital Admission or Stay",
-          "Inpatient or Outpatient Hospital Records",
-          "\"Follow-up after hospitalization\"",
-          "ER notes, hospital consult notes, or admission summaries"
-        ],
-        closeIf: [
-          "Document is clearly old and already addressed",
-          "Marked as FYI only with no follow-up needed",
-          "Duplicate of already attached hospital record"
-        ],
-        doNot: [
-          "Do NOT send to Referrals",
-          "Do NOT send to Med PA",
-          "Do NOT send to Imaging",
-          "Do NOT hold in Documents for review"
-        ],
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            routeIf: [
-              "Discharge Summary",
-              "Emergency Room (ER) Visit",
-              "Hospital Admission or Stay",
-              "Inpatient or Outpatient Hospital Records",
-              "\"Follow-up after hospitalization\"",
-              "ER notes, hospital consult notes, or admission summaries"
-            ],
-            closeIf: [
-              "Document is clearly old and already addressed",
-              "Marked as FYI only with no follow-up needed",
-              "Duplicate of already attached hospital record"
-            ],
-            steps: [
-              { type: "action", text: "Label — HOSP/ER – ACTION or HOSP/ER – FYI" },
-              { type: "action", text: "Mark HP — always" },
-              { type: "action", text: "File to Admit / Discharge Notifications" },
-              { type: "action", text: "Send to TE Team (Clinical Admin)" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Review discharge summary or ER note" },
-              { type: "action", text: "Confirm patient has follow-up within 7–14 days" },
-              { type: "action", text: "Schedule or adjust appointment if needed" },
-              { type: "action", text: "Route to provider AFTER follow-up is addressed" }
-            ]
-          },
-          {
-            num: 3, title: "Clinical — Dept Dependent",
-            steps: [
-              { type: "action", text: "Provider reviews post-hospital documentation" },
-              { type: "action", text: "Ensure documentation is complete in chart" },
-              { type: "action", text: "Order any follow-up labs, referrals, or medication changes" }
-            ]
-          }
-        ],
-        notes: "When in doubt → SEND TO HOSP/ER. Always High Priority. Do NOT treat as routine. Do NOT delay for review."
-      }
-    ]
-  },
-  {
-    name: "Prior Auth — Med PA", icon: "💊", color: "#7c3aed", bg: "#f5f3ff",
-    triggers: ["prior auth", "PA", "authorization", "med PA", "medication approval", "pharmacy", "formulary", "step therapy", "denial", "appeal", "peer-to-peer", "MRI", "CT", "X-ray", "ultrasound", "imaging order", "IH Sono"],
-    routes: [
-      {
-        doc: "PA Request — Key Listed",
-        level: 1,
-        action: "delete"
-      },
-      {
-        doc: "Med PA — Medication Prior Authorization",
-        level: 1,
-        action: "create-te",
-        label: "DATE – [Medication Name] PA – WHERE",
-        example: "01/15/2026 – Ozempic PA – CVS Specialty",
-        fileTo: "Med PA Bucket",
-        assignTo: "Clinical Admin",
-        sendTo: "Clinical Admin (TE)",
-        routeIf: [
-          "PA request for a medication requiring authorization",
-          "Denial or appeal for a medication PA",
-          "Peer-to-peer request related to a medication",
-          "PA clarification or additional info request from pharmacy/payer",
-          "Step therapy or formulary exception request"
-        ],
-        closeIf: [
-          "PA already has a key listed — delete, do not route",
-          "Auth notification requested by an outside provider — delete",
-          "Duplicate of an already active PA request"
-        ],
-        doNot: [
-          "Do NOT process or evaluate the PA yourself",
-          "Do NOT send to Imaging PA team",
-          "Do NOT send to Referrals",
-          "Do NOT hold — attach to TE and send immediately"
-        ],
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "action", text: "Attach fax to TE" },
-              { type: "action", text: "Label — DATE – [Medication Name] PA – WHERE" },
-              { type: "action", text: "Assign TE to Clinical Admin" },
-              { type: "action", text: "Send immediately — do not hold" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Review TE and document what is needed from payer" },
-              { type: "action", text: "Gather supporting clinical documentation" },
-              { type: "action", text: "Send to provider for review and sign-off" }
-            ]
-          },
-          {
-            num: 3, title: "Clinical — Dept Dependent",
-            steps: [
-              { type: "action", text: "Provider reviews PA request" },
-              { type: "action", text: "Creates referral or lab submission as needed" },
-              { type: "action", text: "PA team submits to payer and tracks response" }
-            ]
-          }
-        ],
-        notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing."
-      },
-      {
-        doc: "Lab Auth Request — Provider Must Submit (e.g. Myriad, Natera, Guardant)",
-        action: "create-te",
-        label: "DATE – [Lab Name] Auth Request – [Insurance/Payer]",
-        example: "01/05/2026 – Myriad Auth Request – Blue Cross",
-        fileTo: "Patient Chart (attach document)",
-        sendTo: "Ordering Provider (via TE)",
-        flags: ["hp"],
-        teChecklist: [
-          "CPT code(s) from the fax",
-          "Dx / diagnosis code(s)",
-          "Lab / service provider name (e.g. Myriad Genetics)",
-          "Date of Service / specimen collection date",
-          "Patient insurance / payer name",
-          "Attach the fax document to the TE"
-        ],
-        routeIf: [
-          "Lab states insurance will NOT allow them to submit the request",
-          "Fax says 'Ordering Healthcare Provider must submit the Referral/Authorization'",
-          "Fax includes CPT code(s), Dx code(s), and date of service",
-          "Sender is a genetic or specialty lab (Myriad, Natera, Guardant, etc.)"
-        ],
-        doNot: [
-          "Do NOT delete — provider action is required",
-          "Do NOT route to Med PA without creating a TE first",
-          "Do NOT create the TE without attaching the document",
-          "Do NOT omit CPT code, Dx code, or lab name from the TE"
-        ],
-        nextSteps: [
-          "Attach fax document to patient chart",
-          "Create TE for ordering provider",
-          "Include CPT code, Dx code, lab name, and date of service in TE body",
-          "Mark HP",
-          "Provider reviews TE and submits Referral/Auth to insurance"
-        ],
-        notes: "The lab cannot submit on behalf of the provider. The TE must contain all required fields so the provider can act immediately — CPT code, Dx code, lab/service provider, and date of service."
-      }
-    ]
-  },
-  {
-    name: "Imaging PA", icon: "🔬", color: "#0891b2", bg: "#ecfeff",
-    triggers: ["imaging PA", "MRI", "CT", "ultrasound", "imaging order", "IH Sono", "imaging denial", "imaging clarification", "imaging authorization", "radiology", "advanced imaging"],
-    routes: [
-      {
-        doc: "Auth Approval Notification",
-        level: 1,
-        action: "file",
-        label: "DATE – Auth Approval – WHERE",
-        example: "01/15/2026 – Auth Approval – Banner Imaging",
-        fileTo: "Imaging Prior Authorization",
-        sendTo: "Prior Auth, Imaging and IH Sono",
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "delete", text: "Outside facility — Delete" },
-              { type: "action", text: "Internal — Label and close" }
-            ]
-          }
-        ]
-      },
-      {
-        doc: "PA Request for Advanced Imaging",
-        action: "file",
-        label: "DATE – [Advanced Imaging Order Name] PA Request – WHERE",
-        example: "<strong>01/15/2026 – MRI Lumbar Spine PA Request – Banner Imaging</strong>",
-        fileTo: "Imaging Prior Authorization",
-        sendTo: "Provider",
-        notes: "⚠️ Use the ORDER date — NOT the fax received date. Mark HP / STAT if noted on the form.",
-        hp: true,
-        levels: [
-          {
-            num: "1", color: "blue", title: "Scan Team", badge: "Scan Team",
-            routeIf: [
-              "PA request for any ADVANCED imaging order (MRI, CT, Ultrasound, etc.)",
-              "Imaging PA denial or appeal — Mark HP",
-              "Auth notification from outside facility — Level 2 will delete"
-            ],
-            closeIf: [
-              "Duplicate of an already submitted imaging PA — Level 2 will delete"
-            ],
-            steps: [
-              "Snip the document",
-              "Send screenshot to team chat",
-              "Tag @Megan and @Jaimie",
-              "Continue to process document as normal"
-            ]
-          },
-          {
-            num: "2", color: "purple", title: "Admin Doc Team", badge: "Admin Doc",
-            steps: [
-              "Verify PA request is complete and correctly labeled",
-              "🗑 Delete auth notifications from outside facilities",
-              "🗑 Delete confirmed duplicates",
-              "Confirm HP / STAT flag is applied if required",
-              "Assign to PA team queue for submission"
-            ]
-          },
-          {
-            num: "3", color: "amber", title: "Imaging PA Team", badge: "Imaging PA",
-            steps: [
-              "Review PA — confirm imaging type, ordering provider, and payer",
-              "Submit PA to payer",
-              "Track response and update eCW accordingly",
-              "Initiate peer-to-peer or appeal if denied",
-              "Notify provider of approval or denial outcome"
-            ]
-          }
-        ]
-      },
-      {
-        doc: "PA Imaging Order Clarification",
-        level: 1,
-        action: "file",
-        label: "DATE – [Imaging Type] Clarification – WHERE",
-        example: "01/15/2026 – MRI Brain Clarification – Banner Imaging",
-        fileTo: "Imaging Prior Authorization",
-        sendTo: "Prior Auth, Imaging and IH Sono",
-        flags: ["hp"],
-        notes: "Use request date. Mark HP. Route to Imaging PA team for response.",
-        hp: true,
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "action", text: "Label with request date, imaging type, and facility" },
-              { type: "action", text: "Mark HP" },
-              { type: "action", text: "Route to Imaging Prior Authorization bucket" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Review clarification request" },
-              { type: "action", text: "Confirm HP is marked" },
-              { type: "action", text: "Assign to PA team for response" }
-            ]
-          },
-          {
-            num: 3, title: "PA Team",
-            steps: [
-              { type: "action", text: "Review payer clarification request" },
-              { type: "action", text: "Gather additional documentation from provider if needed" },
-              { type: "action", text: "Respond to payer and document outcome in eCW" }
-            ]
-          }
-        ]
-      },
-      {
-        doc: "PA Imaging Denial",
-        level: 1,
-        action: "file",
-        label: "DATE – [Imaging Type] Denial – WHERE",
-        example: "01/15/2026 – CT Abdomen Denial – Simon Med",
-        fileTo: "Imaging Prior Authorization",
-        sendTo: "Prior Auth, Imaging and IH Sono",
-        flags: ["hp"],
-        notes: "Use denial date. Mark HP / STAT.",
-        hp: true,
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "action", text: "Label with denial date, imaging type, and facility" },
-              { type: "action", text: "Mark HP / STAT" },
-              { type: "action", text: "Route to Imaging Prior Authorization bucket immediately" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Verify denial is correctly labeled and HP marked" },
-              { type: "action", text: "Flag for PA team — urgent" },
-              { type: "action", text: "Notify PA team of denial receipt" }
-            ]
-          },
-          {
-            num: 3, title: "PA Team",
-            steps: [
-              { type: "action", text: "Review denial reason from payer" },
-              { type: "action", text: "Determine whether to appeal or initiate peer-to-peer" },
-              { type: "action", text: "Notify provider of denial and next steps" },
-              { type: "action", text: "Submit appeal or peer-to-peer request to payer" },
-              { type: "action", text: "Document outcome in eCW" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: "Referrals", icon: "↗️", color: "#166534", bg: "#f0fdf4",
-    triggers: ["referral", "consult", "specialist", "consult note", "failure to schedule", "referral response", "referral request", "scheduling issue"],
-    routes: [
-      {
-        doc: "Referral — Confirmation of Receipt",
-        level: 1,
-        action: "delete"
-      },
-      {
-        doc: "Referral — Scheduled Date Notification",
-        level: 1,
-        action: "delete"
-      },
-      {
-        doc: "Failure to Schedule — Imaging",
-        level: 1,
-        action: "delete",
-        notes: "Delete for now. Will update once ticker workflow is aligned."
-      },
-      {
-        doc: "Referral Request / Response",
-        level: 1,
-        action: "file",
-        label: "DATE – [Referral Request / Response] – WHERE",
-        example: "01/15/2026 – Referral Response – East Valley Urology",
-        fileTo: "Referral Correspondence",
-        sendTo: "Corresponding Referral Bucket",
-        routeIf: [
-          "New referral request from a specialist or outside facility",
-          "Referral response or consult note returned from specialist",
-          "Referral status update requiring action",
-          "Referral with outstanding documentation needed",
-          "Any referral marked STAT or urgent"
-        ],
-        closeIf: [
-          "Confirmation of receipt only — delete, no action needed",
-          "Scheduled date notification only — delete",
-          "Duplicate of an already routed referral",
-          "Failure to schedule — Imaging (delete for now)"
-        ],
-        doNot: [
-          "Do NOT send to Hospital/ER team",
-          "Do NOT send to Med PA",
-          "Do NOT delete a failure-to-schedule with specialist — route it",
-          "Do NOT route without identifying the correct referral bucket"
-        ],
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "action", text: "Identify specialty and referring facility from the fax" },
-              { type: "action", text: "Label — DATE – [Referral Request / Response] – WHERE" },
-              { type: "action", text: "File to Referral Correspondence" },
-              { type: "action", text: "Route to corresponding regional referral bucket" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Review referral and confirm correct bucket routing" },
-              { type: "action", text: "Flag any STAT or urgent referrals for immediate action" },
-              { type: "action", text: "Coordinate with referral coordinator for follow-up" }
-            ]
-          },
-          {
-            num: 3, title: "Clinical — Dept Dependent",
-            steps: [
-              { type: "action", text: "Referral coordinator reviews and acts within SLA" },
-              { type: "action", text: "Provider notified if consult note requires review or follow-up" }
-            ]
-          }
-        ],
-        notes: "Failure to Schedule with a Specialist is NOT a delete — route it to the referral bucket for follow-up."
-      },
-      {
-        doc: "Failure to Schedule with Specialist",
-        level: 1,
-        action: "file",
-        label: "DATE – Referral Scheduling Issue – WHERE",
-        example: "01/15/2026 – Referral Scheduling Issue – AZ Cardiology",
-        fileTo: "Referral Correspondence",
-        sendTo: "Corresponding Referral Bucket",
-        notes: "Do NOT delete. Assign to Referrals coordinator for follow-up with specialist."
-      },
-      {
-        doc: "Lab Referral / Authorization Request — Insurance Requires Provider Submission",
-        level: 1,
-        action: "create-te",
-        label: "DATE – [Lab Name] Auth Request – WHERE",
-        example: "01/05/2026 – Myriad BRCA Auth Request – Myriad Genetics",
-        fileTo: "Referral Correspondence",
-        assignTo: "Clinical Admin",
-        sendTo: "Clinical Admin (TE)",
-        routeIf: [
-          "Insurance will not allow the lab to submit the authorization",
-          "Fax states 'Ordering Healthcare Provider must submit the Referral/Authorization'",
-          "Document lists Test Name, CPT code, Dx code, and Date of Service",
-          "Sender is a lab (Myriad, LabCorp, Quest, etc.) requesting provider action",
-          "Fax says 'This insurance company will not allow [lab] to submit the request'"
-        ],
-        doNot: [
-          "Do NOT process or submit the authorization yourself",
-          "Do NOT route to Lab Results or Med PA",
-          "Do NOT delete — this requires provider action",
-          "Do NOT hold — attach to TE and send immediately"
-        ],
-        levels: [
-          {
-            num: 1, title: "Scan Team",
-            steps: [
-              { type: "action", text: "Attach fax to TE" },
-              { type: "action", text: "Label — DATE – [Lab Name] Auth Request – WHERE" },
-              { type: "action", text: "File to Referral Correspondence" },
-              { type: "action", text: "Assign TE to Clinical Admin — send immediately" }
-            ]
-          },
-          {
-            num: 2, title: "Admin Doc Team",
-            steps: [
-              { type: "action", text: "Document what is needed: test name, CPT code, Dx code, DOS" },
-              { type: "action", text: "Send TE to provider for review" }
-            ]
-          },
-          {
-            num: 3, title: "Clinical — Dept Dependent",
-            steps: [
-              { type: "action", text: "Provider reviews the authorization request" },
-              { type: "action", text: "Creates referral or lab submission to insurance" },
-              { type: "action", text: "Documents outcome in eCW" }
-            ]
-          }
-        ],
-        notes: "Scan team action: attach, label, and send only. Clinical Admin owns everything after routing. Common senders: Myriad Genetics, LabCorp, Quest."
-      }
-    ]
-  },
-  {
-    name: "Medical Records", icon: "📋", color: "#0e7490", bg: "#ecfeff",
-    triggers: ["medical records", "records request", "chart notes", "incoming records", "records release", "AMS", "AmericanMedical"],
-    routes: [
-      {
-        doc: "Medical Records — Incoming",
-        level: 1,
-        action: "file",
-        label: "DATE – Incoming Records – WHERE",
-        example: "01/15/2026 – Incoming Records – Banner Health",
-        fileTo: "Records Request",
-        sendTo: "Internal Requestor (or Admin if unknown)",
-        notes: "If requestor is unknown, assign to Admin to determine."
-      },
-      {
-        doc: "Medical Records Request — Outgoing",
-        level: 1,
-        action: "file",
-        fileTo: "Records Request",
-        sendTo: "AMS (AmericanMedicalRecords)",
-        notes: "Does not need to be attached to a patient. If related to Referral, Imaging, or DME → send to Admin."
-      }
-    ]
-  },
-  {
-    name: "DME / Equipment", icon: "🩺", color: "#b45309", bg: "#fffbeb",
-    triggers: ["DME", "durable medical", "equipment", "CGM", "nebulizer", "CPAP", "PAP", "oxygen", "wheelchair", "Apria", "compliance report"],
-    routes: [
-      {
-        doc: "DME — Durable Medical Equipment",
-        level: 1,
-        action: "file",
-        label: "DATE – [Equipment/Item] – WHERE",
-        example: "01/15/2026 – CGM Supplies – Apria",
-        fileTo: "DME Requests",
-        sendTo: "Medical Equipment, Durable",
-        flags: ["hp"],
-        notes: "CGM, end of life, and nebulizers must be marked HP. If STAT, mark HP."
-      },
-      {
-        doc: "PAP Compliance Report",
-        level: 1,
-        action: "file",
-        label: "DATE – PAP Compliance Report – WHERE",
-        example: "01/15/2026 – PAP Compliance Report – Apria",
-        fileTo: "Patient Chart — based on document type",
-        sendTo: "Provider (direct)",
-        notes: "Attach to patient chart and send directly to provider."
-      }
-    ]
-  },
-  {
-    name: "Lab Results", icon: "🧪", color: "#0f766e", bg: "#f0fdfa",
-    triggers: ["lab", "lab result", "blood work", "urinalysis", "CBC", "A1C", "lipid", "panel", "LabCorp", "Quest", "Myriad", "test result", "coding update", "test in question", "referral authorization", "insurance requires", "ordering provider submit", "CPT", "Dx code", "specimen"],
-    routes: [
-      {
-        doc: "Faxed Lab Result — Order Already Electronically Attached",
-        level: 1,
-        action: "delete",
-        notes: "Already attached electronically — fax is a duplicate."
-      },
-      {
-        doc: "Faxed Lab Result — Ordered by Optima (no electronic attachment)",
-        level: 1,
-        action: "file",
-        label: "DATE – [Lab Name / Test] – WHERE",
-        example: "01/15/2026 – CBC Results – LabCorp",
-        fileTo: "Lab Documents",
-        sendTo: "Ordering Provider",
-        notes: "Attach to patient chart and assign to the ordering provider."
-      },
-      {
-        doc: "Faxed Lab Result — NOT Ordered by Optima",
-        level: 1,
-        action: "file",
-        label: "DATE – [Lab Name / Test] – WHERE",
-        example: "01/15/2026 – Lipid Panel – Quest Diagnostics",
-        fileTo: "Lab Documents",
-        sendTo: "Provider (FYI)",
-        notes: "Attach to patient chart. Send to provider as FYI only."
-      },
-      {
-        doc: "Test in Question / Coding Update",
-        level: 2,
-        action: "file",
-        label: "DATE – [Test Name] – WHERE",
-        example: "01/15/2026 – A1C Test in Question – LabCorp",
-        fileTo: "Lab Documents",
-        sendTo: "Office Manager",
-        flags: ["hp", "no-chart"],
-        notes: "Mark HP. Can also be updated on the portal. Do NOT attach to patient chart."
-      }
-    ]
-  },
-  {
-    name: "Fax → Convert to Portal", icon: "🌐", color: "#0369a1", bg: "#f0f9ff",
-    managerOnly: true,
-    triggers: ["ASPN", "portal", "specialty pharmacy"],
-    routes: [
-      {
-        doc: "ASPN Pharmacies — Med PA (Portal Submission)",
-        level: 2,
-        action: "portal",
-        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team — Manager",
-        flags: ["escalate"],
-        notes: "Do NOT process at intake level. Route to Manager — they will log in and submit via the ASPN portal."
-      },
-      {
-        doc: "ASPN Pharmacies — Referral (Portal Submission)",
-        level: 2,
-        action: "portal",
-        portal: "https://aspnpharmacies.com/Identity/Account/RegisterInitiate",
-        sendTo: "Documents Team — Manager",
-        flags: ["escalate"],
-        notes: "Do NOT process at intake level. Route to Manager — they will log in and submit via the ASPN portal."
-      }
-    ]
-  },
-  {
-    name: "Other / Unknown", icon: "❓", color: "#64748b", bg: "#f8fafc",
-    triggers: ["unknown", "other", "not sure", "unclear"],
-    routes: [
-      {
-        doc: "Document Does Not Match Any Category",
-        level: 1,
-        action: "file",
-        fileTo: "Documents Team Queue",
-        sendTo: "Documents Team — Manager",
-        notes: "Use this ONLY if you have reviewed all categories and the document does not clearly match any of them. Do NOT use as a default or shortcut — every misroute here creates rework for the Documents team.",
-        doNot: [
-          "Do NOT use 'Other' because you are in a hurry",
-          "Do NOT use 'Other' for documents that are hard to read — try your best first",
-          "Do NOT use 'Other' if it could be Hospital/ER, PA, or Referral — when in doubt on those, route to that team",
-          "Do NOT use 'Other' more than once without flagging for manager review"
-        ],
-        routeIf: [
-          "You have reviewed ALL categories above",
-          "The document truly does not match any category",
-          "You cannot identify a sender, document type, or routing indicator"
-        ]
-      }
-    ]
   }
-];
 
+];
 // ── FLATTEN ────────────────────────────────
 const ALL_ROUTES = [];
 SECTIONS.forEach(s => s.routes.forEach(r => ALL_ROUTES.push({ ...r, section: s })));
@@ -1512,7 +1412,6 @@ function renderEmpty() {
   right.innerHTML = `
     <div class="empty-state" style="justify-content:${recent.length ? 'flex-start' : 'center'}; padding-top:${recent.length ? '20px' : '0'}; height:${recent.length ? 'auto' : '100%'}">
       ${recentHTML}
-      <div class="one-touch">🎯 Goal: One-Touch Workflow — categorize correctly, route once, no rework.</div>
       <div class="big-icon">📠</div>
       <h2>What kind of fax is it?</h2>
       <p>Select a category on the left, search by keyword, or tap <strong>"Not sure?"</strong> to be guided.</p>
@@ -1636,6 +1535,45 @@ function showResult(r, sec) {
   if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
   else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
+  // Jelly + Route-To bar
+  const jellyHTML = (r.jelly || r.routeTo)
+    ? `<div class="jelly-bar">
+        ${r.jelly ? `<span class="jelly-chip inbound">📥 ${r.jelly}</span>` : ""}
+        ${r.jelly && r.routeTo ? `<span class="jelly-arrow">→</span>` : ""}
+        ${r.routeTo ? `<span class="jelly-chip route">→ ${r.routeTo}</span>` : ""}
+      </div>` : "";
+
+  // Action subject format
+  const actionSubjectHTML = r.actionSubject
+    ? `<div class="action-subject">
+        <div class="action-subject-label">eCW Action Subject Format</div>
+        <div class="action-subject-val">${r.actionSubject}</div>
+        ${r.actionSubjectExample ? `<div class="action-subject-eg">e.g. ${r.actionSubjectExample}</div>` : ""}
+      </div>` : "";
+
+  // Note format template (WHAT / NEEDED / DONE)
+  const noteTemplateHTML = r.noteFormat
+    ? `<div class="note-template">
+        <div class="note-template-label">📋 Note Format — use this every time</div>
+        <div class="note-template-row"><strong>WHAT:</strong> &nbsp;What the document is</div>
+        <div class="note-template-row"><strong>NEEDED:</strong> &nbsp;What action is required</div>
+        <div class="note-template-row"><strong>DONE:</strong> &nbsp;What has already been completed</div>
+      </div>` : "";
+
+  // TE Note Template (Rx scenarios)
+  const teNoteTemplateHTML = (r.teNoteTemplate && r.teNoteTemplate.length)
+    ? `<div class="te-note-template">
+        <div class="te-note-label">✚ Standard TE Note — pick the scenario that applies</div>
+        ${r.teNoteTemplate.map((s, i) => `<div class="te-note-scenario">${i > 0 ? `<span class="or">— OR —</span>` : ""}${s}</div>`).join("")}
+      </div>` : "";
+
+  const deleteItemsHTML = (r.deleteItems && r.deleteItems.length)
+    ? `<div class="brief-block do-not" style="background:#fef0ee;border-color:#fca5a5;margin-bottom:14px;">
+        <div class="brief-label" style="color:#b91c1c;">🗑 Delete any of these — Level 1 stops here</div>
+        <ul class="brief-list">${r.deleteItems.map(i => `<li style="color:#b91c1c;font-weight:600;">${i}</li>`).join("")}</ul>
+      </div>`
+    : "";
+
   const noteHTML = r.notes
     ? r.hp
       ? `<div class="note-box" style="background:#fffbeb;border-left-color:#f59e0b;color:#92400e;font-weight:700;font-size:13px;">${r.notes}</div>`
@@ -1751,9 +1689,7 @@ function showResult(r, sec) {
     : "";
 
   // Do-not-route-for-fixes (show on all file/create-te actions)
-  const fixRuleHTML = (actionType === "file" || actionType === "create-te")
-    ? `<div class="fix-rule">🔧 <span>If something is missing or needs a small correction — <strong>fix it before routing.</strong> Do NOT send to another team just to fix small issues.</span></div>`
-    : "";
+  const fixRuleHTML = "";
 
   // 1-touch goal reminder
   const oneTouchHTML = `<div class="one-touch" style="margin-top:14px">🎯 One-Touch Goal — route it correctly, route it once.</div>`;
@@ -1770,6 +1706,7 @@ function showResult(r, sec) {
         </div>
       </div>
       ${triggersHTML}
+      ${jellyHTML}
       <div class="action-banner ${actionConfig.cls}">
         <div class="action-icon">${actionConfig.icon}</div>
         <div class="action-text">
@@ -1778,15 +1715,18 @@ function showResult(r, sec) {
         </div>
       </div>
       ${flagsHTML}
+      ${actionSubjectHTML}
+      ${noteTemplateHTML}
+      ${teNoteTemplateHTML}
       ${fixRuleHTML}
       ${detailsHTML ? `<div class="details">${detailsHTML}</div>` : ""}
+      ${deleteItemsHTML}
       ${teChecklistHTML}
       ${noteHTML}
       ${levelsHTML}
       ${snipHTML}
       ${briefHTML}
       ${portalHTML}
-      ${oneTouchHTML}
       ${updatedHTML}
     </div>`;
 }
@@ -1841,47 +1781,16 @@ function pickSearchResult(i) {
 // ── TRIAGE ─────────────────────────────────
 const TRIAGE_TREE = [
   {
-    q: "Does the fax mention a hospital, ER, discharge, or admission?",
-    sub: "Look for: Discharge Summary, ER Visit, Hospital Stay, Follow-up after hospitalization",
+    q: "What does this fax NEED?",
+    sub: "Pick the closest match — you do not need to know exactly what the document is.",
     opts: [
-      { icon: "🏥", text: "Yes — hospital or ER related", sub: null, result: { si: 3, ri: 0 } },
-      { icon: "➡️", text: "No — something else", sub: null, next: 1 }
-    ]
-  },
-  {
-    q: "Does it mention Prior Authorization, PA, or medication approval?",
-    sub: "Look for: PA Request, Auth, Approval Needed, Step Therapy, Formulary",
-    opts: [
-      { icon: "🔬", text: "Yes — it's for imaging (MRI, CT, X-ray, Ultrasound)", sub: null, result: { si: 4, ri: 3 } },
-      { icon: "💊", text: "Yes — it's for a medication", sub: null, result: { si: 4, ri: 2 } },
-      { icon: "➡️", text: "No — something else", sub: null, next: 2 }
-    ]
-  },
-  {
-    q: "Is it a referral to a specialist or consult note?",
-    sub: "Look for: Referral Request, Consult Note, Specialist Response, Scheduling",
-    opts: [
-      { icon: "↗️", text: "Yes — it's a referral or specialist response", sub: null, result: { si: 5, ri: 3 } },
-      { icon: "➡️", text: "No — something else", sub: null, next: 3 }
-    ]
-  },
-  {
-    q: "Is it a lab result or test result?",
-    sub: "Look for: Lab Results, Blood Work, Urinalysis, Panel Results, LabCorp, Quest",
-    opts: [
-      { icon: "🧪", text: "Yes — lab or test result", sub: null, result: { si: 8, ri: 1 } },
-      { icon: "➡️", text: "No — something else", sub: null, next: 4 }
-    ]
-  },
-  {
-    q: "Is it a prescription, Rx, or medication request?",
-    sub: "Look for: Rx Request, Prescription, Pharmacy fax",
-    opts: [
-      { icon: "💊", text: "Yes — it's an Rx or pharmacy fax", sub: null, result: { si: 2, ri: 0 } },
-      { icon: "✍️", text: "It needs a provider signature", sub: null, result: { si: 1, ri: 0 } },
-      { icon: "📋", text: "It's medical records", sub: null, result: { si: 6, ri: 0 } },
-      { icon: "🩺", text: "It's DME or equipment related", sub: null, result: { si: 7, ri: 0 } },
-      { icon: "❓", text: "Still not sure — search or flag it", sub: "Use the search bar or flag for manager review", result: null, search: true }
+      { icon: "✍️", text: "Needs a signature", sub: "Signature line, FMLA, consent form, provider sign-off", result: { si: 0, ri: 0 } },
+      { icon: "💊", text: "Medication / pharmacy related", sub: "Rx, refill, drug name, pharmacy fax", result: { si: 1, ri: 0 } },
+      { icon: "🔐", text: "Authorization or approval", sub: "PA, prior auth, approval, denial, insurance request", result: { si: 2, ri: 0 } },
+      { icon: "🏥", text: "Patient care or clinical", sub: "Hospital, ER, lab result, specialist note, DME, discharge", result: { si: 3, ri: 0 } },
+      { icon: "↗️", text: "Referral related", sub: "Referral request, specialist, scheduling, consult", result: { si: 4, ri: 0 } },
+      { icon: "📁", text: "No action / records only", sub: "Old records, informational, no next step", result: { si: 5, ri: 0 } },
+      { icon: "❓", text: "Still not sure", sub: "Send to Clinical Admin — they are the safety net", result: { si: 6, ri: 0 } }
     ]
   }
 ];
@@ -1962,6 +1871,11 @@ function buildPrintView() {
     html += `</table>`;
   });
   return html;
+}
+
+function openGeneralNotes() {
+  closeOverlays();
+  document.getElementById("generalNotesOverlay").classList.add("open");
 }
 
 // ── HELP PANEL ─────────────────────────────
