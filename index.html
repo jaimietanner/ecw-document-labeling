@@ -118,12 +118,17 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .action-banner.delete { background:#fff0ee; border:2px solid #fca5a5; }
 .action-banner.file { background:#eff8ff; border:2px solid #93c5fd; }
 .action-banner.create-te { background:#fffbeb; border:2px solid #fcd34d; }
+.action-banner.snip { background:#f0fdf4; border:2px solid #86efac; }
+.sub-action.snip { background:#dcfce7; color:#15803d; }
+.search-hit-action.snip { background:#dcfce7; color:#15803d; }
 .action-icon { font-size:30px; flex-shrink:0; }
 .action-text { flex:1; }
 .action-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
 .action-banner.delete .action-label { color:var(--red); }
 .action-banner.file .action-label { color:var(--blue); }
 .action-banner.create-te .action-label { color:var(--amber); }
+.action-banner.snip .action-label { color:#15803d; }
+.action-banner.snip .action-main { color:#15803d; }
 .action-main { font-size:19px; font-weight:800; }
 .action-banner.delete .action-main { color:var(--red); }
 .action-banner.file .action-main { color:var(--blue); }
@@ -611,6 +616,34 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 <script>
 const SECTIONS = [
   {
+    name: "✂️ Snip & Notify", icon: "✂️", color: "#16a34a", bg: "#f0fdf4",
+    triggers: ["tired of receiving", "opt in", "electronic delivery", "go paperless", "unsubscribe", "fax opt out", "electronic notification", "no longer send fax"],
+    routes: [
+      {
+        doc: "Fax Opt-Out / Electronic Delivery Request",
+        action: "snip",
+        sendTo: "@Megan and @Jaimie (team chat)",
+        routeIf: [
+          "Fax says \"Tired of receiving fax documents\" or similar language",
+          "Any fax promoting or requesting sign-up for electronic delivery",
+          "Opt-in or paperless delivery request from a facility or vendor"
+        ],
+        doNot: [
+          "Do NOT file this document",
+          "Do NOT create a TE",
+          "Do NOT route to any team bucket"
+        ],
+        nextSteps: [
+          "Snip the document",
+          "Send screenshot to team chat",
+          "Tag @Megan and @Jaimie",
+          "No further action required"
+        ],
+        notes: "Level 1 action only. Snip, tag, done."
+      }
+    ]
+  },
+  {
     name: "Signature Required", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
     triggers: ["signature", "sign", "please sign", "requires signature", "authorization form", "consent form", "FMLA", "conversion", "fax to electronic", "HL7", "electronic note"],
     routes: [
@@ -666,10 +699,34 @@ const SECTIONS = [
       },
       {
         doc: "Request Conversion — Fax to Electronic (HL7 / Electronic Note)",
-        level: 1,
-        action: "snip",
-        sendTo: "Team Chat — tag @Megan and @Jaimie",
-        notes: "Level 1 action. Snip the document and send to the team chat tagging Megan and Jaimie. No filing required."
+        action: "file",
+        levels: [
+          {
+            num: 1,
+            title: "Scan Team",
+            badge: "Scan Team",
+            color: "blue",
+            routeIf: [
+              "Fax from outside facility requesting to switch from fax to electronic delivery",
+              "Document references HL7, electronic notes, or electronic routing setup",
+              "Any setup or registration request for electronic document transmission"
+            ],
+            steps: [
+              "Label: DATE – [Facility Name] Conversion Request – WHERE",
+              "⚠️ Use the DATE on the document — NOT the fax received date",
+              "Attach directly to patient chart",
+              "Send to provider",
+              "Mark HP if noted on the form",
+              "Level 1 action stops here"
+            ],
+            notes: "⚠️ Use the DATE on the document — NOT the fax received date. Attach directly to patient chart and send to provider. Mark HP if noted on the form."
+          }
+        ],
+        snipIf: [
+          "Fax says \"Tired of receiving fax documents\" or similar opt-in language",
+          "Any fax promoting or requesting sign-up for electronic delivery services"
+        ],
+        snipAction: "Snip the document and send to the team chat — tag @Megan and @Jaimie. No filing required. Level 1 action."
       }
     ]
   },
@@ -776,12 +833,6 @@ const SECTIONS = [
         doc: "PA Request — Key Listed",
         level: 1,
         action: "delete"
-      },
-      {
-        doc: "Auth Approval Notification — Outside Facility",
-        level: 1,
-        action: "delete",
-        notes: "Delete at Level 1 — no action needed."
       },
       {
         doc: "Med PA — Medication Prior Authorization",
@@ -921,10 +972,10 @@ const SECTIONS = [
               "Duplicate of an already submitted imaging PA — Level 2 will delete"
             ],
             steps: [
-              "Identify imaging type and ordering provider",
-              "Label with ORDER date, imaging type, and facility",
-              "Mark HP or STAT if indicated on the form",
-              "Route to Imaging PA / IH Sono bucket"
+              "Snip the document",
+              "Send screenshot to team chat",
+              "Tag @Megan and @Jaimie",
+              "Continue to process document as normal"
             ]
           },
           {
@@ -1485,7 +1536,7 @@ const ACTION_BADGE = {
   "delete":    { label: "DEL", cls: "delete" },
   "file":      { label: "FILE", cls: "file" },
   "create-te": { label: "TE", cls: "create-te" },
-  "snip":      { label: "SNIP", cls: "file" },
+  "snip":      { label: "SNIP", cls: "snip" },
 };
 
 function buildNav() {
@@ -1559,7 +1610,7 @@ function showResult(r, sec) {
     "file":      { icon: "📁", label: "ACTION: FILE & ROUTE", main: r.sendTo || "See routing below", cls: "file" },
     "create-te": { icon: "✚",  label: "ACTION: CREATE TE", main: r.assignTo ? `Assign TE to: ${r.assignTo}` : "Create TE → Route Internally", cls: "create-te" },
     "portal":    { icon: "🔺", label: "ESCALATE — DO NOT PROCESS AT INTAKE", main: "Route to Documents Team — Manager", cls: "delete" },
-    "snip":      { icon: "✂️", label: "ACTION: SNIP & SEND — LEVEL 1", main: "Snip → Team Chat → Tag @Megan & @Jaimie", cls: "file" },
+    "snip":      { icon: "✂️", label: "✂️ SNIP & SEND — LEVEL 1 ACTION", main: "Snip → Team Chat → Tag @Megan & @Jaimie", cls: "snip" },
   }[actionType] || { icon: "📄", label: "ACTION", main: r.sendTo, cls: "file" };
 
   const flagDefs = {
@@ -1688,6 +1739,14 @@ function showResult(r, sec) {
 
   const portalHTML = r.portal ? `<a href="${r.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 17px;background:#0369a1;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(3,105,161,.3);">🌐 Open Portal →</a><div style="font-size:10.5px;color:var(--muted);margin-top:5px;">${r.portal}</div>` : "";
 
+  // Snip block
+  const snipHTML = (r.snipIf && r.snipIf.length) ? `
+    <div class="brief-block" style="background:#fff7ed;border-color:#fed7aa;margin-top:12px;">
+      <div class="brief-label" style="color:#c2410c;">✂️ SNIP if you see ANY of these — Level 1 action</div>
+      <ul class="brief-list" style="color:#c2410c;">${r.snipIf.map(i => `<li>${i}</li>`).join("")}</ul>
+      ${r.snipAction ? `<div style="margin-top:8px;padding:8px 10px;background:#ffedd5;border-radius:6px;font-size:12.5px;font-weight:700;color:#9a3412;">${r.snipAction}</div>` : ""}
+    </div>` : "";
+
   const isFlagged = getFlags().some(f => f.key === r.doc);
   const updatedHTML = sec.updated ? `<div class="updated-badge">Last updated: ${sec.updated}</div>` : "";
 
@@ -1729,6 +1788,7 @@ function showResult(r, sec) {
       ${teChecklistHTML}
       ${noteHTML}
       ${levelsHTML}
+      ${snipHTML}
       ${briefHTML}
       ${portalHTML}
       ${oneTouchHTML}
@@ -1762,7 +1822,7 @@ function handleSearch(q) {
     return;
   }
   const actionLabel = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE", snip:"SNIP & SEND" };
-  const actionCls   = { delete:"delete", file:"file", "create-te":"create-te", portal:"portal", snip:"file" };
+  const actionCls   = { delete:"delete", file:"file", "create-te":"create-te", portal:"portal", snip:"snip" };
   right.innerHTML = `
     <div class="search-count">${hits.length} result${hits.length!==1?"s":""} for "<strong>${q.trim()}</strong>"</div>
     <div class="search-results">
