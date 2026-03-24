@@ -435,6 +435,33 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 /* DO NOT ROUTE FOR FIXES */
 .fix-rule { background:#fff7ed; border:1.5px solid #fed7aa; border-radius:9px; padding:10px 14px; font-size:12.5px; color:#c2410c; font-weight:600; margin-bottom:14px; display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
 
+/* LEVEL 1 QUICK REF CARD */
+.l1-panel { background:var(--surface); border-radius:16px; width:min(780px,96vw); max-height:90vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; display:flex; flex-direction:column; }
+.l1-panel::-webkit-scrollbar { width:4px; }
+.l1-panel::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+.l1-hero { background:var(--navy); padding:20px 24px 16px; border-radius:16px 16px 0 0; flex-shrink:0; }
+.l1-hero-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+.l1-hero h2 { font-size:17px; font-weight:800; color:#fff; }
+.l1-hero p { font-size:12.5px; color:rgba(255,255,255,.6); }
+.l1-body { padding:18px 22px 28px; }
+.l1-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+.l1-card { border-radius:10px; border:1.5px solid var(--border); overflow:hidden; }
+.l1-card-head { padding:9px 13px; display:flex; align-items:center; gap:8px; }
+.l1-card-icon { font-size:16px; flex-shrink:0; }
+.l1-card-title { font-size:13px; font-weight:700; }
+.l1-card-body { padding:9px 13px; background:var(--surface); font-size:12px; line-height:1.6; }
+.l1-trigger { color:var(--muted); margin-bottom:4px; }
+.l1-folder { display:inline-flex; align-items:center; gap:4px; font-family:var(--font-mono); font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:5px; margin:2px 3px 2px 0; }
+.l1-stops { background:#fef2f2; border:1.5px solid #fecaca; border-radius:10px; padding:12px 16px; margin-bottom:12px; }
+.l1-stops-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:#c0392b; margin-bottom:7px; }
+.l1-steps { background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:10px; padding:12px 16px; margin-bottom:12px; }
+.l1-steps-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:#1a5fa8; margin-bottom:7px; }
+.l1-steps-list { display:flex; flex-direction:column; gap:5px; }
+.l1-steps-list > div { font-size:12.5px; display:flex; align-items:flex-start; gap:8px; }
+.l1-num { width:20px; height:20px; border-radius:50%; background:#1a5fa8; color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+.l1-golden { background:var(--navy); border-radius:10px; padding:12px 16px; }
+.l1-golden-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:rgba(255,255,255,.5); margin-bottom:7px; }
+
 @media print {
   .topbar, .left, .overlay, .triage-btn, .r-btn, .tb-btn, .result-actions { display:none !important; }
   .wrap { display:block; }
@@ -463,6 +490,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="topbar-meta">Optima Medical · March 2026</div>
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
+    <button class="tb-btn" onclick="openLevel1Card()">⚡ Level 1 Quick Ref</button>
     <button class="tb-btn" onclick="openGeneralNotes()">📌 General Rules</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
@@ -587,6 +615,161 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   </div>
 </div>
 
+<!-- LEVEL 1 QUICK REF OVERLAY -->
+<div class="overlay" id="level1Overlay">
+  <div class="l1-panel">
+    <div class="l1-hero">
+      <div class="l1-hero-top">
+        <h2>⚡ Level 1 — Scan Team Quick Reference</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>Pick the closest category and move on. System + Clinical Admin handle the rest.</p>
+    </div>
+    <div class="l1-body">
+
+      <div class="l1-grid">
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0f9ff;">
+            <span class="l1-card-icon">✍️</span>
+            <span class="l1-card-title" style="color:#0369a1;">Needs a Signature?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Forms, FMLA, PT/OT, Home Health, Plan of Care, Order forms</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*Forms Appt/Signature Requested</span>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*PT/OT/HH Orders – sig needed</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#fdf2f8;">
+            <span class="l1-card-icon">💊</span>
+            <span class="l1-card-title" style="color:#be185d;">Medication / Pharmacy?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Refill request, pharmacy fax, medication name present</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#fce7f3;color:#be185d;">*RX</span>
+            <span class="l1-folder" style="background:#fce7f3;color:#be185d;">*ePA Documents</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f5f3ff;">
+            <span class="l1-card-icon">🔐</span>
+            <span class="l1-card-title" style="color:#7c3aed;">Authorization / Insurance?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Prior Authorization, approval, denial, insurance request</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#ede9fe;color:#7c3aed;">*Medication Prior Authorization</span>
+            <span class="l1-folder" style="background:#ede9fe;color:#7c3aed;">*Imaging Prior Authorization</span>
+            <span class="l1-folder" style="background:#ede9fe;color:#7c3aed;">*Insurance Consideration</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0fdf4;">
+            <span class="l1-card-icon">↗️</span>
+            <span class="l1-card-title" style="color:#166534;">Referral / Specialist?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Referral request, specialist communication, consult notes</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Referral Correspondence</span>
+            <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Consult Notes</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#e8f2fc;">
+            <span class="l1-card-icon">🏥</span>
+            <span class="l1-card-title" style="color:#0f6ac0;">Clinical / Results / Visit?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Lab results, imaging results, hospital/ER, pre-op, immunizations</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Lab Documents</span>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Imaging – Xray/US/CT/MRI</span>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Admit/Discharge Notifications</span>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Pre-Op Requests</span>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Immunization Records/Notifications</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#fffbeb;">
+            <span class="l1-card-icon">🩺</span>
+            <span class="l1-card-title" style="color:#b45309;">DME / Supplies?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Equipment, CGM, nebulizer, CPAP, PAP compliance report</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#fef3c7;color:#b45309;">*DME Requests</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f8fafc;">
+            <span class="l1-card-icon">📁</span>
+            <span class="l1-card-title" style="color:#64748b;">Records Only? (No Action)</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Old records, copies, informational — no next step needed</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#f1f5f9;color:#64748b;">*Records Request</span>
+          </div>
+        </div>
+
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0f9ff;">
+            <span class="l1-card-icon">❓</span>
+            <span class="l1-card-title" style="color:#0369a1;">Not Sure?</span>
+          </div>
+          <div class="l1-card-body">
+            <div class="l1-trigger">Cannot identify document type after reviewing all categories above</div>
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*Consult Notes</span>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*Important Notifications</span>
+            <div style="font-size:11px;color:var(--muted);margin-top:5px;font-style:italic;">System will send to Clinical Admin for review</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="l1-steps">
+        <div class="l1-steps-title">✅ Step 2 — Complete These Every Time</div>
+        <div class="l1-steps-list">
+          <div><span class="l1-num">1</span><span>Attach to the correct patient</span></div>
+          <div><span class="l1-num">2</span><span>Use the date <strong>on the document</strong> — not today's date</span></div>
+          <div><span class="l1-num">3</span><span>Confirm it is not a duplicate before filing</span></div>
+          <div><span class="l1-num">4</span><span>File under the selected category above</span></div>
+        </div>
+      </div>
+
+      <div class="l1-stops" style="margin-bottom:12px;">
+        <div class="l1-stops-title">🚫 Do NOT</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:12.5px;font-weight:600;color:#c0392b;">✕ &nbsp;Create a TE</div>
+          <div style="font-size:12.5px;font-weight:600;color:#c0392b;">✕ &nbsp;Send to multiple teams</div>
+          <div style="font-size:12.5px;font-weight:600;color:#c0392b;">✕ &nbsp;Try to figure out the next steps</div>
+          <div style="font-size:12.5px;font-weight:600;color:#c0392b;">✕ &nbsp;Hold documents — route and move on</div>
+        </div>
+      </div>
+
+      <div class="l1-golden">
+        <div class="l1-golden-title">💡 Golden Rule</div>
+        <div style="font-size:13.5px;font-weight:700;color:#fff;line-height:1.6;">
+          Pick the closest category and move on.<br>
+          <span style="font-weight:400;font-size:12.5px;color:rgba(255,255,255,.65);">System + Clinical Admin will handle the rest. Your only job is fast, consistent filing.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- GENERAL NOTES OVERLAY -->
 <div class="overlay" id="generalNotesOverlay">
   <div class="help-panel">
@@ -655,16 +838,19 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       </div>
 
       <div class="help-section">
-        <h3>📋 Standard Action Subject Format</h3>
-        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:2;">
-          <div><strong>MED PA</strong> – Ozempic</div>
-          <div><strong>IMAGING PA</strong> – MRI Lumbar</div>
-          <div><strong>REFERRAL</strong> – Cardiology</div>
-          <div><strong>PROVIDER REVIEW</strong> – Abnormal Labs</div>
-          <div><strong>RX</strong> – Metformin 500mg refill</div>
-          <div><strong>DME</strong> – CGM Supplies</div>
+        <h3>📋 Standard Document Subject Format</h3>
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:2.2;">
+          <div style="font-size:11px;color:var(--muted);font-family:var(--font-sans);margin-bottom:6px;font-style:italic;">All documents follow the same format:</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">DATE – [Document Name] – WHERE</div>
+          <div><strong>01/15/2026</strong> – FMLA Form – Banner Gateway</div>
+          <div><strong>01/15/2026</strong> – Ozempic PA Request – CVS Specialty</div>
+          <div><strong>01/15/2026</strong> – MRI Lumbar PA Request – Banner Imaging</div>
+          <div><strong>01/15/2026</strong> – Referral Response – East Valley Urology</div>
+          <div><strong>01/15/2026</strong> – ER Discharge – Banner Gateway</div>
+          <div><strong>01/15/2026</strong> – CBC Results – LabCorp</div>
+          <div><strong>01/15/2026</strong> – CGM Supplies – Apria</div>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">No free typing in the subject. Use one of the types above followed by a short description.</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Use the date <strong>on the document</strong> — not today's date. WHERE = the facility or sender name.</p>
       </div>
 
       <div class="help-section">
@@ -773,6 +959,140 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
         </div>
       </div>
 
+      <div class="help-section">
+        <h3>🔧 eCW Build Instructions — For IT</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Hand this directly to IT. Written so it can be executed without interpretation. Builds 1–2 can be done immediately. Build 3 requires routing rule configuration.</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:var(--navy);padding:9px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 1 — Jelly Bean Setup</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.5);">Admin → Messaging / Jelly Bean Setup</span>
+            </div>
+            <div style="padding:12px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:11px;">
+              <div>
+                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Level 1 — Inbound</div>
+                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN</div>
+              </div>
+              <div>
+                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:5px;">Level 2 — Triage</div>
+                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">TRIAGE – CLINICAL ADMIN</div>
+              </div>
+              <div>
+                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:5px;">Level 3 — Work Queues</div>
+                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – DME<br>WORK – RX SUPPORT<br>WORK – SCHEDULING</div>
+              </div>
+              <div>
+                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Level 4 — Provider</div>
+                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:var(--navy);padding:9px 14px;">
+              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 2 — Action Type Standardization</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Action Item Configuration</span>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;">
+                ${["MED PA","IMAGING PA","REFERRAL","DME","RX","PROVIDER REVIEW","SCHEDULING"].map(t=>`<span style="font-family:var(--font-mono);font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 9px;">${t}</span>`).join("")}
+              </div>
+              <div style="font-size:11.5px;color:#c0392b;font-weight:600;">⚠ Remove or hide any extras. This prevents free-text documentation.</div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:var(--navy);padding:9px 14px;">
+              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 3 — Auto-Routing Rules</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Document Routing Rules</span>
+            </div>
+            <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+              ${[
+                {week:"W1",name:"BH Referrals",if_:"Referral Type = Outgoing · To Provider = Optima Medical · Specialty = Behavioral Health",then:"Assign → Kimberlee / BH Pool · Jelly → WORK – REFERRALS · Action → REFERRAL"},
+                {week:"W1",name:"Signature Docs",if_:"Doc name contains: FMLA · Plan of Care · PT · OT · Home Health · Order",then:"Jelly → PROVIDER – SIGN · No action created"},
+                {week:"W2",name:"Med PA",if_:"Doc contains: CoverMyMeds · Prior Authorization · Pharmacy sender",then:"Jelly → WORK – MED PA · Action Type → MED PA"},
+                {week:"W2",name:"Hospital / ER",if_:"Doc contains: ER · Discharge · Admission · Hospital",then:"Jelly → TRIAGE – CLINICAL ADMIN · Priority → HIGH"},
+                {week:"W3",name:"Record Only",if_:"Doc contains: Medical Records · Copy · Records",then:"Attach only · No routing · No action"},
+              ].map(r=>`<div style="display:grid;grid-template-columns:40px 1fr 1fr 1fr;gap:8px;align-items:start;font-size:11.5px;background:var(--bg);border-radius:8px;padding:9px 11px;">
+                <span style="background:var(--navy);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:5px;text-align:center;">${r.week}</span>
+                <strong>${r.name}</strong>
+                <div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">IF</span><br>${r.if_}</div>
+                <div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">THEN</span><br>${r.then}</div>
+              </div>`).join("")}
+            </div>
+          </div>
+
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="background:var(--navy);padding:9px 14px;">
+              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 4 — Smart Phrase Macro</span>
+              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Smart Phrases / Macros</span>
+            </div>
+            <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;">
+              <div>
+                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Macro name</div>
+                <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#0369a1;">.CAACTION</div>
+              </div>
+              <div>
+                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Expands to</div>
+                <div style="font-family:var(--font-mono);font-size:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 10px;line-height:2;color:#92400e;">WHAT:<br>NEEDED:<br>DONE:</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid #fecaca;border-radius:10px;overflow:hidden;">
+            <div style="background:#fef2f2;padding:9px 14px;">
+              <span style="color:#c0392b;font-size:12.5px;font-weight:700;">Build 5 — User Permissions (Critical)</span>
+              <span style="font-size:11px;color:#c0392b;opacity:.6;margin-left:8px;">Protects the system long-term</span>
+            </div>
+            <div style="padding:12px 14px;font-size:12.5px;line-height:1.7;">
+              Restrict access to <strong>TRIAGE – CLINICAL ADMIN</strong> jelly and action creation rights.<br>
+              <strong>Only:</strong> Managers · Top performers<br>
+              <span style="color:#c0392b;font-weight:600;">Not everyone should be able to touch triage. This is what prevents the system from drifting back to chaos.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>📊 KPI Dashboard — Prove It's Working</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Don't show leadership workflows — show them numbers. These 5 metrics tell the whole story.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          ${[
+            {k:"KPI 1",name:"Triage Volume Reduction",metric:"# docs hitting TRIAGE per day/week",goal:"↓ 30–50% after automation",color:"#166534",bg:"#f0fdf4",border:"#bbf7d0"},
+            {k:"KPI 2",name:"Duplicate Action Rate",metric:"Patients with >1 open action for same issue",goal:"< 5%",color:"#c0392b",bg:"#fef2f2",border:"#fecaca"},
+            {k:"KPI 3",name:"Turnaround Time by Type",metric:"Date received → completed (Med PA, Referrals, Imaging)",goal:"Downward trend within 2–3 weeks",color:"#0369a1",bg:"#eff6ff",border:"#bfdbfe"},
+            {k:"KPI 4",name:"Provider Touch Rate",metric:"# items routed to provider · % sent back",goal:"Near-zero bouncebacks",color:"#b45309",bg:"#fffbeb",border:"#fde68a"},
+          ].map(k=>`<div style="background:${k.bg};border:1.5px solid ${k.border};border-radius:10px;padding:12px 14px;">
+            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:${k.color};margin-bottom:4px;">${k.k}</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text);">${k.name}</div>
+            <div style="font-size:11.5px;color:var(--muted);margin-bottom:5px;">${k.metric}</div>
+            <div style="font-size:12px;font-weight:700;color:${k.color};">Goal: ${k.goal}</div>
+          </div>`).join("")}
+        </div>
+
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px;">KPI 5 — Document Touch Count (Most Powerful)</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">How many teams touched the same document</div>
+          <div style="font-size:12px;color:var(--muted);">Goal: 1–2 touches max · Source: eCW EBO exports · This is your strongest efficiency story for leadership.</div>
+        </div>
+
+        <div style="margin-top:10px;background:var(--navy);border-radius:10px;padding:12px 16px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">What to say to leadership</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            ${[
+              "We reduced manual triage volume by 42%",
+              "We eliminated duplicate work by X%",
+              "We improved turnaround time by X days",
+              "We reduced provider interruptions to near zero"
+            ].map(s=>`<div style="font-size:12.5px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px;"><span style="color:#4ade80;font-size:14px;">→</span>${s}</div>`).join("")}
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -842,8 +1162,8 @@ const SECTIONS = [
         action: "file",
         jelly: "INBOUND – SIGNATURE",
         actionType: "PROVIDER REVIEW",
-        actionSubject: "PROVIDER REVIEW – [Document Name]",
-        actionSubjectExample: "PROVIDER REVIEW – FMLA Form",
+        actionSubject: "DATE – [Document Name] – WHERE",
+        actionSubjectExample: "01/15/2026 – FMLA Form – Banner Gateway",
         routeTo: "PROVIDER – SIGN",
         sendTo: "Provider (direct)",
         label: "DATE – [Document Name] – WHERE",
@@ -893,8 +1213,8 @@ const SECTIONS = [
         action: "create-te",
         jelly: "INBOUND – RX",
         actionType: "RX",
-        actionSubject: "RX – [Medication Name, Dose]",
-        actionSubjectExample: "RX – Ozempic 0.5mg  |  RX – Metformin 500mg refill",
+        actionSubject: "DATE – [Medication Name, Dose] – WHERE",
+        actionSubjectExample: "01/15/2026 – Ozempic 0.5mg Rx Request – CVS Specialty",
         routeTo: "TRIAGE – CLINICAL ADMIN",
         sendTo: "Clinical Admin",
         assignTo: "Clinical Admin",
@@ -962,8 +1282,8 @@ const SECTIONS = [
         action: "file",
         jelly: "INBOUND – AUTH",
         actionType: "MED PA  or  IMAGING PA",
-        actionSubject: "MED PA – [Medication]  or  IMAGING PA – [Imaging Type]",
-        actionSubjectExample: "MED PA – Ozempic  |  IMAGING PA – MRI Lumbar",
+        actionSubject: "DATE – [Medication or Imaging Type] PA Request – WHERE",
+        actionSubjectExample: "01/15/2026 – Ozempic PA Request – CVS Specialty  |  01/15/2026 – MRI Lumbar PA Request – Banner Imaging",
         routeTo: "TRIAGE – CLINICAL ADMIN",
         sendTo: "Clinical Admin (triage)",
         fileTo: "*Medication Prior Authorization  or  *Imaging Prior Authorization",
@@ -1030,8 +1350,8 @@ const SECTIONS = [
         action: "create-te",
         jelly: "INBOUND – CLINICAL",
         actionType: "PROVIDER REVIEW",
-        actionSubject: "PROVIDER REVIEW – [Description]",
-        actionSubjectExample: "PROVIDER REVIEW – Abnormal Labs  |  PROVIDER REVIEW – ER Discharge",
+        actionSubject: "DATE – [Document Type / Description] – WHERE",
+        actionSubjectExample: "01/15/2026 – ER Discharge – Banner Gateway  |  01/15/2026 – CBC Results – LabCorp",
         routeTo: "TRIAGE – CLINICAL ADMIN",
         sendTo: "Clinical Admin",
         assignTo: "Clinical Admin",
@@ -1095,8 +1415,8 @@ const SECTIONS = [
         action: "file",
         jelly: "INBOUND – REFERRAL",
         actionType: "REFERRAL",
-        actionSubject: "REFERRAL – [Specialty or Description]",
-        actionSubjectExample: "REFERRAL – Cardiology  |  REFERRAL – Lab Auth Myriad",
+        actionSubject: "DATE – [Referral Request / Response] – WHERE",
+        actionSubjectExample: "01/15/2026 – Referral Response – East Valley Urology  |  01/05/2026 – Myriad Auth Request – Myriad Genetics",
         routeTo: "TRIAGE – CLINICAL ADMIN",
         sendTo: "Clinical Admin (triage)",
         label: "DATE – [Referral Request / Response] – WHERE",
@@ -1196,7 +1516,7 @@ const SECTIONS = [
         action: "create-te",
         jelly: "INBOUND – UNKNOWN",
         actionType: "PROVIDER REVIEW",
-        actionSubject: "PROVIDER REVIEW – Unknown Document",
+        actionSubject: "DATE – [Description of what you see] – WHERE",
         routeTo: "TRIAGE – CLINICAL ADMIN",
         sendTo: "Clinical Admin",
         assignTo: "Clinical Admin",
@@ -1546,7 +1866,7 @@ function showResult(r, sec) {
   // Action subject format
   const actionSubjectHTML = r.actionSubject
     ? `<div class="action-subject">
-        <div class="action-subject-label">eCW Action Subject Format</div>
+        <div class="action-subject-label">Document Subject Format</div>
         <div class="action-subject-val">${r.actionSubject}</div>
         ${r.actionSubjectExample ? `<div class="action-subject-eg">e.g. ${r.actionSubjectExample}</div>` : ""}
       </div>` : "";
@@ -1871,6 +2191,11 @@ function buildPrintView() {
     html += `</table>`;
   });
   return html;
+}
+
+function openLevel1Card() {
+  closeOverlays();
+  document.getElementById("level1Overlay").classList.add("open");
 }
 
 function openGeneralNotes() {
