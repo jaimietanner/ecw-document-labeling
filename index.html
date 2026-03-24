@@ -531,7 +531,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <div class="help-num">3</div>
             <div class="help-step-body">
               <strong>Follow the action banner</strong>
-              <p>The big colored banner tells you exactly what to do. Label format, File To, and Send To are shown below it.</p>
+              <p>The big colored banner tells you exactly what to do. Document Name, Document Folder, and Assigned To are shown below it.</p>
             </div>
           </div>
           <div class="help-step">
@@ -596,7 +596,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="welcome-panel">
     <div class="welcome-hero">
       <h2>👋 Welcome to Fax Routing</h2>
-      <p>This tool tells you exactly what to do with every fax — label format, where to file it, who to send it to — in 2 clicks or less. 3,000 faxes a day, handled consistently.</p>
+      <p>This tool tells you exactly what to do with every fax — document name, document folder, and who to assign it to — in 2 clicks or less. 3,000 faxes a day, handled consistently.</p>
     </div>
     <div class="welcome-body">
       <div class="welcome-chips">
@@ -783,6 +783,23 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
     <div class="help-body">
 
       <div class="help-section">
+        <h3>📋 Document Name — How to Label Every Fax</h3>
+        <div style="background:var(--navy);border-radius:9px;padding:14px 18px;margin-bottom:10px;text-align:center;">
+          <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px;">DATE – [Document Name] – WHERE</div>
+        </div>
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 16px;font-family:var(--font-mono);font-size:12px;line-height:2.1;">
+          <div><strong>01/15/2026</strong> – FMLA Form – Banner Gateway</div>
+          <div><strong>01/15/2026</strong> – Ozempic PA Request – CVS Specialty</div>
+          <div><strong>01/15/2026</strong> – MRI Lumbar PA Request – Banner Imaging</div>
+          <div><strong>01/15/2026</strong> – Referral Response – East Valley Urology</div>
+          <div><strong>01/15/2026</strong> – ER Discharge – Banner Gateway</div>
+          <div><strong>01/15/2026</strong> – CBC Results – LabCorp</div>
+          <div><strong>01/15/2026</strong> – CGM Supplies – Apria</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;">Use the date <strong>on the document</strong> — not today's date. <strong>WHERE</strong> = the facility or sender name. This is the Document Name field in eCW.</p>
+      </div>
+
+      <div class="help-section">
         <h3>🎯 One-Touch Goal</h3>
         <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:9px;padding:12px 16px;font-size:13.5px;font-weight:600;color:#166534;line-height:1.6;">
           Every document should be correctly categorized, routed once, and not require rework.<br>
@@ -835,22 +852,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">DONE:</span> &nbsp;What has already been completed</div>
           </div>
         </div>
-      </div>
-
-      <div class="help-section">
-        <h3>📋 Standard Document Subject Format</h3>
-        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:14px 16px;font-family:var(--font-mono);font-size:12.5px;line-height:2.2;">
-          <div style="font-size:11px;color:var(--muted);font-family:var(--font-sans);margin-bottom:6px;font-style:italic;">All documents follow the same format:</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;">DATE – [Document Name] – WHERE</div>
-          <div><strong>01/15/2026</strong> – FMLA Form – Banner Gateway</div>
-          <div><strong>01/15/2026</strong> – Ozempic PA Request – CVS Specialty</div>
-          <div><strong>01/15/2026</strong> – MRI Lumbar PA Request – Banner Imaging</div>
-          <div><strong>01/15/2026</strong> – Referral Response – East Valley Urology</div>
-          <div><strong>01/15/2026</strong> – ER Discharge – Banner Gateway</div>
-          <div><strong>01/15/2026</strong> – CBC Results – LabCorp</div>
-          <div><strong>01/15/2026</strong> – CGM Supplies – Apria</div>
-        </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Use the date <strong>on the document</strong> — not today's date. WHERE = the facility or sender name.</p>
       </div>
 
       <div class="help-section">
@@ -1843,15 +1844,15 @@ function showResult(r, sec) {
 
   let detailsHTML = "";
   if (r.label) detailsHTML += `<div class="detail-card full">
-    <div class="detail-label">Label Format</div>
+    <div class="detail-label">Document Name</div>
     <span class="detail-value mono">${r.label}</span>
     ${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}
     <div style="margin-top:6px;font-size:11px;font-weight:700;color:#c2410c;display:flex;align-items:center;gap:5px;">⚠️ Use the DATE on the document — NOT the fax received date</div>
   </div>`;
   const pairs = [];
-  if (r.fileTo) pairs.push({ label: "File To", value: r.fileTo });
+  if (r.fileTo) pairs.push({ label: "Document Folder", value: r.fileTo });
   if (actionType === "create-te" && r.assignTo) pairs.push({ label: "Assigned To", value: r.assignTo });
-  else if (r.sendTo && actionType !== "delete") pairs.push({ label: "Send To", value: r.sendTo });
+  else if (r.sendTo && actionType !== "delete") pairs.push({ label: "Assigned To", value: r.sendTo });
   if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
   else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
@@ -1864,9 +1865,9 @@ function showResult(r, sec) {
       </div>` : "";
 
   // Action subject format
-  const actionSubjectHTML = r.actionSubject
+  const actionSubjectHTML = (r.actionSubject && !r.label)
     ? `<div class="action-subject">
-        <div class="action-subject-label">Document Subject Format</div>
+        <div class="action-subject-label">Document Name</div>
         <div class="action-subject-val">${r.actionSubject}</div>
         ${r.actionSubjectExample ? `<div class="action-subject-eg">e.g. ${r.actionSubjectExample}</div>` : ""}
       </div>` : "";
@@ -2183,7 +2184,7 @@ function buildPrintView() {
   let html = `<div class="print-header"><h1>📠 Fax Routing Quick Reference — Optima Medical</h1><p>March 2026 · All categories and routing actions</p></div>`;
   SECTIONS.forEach(sec => {
     html += `<div class="print-section-head">${sec.icon} ${sec.name}</div>`;
-    html += `<table class="print-table"><tr><th>Document Type</th><th>Action</th><th>File To</th><th>Send To</th><th>Label Format</th><th>Notes</th></tr>`;
+    html += `<table class="print-table"><tr><th>Document Type</th><th>Action</th><th>Document Folder</th><th>Assigned To</th><th>Document Name</th><th>Notes</th></tr>`;
     sec.routes.forEach(r => {
       const action = { delete:"DELETE", file:"FILE & ROUTE", "create-te":"CREATE TE", portal:"ESCALATE" }[r.action] || r.action;
       html += `<tr><td><strong>${r.doc}</strong></td><td>${action}</td><td>${r.fileTo||""}</td><td>${r.sendTo||""}</td><td style="font-family:monospace;font-size:10px">${r.label||""}</td><td>${r.notes||""}</td></tr>`;
