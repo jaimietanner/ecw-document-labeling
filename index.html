@@ -352,11 +352,13 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
 
 /* JELLY + ROUTE BAR */
-.jelly-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; align-items:center; }
-.jelly-chip { display:flex; align-items:center; gap:6px; padding:5px 12px; border-radius:7px; font-size:12px; font-weight:700; }
-.jelly-chip.inbound { background:#e0f2fe; color:#0369a1; border:1.5px solid #bae6fd; }
-.jelly-chip.route { background:#f0fdf4; color:#166534; border:1.5px solid #bbf7d0; }
-.jelly-arrow { font-size:14px; color:var(--muted); }
+.jelly-bar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; align-items:center; }
+.jelly-chip { display:flex; align-items:center; gap:6px; padding:5px 12px; border-radius:7px; font-size:12px; font-weight:600; background:#1e293b; color:#e2e8f0; border:none; cursor:pointer; transition:opacity .12s; }
+.jelly-chip:hover { opacity:.8; }
+.jelly-chip.folder { background:#334155; }
+.jelly-chip.route { background:#0f2241; }
+.jelly-arrow { font-size:13px; color:#94a3b8; }
+.jelly-step { background:rgba(255,255,255,.18); color:#fff; border-radius:50%; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; }
 
 /* ACTION SUBJECT */
 .action-subject { background:#fafafa; border:1.5px solid var(--border); border-radius:9px; padding:11px 14px; margin-bottom:14px; }
@@ -1154,25 +1156,24 @@ const SECTIONS = [
 
   {
     name: "Signature Needed", icon: "✍️", color: "#0369a1", bg: "#f0f9ff",
-    jelly: "INBOUND – SIGNATURE",
-    routeTo: "PROVIDER – SIGN",
+    docCategory: "INBOUND – SIGNATURE",
+    assignTo: "Provider",
     triggers: ["signature", "sign", "please sign", "provider signature", "FMLA", "consent", "authorization form"],
     routes: [
       {
-        doc: "Signature Needed → Provider",
+        doc: "Signature Needed",
         action: "file",
-        jelly: "INBOUND – SIGNATURE",
+        docCategory: "INBOUND – SIGNATURE",
         actionType: "PROVIDER REVIEW",
         actionSubject: "DATE – [Document Name] – WHERE",
         actionSubjectExample: "01/15/2026 – FMLA Form – Banner Gateway",
-        routeTo: "PROVIDER – SIGN",
+        assignTo: "Provider",
         sendTo: "Provider (direct)",
         label: "DATE – [Document Name] – WHERE",
         example: "01/15/2026 – FMLA Form – Banner Gateway",
         fileTo: "*Forms Appt/Signature Requested",
         flags: ["hp-if-noted"],
-        noteFormat: true,
-        notes: "Scan team: attach, label, route to Provider – SIGN. Level 1 stops here.",
+        notes: "Scan team: attach, label, route to PROVIDER – SIGN. Level 1 stops here.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
@@ -1185,7 +1186,6 @@ const SECTIONS = [
             steps: [
               "Attach to patient chart",
               "Label: DATE – [Document Name] – WHERE",
-              "Jelly: INBOUND – SIGNATURE",
               "Mark HP if noted on the form",
               "Route to PROVIDER – SIGN"
             ]
@@ -1205,18 +1205,18 @@ const SECTIONS = [
 
   {
     name: "Medication Related", icon: "💊", color: "#be185d", bg: "#fdf2f8",
-    jelly: "INBOUND – RX",
-    routeTo: "WORK – RX SUPPORT",
+    docCategory: "INBOUND – RX",
+    assignTo: "Provider",
     triggers: ["Rx", "prescription", "pharmacy", "medication", "refill", "drug", "Tango", "non-adherence", "offboarded provider"],
     routes: [
       {
-        doc: "Medication Related → Clinical Admin",
+        doc: "Medication Related",
         action: "create-te",
-        jelly: "INBOUND – RX",
+        docCategory: "INBOUND – RX",
         actionType: "RX",
         actionSubject: "DATE – [Medication Name, Dose] – WHERE",
         actionSubjectExample: "01/15/2026 – Ozempic 0.5mg Rx Request – CVS Specialty",
-        routeTo: "TRIAGE – CLINICAL ADMIN",
+        assignTo: "Clinical Admin",
         sendTo: "Clinical Admin",
         assignTo: "Clinical Admin",
         fileTo: "*RX",
@@ -1238,12 +1238,11 @@ const SECTIONS = [
             deleteIf: [
               "Rx Request — Active Optima Provider (delete)",
               "Temporary Rx Supplies (delete)",
-              "Medication Non-Adherence Notice (delete)",
-              "Tango Approval (delete)"
+              "Medication Non-Adherence Notice (delete)"
             ],
             steps: [
               "Is it one of the delete items above? → Delete. Done.",
-              "If not — jelly: INBOUND – RX",
+              
               "Route to Clinical Admin (TRIAGE – CLINICAL ADMIN)",
               "Level 1 stops here"
             ]
@@ -1274,22 +1273,21 @@ const SECTIONS = [
 
   {
     name: "Auth / Approval", icon: "🔐", color: "#7c3aed", bg: "#f5f3ff",
-    jelly: "INBOUND – AUTH",
-    routeTo: "TRIAGE – CLINICAL ADMIN",
-    triggers: ["prior auth", "PA", "authorization", "approval", "denial", "appeal", "insurance", "formulary", "step therapy", "peer-to-peer", "MRI", "CT", "ultrasound", "imaging PA", "med PA"],
+    docCategory: "INBOUND – AUTH",
+    assignTo: "Clinical Admin",
+    triggers: ["prior auth", "PA", "authorization", "approval", "denial", "appeal", "insurance", "formulary", "step therapy", "peer-to-peer", "MRI", "CT", "ultrasound", "imaging PA", "med PA", "DME", "durable medical", "equipment", "CGM", "nebulizer", "CPAP", "PAP"],
     routes: [
       {
-        doc: "Auth / Approval → Clinical Admin Triage",
+        doc: "Auth / Approval",
         action: "file",
-        jelly: "INBOUND – AUTH",
+        docCategory: "INBOUND – AUTH",
         actionType: "MED PA  or  IMAGING PA",
         actionSubject: "DATE – [Medication or Imaging Type] PA Request – WHERE",
         actionSubjectExample: "01/15/2026 – Ozempic PA Request – CVS Specialty  |  01/15/2026 – MRI Lumbar PA Request – Banner Imaging",
-        routeTo: "TRIAGE – CLINICAL ADMIN",
+        assignTo: "Clinical Admin",
         sendTo: "Clinical Admin (triage)",
         fileTo: "*Medication Prior Authorization  or  *Imaging Prior Authorization",
-        noteFormat: true,
-        notes: "Anything mentioning authorization, approval, denial, or insurance request. Level 1 routes to Clinical Admin triage — Level 2 assigns to correct PA queue.",
+        notes: "Approvals get closed at Level 1. PA submissions move to Level 2 and beyond.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
@@ -1302,13 +1300,13 @@ const SECTIONS = [
             ],
             deleteIf: [
               "PA Request with a Key Listed — delete",
-              "Auth notification from outside facility — Level 2 deletes"
+              "Tango Approval — delete",
+              "Auth notification from outside facility — delete"
             ],
             steps: [
-              "Attach and label: DATE – [Item Name] PA Request – WHERE",
-              "Use the ORDER date — NOT today's date",
-              "Jelly: INBOUND – AUTH",
-              "Mark HP / STAT if noted on form",
+              "Is it one of the delete items above? → Delete. Done.",
+              "If it is an approval notification — close at Level 1. Done.",
+              "If it is a PA submission — attach, label, mark HP/STAT if noted",
               "Route to TRIAGE – CLINICAL ADMIN"
             ],
             notes: "⚠️ Use the ORDER date — NOT the fax received date."
@@ -1336,68 +1334,133 @@ const SECTIONS = [
             ]
           }
         ]
+      },
+      {
+        doc: "DME / Equipment",
+        action: "file",
+        docCategory: "INBOUND – AUTH",
+        actionType: "DME",
+        actionSubject: "DATE – [Equipment/Item] – WHERE",
+        actionSubjectExample: "01/15/2026 – CGM Supplies – Apria",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin (triage)",
+        fileTo: "*DME Requests",
+        flags: ["hp"],
+        notes: "Each DME case is different — Level 1 files and routes. Clinical Admin determines what is needed. CGM, end of life, and nebulizers must be marked HP.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Equipment request of any kind — CGM, CPAP, nebulizer, wheelchair, supplies",
+              "PAP compliance report",
+              "DME authorization or renewal"
+            ],
+            steps: [
+              "Attach and label: DATE – [Equipment/Item] – WHERE",
+              "File to *DME Requests",
+              "Mark HP if CGM, end of life, or nebulizer",
+              "Route to Clinical Admin — each case is different"
+            ]
+          },
+          {
+            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
+            steps: [
+              "Review DME request and determine what is needed",
+              "Route to appropriate WORK queue or provider",
+              "For PAP compliance — send to provider as FYI"
+            ]
+          }
+        ]
       }
     ]
   },
 
   {
     name: "Patient Care / Visit", icon: "🏥", color: "#0f6ac0", bg: "#e8f2fc",
-    jelly: "INBOUND – CLINICAL",
-    routeTo: "TRIAGE – CLINICAL ADMIN",
-    triggers: ["hospital", "ER", "discharge", "lab result", "specialist note", "consult note", "FYI for provider", "clinical", "CBC", "lab", "inpatient", "admission", "PAP", "DME", "equipment", "CGM"],
+    docCategory: "INBOUND – CLINICAL",
+    assignTo: "Provider",
+    triggers: ["hospital", "ER", "discharge", "lab result", "specialist note", "consult note", "FYI for provider", "clinical", "CBC", "lab", "inpatient", "admission", "PAP"],
     routes: [
       {
-        doc: "Patient Care / Visit → Clinical Admin",
-        action: "create-te",
-        jelly: "INBOUND – CLINICAL",
+        doc: "Patient Care / Visit",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
         actionType: "PROVIDER REVIEW",
         actionSubject: "DATE – [Document Type / Description] – WHERE",
         actionSubjectExample: "01/15/2026 – ER Discharge – Banner Gateway  |  01/15/2026 – CBC Results – LabCorp",
-        routeTo: "TRIAGE – CLINICAL ADMIN",
-        sendTo: "Clinical Admin",
-        assignTo: "Clinical Admin",
-        fileTo: "*Admit/Discharge Notifications  |  *Lab Documents  |  *Consult Notes  |  *DME Requests",
-        noteFormat: true,
-        notes: "Catch-all for anything clinical. Hospital, ER, lab results, specialist notes, discharge, DME, PAP. When unsure — this is the bucket. Clinical Admin is the brain.",
+        assignTo: "Provider",
+        sendTo: "Provider",
+        fileTo: "*Lab Documents  ·  *Imaging – Xray/US/CT/MRI  ·  *Admit/Discharge Notifications",
+        notes: "Each document type has a specific action — follow the rule for each below. No TE needed at Level 1.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
-              "Hospital or ER record, discharge summary, admission notes",
-              "Lab result of any kind",
-              "Specialist or consult note",
-              "DME, PAP compliance report, equipment-related",
-              "Anything FYI for provider or clinical in nature",
-              "Not sure where it goes — this is your safety bucket"
+              "Lab result ordered by Optima provider → *Lab Documents — Attach to order, send to provider — Mark HP if abnormal",
+              "Imaging result ordered by Optima provider → *Imaging – Xray/US/CT/MRI — Attach to order, send to provider — Mark HP if abnormal",
+              "Lab result NOT ordered by Optima provider → *Lab Documents — Stamp, note FYI, send directly to provider — no TE",
+              "Imaging result NOT ordered by Optima provider → *Imaging – Xray/US/CT/MRI — Stamp, note FYI, send directly to provider — no TE",
+              "Admit notification → *Admit/Discharge Notifications — Stamp, note FYI, send directly to provider — no TE"
             ],
             steps: [
               "Attach to patient chart",
               "Label: DATE – [Document Type] – WHERE",
-              "Jelly: INBOUND – CLINICAL",
-              "Mark HP if Hospital/ER or HP noted",
-              "Create TE → assign to Clinical Admin",
-              "Route to TRIAGE – CLINICAL ADMIN"
+              "Follow the document-specific rule above",
+              "Mark HP if HP noted on form"
             ],
-            notes: "⚠️ Hospital / ER is ALWAYS HP. Do not delay."
+            notes: "⚠️ Admit = stamp FYI to provider. Lab ordered by us = *Lab Documents, attach to order. Imaging ordered by us = *Imaging – Xray/US/CT/MRI, attach to order. Not ordered by us = stamp FYI to provider."
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review document sent by Scan Team",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Clinical Admin works action and routes as needed",
+              "If no action needed — close document"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Discharge Notification / Record / Summary",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin",
+        fileTo: "*Admit/Discharge Notifications",
+        flags: ["hp"],
+        notes: "Discharge only — Level 1 marks HP and routes to Clinical Admin. Level 2 compiles into one TE and schedules follow-up.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Discharge notification, discharge summary, or discharge records from any facility"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Discharge – WHERE",
+              "Mark HP",
+              "Route to Clinical Admin"
+            ],
+            notes: "⚠️ Discharge is ALWAYS HP. Do not delay."
           },
           {
             num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
             steps: [
-              "Search patient — if action exists update it, do not create a duplicate",
-              "Determine action type: PROVIDER REVIEW, REFERRAL, DME, etc.",
-              "Subject format: [ACTION TYPE] – Short Description",
-              "Document using WHAT / NEEDED / DONE format",
-              "Hospital/ER: confirm follow-up within 7–14 days",
-              "Assign to correct WORK jelly or PROVIDER – REVIEW"
+              "Review discharge document",
+              "Compile into one TE — do not create multiple TEs for the same patient",
+              "Reach out to schedule follow-up appointment",
+              "Once scheduled — send FYI TE to provider to make them aware"
             ]
           },
           {
             num: 3, title: "Provider", badge: "Provider", color: "amber",
             steps: [
-              "Review document in PROVIDER – REVIEW jelly",
-              "Take follow-up action — update same TE, do not create a new one",
-              "Order labs, referrals, or medication changes as needed"
+              "Review FYI TE from Clinical Admin confirming follow-up scheduled",
+              "If additional action needed — update existing TE, do not create a new one"
             ]
           }
         ]
@@ -1407,24 +1470,22 @@ const SECTIONS = [
 
   {
     name: "Referral Related", icon: "↗️", color: "#166534", bg: "#f0fdf4",
-    jelly: "INBOUND – REFERRAL",
-    routeTo: "TRIAGE – CLINICAL ADMIN",
+    docCategory: "INBOUND – REFERRAL",
+    assignTo: "Clinical Admin",
     triggers: ["referral", "consult", "specialist", "scheduling", "outside office", "failure to schedule", "lab authorization", "Myriad", "insurance requires provider submit"],
     routes: [
       {
-        doc: "Referral Related → Clinical Admin Triage",
+        doc: "Referral Related",
         action: "file",
-        jelly: "INBOUND – REFERRAL",
+        docCategory: "INBOUND – REFERRAL",
         actionType: "REFERRAL",
         actionSubject: "DATE – [Referral Request / Response] – WHERE",
         actionSubjectExample: "01/15/2026 – Referral Response – East Valley Urology  |  01/05/2026 – Myriad Auth Request – Myriad Genetics",
-        routeTo: "TRIAGE – CLINICAL ADMIN",
-        sendTo: "Clinical Admin (triage)",
-        label: "DATE – [Referral Request / Response] – WHERE",
-        example: "01/15/2026 – Referral Response – East Valley Urology",
+        assignTo: "Referrals",
+        sendTo: "Referrals Bucket (pool)",
         fileTo: "*Referral Correspondence",
         noteFormat: true,
-        notes: "Referral requests, specialist coordination, scheduling with outside office, lab auth requests where insurance requires provider to submit.",
+        notes: "Referral requests, specialist coordination, scheduling with outside office, lab auth requests where insurance requires provider to submit. Clinical Admin works out of the referrals pool.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
@@ -1441,7 +1502,6 @@ const SECTIONS = [
             ],
             steps: [
               "Attach and label",
-              "Jelly: INBOUND – REFERRAL",
               "Route to TRIAGE – CLINICAL ADMIN",
               "Level 1 stops here"
             ]
@@ -1471,32 +1531,34 @@ const SECTIONS = [
 
   {
     name: "No Action / File Only", icon: "📁", color: "#64748b", bg: "#f8fafc",
-    jelly: "INBOUND – RECORD ONLY",
-    routeTo: "STOP — no action",
-    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records"],
+    docCategory: "INBOUND – RECORD ONLY",
+    assignTo: "No Assignment",
+    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records", "consult note", "specialist note"],
     routes: [
       {
-        doc: "No Action / File Only → Attach and Close",
+        doc: "No Action / File Only",
         action: "file",
-        jelly: "INBOUND – RECORD ONLY",
+        docCategory: "INBOUND – RECORD ONLY",
         actionType: "FILE ONLY",
-        routeTo: "STOP — no TE, no routing",
+        assignTo: "No Assignment",
         sendTo: "Patient Chart (file only)",
         fileTo: "*Records Request",
-        notes: "Old records, informational documents, no next step. Attach, label, close. No TE, no routing, Level 1 stops here.",
+        notes: "Old records, informational documents, consult notes, no next step. Attach, label, close. No TE, no routing, Level 1 stops here.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
+              "Consult / specialist note → *Consult Notes — Attach and close — Level 1 stops here",
               "Incoming medical records with no action requested",
               "Outgoing records request — route to AMS",
               "Informational document with no follow-up needed"
             ],
             steps: [
               "Attach to patient chart",
-              "Label: DATE – Incoming Records – WHERE",
-              "Jelly: INBOUND – RECORD ONLY",
+              "Label: DATE – [Document Type] – WHERE",
+              "For consult notes: file to *Consult Notes — close, done",
+              "For incoming records: file to *Records Request",
               "For outgoing records: send to AMS (AmericanMedicalRecords)",
               "No TE — Level 1 stops here"
             ]
@@ -1508,17 +1570,17 @@ const SECTIONS = [
 
   {
     name: "Still Confused?", icon: "❓", color: "#0369a1", bg: "#f0f9ff",
-    jelly: "INBOUND – UNKNOWN",
-    routeTo: "TRIAGE – CLINICAL ADMIN",
+    docCategory: "INBOUND – UNKNOWN",
+    assignTo: "Clinical Admin",
     triggers: ["unknown", "not sure", "unclear", "other", "confused"],
     routes: [
       {
-        doc: "Still Confused → Clinical Admin",
+        doc: "Still Confused",
         action: "create-te",
-        jelly: "INBOUND – UNKNOWN",
+        docCategory: "INBOUND – UNKNOWN",
         actionType: "PROVIDER REVIEW",
         actionSubject: "DATE – [Description of what you see] – WHERE",
-        routeTo: "TRIAGE – CLINICAL ADMIN",
+        assignTo: "Clinical Admin",
         sendTo: "Clinical Admin",
         assignTo: "Clinical Admin",
         fileTo: "*Important Notifications",
@@ -1535,7 +1597,6 @@ const SECTIONS = [
             ],
             steps: [
               "Attach to patient chart if patient is identifiable",
-              "Jelly: INBOUND – UNKNOWN",
               "Create TE — note what you see on the fax",
               "Assign to Clinical Admin",
               "Route to TRIAGE – CLINICAL ADMIN"
@@ -1847,7 +1908,6 @@ function showResult(r, sec) {
     <div class="detail-label">Document Name</div>
     <span class="detail-value mono">${r.label}</span>
     ${r.example ? `<div class="detail-example">e.g. ${r.example}</div>` : ""}
-    <div style="margin-top:6px;font-size:11px;font-weight:700;color:#c2410c;display:flex;align-items:center;gap:5px;">⚠️ Use the DATE on the document — NOT the fax received date</div>
   </div>`;
   const pairs = [];
   if (r.fileTo) pairs.push({ label: "Document Folder", value: r.fileTo });
@@ -1856,12 +1916,19 @@ function showResult(r, sec) {
   if (pairs.length === 2) detailsHTML += pairs.map(d => `<div class="detail-card"><div class="detail-label">${d.label}</div><div class="detail-value">${d.value}</div></div>`).join("");
   else if (pairs.length === 1) detailsHTML += `<div class="detail-card full"><div class="detail-label">${pairs[0].label}</div><div class="detail-value">${pairs[0].value}</div></div>`;
 
-  // Jelly + Route-To bar
-  const jellyHTML = (r.jelly || r.routeTo)
+  const dateWarnHTML = (actionType === "file" || actionType === "create-te")
+    ? `<div style="background:#fff1f2;border-left:4px solid #e11d48;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:15px;font-weight:800;color:#9f1239;letter-spacing:.1px;">⚠️ Use the DATE on the document — NOT the fax received date</div>`
+    : "";
+  const jellyHTML = (r.docCategory || r.fileTo || r.assignTo)
     ? `<div class="jelly-bar">
-        ${r.jelly ? `<span class="jelly-chip inbound">📥 ${r.jelly}</span>` : ""}
-        ${r.jelly && r.routeTo ? `<span class="jelly-arrow">→</span>` : ""}
-        ${r.routeTo ? `<span class="jelly-chip route">→ ${r.routeTo}</span>` : ""}
+        ${r.docCategory ? `<span class="jelly-chip inbound" onclick="scrollToLevel(0)" title="Click to jump to Scan Team steps">
+          <span class="jelly-step">1</span> ${r.docCategory}</span>` : ""}
+        ${r.fileTo ? `<span class="jelly-arrow">→</span>
+          <span class="jelly-chip folder" onclick="scrollToLevel(0)" title="Document Folder: ${r.fileTo} — click to jump to steps">
+          <span class="jelly-step">2</span> Attach &amp; Label</span>` : ""}
+        ${r.assignTo && r.assignTo !== "No Assignment" ? `<span class="jelly-arrow">→</span>
+          <span class="jelly-chip route" onclick="scrollToLevel(1)" title="Click to jump to next level steps">
+          <span class="jelly-step">3</span> Assign to ${r.assignTo}</span>` : ""}
       </div>` : "";
 
   // Action subject format
@@ -1898,7 +1965,9 @@ function showResult(r, sec) {
   const noteHTML = r.notes
     ? r.hp
       ? `<div class="note-box" style="background:#fffbeb;border-left-color:#f59e0b;color:#92400e;font-weight:700;font-size:13px;">${r.notes}</div>`
-      : `<div class="note-box">${r.notes}</div>`
+      : r.notes.includes("NOT the fax received date") || r.notes.includes("ORDER date")
+        ? `<div class="note-box" style="background:#fff1f2;border-left-color:#e11d48;border-left-width:4px;color:#9f1239;font-weight:800;font-size:14px;padding:12px 16px;letter-spacing:.1px;">${r.notes}</div>`
+        : `<div class="note-box">${r.notes}</div>`
     : "";
 
   // TE checklist
@@ -1974,7 +2043,11 @@ function showResult(r, sec) {
         </div>`;
       }
       if (lv.notes) {
-        body += `<div class="lv-section"><div class="note-box">${lv.notes}</div></div>`;
+        const isDateWarn = lv.notes.includes("NOT the fax received date") || lv.notes.includes("ORDER date");
+        const noteStyle = isDateWarn
+          ? `style="background:#fff1f2;border-left-color:#e11d48;border-left-width:4px;color:#9f1239;font-weight:800;font-size:14px;padding:12px 16px;"`
+          : ``;
+        body += `<div class="lv-section"><div class="note-box" ${noteStyle}>${lv.notes}</div></div>`;
       }
 
       levelsHTML += `
@@ -2036,6 +2109,7 @@ function showResult(r, sec) {
         </div>
       </div>
       ${flagsHTML}
+      ${dateWarnHTML}
       ${actionSubjectHTML}
       ${noteTemplateHTML}
       ${teNoteTemplateHTML}
@@ -2050,6 +2124,16 @@ function showResult(r, sec) {
       ${portalHTML}
       ${updatedHTML}
     </div>`;
+}
+
+function scrollToLevel(idx) {
+  const block = document.getElementById(`lvl-block-${idx}`);
+  if (block) {
+    block.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!block.classList.contains("open")) {
+      block.classList.add("open");
+    }
+  }
 }
 
 // ── LEVEL ACCORDION ────────────────────────
