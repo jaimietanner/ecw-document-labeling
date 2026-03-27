@@ -1232,18 +1232,17 @@ const SECTIONS = [
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
-              "Mentions pharmacy, medication name, or refill",
-              "Rx request from any provider (active or offboarded)"
+              "Rx request for a previous / offboarded Optima provider — Create TE, route to Clinical Admin"
             ],
             deleteIf: [
-              "Rx Request — Active Optima Provider (delete)",
-              "Temporary Rx Supplies (delete)",
-              "Medication Non-Adherence Notice (delete)"
+              "Rx Request — Active Optima Provider — delete",
+              "Temporary Rx Supplies — delete",
+              "Medication Non-Adherence Notice — delete",
+              "Tango Approval — delete"
             ],
             steps: [
-              "Is it one of the delete items above? → Delete. Done.",
-              
-              "Route to Clinical Admin (TRIAGE – CLINICAL ADMIN)",
+              "Is this for an active Optima provider? → Delete. Done.",
+              "Is this for a previous / offboarded provider? → Create TE, route to Clinical Admin",
               "Level 1 stops here"
             ]
           },
@@ -1251,10 +1250,11 @@ const SECTIONS = [
             num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
             steps: [
               "Review and close the document",
-              "Prep TE for provider using the standard note format",
-              "Check patient's last visit date and upcoming appointments",
-              "Select the correct note scenario: last seen / not seen / upcoming appt",
-              "Assign TE to provider for review"
+              "Check if patient is established with a current Optima provider",
+              "If patient has upcoming appointment — send TE to that provider using standard note",
+              "If patient has not established with a new provider — reach out to schedule",
+              "Once scheduled — send bridge request to provider with appointment date",
+              "Assign TE to current provider for review"
             ]
           },
           {
