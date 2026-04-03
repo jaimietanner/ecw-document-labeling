@@ -44,6 +44,38 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .left-nav-btn { display:flex; align-items:center; gap:6px; padding:7px 10px; border:1px solid var(--border); border-radius:8px; background:var(--bg); font-family:inherit; font-size:12px; font-weight:600; color:var(--text); cursor:pointer; transition:all .12s; text-align:left; width:100%; }
 .left-nav-btn:hover { background:var(--surface); border-color:var(--blue); color:var(--blue); }
 
+/* GUIDED FLOW */
+.gf-wrap { padding:10px 10px 16px; }
+.gf-stage-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.gf-stage-label span { background:var(--navy); color:#fff; border-radius:50%; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; font-size:9px; }
+.gf-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px; }
+.gf-tile { border:1.5px solid var(--border); border-radius:10px; padding:9px 8px; cursor:pointer; background:var(--surface); transition:all .12s; text-align:center; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.gf-tile:hover { border-color:var(--blue); background:#f0f6ff; }
+.gf-tile.selected { border-color:var(--blue); background:#e8f2fc; }
+.gf-tile-icon { font-size:20px; line-height:1; }
+.gf-tile-label { font-size:11px; font-weight:700; color:var(--text); line-height:1.3; }
+.gf-tile-sub { font-size:9.5px; color:var(--muted); line-height:1.3; }
+.gf-back { font-size:11px; color:var(--muted); background:none; border:none; cursor:pointer; padding:2px 0; font-family:inherit; display:flex; align-items:center; gap:4px; margin-bottom:8px; }
+.gf-back:hover { color:var(--blue); }
+.gf-action-card { border:2px solid var(--blue); border-radius:10px; overflow:hidden; }
+.gf-action-head { background:var(--navy); padding:9px 12px; }
+.gf-action-title { font-size:13px; font-weight:800; color:#fff; margin-bottom:1px; }
+.gf-action-sub { font-size:10.5px; color:rgba(255,255,255,.55); }
+.gf-action-body { padding:10px 12px; display:flex; flex-direction:column; gap:8px; }
+.gf-row { display:flex; flex-direction:column; gap:2px; }
+.gf-row-label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); }
+.gf-row-val { font-size:12px; font-weight:700; color:var(--text); }
+.gf-row-val.mono { font-family:var(--font-mono); font-size:11px; background:var(--bg); border-radius:5px; padding:4px 8px; }
+.gf-row-val.folder { background:#e0f2fe; color:#0369a1; border-radius:5px; padding:3px 8px; font-size:11px; }
+.gf-row-val.assignto { background:#f0fdf4; color:#166534; border-radius:5px; padding:3px 8px; font-size:11px; }
+.gf-warn { background:#fff1f2; border-left:3px solid #e11d48; border-radius:0 6px 6px 0; padding:7px 10px; font-size:11px; font-weight:700; color:#9f1239; }
+.gf-note { background:#fffbeb; border-left:3px solid #f59e0b; border-radius:0 6px 6px 0; padding:7px 10px; font-size:11px; font-weight:600; color:#92400e; }
+.gf-tile-row { flex-direction:row; text-align:left; justify-content:flex-start; padding:9px 12px; }
+.gf-tile-arrow { font-size:18px; color:var(--muted); margin-left:auto; flex-shrink:0; }
+.gf-tile-row.selected { border-color:var(--blue); background:#e8f2fc; }
+.gf-tile-row.selected .gf-tile-arrow { color:var(--blue); }
+.gf-divider { height:1px; background:var(--border); margin:4px 0; }
+
 .nav-manager-divider {
   margin: 10px 14px 4px;
   padding: 6px 8px;
@@ -491,7 +523,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.72a16 16 0 006.29 6.29l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
     Fax Routing
   </div>
-  <div class="topbar-meta">Optima Medical · March 2026</div>
+  <div class="topbar-meta" id="topbarDate">Optima Medical</div>
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
@@ -1410,7 +1442,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
         <button class="left-nav-btn" onclick="openGeneralNotes()">📌 General Rules</button>
       </div>
     </div>
-    <div id="navTree"></div>
+    <div id="guidedFlow" class="gf-wrap"></div>
+    <div id="navTree" style="display:none;"></div>
     <div style="padding:12px 14px 20px;">
       <div class="default-rule">
         <div class="default-rule-text">
@@ -2548,7 +2581,7 @@ window.addEventListener("afterprint", () => {
   _currentRoute = null;
 });
 function buildPrintView() {
-  let html = `<div class="print-header"><h1>📠 Fax Routing Quick Reference — Optima Medical</h1><p>March 2026 · All categories and routing actions</p></div>`;
+  let html = `<div class="print-header"><h1>📠 Fax Routing Quick Reference — Optima Medical</h1><p>${new Date().toLocaleString('default',{month:'long',year:'numeric'})} · All categories and routing actions</p></div>`;
   SECTIONS.forEach(sec => {
     html += `<div class="print-section-head">${sec.icon} ${sec.name}</div>`;
     html += `<table class="print-table"><tr><th>Document Type</th><th>Action</th><th>Document Folder</th><th>Assigned To</th><th>Document Name</th><th>Notes</th></tr>`;
@@ -2576,6 +2609,265 @@ function openGeneralNotes() {
   document.getElementById("generalNotesOverlay").classList.add("open");
 }
 
+// ── GUIDED FLOW ────────────────────────────
+const GF_STAGE1 = [
+  { id:"sig",      icon:"✍️", label:"Needs a Signature",       sub:"FMLA, forms, orders" },
+  { id:"rx",       icon:"💊", label:"Medication / Pharmacy",    sub:"Rx, refill, pharmacy fax" },
+  { id:"auth",     icon:"🔐", label:"Auth / Approval",          sub:"PA, denial, insurance" },
+  { id:"clinical", icon:"🏥", label:"Patient Care / Results",   sub:"Lab, imaging, hospital" },
+  { id:"referral", icon:"↗️", label:"Referral",                 sub:"Specialist, consult, scheduling" },
+  { id:"records",  icon:"📁", label:"Records / No Action",      sub:"Old records, informational" },
+  { id:"confused", icon:"❓", label:"Not Sure",                  sub:"Route to Clinical Admin" },
+];
+
+const GF_STAGE2 = {
+  sig: [
+    { id:"sig_form",   icon:"📝", label:"Form / FMLA / Consent",   sub:"Needs provider sign-off" },
+    { id:"sig_ptot",   icon:"🏃", label:"PT / OT / Home Health",    sub:"Therapy or home health order" },
+    { id:"sig_dme",    icon:"🩺", label:"DME with Signature Line",  sub:"Equipment needing provider sign-off" },
+  ],
+  rx: [
+    { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider",   sub:"Delete — no action needed" },
+    { id:"rx_off",       icon:"✚",  label:"Offboarded Provider",       sub:"Create TE → Clinical Admin" },
+    { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",     sub:"Delete — no action needed" },
+  ],
+  auth: [
+    { id:"auth_medpa",   icon:"💊", label:"Medication PA",            sub:"New, denial, or peer-to-peer" },
+    { id:"auth_imgpa",   icon:"🔬", label:"Imaging PA",               sub:"MRI, CT, Ultrasound" },
+    { id:"auth_dme",     icon:"🩺", label:"DME / Equipment Auth",     sub:"Each case different" },
+    { id:"auth_key",     icon:"🗑️", label:"PA — Key Already Listed",  sub:"Delete — already actioned" },
+  ],
+  clinical: [
+    { id:"cl_lab_in",    icon:"🧪", label:"Lab — Ordered by Us",      sub:"Attach to order → provider" },
+    { id:"cl_lab_out",   icon:"🧪", label:"Lab — Specialist CC",      sub:"Stamp FYI → provider" },
+    { id:"cl_img_in",    icon:"🔬", label:"Imaging — Ordered by Us",  sub:"Attach to order → provider" },
+    { id:"cl_img_out",   icon:"🔬", label:"Imaging — Specialist CC",  sub:"Stamp FYI → provider" },
+    { id:"cl_admit",     icon:"🏥", label:"Admit Notification",        sub:"Stamp FYI → provider" },
+    { id:"cl_discharge", icon:"🚨", label:"Discharge / ER Records",   sub:"HP → Clinical Admin" },
+    { id:"cl_pap",       icon:"📋", label:"PAP Compliance Report",    sub:"Attach → provider" },
+  ],
+  referral: [
+    { id:"ref_req",      icon:"↗️", label:"Referral Request / Response", sub:"File → Referrals bucket" },
+    { id:"ref_fail",     icon:"⚠️", label:"Failure to Schedule",          sub:"Do NOT delete → Referrals" },
+    { id:"ref_labauth",  icon:"🧪", label:"Lab Auth — Insurance Requires Provider", sub:"TE → Clinical Admin" },
+    { id:"ref_conf",     icon:"🗑️", label:"Confirmation of Receipt / Scheduled Date", sub:"Delete" },
+  ],
+  records: [
+    { id:"rec_in",       icon:"📁", label:"Incoming Records",          sub:"Attach → file only" },
+    { id:"rec_out",      icon:"📤", label:"Outgoing Records Request",  sub:"Send to AMS" },
+    { id:"rec_consult",  icon:"📄", label:"Consult / Specialist Note", sub:"Attach and close" },
+  ],
+  confused: null,
+};
+
+const GF_RESULT = {
+  sig_form:    { action:"FILE & ROUTE", folder:"*Forms Appt/Signature Requested", assignTo:"Provider", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – FMLA Form – Banner Gateway", hp:"Mark HP if noted on form", note:null },
+  sig_ptot:    { action:"FILE & ROUTE", folder:"*PT/OT/HH Orders – sig needed", assignTo:"Provider", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – PT Order – AZ PT Group", hp:null, note:null },
+  sig_dme:     { action:"FILE & ROUTE", folder:"*Forms Appt/Signature Requested", assignTo:"Provider (direct — signature rule wins)", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – DME Order – Apria", hp:"Mark HP if noted", note:"Signature on DME = goes directly to provider. Skip Clinical Admin." },
+  rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. No action needed." },
+  rx_off:      { action:"CREATE TE", folder:"*RX", assignTo:"Clinical Admin", label:"DATE – [Medication Name] – WHERE", example:"04/01/2026 – Ozempic Rx – CVS Specialty", hp:null, note:"Clinical Admin checks for upcoming appt. If none — deny and schedule. Bridge request once scheduled." },
+  rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval / Non-Adherence Notice — delete. No action needed." },
+  auth_medpa:  { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP / STAT if noted", note:"Use the ORDER date — not today's date." },
+  auth_imgpa:  { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP / STAT if noted", note:"Use the ORDER date — not today's date." },
+  auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
+  auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
+  cl_lab_in:   { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (attach to order)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – CBC Results – LabCorp", hp:"Mark HP if abnormal", note:"Attach result to the existing order in eCW, then send to ordering provider." },
+  cl_lab_out:  { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (stamp FYI)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – Thyroid Panel – Quest Diagnostics", hp:null, note:"Specialist ordered this and is cc'ing our provider. Stamp document with FYI. Confirm this is NOT an ER result before routing." },
+  cl_img_in:   { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (attach to order)", label:"DATE – [Imaging Type] – WHERE", example:"04/01/2026 – MRI Lumbar Results – Banner Imaging", hp:"Mark HP if abnormal or STAT", note:"Attach to existing order. STAT = same day, no exceptions. Verify ordering provider in eCW first." },
+  cl_img_out:  { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (stamp FYI)", label:"DATE – [Imaging Type] – WHERE", example:"04/01/2026 – CT Chest – Banner Imaging", hp:null, note:"Specialist ordered this and is cc'ing our provider. Stamp document with FYI. Confirm this is NOT an ER result before routing." },
+  cl_admit:    { action:"FILE & ROUTE", folder:"*Admit/Discharge Notifications", assignTo:"Provider (stamp FYI)", label:"DATE – Admit Notification – WHERE", example:"04/01/2026 – Admit Notification – Banner Gateway", hp:null, note:"Stamp document with FYI. Send directly to provider. No TE." },
+  cl_discharge:{ action:"FILE & ROUTE", folder:"*Admit/Discharge Notifications", assignTo:"Clinical Admin", label:"DATE – [Document Type] – ER Visit – WHERE", example:"04/01/2026 – Discharge Summary – ER Visit – Banner Gateway", hp:"ALWAYS mark HP", note:"CA sorts by patient name, closes all except discharge summary. If appt scheduled: stamp FYI to provider. If no appt: TE for outreach. After 3 failed attempts: TE to Office Manager." },
+  cl_pap:      { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Provider", label:"DATE – PAP Compliance Report – WHERE", example:"04/01/2026 – PAP Compliance Report – Apria", hp:null, note:"Attach and send directly to provider. No TE." },
+  ref_req:     { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – [Referral Request / Response] – WHERE", example:"04/01/2026 – Referral Response – East Valley Urology", hp:null, note:"Clinical Admin works out of referrals pool." },
+  ref_fail:    { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – Referral Scheduling Issue – WHERE", example:"04/01/2026 – Referral Scheduling Issue – AZ Cardiology", hp:null, note:"Do NOT delete. Assign to Referrals for follow-up with specialist." },
+  ref_labauth: { action:"CREATE TE", folder:"*Referral Correspondence", assignTo:"Clinical Admin", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance requires provider to submit. Scan team: attach, label, send. Clinical Admin documents CPT, Dx, DOS and sends to provider." },
+  ref_conf:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Confirmation of receipt or scheduled date notification — delete. No action needed." },
+  rec_in:      { action:"FILE ONLY", folder:"*Records Request", assignTo:"No Assignment", label:"DATE – Incoming Records – WHERE", example:"04/01/2026 – Incoming Records – Banner Health", hp:null, note:"Attach, label, close. No TE, no routing." },
+  rec_out:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – AMS", hp:null, note:"Route to AMS. Does not need to be attached to a patient." },
+  rec_consult: { action:"FILE ONLY", folder:"*Consult Notes", assignTo:"No Assignment", label:"DATE – Consult Note – WHERE", example:"04/01/2026 – Consult Note – East Valley Urology", hp:null, note:"Attach and close. Level 1 stops here." },
+  confused:    { action:"CREATE TE", folder:"*Important Notifications", assignTo:"Clinical Admin", label:"DATE – Unknown Document – WHERE", example:"04/01/2026 – Unknown Document – Unknown Sender", hp:null, note:"Do not guess. Attach, create TE, assign to Clinical Admin. Note what you see on the fax." },
+};
+
+let _gfStage = 1;
+let _gfS1 = null;
+
+function renderGuidedFlow() {
+  const el = document.getElementById("guidedFlow");
+  if (!el) return;
+
+  if (_gfStage === 1) {
+    el.innerHTML = `
+      <div class="gf-stage-label"><span>1</span> What type of document is it?</div>
+      <div class="gf-grid">
+        ${GF_STAGE1.map(t => `
+          <div class="gf-tile${_gfS1 === t.id ? ' selected' : ''}" onclick="gfPickStage1('${t.id}')">
+            <div class="gf-tile-icon">${t.icon}</div>
+            <div class="gf-tile-label">${t.label}</div>
+            <div class="gf-tile-sub">${t.sub}</div>
+          </div>`).join("")}
+      </div>`;
+    return;
+  }
+
+  if (_gfStage === 2 || _gfStage === 3) {
+    const s2 = GF_STAGE2[_gfS1];
+    if (!s2) { gfShowResult("confused"); return; }
+    el.innerHTML = `
+      <button class="gf-back" onclick="gfBack()">← Back</button>
+      <div class="gf-stage-label"><span>2</span> Which best describes it?</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${s2.map(t => `
+          <div class="gf-tile gf-tile-row${_gfResultId === t.id ? ' selected' : ''}" onclick="gfPickStage2('${t.id}')">
+            <div class="gf-tile-icon" style="font-size:16px;">${t.icon}</div>
+            <div style="flex:1;text-align:left;">
+              <div class="gf-tile-label">${t.label}</div>
+              <div class="gf-tile-sub">${t.sub}</div>
+            </div>
+            <div class="gf-tile-arrow">›</div>
+          </div>`).join("")}
+      </div>`;
+    return;
+  }
+}
+
+function renderGFResult() {
+  const right = document.getElementById("right");
+  const empty = document.getElementById("emptyState");
+  const r = _gfResult;
+  if (!r) return;
+
+  if (empty) empty.style.display = "none";
+
+  const actionColor = { "DELETE":"#e11d48", "FILE & ROUTE":"#1a5fa8", "CREATE TE":"#d97706", "FILE ONLY":"#64748b" }[r.action] || "#1a5fa8";
+  const actionBg    = { "DELETE":"#fef2f2", "FILE & ROUTE":"#eff6ff", "CREATE TE":"#fffbeb", "FILE ONLY":"#f8fafc" }[r.action] || "#eff6ff";
+
+  const existing = document.getElementById("gfResultPanel");
+  if (existing) existing.remove();
+
+  const panel = document.createElement("div");
+  panel.id = "gfResultPanel";
+  panel.style.cssText = "padding:24px 28px;max-width:700px;";
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <div style="background:${actionBg};border:2px solid ${actionColor};border-radius:10px;padding:10px 20px;display:inline-flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;font-weight:900;color:${actionColor};">${r.action}</span>
+        ${r.assignTo ? `<span style="font-size:14px;color:${actionColor};opacity:.7;">→ ${r.assignTo}</span>` : ""}
+      </div>
+    </div>
+
+    <div style="background:#fff1f2;border-left:4px solid #e11d48;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:20px;font-size:14px;font-weight:800;color:#9f1239;">
+      ⚠️ Use the DATE on the document — NOT the fax received date
+    </div>
+
+    ${r.action === "DELETE" ? `
+      <div style="background:#fef2f2;border:2px solid #e11d48;border-radius:12px;padding:22px 24px;text-align:center;">
+        <div style="font-size:40px;margin-bottom:8px;">🗑️</div>
+        <div style="font-size:20px;font-weight:800;color:#9f1239;margin-bottom:8px;">Delete — No Action Needed</div>
+        <div style="font-size:14px;color:#9f1239;">${r.note || ""}</div>
+      </div>
+    ` : `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;">
+        ${r.folder ? `
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin-bottom:6px;">Document Folder</div>
+            <div style="font-size:14px;font-weight:700;color:#0369a1;">${r.folder}</div>
+          </div>` : ""}
+        ${r.assignTo ? `
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin-bottom:6px;">Assign To</div>
+            <div style="font-size:14px;font-weight:700;color:#166534;">${r.assignTo}</div>
+          </div>` : ""}
+      </div>
+
+      ${r.label ? `
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin-bottom:8px;">Document Name</div>
+          <div style="font-family:var(--font-mono);font-size:15px;font-weight:800;color:var(--text);margin-bottom:6px;">${r.label}</div>
+          ${r.example ? `<div style="font-family:var(--font-mono);font-size:12px;color:var(--muted);">e.g. ${r.example}</div>` : ""}
+        </div>` : ""}
+
+      ${r.hp ? `
+        <div style="background:#fffbeb;border:2px solid #f59e0b;border-radius:10px;padding:12px 16px;margin-bottom:18px;font-size:15px;font-weight:800;color:#92400e;">
+          ⚑ ${r.hp}
+        </div>` : ""}
+
+      ${r.note ? `
+        <div style="background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:18px;font-size:13px;font-weight:600;color:#92400e;">
+          ${r.note}
+        </div>` : ""}
+    `}
+
+    <button class="gf-detail-btn" onclick="gfShowDetail()">View full step-by-step detail →</button>
+  `;
+  right.appendChild(panel);
+  panel.scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+function gfPickStage1(id) {
+  _gfS1 = id;
+  _gfResultId = null;
+  _gfResult = null;
+  const existing = document.getElementById("gfResultPanel");
+  if (existing) existing.remove();
+  const _es = document.getElementById("emptyState"); if (_es) _es.style.display = "";
+  if (id === "confused") { gfShowResult("confused"); return; }
+  _gfStage = 2;
+  renderGuidedFlow();
+}
+
+function gfPickStage2(id) {
+  _gfResultId = id;
+  _gfResult = GF_RESULT[id] || GF_RESULT["confused"];
+  _gfStage = 3;
+  renderGFResult();
+  renderGuidedFlow();
+}
+
+function gfShowResult(id) {
+  _gfStage = 3;
+  _gfResult = GF_RESULT[id] || GF_RESULT["confused"];
+  _gfResultId = id;
+  renderGFResult();
+}
+
+function gfBack() {
+  const existing = document.getElementById("gfResultPanel");
+  if (existing) existing.remove();
+  const _es = document.getElementById("emptyState"); if (_es) _es.style.display = "";
+  _gfResultId = null;
+  _gfResult = null;
+  if (_gfStage >= 2) { _gfStage = _gfStage === 2 ? 1 : 2; }
+  if (_gfStage === 1) { _gfS1 = null; }
+  renderGuidedFlow();
+}
+
+function gfShowDetail() {
+  // Find the matching section and show in nav
+  const map = {
+    sig_form:"Signature Needed", sig_ptot:"Signature Needed", sig_dme:"Auth / Approval",
+    rx_active:"Medication Related", rx_off:"Medication Related", rx_delete:"Medication Related",
+    auth_medpa:"Auth / Approval", auth_imgpa:"Auth / Approval", auth_dme:"Auth / Approval", auth_key:"Auth / Approval",
+    cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
+    cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
+    cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
+    cl_pap:"Patient Care / Visit",
+    ref_req:"Referral Related", ref_fail:"Referral Related", ref_labauth:"Referral Related", ref_conf:"Referral Related",
+    rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
+    confused:"Still Confused",
+  };
+  const secName = map[_gfResultId];
+  if (secName) {
+    const si = SECTIONS.findIndex(s => s.name === secName);
+    if (si >= 0) {
+      document.getElementById("navTree").style.display = "block";
+      selectRoute(SECTIONS[si].routes[0], SECTIONS[si], si, 0);
+    }
+  }
+}
+
+let _gfResult = null;
+let _gfResultId = null;
+
 // ── HELP PANEL ─────────────────────────────
 function openHelp() {
   closeOverlays();
@@ -2601,6 +2893,11 @@ try {
 } catch {}
 
 buildNav();
+renderGuidedFlow();
+// Dynamic date in topbar
+const _mo = new Date().toLocaleString('default',{month:'long',year:'numeric'});
+const _dateEl = document.getElementById('topbarDate');
+if (_dateEl) _dateEl.textContent = `Optima Medical · ${_mo}`;
 </script>
 </body>
 </html>
