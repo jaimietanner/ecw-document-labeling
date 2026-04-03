@@ -41,6 +41,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .search-hint kbd { background:var(--border); padding:1px 5px; border-radius:3px; font-size:9px; font-family:monospace; }
 .triage-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:7px; border:1.5px dashed var(--border); border-radius:8px; background:none; font-family:inherit; font-size:12px; font-weight:600; color:var(--muted); cursor:pointer; transition:all .12s; }
 .triage-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
+.left-nav-btn { display:flex; align-items:center; gap:6px; padding:7px 10px; border:1px solid var(--border); border-radius:8px; background:var(--bg); font-family:inherit; font-size:12px; font-weight:600; color:var(--text); cursor:pointer; transition:all .12s; text-align:left; width:100%; }
+.left-nav-btn:hover { background:var(--surface); border-color:var(--blue); color:var(--blue); }
 
 .nav-manager-divider {
   margin: 10px 14px 4px;
@@ -492,9 +494,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="topbar-meta">Optima Medical · March 2026</div>
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
-    <button class="tb-btn" onclick="openLevel1Card()">⚡ Level 1 Quick Ref</button>
-    <button class="tb-btn" onclick="openDirectToProvider()">📤 Direct to Provider</button>
-    <button class="tb-btn" onclick="openGeneralNotes()">📌 General Rules</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
   </div>
@@ -1410,6 +1409,11 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       </div>
       <div class="search-hint">Press <kbd>/</kbd> to search instantly</div>
       <button class="triage-btn" onclick="openTriage()">🤔 Not sure what this is? Start here</button>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
+        <button class="left-nav-btn" onclick="openLevel1Card()">⚡ Level 1 Quick Ref</button>
+        <button class="left-nav-btn" onclick="openDirectToProvider()">📤 Direct to Provider</button>
+        <button class="left-nav-btn" onclick="openGeneralNotes()">📌 General Rules</button>
+      </div>
     </div>
     <div id="navTree"></div>
     <div style="padding:12px 14px 20px;">
