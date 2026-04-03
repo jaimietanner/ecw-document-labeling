@@ -493,6 +493,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
     <button class="tb-btn" onclick="openLevel1Card()">⚡ Level 1 Quick Ref</button>
+    <button class="tb-btn" onclick="openDirectToProvider()">📤 Direct to Provider</button>
     <button class="tb-btn" onclick="openGeneralNotes()">📌 General Rules</button>
     <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
@@ -766,6 +767,189 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           Pick the closest category and move on.<br>
           <span style="font-weight:400;font-size:12.5px;color:rgba(255,255,255,.65);">System + Clinical Admin will handle the rest. Your only job is fast, consistent filing.</span>
         </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DIRECT TO PROVIDER OVERLAY -->
+<div class="overlay" id="directToProviderOverlay">
+  <div class="l1-panel">
+    <div class="l1-hero">
+      <div class="l1-hero-top">
+        <h2>📤 Direct to Provider — Attach, Label, Send</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>These documents go straight to the provider after attaching. No TE. No Clinical Admin. Label correctly and send.</p>
+    </div>
+    <div class="l1-body">
+
+      <div style="background:#fff1f2;border-left:4px solid #e11d48;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:16px;font-size:15px;font-weight:800;color:#9f1239;">⚠️ Use the DATE on the document — NOT the fax received date</div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <!-- ER / Hospital Records -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#fef2f2;">
+            <span class="l1-card-icon">🚨</span>
+            <span class="l1-card-title" style="color:#c0392b;">ER / Hospital — Labs, Notes, Records</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#fecaca;color:#c0392b;">*Lab Documents</span>
+            <span class="l1-folder" style="background:#fecaca;color:#c0392b;">*Imaging – Xray/US/CT/MRI</span>
+            <span class="l1-folder" style="background:#fecaca;color:#c0392b;">*Admit/Discharge Notifications</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Format</div>
+            <div style="font-family:var(--font-mono);font-size:13px;font-weight:800;background:#fef2f2;border-radius:6px;padding:8px 12px;color:#c0392b;margin-bottom:6px;">
+              DATE – [Document Type] – ER Visit – [Facility]
+            </div>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – Labs – ER Visit – Banner Gateway<br>
+              04/01/2026 – CXR – ER Visit – Honor Health<br>
+              04/01/2026 – CT Head – ER Visit – Banner Desert<br>
+              04/01/2026 – ER Notes – ER Visit – Dignity Health
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#c0392b;">Always mark HP. Route to Clinical Admin for discharge. Route to provider for labs and imaging results.</div>
+          </div>
+        </div>
+
+        <!-- Lab Results - Ordered -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0fdf4;">
+            <span class="l1-card-icon">🧪</span>
+            <span class="l1-card-title" style="color:#166534;">Lab Result — Ordered by Optima Provider</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Lab Documents</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – CBC Results – LabCorp<br>
+              04/01/2026 – A1C Results – Quest Diagnostics<br>
+              04/01/2026 – Lipid Panel – Banner Lab
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Attach to order. Send to ordering provider. Mark HP if abnormal.</div>
+          </div>
+        </div>
+
+        <!-- Lab Results - Not Ordered -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0fdf4;">
+            <span class="l1-card-icon">🧪</span>
+            <span class="l1-card-title" style="color:#166534;">Lab Result — NOT Ordered by Optima Provider</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Lab Documents</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – CBC Results FYI – Outside Lab<br>
+              04/01/2026 – Thyroid Panel FYI – Quest Diagnostics
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Stamp document. Note FYI. Send directly to provider.</div>
+          </div>
+        </div>
+
+        <!-- Imaging - Ordered -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#eff6ff;">
+            <span class="l1-card-icon">🔬</span>
+            <span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — Ordered by Optima Provider</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#dbeafe;color:#1a5fa8;">*Imaging – Xray/US/CT/MRI</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – MRI Lumbar Results – Banner Imaging<br>
+              04/01/2026 – CXR Results – Simon Med<br>
+              04/01/2026 – US Abdomen Results – Radiology Group
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Attach to order. Send to ordering provider. Mark HP if abnormal. STAT = same day.</div>
+          </div>
+        </div>
+
+        <!-- Imaging - Not Ordered -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#eff6ff;">
+            <span class="l1-card-icon">🔬</span>
+            <span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — NOT Ordered by Optima Provider</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#dbeafe;color:#1a5fa8;">*Imaging – Xray/US/CT/MRI</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – CT Chest FYI – Banner Imaging<br>
+              04/01/2026 – X-Ray Right Knee FYI – Simon Med
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Stamp document. Note FYI. Send directly to provider.</div>
+          </div>
+        </div>
+
+        <!-- Admit Notification -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#e8f2fc;">
+            <span class="l1-card-icon">🏥</span>
+            <span class="l1-card-title" style="color:#0f6ac0;">Admit Notification</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Admit/Discharge Notifications</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – Admit Notification FYI – Banner Gateway<br>
+              04/01/2026 – Inpatient Admit FYI – Honor Health
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0f6ac0;">Stamp document. Note FYI. Send directly to provider. No TE.</div>
+          </div>
+        </div>
+
+        <!-- Signature Needed -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#f0f9ff;">
+            <span class="l1-card-icon">✍️</span>
+            <span class="l1-card-title" style="color:#0369a1;">Signature Needed</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*Forms Appt/Signature Requested</span>
+            <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*PT/OT/HH Orders – sig needed</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – FMLA Form – Banner Gateway<br>
+              04/01/2026 – Home Health Order – Amedisys<br>
+              04/01/2026 – PT Order – Arizona PT Group
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0369a1;">Attach. Label. Route to provider. Mark HP if noted. No TE.</div>
+          </div>
+        </div>
+
+        <!-- PAP Compliance -->
+        <div class="l1-card">
+          <div class="l1-card-head" style="background:#fffbeb;">
+            <span class="l1-card-icon">📋</span>
+            <span class="l1-card-title" style="color:#b45309;">PAP Compliance Report</span>
+          </div>
+          <div class="l1-card-body">
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
+            <span class="l1-folder" style="background:#fef3c7;color:#b45309;">*DME Requests</span>
+            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
+              04/01/2026 – PAP Compliance Report – Apria<br>
+              04/01/2026 – CPAP Compliance – Lincare
+            </div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#b45309;">Attach. Send directly to provider. No TE.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:14px;background:var(--navy);border-radius:10px;padding:12px 16px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:6px;">Always verify before marking FYI</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.7;">Pull up the patient in eCW first. If the provider's name is in the system they are an internal provider — do NOT mark FYI. Only mark FYI if the ordering provider has no record in eCW.</div>
       </div>
 
     </div>
@@ -1539,7 +1723,7 @@ const SECTIONS = [
             ],
             steps: [
               "Attach to patient chart",
-              "Label: DATE – Discharge – WHERE",
+              "Label: DATE – [Document Type] – ER Visit – WHERE",
               "Mark HP",
               "Route to Clinical Admin"
             ],
@@ -2374,6 +2558,11 @@ function buildPrintView() {
     html += `</table>`;
   });
   return html;
+}
+
+function openDirectToProvider() {
+  closeOverlays();
+  document.getElementById("directToProviderOverlay").classList.add("open");
 }
 
 function openLevel1Card() {
