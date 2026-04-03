@@ -810,7 +810,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
               04/01/2026 – CT Head – ER Visit – Banner Desert<br>
               04/01/2026 – ER Notes – ER Visit – Dignity Health
             </div>
-            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#c0392b;">Always mark HP. Route to Clinical Admin for discharge. Route to provider for labs and imaging results.</div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#c0392b;">Always mark HP. Attach all records to chart and route to Clinical Admin. CA sorts by patient name — closes all except discharge summary. Discharge summary drives the follow-up workflow.</div>
           </div>
         </div>
 
@@ -1124,6 +1124,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <div class="help-section">
         <h3>🚫 Hard Stops</h3>
         <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>ER/Hospital follow-up — 3 attempt rule.</strong> If unable to reach patient after 3 attempts, send TE to Office Manager as FYI. Do not keep attempting without escalating.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Results for an out-of-office provider</strong> — do not leave in queue. Route to the <strong>Office Manager</strong> to reassign or hold for provider return.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>DME with a signature line</strong> — signature rule wins. Route directly to provider, no Clinical Admin needed.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>No multiple actions for the same issue.</strong> Denial, appeal, follow-up — all go in the same existing action. Do not create a new one.</div></div>
@@ -1727,35 +1728,37 @@ const SECTIONS = [
         sendTo: "Clinical Admin",
         fileTo: "*Admit/Discharge Notifications",
         flags: ["hp"],
-        notes: "Discharge only — Level 1 marks HP and routes to Clinical Admin. Level 2 compiles into one TE and schedules follow-up.",
+        notes: "All ER/hospital records attach to chart and route to Clinical Admin. CA sorts by patient name and closes all documents except the discharge summary. Discharge summary drives the follow-up workflow.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
-              "Discharge notification, discharge summary, or discharge records from any facility"
+              "Any ER visit record, discharge summary, hospital notes, or discharge records"
             ],
             steps: [
-              "Attach to patient chart",
+              "Attach all documents to patient chart",
               "Label: DATE – [Document Type] – ER Visit – WHERE",
               "Mark HP",
-              "Route to Clinical Admin"
+              "Route all to Clinical Admin"
             ],
-            notes: "⚠️ Discharge is ALWAYS HP. Do not delay."
+            notes: "⚠️ ER / Hospital is ALWAYS HP. Attach everything. Level 1 stops here."
           },
           {
             num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
             steps: [
-              "Review discharge document",
-              "Compile into one TE — do not create multiple TEs for the same patient",
-              "Reach out to schedule follow-up appointment",
-              "Once scheduled — send FYI TE to provider to make them aware"
+              "Sort by patient name — close all documents except the discharge summary",
+              "Review discharge summary",
+              "IF upcoming appointment already scheduled: stamp discharge summary with FYI and send to provider",
+              "IF no upcoming appointment: create TE and send to CA for outreach to schedule",
+              "Once scheduled: send FYI TE to provider with appointment date, note in chart",
+              "IF unable to reach patient after 3 attempts: send TE to Office Manager as FYI"
             ]
           },
           {
             num: 3, title: "Provider", badge: "Provider", color: "amber",
             steps: [
-              "Review FYI TE from Clinical Admin confirming follow-up scheduled",
+              "Review FYI from Clinical Admin — discharge summary or scheduled appointment notification",
               "If additional action needed — update existing TE, do not create a new one"
             ]
           }
