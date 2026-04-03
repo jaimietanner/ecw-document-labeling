@@ -844,10 +844,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Lab Documents</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
             <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – CBC Results FYI – Outside Lab<br>
-              04/01/2026 – Thyroid Panel FYI – Quest Diagnostics
+              04/01/2026 – CBC Results – Outside Lab<br>
+              04/01/2026 – Thyroid Panel – Quest Diagnostics
             </div>
-            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Stamp document. Note FYI. Send directly to provider.</div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Stamp document with FYI. Send directly to provider.</div>
           </div>
         </div>
 
@@ -881,10 +881,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#dbeafe;color:#1a5fa8;">*Imaging – Xray/US/CT/MRI</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
             <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – CT Chest FYI – Banner Imaging<br>
-              04/01/2026 – X-Ray Right Knee FYI – Simon Med
+              04/01/2026 – CT Chest – Banner Imaging<br>
+              04/01/2026 – X-Ray Right Knee – Simon Med
             </div>
-            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Stamp document. Note FYI. Send directly to provider.</div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Stamp document with FYI. Send directly to provider.</div>
           </div>
         </div>
 
@@ -899,10 +899,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Admit/Discharge Notifications</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
             <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – Admit Notification FYI – Banner Gateway<br>
-              04/01/2026 – Inpatient Admit FYI – Honor Health
+              04/01/2026 – Admit Notification – Banner Gateway<br>
+              04/01/2026 – Inpatient Admit – Honor Health
             </div>
-            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0f6ac0;">Stamp document. Note FYI. Send directly to provider. No TE.</div>
+            <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0f6ac0;">Stamp document with FYI. Send directly to provider. No TE.</div>
           </div>
         </div>
 
@@ -946,7 +946,15 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 
       </div>
 
-      <div style="margin-top:14px;background:var(--navy);border-radius:10px;padding:12px 16px;">
+      <div style="margin-top:14px;background:var(--navy);border-radius:10px;padding:12px 16px;margin-bottom:10px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">Exceptions to know</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div style="font-size:12.5px;color:#fff;line-height:1.6;display:flex;gap:8px;"><span style="color:#4ade80;flex-shrink:0;">→</span><span><strong>DME with a signature line</strong> — signature rule wins. Send directly to provider, skip Clinical Admin.</span></div>
+          <div style="font-size:12.5px;color:#fff;line-height:1.6;display:flex;gap:8px;"><span style="color:#4ade80;flex-shrink:0;">→</span><span><strong>Results for an out-of-office provider</strong> — do not leave in queue. Route to the <strong>Office Manager</strong> to reassign or hold.</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--navy);border-radius:10px;padding:12px 16px;">
         <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:6px;">Always verify before marking FYI</div>
         <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.7;">Pull up the patient in eCW first. If the provider's name is in the system they are an internal provider — do NOT mark FYI. Only mark FYI if the ordering provider has no record in eCW.</div>
       </div>
@@ -1116,6 +1124,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <div class="help-section">
         <h3>🚫 Hard Stops</h3>
         <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Results for an out-of-office provider</strong> — do not leave in queue. Route to the <strong>Office Manager</strong> to reassign or hold for provider return.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>DME with a signature line</strong> — signature rule wins. Route directly to provider, no Clinical Admin needed.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>No multiple actions for the same issue.</strong> Denial, appeal, follow-up — all go in the same existing action. Do not create a new one.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Do not send to a provider unless it is clearly a provider decision.</strong> Providers are not triage.</div></div>
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Do not guess between categories.</strong> When unsure → Still Confused → Clinical Admin.</div></div>
@@ -1629,7 +1639,7 @@ const SECTIONS = [
         sendTo: "Clinical Admin (triage)",
         fileTo: "*DME Requests",
         flags: ["hp"],
-        notes: "Each DME case is different — Level 1 files and routes. Clinical Admin determines what is needed. CGM, end of life, and nebulizers must be marked HP.",
+        notes: "Each DME case is different — Level 1 files and routes. Clinical Admin determines what is needed. CGM, end of life, and nebulizers must be marked HP. Exception: if the DME document has a signature line — route directly to provider, no CA needed.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
@@ -1683,9 +1693,9 @@ const SECTIONS = [
             routeIf: [
               "Lab result ordered by Optima provider → *Lab Documents — Attach to order, send to provider — Mark HP if abnormal",
               "Imaging result ordered by Optima provider → *Imaging – Xray/US/CT/MRI — Attach to order, send to provider — Mark HP if abnormal",
-              "Lab result NOT ordered by Optima provider → *Lab Documents — Stamp, note FYI, send directly to provider — no TE",
-              "Imaging result NOT ordered by Optima provider → *Imaging – Xray/US/CT/MRI — Stamp, note FYI, send directly to provider — no TE",
-              "Admit notification → *Admit/Discharge Notifications — Stamp, note FYI, send directly to provider — no TE"
+              "Lab result NOT ordered by Optima provider → *Lab Documents — Stamp document with FYI, send directly to provider — no TE",
+              "Imaging result NOT ordered by Optima provider → *Imaging – Xray/US/CT/MRI — Stamp document with FYI, send directly to provider — no TE",
+              "Admit notification → *Admit/Discharge Notifications — Stamp document with FYI, send directly to provider — no TE"
             ],
             steps: [
               "⚡ STAT / CXR / CT Chest / acute study → same-day processing — no exceptions. Cannot process same-day → escalate to lead immediately.",
