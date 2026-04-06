@@ -1865,6 +1865,44 @@ const SECTIONS = [
         ]
       },
       {
+        doc: "Missed / Canceled Appointment — Imaging or Specialist",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (stamp FYI)",
+        sendTo: "Provider",
+        fileTo: "*Imaging – Xray/US/CT/MRI",
+        label: "DATE – [Imaging Type] Missed Appt – WHERE",
+        example: "04/01/2026 – DEXA Scan Missed Appt – Breastcare Center",
+        notes: "Do NOT file under *Imaging Prior Authorization. File to *Imaging – Xray/US/CT/MRI. Stamp FYI. Send directly to ordering provider. No TE.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Imaging center or specialist notifying of a missed or canceled appointment",
+              "Common senders: Breastcare Center, DEXA facilities, specialist offices, PT clinics"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Imaging Type] Missed Appt – WHERE",
+              "File to *Imaging – Xray/US/CT/MRI — NOT *Imaging Prior Authorization",
+              "Stamp document with FYI",
+              "Send directly to ordering provider — no TE"
+            ],
+            notes: "⚠️ Do NOT file under *Imaging Prior Authorization. This is a notification, not a PA request."
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review missed appointment FYI",
+              "Contact patient to reschedule if needed",
+              "If action needed — create TE and assign to Clinical Admin"
+            ]
+          }
+        ]
+      },
+      {
         doc: "Lab Order — From Outside Office / Facility",
         action: "file",
         docCategory: "INBOUND – CLINICAL",
@@ -2978,8 +3016,9 @@ const GF_STAGE2 = {
     { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
-    { id:"cl_img_order",  icon:"📋", label:"Imaging Order Request",            sub:"Facility requesting new order — HP → provider" },
-    { id:"cl_lab_order",  icon:"🧪", label:"Lab Order — From Outside Office",  sub:"Verify correct provider first — HP → provider" },
+    { id:"cl_img_order",   icon:"📋", label:"Imaging Order Request",             sub:"Facility requesting new order — HP → provider" },
+    { id:"cl_lab_order",   icon:"🧪", label:"Lab Order — From Outside Office",   sub:"Verify correct provider first — HP → provider" },
+    { id:"cl_missed_appt", icon:"📅", label:"Missed / Canceled Appointment",     sub:"Imaging center or specialist — FYI → provider" },
     { id:"cl_lab_in",     icon:"🧪", label:"Lab — Ordered by Us",              sub:"Attach to order → provider" },
     { id:"cl_lab_out",   icon:"🧪", label:"Lab — Specialist CC",      sub:"Stamp FYI → provider" },
     { id:"cl_img_in",    icon:"🔬", label:"Imaging — Ordered by Us",  sub:"Attach to order → provider" },
@@ -3031,6 +3070,7 @@ const GF_RESULT = {
   auth_imgpa:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
   auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
+  cl_missed_appt: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (stamp FYI)", label:"DATE – [Imaging Type] Missed Appt – WHERE", example:"04/01/2026 – DEXA Scan Missed Appt – Breastcare Center", hp:null, note:"Do NOT file under *Imaging Prior Authorization. File to *Imaging – Xray/US/CT/MRI. Stamp document with FYI. Send directly to ordering provider. No TE." },
   cl_lab_order: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (verify in eCW first)", label:"DATE – Lab Order Request – WHERE", example:"03/31/2026 – Lab Order Request – SKI Prescott", hp:"Always mark HP", note:"ALWAYS verify the correct Optima provider in eCW before routing. The name on the fax may be wrong. Confirm then route to correct provider." },
   cl_img_order: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE RECEIVED – [Imaging Type] Order Request – WHERE", example:"04/03/2026 – Bilateral Breast MRI Order Request – AZKRMC", hp:"Always mark HP", note:"Imaging facility requesting new or additional order. Do NOT file under Imaging Prior Authorization. Provider places the order and faxes back to facility." },
   cl_lab_in:   { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (attach to order)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – CBC Results – LabCorp", hp:"Mark HP if abnormal", note:"Attach result to the existing order in eCW, then send to ordering provider." },
@@ -3214,7 +3254,7 @@ function gfShowDetail() {
     auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
     auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
     auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
-    cl_lab_order:"Patient Care / Visit", cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
+    cl_missed_appt:"Patient Care / Visit", cl_lab_order:"Patient Care / Visit", cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
