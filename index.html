@@ -1931,8 +1931,49 @@ const SECTIONS = [
     name: "No Action / File Only", icon: "📁", color: "#64748b", bg: "#f8fafc",
     docCategory: "INBOUND – RECORD ONLY",
     assignTo: "No Assignment",
-    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records", "consult note", "specialist note", "AMS", "imaging records", "records request"],
+    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records", "consult note", "specialist note", "AMS", "imaging records", "records request", "lab claim", "billing info", "RCM", "claims management", "please provide", "specimen", "lab order info"],
     routes: [
+      {
+        doc: "Lab Claim / Billing Info Request",
+        action: "file",
+        docCategory: "INBOUND – RECORD ONLY",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Office Manager",
+        sendTo: "Office Manager",
+        fileTo: "*Lab Documents",
+        flags: ["hp"],
+        label: "DATE Received – Lab Order Claim Info Update – WHERE",
+        example: "03/30/2026 – Lab Order Claim Info Update – Labcorp",
+        notes: "Lab requesting billing or claims information. Goes directly to Office Manager. Mark HP. Do NOT file under Lab Documents as a clinical result.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Sender is a lab (Labcorp, Quest, etc.) requesting billing or claims info",
+              "Document says Please Provide Requested Information, RCM, Claims Management, or Order Processing",
+              "Document lists specimen number, test codes, and date of service requesting provider info"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE Received – Lab Order Claim Info Update – WHERE",
+              "File to *Lab Documents",
+              "Mark HP",
+              "Route to Office Manager — Level 1 stops here"
+            ],
+            notes: "⚠️ This is a billing request — not a clinical result. Route to Office Manager, not provider or Clinical Admin."
+          },
+          {
+            num: 2, title: "Office Manager", badge: "Office Manager", color: "purple",
+            steps: [
+              "Review lab billing or claims information request",
+              "Provide requested information to lab",
+              "Fax response to number listed on document",
+              "Document action taken"
+            ]
+          }
+        ]
+      },
       {
         doc: "Imaging Records Request — Send to AMS",
         action: "file",
@@ -2913,7 +2954,8 @@ const GF_STAGE2 = {
     { id:"ref_conf",     icon:"🗑️", label:"Confirmation of Receipt / Scheduled Date", sub:"Delete" },
   ],
   records: [
-    { id:"rec_img",      icon:"🔬", label:"Imaging Records Request",  sub:"All regions → AMS, mark HP" },
+    { id:"rec_labclaim",  icon:"🧾", label:"Lab Claim / Billing Info Request", sub:"LabCorp, Quest requesting info — HP → Office Manager" },
+    { id:"rec_img",       icon:"🔬", label:"Imaging Records Request",           sub:"All regions → AMS, mark HP" },
     { id:"rec_in",       icon:"📁", label:"Incoming Records",          sub:"Attach → file only" },
     { id:"rec_out",      icon:"📤", label:"Outgoing Records Request",  sub:"Send to AMS" },
     { id:"rec_consult",  icon:"📄", label:"Consult / Specialist Note", sub:"Attach and close" },
@@ -2960,6 +3002,7 @@ const GF_RESULT = {
   ref_fail:    { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – Referral Scheduling Issue – WHERE", example:"04/01/2026 – Referral Scheduling Issue – AZ Cardiology", hp:null, note:"Do NOT delete. Assign to Referrals for follow-up with specialist." },
   ref_labauth: { action:"CREATE TE", folder:"*Referral Correspondence", assignTo:"Clinical Admin", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance requires provider to submit. Scan team: attach, label, send. Clinical Admin documents CPT, Dx, DOS and sends to provider." },
   ref_conf:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Confirmation of receipt or scheduled date notification — delete. No action needed." },
+  rec_labclaim: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Office Manager", label:"DATE Received – Lab Order Claim Info Update – WHERE", example:"03/30/2026 – Lab Order Claim Info Update – Labcorp", hp:"Always mark HP", note:"Lab requesting billing/claims info. Goes to Office Manager — not provider, not Clinical Admin. Fax response to number on document." },
   rec_img:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – Simon Med", hp:"ALWAYS mark HP — all regions", note:"All imaging records requests go to AMS regardless of region. If Level 2 charts: Name = DATE – PA Needed – [Facility] · Description = [Last, First] Date Time > AMS please send records for [imaging type] ordered [date] · Check High Priority · Assign to AMS." },
   rec_in:      { action:"FILE ONLY", folder:"*Records Request", assignTo:"No Assignment", label:"DATE – Incoming Records – WHERE", example:"04/01/2026 – Incoming Records – Banner Health", hp:null, note:"Attach, label, close. No TE, no routing." },
   rec_out:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – AMS", hp:null, note:"Route to AMS. Does not need to be attached to a patient." },
@@ -3134,7 +3177,7 @@ function gfShowDetail() {
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
     ref_req:"Referral Related", ref_fail:"Referral Related", ref_labauth:"Referral Related", ref_conf:"Referral Related",
-    rec_img:"No Action / File Only", rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
+    rec_labclaim:"No Action / File Only", rec_img:"No Action / File Only", rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
     confused:"Still Confused",
   };
   const secName = map[_gfResultId];
