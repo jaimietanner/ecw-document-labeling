@@ -1132,6 +1132,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
         <h3>📅 Date Rules</h3>
         <div class="help-rules">
           <div class="help-rule"><span class="help-rule-icon">📅</span><div>For imaging PAs — use the <strong>order date</strong>, not the fax received date.</div></div>
+          <div class="help-rule"><span class="help-rule-icon">📅</span><div>For <strong>order requests and order corrections</strong> — use the <strong>fax received date</strong>, not the order date.</div></div>
           <div class="help-rule"><span class="help-rule-icon">📅</span><div>For signature documents — use the <strong>date on the document</strong>, not today's date.</div></div>
           <div class="help-rule"><span class="help-rule-icon">📅</span><div>When in doubt — use the date that appears on the actual document.</div></div>
         </div>
@@ -1831,8 +1832,8 @@ const SECTIONS = [
         sendTo: "Provider",
         fileTo: "*Imaging – Xray/US/CT/MRI",
         flags: ["hp"],
-        label: "DATE – [Imaging Type] Order Request – WHERE",
-        example: "04/01/2026 – Right Breast Diag Mammo/US Order Request – YRMC",
+        label: "DATE RECEIVED – [Imaging Type] Order Request – WHERE",
+        example: "04/03/2026 – Bilateral Breast MRI Order Request – AZKRMC",
         notes: "Imaging facility requesting a new or additional order from provider. Route directly to provider — new order needs to be placed. Do NOT file under Imaging Prior Authorization.",
         levels: [
           {
@@ -1845,12 +1846,12 @@ const SECTIONS = [
             ],
             steps: [
               "Attach to patient chart",
-              "Label: DATE – [Imaging Type] Order Request – WHERE",
+              "Label: DATE RECEIVED – [Imaging Type] Order Request – WHERE — use the fax received date NOT the order date",
               "File to *Imaging – Xray/US/CT/MRI",
               "Mark HP",
               "Route directly to provider — Level 1 stops here"
             ],
-            notes: "⚠️ Do NOT file under *Imaging Prior Authorization. This is an order request, not a PA."
+            notes: "⚠️ Use FAX RECEIVED date — NOT the order date. Do NOT file under *Imaging Prior Authorization."
           },
           {
             num: 2, title: "Provider", badge: "Provider", color: "purple",
@@ -1859,6 +1860,45 @@ const SECTIONS = [
               "Place new or additional order as recommended",
               "Fax order to imaging facility",
               "If PA required for new order — create TE and assign to Imaging PA team"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Lab Order — From Outside Office / Facility",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (confirm before routing)",
+        sendTo: "Provider",
+        fileTo: "*Lab Documents",
+        flags: ["hp"],
+        label: "DATE – Lab Order Request – WHERE",
+        example: "03/31/2026 – Lab Order Request – SKI Prescott",
+        notes: "Lab order faxed from an outside provider or facility. ALWAYS verify the correct Optima provider in eCW before routing — the name on the fax may not match who it is actually going to. Route to confirmed provider. Mark HP.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Lab order faxed from an outside office, specialist, or facility to an Optima provider",
+              "Document is a Lab Order listing tests, ICD-10 codes, and ordering provider"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Lab Order Request – WHERE  e.g. 03/31/2026 – Lab Order Request – SKI Prescott",
+              "⚠️ Verify the correct provider in eCW — the name on the fax may be wrong",
+              "Mark HP",
+              "Route to confirmed Optima provider — Level 1 stops here"
+            ],
+            notes: "⚠️ Always confirm the correct Optima provider in eCW before routing. Do not rely solely on the name listed on the fax."
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review lab order from outside facility",
+              "Order labs in eCW as applicable",
+              "If additional action needed — create TE and assign to Clinical Admin"
             ]
           }
         ]
@@ -2938,8 +2978,9 @@ const GF_STAGE2 = {
     { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
-    { id:"cl_img_order",  icon:"📋", label:"Imaging Order Request",        sub:"Facility requesting new order — HP → provider" },
-    { id:"cl_lab_in",    icon:"🧪", label:"Lab — Ordered by Us",           sub:"Attach to order → provider" },
+    { id:"cl_img_order",  icon:"📋", label:"Imaging Order Request",            sub:"Facility requesting new order — HP → provider" },
+    { id:"cl_lab_order",  icon:"🧪", label:"Lab Order — From Outside Office",  sub:"Verify correct provider first — HP → provider" },
+    { id:"cl_lab_in",     icon:"🧪", label:"Lab — Ordered by Us",              sub:"Attach to order → provider" },
     { id:"cl_lab_out",   icon:"🧪", label:"Lab — Specialist CC",      sub:"Stamp FYI → provider" },
     { id:"cl_img_in",    icon:"🔬", label:"Imaging — Ordered by Us",  sub:"Attach to order → provider" },
     { id:"cl_img_out",   icon:"🔬", label:"Imaging — Specialist CC",  sub:"Stamp FYI → provider" },
@@ -2985,12 +3026,13 @@ const GF_RESULT = {
   auth_imgpa_new:    { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP/STAT if noted on form", note:"Use the ORDER date — not today's date. Route to Clinical Admin for triage." },
   auth_imgpa_appr:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Imaging PA Approval — close at Level 1. No action needed." },
   auth_imgpa_denial: { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Staff currently working the action", label:"DATE – [Imaging Type] PA Denial – WHERE", example:"04/01/2026 – MRI Lumbar PA Denial – Banner Imaging", hp:"ALWAYS mark HP on denials and peer-to-peer", note:"Do NOT route to Clinical Admin. Find the existing action and assign to the staff member working it. Update the existing action — do not create a new one." },
-  auth_order:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Provider (direct)", label:"DATE – [Order Change / Correction] – WHERE", example:"04/01/2026 – MRI Order Correction – Banner Imaging", hp:null, note:"Order change or correction goes directly to provider. No Clinical Admin needed." },
+  auth_order:        { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE – [Imaging Type] Order Correction – WHERE", example:"04/03/2026 – B/L Breast MRI Order Correction – KRMC", hp:"Always mark HP", note:"Order change or correction goes directly to provider. Mark HP. No Clinical Admin needed." },
   auth_medpa:        { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_imgpa:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
   auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
-  cl_img_order: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE – [Imaging Type] Order Request – WHERE", example:"04/01/2026 – Right Breast Diag Mammo/US Order Request – YRMC", hp:"Always mark HP", note:"Imaging facility requesting new or additional order. Do NOT file under Imaging Prior Authorization. Provider places the order and faxes back to facility." },
+  cl_lab_order: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (verify in eCW first)", label:"DATE – Lab Order Request – WHERE", example:"03/31/2026 – Lab Order Request – SKI Prescott", hp:"Always mark HP", note:"ALWAYS verify the correct Optima provider in eCW before routing. The name on the fax may be wrong. Confirm then route to correct provider." },
+  cl_img_order: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE RECEIVED – [Imaging Type] Order Request – WHERE", example:"04/03/2026 – Bilateral Breast MRI Order Request – AZKRMC", hp:"Always mark HP", note:"Imaging facility requesting new or additional order. Do NOT file under Imaging Prior Authorization. Provider places the order and faxes back to facility." },
   cl_lab_in:   { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (attach to order)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – CBC Results – LabCorp", hp:"Mark HP if abnormal", note:"Attach result to the existing order in eCW, then send to ordering provider." },
   cl_lab_out:  { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (stamp FYI)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – Thyroid Panel – Quest Diagnostics", hp:null, note:"Specialist ordered this and is cc'ing our provider. Stamp document with FYI. Confirm this is NOT an ER result before routing." },
   cl_img_in:   { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (attach to order)", label:"DATE – [Imaging Type] – WHERE", example:"04/01/2026 – MRI Lumbar Results – Banner Imaging", hp:"Mark HP if abnormal or STAT", note:"Attach to existing order. STAT = same day, no exceptions. Verify ordering provider in eCW first." },
@@ -3172,7 +3214,7 @@ function gfShowDetail() {
     auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
     auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
     auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
-    cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
+    cl_lab_order:"Patient Care / Visit", cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
