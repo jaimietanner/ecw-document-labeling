@@ -1821,6 +1821,47 @@ const SECTIONS = [
             ]
           }
         ]
+      },
+      {
+        doc: "Imaging Order Request — Additional Views / New Order",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Imaging – Xray/US/CT/MRI",
+        flags: ["hp"],
+        label: "DATE – [Imaging Type] Order Request – WHERE",
+        example: "04/01/2026 – Right Breast Diag Mammo/US Order Request – YRMC",
+        notes: "Imaging facility requesting a new or additional order from provider. Route directly to provider — new order needs to be placed. Do NOT file under Imaging Prior Authorization.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Imaging facility requesting provider place a new or additional order",
+              "Document says additional views recommended, new order needed, or please fax your order",
+              "Includes radiology result with a request for provider action on new imaging"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Imaging Type] Order Request – WHERE",
+              "File to *Imaging – Xray/US/CT/MRI",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ],
+            notes: "⚠️ Do NOT file under *Imaging Prior Authorization. This is an order request, not a PA."
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review imaging facility request",
+              "Place new or additional order as recommended",
+              "Fax order to imaging facility",
+              "If PA required for new order — create TE and assign to Imaging PA team"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -2856,7 +2897,8 @@ const GF_STAGE2 = {
     { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
-    { id:"cl_lab_in",    icon:"🧪", label:"Lab — Ordered by Us",      sub:"Attach to order → provider" },
+    { id:"cl_img_order",  icon:"📋", label:"Imaging Order Request",        sub:"Facility requesting new order — HP → provider" },
+    { id:"cl_lab_in",    icon:"🧪", label:"Lab — Ordered by Us",           sub:"Attach to order → provider" },
     { id:"cl_lab_out",   icon:"🧪", label:"Lab — Specialist CC",      sub:"Stamp FYI → provider" },
     { id:"cl_img_in",    icon:"🔬", label:"Imaging — Ordered by Us",  sub:"Attach to order → provider" },
     { id:"cl_img_out",   icon:"🔬", label:"Imaging — Specialist CC",  sub:"Stamp FYI → provider" },
@@ -2906,6 +2948,7 @@ const GF_RESULT = {
   auth_imgpa:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
   auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
+  cl_img_order: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE – [Imaging Type] Order Request – WHERE", example:"04/01/2026 – Right Breast Diag Mammo/US Order Request – YRMC", hp:"Always mark HP", note:"Imaging facility requesting new or additional order. Do NOT file under Imaging Prior Authorization. Provider places the order and faxes back to facility." },
   cl_lab_in:   { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (attach to order)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – CBC Results – LabCorp", hp:"Mark HP if abnormal", note:"Attach result to the existing order in eCW, then send to ordering provider." },
   cl_lab_out:  { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (stamp FYI)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – Thyroid Panel – Quest Diagnostics", hp:null, note:"Specialist ordered this and is cc'ing our provider. Stamp document with FYI. Confirm this is NOT an ER result before routing." },
   cl_img_in:   { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (attach to order)", label:"DATE – [Imaging Type] – WHERE", example:"04/01/2026 – MRI Lumbar Results – Banner Imaging", hp:"Mark HP if abnormal or STAT", note:"Attach to existing order. STAT = same day, no exceptions. Verify ordering provider in eCW first." },
@@ -3086,7 +3129,7 @@ function gfShowDetail() {
     auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
     auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
     auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
-    cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
+    cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
