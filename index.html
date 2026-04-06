@@ -1518,7 +1518,7 @@ const SECTIONS = [
     name: "Medication Related", icon: "💊", color: "#be185d", bg: "#fdf2f8",
     docCategory: "INBOUND – RX",
     assignTo: "Provider",
-    triggers: ["Rx", "prescription", "pharmacy", "medication", "refill", "drug", "Tango", "non-adherence", "offboarded provider"],
+    triggers: ["Rx", "prescription", "pharmacy", "medication", "refill", "drug", "Tango", "non-adherence", "offboarded provider", "clinical concern", "retrospective intervention", "opioid risk", "Optum Rx", "polypharmacy"],
     routes: [
       {
         doc: "Medication Related",
@@ -1578,18 +1578,55 @@ const SECTIONS = [
             ]
           }
         ]
+      },
+      {
+        doc: "Potential Clinical Concern / Retrospective Intervention",
+        action: "file",
+        docCategory: "INBOUND – RX",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*RX",
+        flags: ["hp"],
+        notes: "PBM clinical concern report (UHC/Optum Rx, etc.). Goes directly to provider. No TE needed. Examples: opioid risk management, polypharmacy concern, retrospective intervention program.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Document says Potential Clinical Concern, Retrospective Intervention, or Opioid Risk Management",
+              "Sender is a PBM — Optum Rx, UHC, Express Scripts, CVS Caremark",
+              "Document lists patient medications, fill dates, and multiple prescribers"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Clinical Concern Type] – WHERE  e.g. 04/02/2026 – Opioid Risk Management – UHC",
+              "Route directly to provider — no TE, no Clinical Admin",
+              "Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review PBM clinical concern report",
+              "If already aware — disregard per document instructions",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Adjust prescribing as clinically appropriate"
+            ]
+          }
+        ]
       }
     ]
   },
 
   {
-    name: "Auth / Approval", icon: "🔐", color: "#7c3aed", bg: "#f5f3ff",
+    name: "Prior Auths", icon: "🔐", color: "#7c3aed", bg: "#f5f3ff",
     docCategory: "INBOUND – AUTH",
     assignTo: "Clinical Admin",
     triggers: ["prior auth", "PA", "authorization", "approval", "denial", "appeal", "insurance", "formulary", "step therapy", "peer-to-peer", "MRI", "CT", "ultrasound", "imaging PA", "med PA", "DME", "durable medical", "equipment", "CGM", "nebulizer", "CPAP", "PAP"],
     routes: [
       {
-        doc: "Auth / Approval",
+        doc: "Prior Auths",
         action: "file",
         docCategory: "INBOUND – AUTH",
         actionType: "MED PA  or  IMAGING PA",
@@ -1598,16 +1635,18 @@ const SECTIONS = [
         assignTo: "Clinical Admin",
         sendTo: "Clinical Admin (triage)",
         fileTo: "*Medication Prior Authorization  or  *Imaging Prior Authorization",
-        notes: "Approvals get closed at Level 1. PA submissions move to Level 2 and beyond.",
+        notes: "Approvals get closed at Level 1. PA submissions route to Clinical Admin. Denials and peer-to-peer requests are marked HP and assigned to whoever is already working the action.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
-              "Mentions prior authorization, PA request, approval, or denial",
-              "Insurance requires authorization before service",
-              "Any advanced imaging order (MRI, CT, Ultrasound) with PA attached",
-              "Medication PA from pharmacy or payer"
+              "PA approval notification — close at Level 1. Done.",
+              "New PA submission — attach, label, route to Clinical Admin",
+              "PA denial or appeal — attach, label, mark HP, assign to whoever is working the action",
+              "Peer-to-peer request — attach, label, mark HP, assign to whoever is working the action",
+              "Any advanced imaging PA (MRI, CT, Ultrasound) — use ORDER date",
+              "Medication PA from pharmacy or payer — use ORDER date"
             ],
             deleteIf: [
               "PA Request with a Key Listed — delete",
@@ -1616,11 +1655,12 @@ const SECTIONS = [
             ],
             steps: [
               "Is it one of the delete items above? → Delete. Done.",
-              "If it is an approval notification — close at Level 1. Done.",
-              "If it is a PA submission — attach, label, mark HP/STAT if noted",
-              "Route to TRIAGE – CLINICAL ADMIN"
+              "Is it an approval notification? → Close at Level 1. Done.",
+              "Is it a denial or peer-to-peer? → Attach, label, mark HP, assign to whoever is working the action",
+              "Is it a new submission? → Attach, label, route to Clinical Admin",
+              "Use the ORDER date — NOT today's date"
             ],
-            notes: "⚠️ Use the ORDER date — NOT the fax received date."
+            notes: "⚠️ Use the ORDER date — NOT the fax received date. Denials and peer-to-peer = HP, assign to working staff. New submissions = Clinical Admin."
           },
           {
             num: 2, title: "Admin Doc", badge: "Admin Doc", color: "purple",
@@ -1629,11 +1669,12 @@ const SECTIONS = [
               "Delete confirmed duplicate PAs"
             ],
             steps: [
-              "Search patient — if action exists update it, do not create a duplicate",
-              "Determine: Med PA or Imaging PA",
-              "Med PA → jelly WORK – MED PA, assign to Med PA Team",
-              "Imaging PA → jelly WORK – IMAGING PA, assign to Imaging Team",
-              "Confirm HP / STAT flag applied if required"
+              "Search patient — find the existing action, do not create a new one",
+              "For denials: update existing action status to Denied, mark HP, assign to staff working it",
+              "For peer-to-peer: update existing action, mark HP, assign to staff working it",
+              "For new Med PA → WORK – MED PA, assign to Med PA Team",
+              "For new Imaging PA → WORK – IMAGING PA, assign to Imaging Team",
+              "Confirm HP flag applied on all denials and peer-to-peer"
             ]
           },
           {
@@ -1641,7 +1682,7 @@ const SECTIONS = [
             steps: [
               "Submit PA to payer",
               "Track response — update same action, do not create a new one",
-              "Initiate peer-to-peer or appeal if denied — update status to Denied"
+              "If denied — update status to Denied, initiate peer-to-peer or appeal"
             ]
           }
         ]
@@ -1849,8 +1890,52 @@ const SECTIONS = [
     name: "No Action / File Only", icon: "📁", color: "#64748b", bg: "#f8fafc",
     docCategory: "INBOUND – RECORD ONLY",
     assignTo: "No Assignment",
-    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records", "consult note", "specialist note"],
+    triggers: ["informational", "FYI only", "no follow up", "old records", "records only", "medical records", "incoming records", "consult note", "specialist note", "AMS", "imaging records", "records request"],
     routes: [
+      {
+        doc: "Imaging Records Request — Send to AMS",
+        action: "file",
+        docCategory: "INBOUND – RECORD ONLY",
+        actionType: "FILE ONLY",
+        assignTo: "AMS (AmericanMedicalRecords)",
+        sendTo: "AMS (AmericanMedicalRecords)",
+        fileTo: "*Records Request",
+        flags: ["hp"],
+        notes: "All regions. Level 1 routes to AMS and marks HP. If missed by Level 1 — Level 2 charts and assigns to AMS using the standard format below.",
+        teNoteTemplate: [
+          "Name field: DATE – PA Needed – [Facility]  e.g. 04/01/2026 – PA Needed – Simon Med",
+          "Description: [Last, First] MM/DD/YYYY HH:MM AM/PM MST > AMS can you please send records for [imaging type] ordered [date]",
+          "Check: High Priority",
+          "Assign to: AMS"
+        ],
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Any imaging records request from any region — MRI, CT, X-ray, Ultrasound"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Records Request – WHERE",
+              "File to *Records Request",
+              "Mark HP",
+              "Assign to AMS — Level 1 stops here"
+            ],
+            notes: "⚠️ All regions send imaging records requests to AMS. Always mark HP."
+          },
+          {
+            num: 2, title: "Admin Doc", badge: "Admin Doc", color: "purple",
+            steps: [
+              "If missed by Level 1 — chart using the standard format",
+              "Name: DATE – PA Needed – [Facility]",
+              "Description: [Last, First] Date Time MST > AMS can you please send records for [imaging type] ordered [date]",
+              "Check: High Priority",
+              "Assign to: AMS"
+            ]
+          }
+        ]
+      },
       {
         doc: "No Action / File Only",
         action: "file",
@@ -1924,6 +2009,132 @@ const SECTIONS = [
               "Review flagged document",
               "Determine correct routing or action",
               "If routing gap identified — flag for SOP update"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    name: "Insurance / PBM Notices", icon: "📨", color: "#0e7490", bg: "#ecfeff",
+    docCategory: "INBOUND – CLINICAL",
+    assignTo: "Provider (direct)",
+    triggers: ["insurance notice", "PBM", "retrospective", "intervention program", "clinical concern", "opioid risk", "coordination of care", "Optum Rx", "polypharmacy", "UHC notice", "Express Scripts", "CVS Caremark", "important notification"],
+    routes: [
+      {
+        doc: "Retrospective Intervention Program",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – Retrospective Intervention – WHERE",
+        example: "04/02/2026 – Retrospective Intervention – Optum Rx",
+        notes: "PBM-generated program notice. File to *Important Notifications. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Sender is a PBM or insurance company — Optum Rx, UHC, Express Scripts, CVS Caremark",
+              "Document references Retrospective Intervention Program"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Retrospective Intervention – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review intervention notice",
+              "If already aware — disregard per document instructions",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Adjust prescribing as clinically appropriate"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Potential Clinical Concern",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – [Clinical Concern Type] – WHERE",
+        example: "04/02/2026 – Opioid Risk Management – UHC",
+        notes: "PBM clinical concern report. Mark HP. Route directly to provider. No TE, no Clinical Admin. Concern type appears on the document — use it in the label.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Document says Potential Clinical Concern, Opioid Risk Management, or similar",
+              "Sender is a PBM or insurance company",
+              "Document lists patient medications, fill dates, or multiple prescribers"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Clinical Concern Type] – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review PBM clinical concern report",
+              "If already aware — disregard per document instructions",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Adjust prescribing as clinically appropriate"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Coordination of Care / Insurance Clinical Notice",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – [Notice Type] – WHERE",
+        example: "04/02/2026 – Coordination of Care Notice – UHC",
+        notes: "Any other insurance or PBM-generated clinical notice. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Any insurance or PBM notice not covered by the two types above",
+              "Coordination of care, quality alert, or clinical program notice"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Notice Type] – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review insurance clinical notice",
+              "If action needed — create TE and assign to Clinical Admin",
+              "If no action needed — close"
             ]
           }
         ]
@@ -2613,11 +2824,12 @@ function openGeneralNotes() {
 const GF_STAGE1 = [
   { id:"sig",      icon:"✍️", label:"Needs a Signature",       sub:"FMLA, forms, orders" },
   { id:"rx",       icon:"💊", label:"Medication / Pharmacy",    sub:"Rx, refill, pharmacy fax" },
-  { id:"auth",     icon:"🔐", label:"Auth / Approval",          sub:"PA, denial, insurance" },
+  { id:"auth",     icon:"🔐", label:"Prior Auths",          sub:"PA, denial, insurance" },
   { id:"clinical", icon:"🏥", label:"Patient Care / Results",   sub:"Lab, imaging, hospital" },
   { id:"referral", icon:"↗️", label:"Referral",                 sub:"Specialist, consult, scheduling" },
   { id:"records",  icon:"📁", label:"Records / No Action",      sub:"Old records, informational" },
-  { id:"confused", icon:"❓", label:"Not Sure",                  sub:"Route to Clinical Admin" },
+  { id:"insurance", icon:"📨", label:"Insurance / PBM Notice",     sub:"Clinical concern, intervention, care notice" },
+  { id:"confused",  icon:"❓", label:"Not Sure",                   sub:"Route to Clinical Admin" },
 ];
 
 const GF_STAGE2 = {
@@ -2627,15 +2839,21 @@ const GF_STAGE2 = {
     { id:"sig_dme",    icon:"🩺", label:"DME with Signature Line",  sub:"Equipment needing provider sign-off" },
   ],
   rx: [
-    { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider",   sub:"Delete — no action needed" },
-    { id:"rx_off",       icon:"✚",  label:"Offboarded Provider",       sub:"Create TE → Clinical Admin" },
-    { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",     sub:"Delete — no action needed" },
+    { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider Rx",    sub:"Delete — no action needed" },
+    { id:"rx_off",       icon:"✚",  label:"Offboarded Provider Rx",        sub:"Create TE → Clinical Admin" },
+    { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",         sub:"Delete — no action needed" },
+    { id:"rx_concern",   icon:"⚠️", label:"Potential Clinical Concern",    sub:"PBM report — direct to provider" },
   ],
   auth: [
-    { id:"auth_medpa",   icon:"💊", label:"Medication PA",            sub:"New, denial, or peer-to-peer" },
-    { id:"auth_imgpa",   icon:"🔬", label:"Imaging PA",               sub:"MRI, CT, Ultrasound" },
-    { id:"auth_dme",     icon:"🩺", label:"DME / Equipment Auth",     sub:"Each case different" },
-    { id:"auth_key",     icon:"🗑️", label:"PA — Key Already Listed",  sub:"Delete — already actioned" },
+    { id:"auth_medpa_new",    icon:"💊", label:"Med PA — New Request",           sub:"New submission from pharmacy or payer" },
+    { id:"auth_medpa_appr",   icon:"✅", label:"Med PA — Approval",              sub:"Close at Level 1 — no action needed" },
+    { id:"auth_medpa_denial", icon:"🚫", label:"Med PA — Denial / Appeal / P2P", sub:"HP — assign to staff working action" },
+    { id:"auth_imgpa_new",    icon:"🔬", label:"Imaging PA — New Request",        sub:"MRI, CT, Ultrasound" },
+    { id:"auth_imgpa_appr",   icon:"✅", label:"Imaging PA — Approval",           sub:"Close at Level 1 — no action needed" },
+    { id:"auth_imgpa_denial", icon:"🚫", label:"Imaging PA — Denial / Appeal / P2P", sub:"HP — assign to staff working action" },
+    { id:"auth_order",        icon:"📋", label:"Order Change / Correction",       sub:"Goes directly to provider" },
+    { id:"auth_dme",          icon:"🩺", label:"DME / Equipment Auth",            sub:"Each case different" },
+    { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
     { id:"cl_lab_in",    icon:"🧪", label:"Lab — Ordered by Us",      sub:"Attach to order → provider" },
@@ -2653,9 +2871,15 @@ const GF_STAGE2 = {
     { id:"ref_conf",     icon:"🗑️", label:"Confirmation of Receipt / Scheduled Date", sub:"Delete" },
   ],
   records: [
+    { id:"rec_img",      icon:"🔬", label:"Imaging Records Request",  sub:"All regions → AMS, mark HP" },
     { id:"rec_in",       icon:"📁", label:"Incoming Records",          sub:"Attach → file only" },
     { id:"rec_out",      icon:"📤", label:"Outgoing Records Request",  sub:"Send to AMS" },
     { id:"rec_consult",  icon:"📄", label:"Consult / Specialist Note", sub:"Attach and close" },
+  ],
+  insurance: [
+    { id:"ins_retro",   icon:"📋", label:"Retrospective Intervention Program", sub:"HP → provider direct" },
+    { id:"ins_concern", icon:"⚠️", label:"Potential Clinical Concern",          sub:"Opioid risk, polypharmacy — HP → provider" },
+    { id:"ins_care",    icon:"📨", label:"Coordination of Care / Other Notice", sub:"HP → provider direct" },
   ],
   confused: null,
 };
@@ -2664,11 +2888,22 @@ const GF_RESULT = {
   sig_form:    { action:"FILE & ROUTE", folder:"*Forms Appt/Signature Requested", assignTo:"Provider", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – FMLA Form – Banner Gateway", hp:"Mark HP if noted on form", note:null },
   sig_ptot:    { action:"FILE & ROUTE", folder:"*PT/OT/HH Orders – sig needed", assignTo:"Provider", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – PT Order – AZ PT Group", hp:null, note:null },
   sig_dme:     { action:"FILE & ROUTE", folder:"*Forms Appt/Signature Requested", assignTo:"Provider (direct — signature rule wins)", label:"DATE – [Document Name] – WHERE", example:"04/01/2026 – DME Order – Apria", hp:"Mark HP if noted", note:"Signature on DME = goes directly to provider. Skip Clinical Admin." },
+  ins_retro:   { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – Retrospective Intervention – WHERE", example:"04/02/2026 – Retrospective Intervention – Optum Rx", hp:"Always mark HP", note:"Route directly to provider. No TE, no Clinical Admin. Provider reviews and acts if needed." },
+  ins_concern: { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"Use the concern type listed on the document in the label. Route directly to provider. No TE, no Clinical Admin." },
+  ins_care:    { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Notice Type] – WHERE", example:"04/02/2026 – Coordination of Care Notice – UHC", hp:"Always mark HP", note:"Any insurance or PBM clinical notice. Route directly to provider. No TE, no Clinical Admin." },
+  rx_concern:  { action:"FILE & ROUTE", folder:"*RX", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"PBM clinical concern report (Optum Rx, UHC, Express Scripts, CVS Caremark). Goes directly to provider. No TE, no Clinical Admin. Provider reviews and adjusts prescribing as needed." },
   rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. No action needed." },
   rx_off:      { action:"CREATE TE", folder:"*RX", assignTo:"Clinical Admin", label:"DATE – [Medication Name] – WHERE", example:"04/01/2026 – Ozempic Rx – CVS Specialty", hp:null, note:"Clinical Admin checks for upcoming appt. If none — deny and schedule. Bridge request once scheduled." },
   rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval / Non-Adherence Notice — delete. No action needed." },
-  auth_medpa:  { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP / STAT if noted", note:"Use the ORDER date — not today's date." },
-  auth_imgpa:  { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP / STAT if noted", note:"Use the ORDER date — not today's date." },
+  auth_medpa_new:    { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP/STAT if noted on form", note:"Use the ORDER date — not today's date. Route to Clinical Admin for triage." },
+  auth_medpa_appr:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Med PA Approval — close at Level 1. No action needed." },
+  auth_medpa_denial: { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Staff currently working the action", label:"DATE – [Medication Name] PA Denial – WHERE", example:"04/01/2026 – Ozempic PA Denial – CVS Specialty", hp:"ALWAYS mark HP on denials and peer-to-peer", note:"Do NOT route to Clinical Admin. Find the existing action and assign to the staff member working it. Update the existing action — do not create a new one." },
+  auth_imgpa_new:    { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP/STAT if noted on form", note:"Use the ORDER date — not today's date. Route to Clinical Admin for triage." },
+  auth_imgpa_appr:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Imaging PA Approval — close at Level 1. No action needed." },
+  auth_imgpa_denial: { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Staff currently working the action", label:"DATE – [Imaging Type] PA Denial – WHERE", example:"04/01/2026 – MRI Lumbar PA Denial – Banner Imaging", hp:"ALWAYS mark HP on denials and peer-to-peer", note:"Do NOT route to Clinical Admin. Find the existing action and assign to the staff member working it. Update the existing action — do not create a new one." },
+  auth_order:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Provider (direct)", label:"DATE – [Order Change / Correction] – WHERE", example:"04/01/2026 – MRI Order Correction – Banner Imaging", hp:null, note:"Order change or correction goes directly to provider. No Clinical Admin needed." },
+  auth_medpa:        { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
+  auth_imgpa:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
   auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
   cl_lab_in:   { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (attach to order)", label:"DATE – [Lab Type] – WHERE", example:"04/01/2026 – CBC Results – LabCorp", hp:"Mark HP if abnormal", note:"Attach result to the existing order in eCW, then send to ordering provider." },
@@ -2682,6 +2917,7 @@ const GF_RESULT = {
   ref_fail:    { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – Referral Scheduling Issue – WHERE", example:"04/01/2026 – Referral Scheduling Issue – AZ Cardiology", hp:null, note:"Do NOT delete. Assign to Referrals for follow-up with specialist." },
   ref_labauth: { action:"CREATE TE", folder:"*Referral Correspondence", assignTo:"Clinical Admin", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance requires provider to submit. Scan team: attach, label, send. Clinical Admin documents CPT, Dx, DOS and sends to provider." },
   ref_conf:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Confirmation of receipt or scheduled date notification — delete. No action needed." },
+  rec_img:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – Simon Med", hp:"ALWAYS mark HP — all regions", note:"All imaging records requests go to AMS regardless of region. If Level 2 charts: Name = DATE – PA Needed – [Facility] · Description = [Last, First] Date Time > AMS please send records for [imaging type] ordered [date] · Check High Priority · Assign to AMS." },
   rec_in:      { action:"FILE ONLY", folder:"*Records Request", assignTo:"No Assignment", label:"DATE – Incoming Records – WHERE", example:"04/01/2026 – Incoming Records – Banner Health", hp:null, note:"Attach, label, close. No TE, no routing." },
   rec_out:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – AMS", hp:null, note:"Route to AMS. Does not need to be attached to a patient." },
   rec_consult: { action:"FILE ONLY", folder:"*Consult Notes", assignTo:"No Assignment", label:"DATE – Consult Note – WHERE", example:"04/01/2026 – Consult Note – East Valley Urology", hp:null, note:"Attach and close. Level 1 stops here." },
@@ -2844,15 +3080,18 @@ function gfBack() {
 function gfShowDetail() {
   // Find the matching section and show in nav
   const map = {
-    sig_form:"Signature Needed", sig_ptot:"Signature Needed", sig_dme:"Auth / Approval",
-    rx_active:"Medication Related", rx_off:"Medication Related", rx_delete:"Medication Related",
-    auth_medpa:"Auth / Approval", auth_imgpa:"Auth / Approval", auth_dme:"Auth / Approval", auth_key:"Auth / Approval",
+    sig_form:"Signature Needed", sig_ptot:"Signature Needed", sig_dme:"Prior Auths",
+    ins_retro:"Insurance / PBM Notices", ins_concern:"Insurance / PBM Notices", ins_care:"Insurance / PBM Notices",
+    rx_concern:"Medication Related", rx_active:"Medication Related", rx_off:"Medication Related", rx_delete:"Medication Related",
+    auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
+    auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
+    auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
     cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
     ref_req:"Referral Related", ref_fail:"Referral Related", ref_labauth:"Referral Related", ref_conf:"Referral Related",
-    rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
+    rec_img:"No Action / File Only", rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
     confused:"Still Confused",
   };
   const secName = map[_gfResultId];
