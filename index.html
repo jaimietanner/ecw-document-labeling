@@ -526,7 +526,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   <div class="topbar-meta" id="topbarDate">Optima Medical</div>
   <div class="topbar-actions">
     <button class="tb-btn" onclick="openHelp()">❓ How to Use</button>
-    <button class="tb-btn" onclick="window.print()">🖨 Print Cheat Sheet</button>
+    <button class="tb-btn" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);color:#fbbf24;" onclick="openQuickRef()">📋 Quick Reference</button>
     <button class="tb-btn flag-btn" id="flagManagerBtn" onclick="openFlagPanel()">🚩 Flagged <span class="badge" id="flagBadge"></span></button>
   </div>
 </div>
@@ -1550,11 +1550,12 @@ const SECTIONS = [
               "Rx Request — Active Optima Provider — delete",
               "Temporary Rx Supplies — delete",
               "Medication Non-Adherence Notice — delete",
-              "Tango Approval — delete"
+              "Tango Approval — see Referrals bucket"
             ],
             steps: [
-              "Is this for an active Optima provider? → Delete. Done.",
+              "Is this for an active Optima provider? → Delete. Done. (Tango Approvals also delete — see Referrals)",
               "Is this for a previous / offboarded provider? → Create TE, route to Clinical Admin",
+              "All other Rx requests not yet sent: Create TE → Clinical Admin — while we get caught up",
               "Level 1 stops here"
             ]
           },
@@ -1651,7 +1652,7 @@ const SECTIONS = [
             ],
             deleteIf: [
               "PA Request with a Key Listed — delete",
-              "Tango Approval — delete",
+              "Tango Approval — see Referrals bucket",
               "Auth notification from outside facility — delete"
             ],
             steps: [
@@ -1860,6 +1861,45 @@ const SECTIONS = [
               "Place new or additional order as recommended",
               "Fax order to imaging facility",
               "If PA required for new order — create TE and assign to Imaging PA team"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "INR / Anticoag Result — MDiNR",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Lab Documents",
+        flags: ["hp"],
+        label: "DATE – INR Result – MDiNR",
+        example: "04/06/2026 – INR Result – MDiNR",
+        notes: "INR / anticoagulation result. Route directly to provider. No TE. OUT OF PRESCRIBED RANGE = always mark HP immediately.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Sender is MDiNR or similar anticoagulation management service",
+              "Document shows INR Test Results with a value and prescribed range"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – INR Result – MDiNR",
+              "File to *Lab Documents",
+              "If result shows OUT OF PRESCRIBED RANGE — mark HP immediately",
+              "Route directly to provider — no TE, Level 1 stops here"
+            ],
+            notes: "⚠️ OUT OF PRESCRIBED RANGE = ALWAYS HP. Do not delay."
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review INR result",
+              "Adjust anticoagulation therapy as clinically appropriate",
+              "If action needed — create TE and assign to Clinical Admin"
             ]
           }
         ]
@@ -3016,8 +3056,9 @@ const GF_STAGE2 = {
     { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
-    { id:"cl_img_order",   icon:"📋", label:"Imaging Order Request",             sub:"Facility requesting new order — HP → provider" },
-    { id:"cl_lab_order",   icon:"🧪", label:"Lab Order — From Outside Office",   sub:"Verify correct provider first — HP → provider" },
+    { id:"cl_inr",        icon:"🩸", label:"INR / Anticoag Result — MDiNR",   sub:"Out of range = ALWAYS HP → provider" },
+    { id:"cl_img_order",  icon:"📋", label:"Imaging Order Request",            sub:"Facility requesting new order — HP → provider" },
+    { id:"cl_lab_order",  icon:"🧪", label:"Lab Order — From Outside Office",  sub:"Verify correct provider first — HP → provider" },
     { id:"cl_missed_appt", icon:"📅", label:"Missed / Canceled Appointment",     sub:"Imaging center or specialist — FYI → provider" },
     { id:"cl_lab_in",     icon:"🧪", label:"Lab — Ordered by Us",              sub:"Attach to order → provider" },
     { id:"cl_lab_out",   icon:"🧪", label:"Lab — Specialist CC",      sub:"Stamp FYI → provider" },
@@ -3070,6 +3111,7 @@ const GF_RESULT = {
   auth_imgpa:        { action:"FILE & ROUTE", folder:"*Imaging Prior Authorization", assignTo:"Clinical Admin (new) or Staff Working Action (denial/P2P)", label:"DATE – [Imaging Type] PA Request – WHERE", example:"04/01/2026 – MRI Lumbar PA Request – Banner Imaging", hp:"Mark HP on denials and peer-to-peer. Mark HP/STAT if noted on new submissions.", note:"Denial or peer-to-peer: assign to whoever is working the action, mark HP. New submission: route to Clinical Admin. Use the ORDER date." },
   auth_dme:    { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Clinical Admin", label:"DATE – [Equipment/Item] – WHERE", example:"04/01/2026 – CGM Supplies – Apria", hp:"Mark HP if CGM, nebulizer, or end of life", note:"Each DME case is different. Clinical Admin determines next steps." },
   auth_key:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"PA key already listed — delete. Already actioned." },
+  cl_inr:       { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (direct)", label:"DATE – INR Result – MDiNR", example:"04/06/2026 – INR Result – MDiNR", hp:"OUT OF PRESCRIBED RANGE = ALWAYS HP", note:"INR / anticoagulation result from MDiNR or similar service. Route directly to provider. No TE. If result shows OUT OF PRESCRIBED RANGE — mark HP immediately." },
   cl_missed_appt: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (stamp FYI)", label:"DATE – [Imaging Type] Missed Appt – WHERE", example:"04/01/2026 – DEXA Scan Missed Appt – Breastcare Center", hp:null, note:"Do NOT file under *Imaging Prior Authorization. File to *Imaging – Xray/US/CT/MRI. Stamp document with FYI. Send directly to ordering provider. No TE." },
   cl_lab_order: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Provider (verify in eCW first)", label:"DATE – Lab Order Request – WHERE", example:"03/31/2026 – Lab Order Request – SKI Prescott", hp:"Always mark HP", note:"ALWAYS verify the correct Optima provider in eCW before routing. The name on the fax may be wrong. Confirm then route to correct provider." },
   cl_img_order: { action:"FILE & ROUTE", folder:"*Imaging – Xray/US/CT/MRI", assignTo:"Provider (direct)", label:"DATE RECEIVED – [Imaging Type] Order Request – WHERE", example:"04/03/2026 – Bilateral Breast MRI Order Request – AZKRMC", hp:"Always mark HP", note:"Imaging facility requesting new or additional order. Do NOT file under Imaging Prior Authorization. Provider places the order and faxes back to facility." },
@@ -3254,7 +3296,7 @@ function gfShowDetail() {
     auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
     auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
     auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
-    cl_missed_appt:"Patient Care / Visit", cl_lab_order:"Patient Care / Visit", cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
+    cl_inr:"Patient Care / Visit", cl_missed_appt:"Patient Care / Visit", cl_lab_order:"Patient Care / Visit", cl_img_order:"Patient Care / Visit", cl_lab_in:"Patient Care / Visit", cl_lab_out:"Patient Care / Visit",
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
@@ -3274,6 +3316,105 @@ function gfShowDetail() {
 
 let _gfResult = null;
 let _gfResultId = null;
+
+// ── QUICK REFERENCE POPUP ──────────────────────────────
+function openQuickRef() {
+  const mo = new Date().toLocaleString('default',{month:'long',year:'numeric'});
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Fax Quick Reference — Optima Medical</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;color:#1e293b;}
+.page{width:100%;max-width:1050px;margin:0 auto;padding:14px;}
+.hdr{background:#0a1f44;color:#fff;padding:10px 16px;border-radius:8px 8px 0 0;text-align:center;margin-bottom:6px;}
+.hdr h1{font-size:15pt;font-weight:800;margin-bottom:2px;}
+.hdr p{font-size:9pt;opacity:.65;}
+.rule-bar{background:#fff1f2;border-left:4px solid #e11d48;padding:6px 12px;font-weight:800;font-size:9pt;color:#9f1239;margin-bottom:4px;border-radius:0 4px 4px 0;}
+.fmt-bar{background:#1e293b;color:#fff;padding:6px 12px;font-size:9pt;font-weight:700;margin-bottom:10px;border-radius:4px;text-align:center;}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.card{border-radius:8px;overflow:hidden;border:2px solid var(--c);}
+.card-hdr{background:var(--c);color:#fff;text-align:center;padding:7px;font-size:10.5pt;font-weight:800;}
+.card-body{padding:8px 10px;display:flex;flex-direction:column;gap:6px;background:var(--bg);}
+.sec-lbl{font-size:7pt;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--c);margin-bottom:1px;}
+.sec-val{font-size:9pt;text-align:center;line-height:1.45;}
+.sec-val.ital{font-style:italic;color:#374151;}
+.hp-badge{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:5px;padding:4px 8px;font-size:8.5pt;font-weight:800;color:#92400e;text-align:center;}
+.footer{background:#0a1f44;color:#fbbf24;text-align:center;padding:8px;font-weight:800;font-size:9pt;border-radius:0 0 8px 8px;margin-top:8px;}
+.print-btn{position:fixed;top:14px;right:14px;background:#0a1f44;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:11pt;font-weight:700;cursor:pointer;}
+@media print{.print-btn{display:none;}body{font-size:8.5pt;}.page{padding:6px;max-width:100%;}.card-hdr{font-size:9.5pt;}.sec-val{font-size:8.5pt;}}
+</style></head><body>
+<button class="print-btn" onclick="window.print()">🖨 Print</button>
+<div class="page">
+<div class="hdr"><h1>OPTIMA MEDICAL — FAX QUICK REFERENCE</h1><p>For Front Desk Use · Label Every Fax · Mark HP Where Noted · ${mo}</p></div>
+<div class="rule-bar">⚠ Use the DATE on the document — NOT today's date &nbsp;|&nbsp; Always mark High Priority where noted</div>
+<div class="fmt-bar">DOCUMENT NAME FORMAT:&nbsp; DATE – [Document Name] – WHERE &nbsp;&nbsp;&nbsp; e.g. &nbsp; 04/01/2026 – FMLA Form – Banner Gateway</div>
+<div class="grid">
+
+<div class="card" style="--c:#0369a1;--bg:#e8f4fd;">
+<div class="card-hdr">✍️ &nbsp;Needs a Signature</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Forms Appt/Signature Requested<br>*PT/OT/HH Orders – sig needed</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – FMLA Form – Banner Gateway</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">Provider (direct)</div></div>
+<div class="hp-badge">HP: Mark HP if noted on form</div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">Attach · Label · Route to Provider<br>No TE needed</div></div>
+</div></div>
+
+<div class="card" style="--c:#be185d;--bg:#fdf0f6;">
+<div class="card-hdr">💊 &nbsp;Medication / Pharmacy</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*RX</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Ozempic Rx – CVS Specialty</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">Clinical Admin</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Active provider Rx · Non-Adherence · Temp Rx<br>All Rx not yet sent: Create TE → Clinical Admin<br>Offboarded provider: Create TE → Clinical Admin</div></div>
+</div></div>
+
+<div class="card" style="--c:#6d28d9;--bg:#f3f0ff;">
+<div class="card-hdr">🔐 &nbsp;Prior Authorizations</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Medication Prior Authorization<br>*Imaging Prior Authorization</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Ozempic PA Request – CVS Specialty</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">Clinical Admin (new)<br>Staff working it (denials / P2P)</div></div>
+<div class="hp-badge">HP: Denials &amp; Peer-to-Peer: ALWAYS HP</div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Key listed · Outside facility auth<br>Approvals: close at Level 1<br>Denials: HP → assign to staff working it<br>Use ORDER date — not fax received date</div></div>
+</div></div>
+
+<div class="card" style="--c:#1a5fa8;--bg:#eff6ff;">
+<div class="card-hdr">🏥 &nbsp;Patient Care / Results</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Lab Documents<br>*Imaging – Xray/US/CT/MRI<br>*Admit/Discharge Notifications</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – CBC Results – LabCorp<br>04/06/2026 – INR Result – MDiNR</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">Provider (labs, imaging, admit)<br>Clinical Admin (discharge / ER)</div></div>
+<div class="hp-badge">HP: INR out of range · ER/Discharge: ALWAYS HP · Abnormal: HP</div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">INR out of range → HP → provider · No TE<br>Lab/Imaging we ordered → attach to order<br>Specialist CC (not ER) → stamp FYI → provider<br>Discharge → HP → Clinical Admin</div></div>
+</div></div>
+
+<div class="card" style="--c:#15803d;--bg:#f0fdf4;">
+<div class="card-hdr">↗️ &nbsp;Referrals</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Referral Correspondence</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Referral Response – East Valley Urology</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">Referrals Bucket (pool)</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Confirmation of receipt · Scheduled date notifications · Tango Approval<br>Failure to schedule: DO NOT delete → Referrals<br>Lab auth (insurance requires provider): TE → Clinical Admin</div></div>
+</div></div>
+
+<div class="card" style="--c:#475569;--bg:#f8fafc;">
+<div class="card-hdr">📁 &nbsp;Records / No Action</div>
+<div class="card-body">
+<div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Records Request · *Consult Notes<br>*Lab Documents (billing)<br>*Important Notifications (insurance)</div></div>
+<div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Incoming Records – Banner<br>03/31/2026 – Lab Order Claim Info Update – Labcorp</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">No assignment<br>Office Manager (lab billing) HP<br>Provider (insurance / PBM notices) HP</div></div>
+<div class="hp-badge">HP: Lab billing &amp; insurance notices: HP</div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">Consult notes: attach &amp; close · done<br>Lab billing requests → Office Manager<br>Insurance/PBM notices → Provider<br>Outgoing records → send to AMS</div></div>
+</div></div>
+
+</div>
+<div class="footer">NOT SURE? → File to *Important Notifications · Create TE · Assign to Clinical Admin · Note what you see on the fax</div>
+</div></body></html>`;
+  const w = window.open('','_blank','width=1080,height=800,scrollbars=yes');
+  w.document.write(html);
+  w.document.close();
+}
 
 // ── HELP PANEL ─────────────────────────────
 function openHelp() {
