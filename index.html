@@ -531,6 +531,97 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   </div>
 </div>
 
+<!-- WORKFLOW MAP OVERLAY -->
+<div class="overlay" id="workflowMapOverlay">
+  <div class="help-panel">
+    <div class="help-hero">
+      <div class="help-hero-top">
+        <h2>📍 Workflow Map</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>The big-picture flow. Touched Twice reviews, acts, and follows through so nothing falls through the cracks.</p>
+    </div>
+    <div class="help-body">
+
+      <!-- DOCUMENT WORKFLOW -->
+      <div class="help-section">
+        <h3>📠 Document Workflow</h3>
+        <div style="display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:560px;margin:0 auto;">
+
+          <div style="border:1.5px solid #1e3a5f;background:#eef4fb;color:#0a1f44;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">📥 Document received in fax inbox</div>
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
+          <div style="border:1.5px solid #99f6e4;background:#ecfdf9;color:#0f766e;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">👤 Attached to patient by Fax Delegation</div>
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
+          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🔀 Auto-routed to provider?</div>
+
+          <div style="display:flex;justify-content:center;gap:60px;margin:8px 0 6px;">
+            <span style="background:#166534;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">YES</span>
+            <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">NO</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;">
+            <!-- YES -->
+            <div style="display:flex;flex-direction:column;gap:0;">
+              <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">🩺 Routed to Provider</div>
+              <div style="text-align:center;color:#94a3b8;font-size:15px;line-height:1.4;">↓</div>
+              <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">✅ No action by Touched Twice<br><span style="font-weight:500;font-size:11px;color:#64748b;">Provider reviews and acts.</span></div>
+            </div>
+            <!-- NO -->
+            <div style="display:flex;flex-direction:column;gap:0;">
+              <div style="border:1.5px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">📁 Sent to bucket (Touched Twice)</div>
+              <div style="text-align:center;color:#94a3b8;font-size:15px;line-height:1.4;">↓</div>
+              <div style="border:1.5px dashed #fed7aa;background:#fff7ed;border-radius:10px;padding:11px 12px;">
+                <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:#c2410c;margin-bottom:8px;text-align:center;">🔍 TOUCHED TWICE REVIEW</div>
+                <div style="font-size:11.5px;color:#0f766e;font-weight:700;margin-bottom:3px;">✅ No action needed</div>
+                <div style="font-size:11.5px;color:#64748b;margin-bottom:8px;">Notate and close review.</div>
+                <div style="font-size:11.5px;color:#c2410c;font-weight:700;margin-bottom:3px;">📝 TE needed</div>
+                <div style="font-size:11.5px;color:#64748b;">Create TE in Insights, send to recipient.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;margin-top:6px;">↓</div>
+          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">💬 TE response received?</div>
+          <div style="display:flex;justify-content:center;gap:60px;margin:8px 0 6px;">
+            <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">NO</span>
+            <span style="background:#166534;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">YES</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="border:1.5px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">🚫 No further action</div>
+            <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">👥 Sent to TE Team for further action</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ER FOLLOW-UP PATH -->
+      <div class="help-section">
+        <h3>❤️ ER Follow-Up Path</h3>
+        <div style="display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:420px;margin:0 auto;">
+          <div style="border:1.5px solid #1e3a5f;background:#eef4fb;color:#0a1f44;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🏥 ER Follow-Up received</div>
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
+          <div style="border:1.5px solid #99f6e4;background:#ecfdf9;color:#0f766e;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🎧 Touched Twice creates TE<br><span style="font-weight:500;font-size:11px;color:#64748b;">Completes 1st outreach.</span></div>
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
+          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">👥 Sent to TE Team</div>
+          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
+          <div style="border:1.5px solid #fed7aa;background:#fff7ed;color:#c2410c;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">📞 TE Team completes remaining outreach attempts</div>
+        </div>
+      </div>
+
+      <!-- eCW NAME LEGEND -->
+      <div class="help-section">
+        <h3>What these names mean in eCW</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">👤</span><div><strong>Fax Delegation</strong> = CA / Level 1</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🔍</span><div><strong>Touched Twice</strong> = CA / Level 2</div></div>
+          <div class="help-rule"><span class="help-rule-icon">👥</span><div><strong>TE Team</strong> = separate CA team — triages and works TEs</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- HELP PANEL OVERLAY -->
 <div class="overlay" id="helpOverlay">
   <div class="help-panel">
@@ -1438,6 +1529,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <div class="search-hint">Press <kbd>/</kbd> to search instantly</div>
       <button class="triage-btn" onclick="openTriage()">🤔 Not sure what this is? Start here</button>
       <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
+        <button class="left-nav-btn" onclick="openWorkflowMap()">📍 Workflow Map</button>
         <button class="left-nav-btn" onclick="openLevel1Card()">⚡ Level 1 Quick Ref</button>
         <button class="left-nav-btn" onclick="openDirectToProvider()">📤 Direct to Provider</button>
         <button class="left-nav-btn" onclick="openGeneralNotes()">📌 General Rules</button>
@@ -3018,6 +3110,11 @@ function openLevel1Card() {
 function openGeneralNotes() {
   closeOverlays();
   document.getElementById("generalNotesOverlay").classList.add("open");
+}
+
+function openWorkflowMap() {
+  closeOverlays();
+  document.getElementById("workflowMapOverlay").classList.add("open");
 }
 
 // ── GUIDED FLOW ────────────────────────────
