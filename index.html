@@ -13,8 +13,6 @@
   --red: #c0392b; --amber: #b45309; --green: #166534; --purple: #6d28d9;
 }
 body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-
-/* TOPBAR */
 .topbar { background: var(--navy); height: 54px; display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
 .topbar img { height: 28px; background: #fff; border-radius: 4px; padding: 2px 8px; }
 .topbar-div { width: 1px; height: 20px; background: rgba(255,255,255,.2); flex-shrink: 0; }
@@ -25,11 +23,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .tb-btn:hover { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.35); }
 .tb-btn.flag-btn .badge { background: #ef4444; color:#fff; border-radius:10px; padding:0 5px; font-size:10px; font-weight:800; display:none; }
 .tb-btn.flag-btn .badge.show { display:inline; }
-
-/* LAYOUT */
 .wrap { display: flex; flex: 1; min-height: 0; height: calc(100vh - 54px); }
-
-/* LEFT */
 .left { width: 264px; flex-shrink: 0; background: var(--surface); border-right: 1.5px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
 .left::-webkit-scrollbar { width: 4px; }
 .left::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -43,8 +37,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .triage-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
 .left-nav-btn { display:flex; align-items:center; gap:6px; padding:7px 10px; border:1px solid var(--border); border-radius:8px; background:var(--bg); font-family:inherit; font-size:12px; font-weight:600; color:var(--text); cursor:pointer; transition:all .12s; text-align:left; width:100%; }
 .left-nav-btn:hover { background:var(--surface); border-color:var(--blue); color:var(--blue); }
-
-/* GUIDED FLOW */
 .gf-wrap { padding:10px 10px 16px; }
 .gf-stage-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
 .gf-stage-label span { background:var(--navy); color:#fff; border-radius:50%; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; font-size:9px; }
@@ -75,21 +67,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .gf-tile-row.selected { border-color:var(--blue); background:#e8f2fc; }
 .gf-tile-row.selected .gf-tile-arrow { color:var(--blue); }
 .gf-divider { height:1px; background:var(--border); margin:4px 0; }
-
-.nav-manager-divider {
-  margin: 10px 14px 4px;
-  padding: 6px 8px;
-  background: #1e3a5f;
-  border-radius: 6px;
-  font-size: 9px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.1px;
-  color: rgba(255,255,255,.5);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.nav-manager-divider { margin: 10px 14px 4px; padding: 6px 8px; background: #1e3a5f; border-radius: 6px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.1px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 6px; }
 .cat-btn { display:flex; align-items:center; gap:9px; padding:9px 14px; cursor:pointer; border:none; background:none; width:100%; text-align:left; font-family:inherit; font-size:12.5px; font-weight:600; color:var(--text); border-left:3px solid transparent; transition:all .12s; }
 .cat-btn:hover { background:var(--bg); }
 .cat-btn.active { border-left-color:var(--blue); background:#f0f6ff; color:var(--blue); }
@@ -115,27 +93,19 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .sub-action.file { background:#dbeafe; color:#1d4ed8; }
 .sub-action.create-te { background:#fef3c7; color:var(--amber); }
 .sub-action.portal { background:#fee2e2; color:#7c3aed; }
-
-/* RIGHT */
 .right { flex:1; padding:22px 26px; overflow-y:auto; min-width:0; }
 .right::-webkit-scrollbar { width: 5px; }
 .right::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-/* EMPTY STATE */
 .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:10px; color:var(--muted); text-align:center; padding-bottom:60px; }
 .empty-state .big-icon { font-size:44px; opacity:.35; }
 .empty-state h2 { font-size:17px; font-weight:700; color:var(--text); opacity:.5; }
 .empty-state p { font-size:12.5px; max-width:260px; line-height:1.6; }
-
-/* RECENTLY USED */
 .recent-section { margin-bottom:20px; }
 .recent-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); margin-bottom:8px; }
 .recent-chips { display:flex; flex-wrap:wrap; gap:6px; }
 .recent-chip { display:flex; align-items:center; gap:6px; padding:5px 11px; border:1.5px solid var(--border); border-radius:20px; background:var(--surface); font-size:11.5px; font-weight:600; cursor:pointer; transition:all .12s; color:var(--text); }
 .recent-chip:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
 .recent-chip .rc-icon { font-size:13px; }
-
-/* RESULT */
 .result { animation: pop .2s ease; }
 @keyframes pop { from { opacity:0; transform:scale(.97) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
 .result-header { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:18px; }
@@ -146,8 +116,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .r-btn:hover { border-color:var(--blue); color:var(--blue); background:#f5f9ff; }
 .r-btn.flagged { border-color:#ef4444; color:#ef4444; background:#fff5f5; }
 .r-btn.print-btn:hover { border-color:var(--green); color:var(--green); }
-
-/* ACTION BANNER */
 .action-banner { border-radius:12px; padding:16px 20px; margin-bottom:18px; display:flex; align-items:center; gap:14px; }
 .action-banner.delete { background:#fff0ee; border:2px solid #fca5a5; }
 .action-banner.file { background:#eff8ff; border:2px solid #93c5fd; }
@@ -167,8 +135,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .action-banner.delete .action-main { color:var(--red); }
 .action-banner.file .action-main { color:var(--blue); }
 .action-banner.create-te .action-main { color:var(--amber); }
-
-/* DETAILS */
 .details { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
 .detail-card { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:13px 15px; }
 .detail-card.full { grid-column:1/-1; }
@@ -176,8 +142,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .detail-value { font-size:15px; font-weight:700; }
 .detail-value.mono { font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:500; background:#eff6ff; border:1px solid #bfdbfe; padding:5px 9px; border-radius:5px; display:block; color:#1e3a5f; }
 .detail-example { font-size:11px; color:var(--muted); font-style:italic; margin-top:4px; }
-
-/* FLAGS */
 .flags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
 .flag { display:flex; align-items:center; gap:5px; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; }
 .flag.hp { background:#fffbeb; color:var(--amber); border:1.5px solid #fcd34d; }
@@ -187,11 +151,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .flag.l3 { background:#ede9fe; color:#6d28d9; border:1.5px solid #c4b5fd; font-weight:800; }
 .flag.stat { background:#fff0ee; color:var(--red); border:1.5px solid #fca5a5; }
 .flag.escalate { background:#1e3a5f; color:#fff; border:1.5px solid #1e3a5f; font-size:12.5px; padding:8px 16px; border-radius:8px; width:100%; justify-content:center; }
-
-/* NOTE */
 .note-box { background:var(--bg); border-left:3px solid var(--border); border-radius:0 8px 8px 0; padding:9px 13px; font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
-
-/* BRIEF */
 .brief { display:flex; flex-direction:column; gap:10px; }
 .brief-block { border-radius:10px; padding:12px 15px; border:1.5px solid var(--border); }
 .brief-block.route-if { background:#fff7ed; border-color:#fed7aa; }
@@ -206,57 +166,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .brief-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
 .brief-list li { font-size:12.5px; display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
 .brief-list li::before { content:""; flex-shrink:0; margin-top:6px; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.5; }
-
-/* LEVEL ACCORDION */
-.levels { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
-.level-block { border-radius:11px; border:1.5px solid var(--border); overflow:hidden; }
-.level-header {
-  display:flex; align-items:center; gap:10px;
-  padding:12px 16px; cursor:pointer; user-select:none;
-  background:var(--surface); transition:background .12s;
-}
-.level-header:hover { background:var(--bg); }
-.level-num {
-  width:24px; height:24px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:800; flex-shrink:0;
-}
-.level-num.blue  { background:#dbeafe; color:#1d4ed8; }
-.level-num.purple { background:#ede9fe; color:#7c3aed; }
-.level-num.amber { background:#fef3c7; color:#b45309; }
-.level-num.green { background:#dcfce7; color:#166534; }
-.level-title { font-size:13px; font-weight:700; flex:1; }
-.level-badge {
-  font-size:10px; font-weight:800; padding:2px 9px;
-  border-radius:12px; letter-spacing:.3px;
-}
-.level-badge.blue   { background:#dbeafe; color:#1d4ed8; }
-.level-badge.purple { background:#ede9fe; color:#7c3aed; }
-.level-badge.amber  { background:#fef3c7; color:#b45309; }
-.level-badge.green  { background:#dcfce7; color:#166534; }
-.level-chevron { font-size:12px; color:var(--muted); transition:transform .2s; flex-shrink:0; }
-.level-block.open .level-chevron { transform:rotate(180deg); }
-.level-body { display:none; padding:0 15px 14px; border-top:1px solid var(--border); background:var(--surface); }
-.level-block.open .level-body { display:block; }
-.level-section { margin-top:12px; }
-.level-section-label {
-  font-size:9.5px; font-weight:800; text-transform:uppercase;
-  letter-spacing:.9px; margin-bottom:7px; display:flex; align-items:center; gap:5px;
-}
-.level-section-label.red    { color:#c2410c; }
-.level-section-label.green  { color:#166534; }
-.level-section-label.blue   { color:#1d4ed8; }
-.level-section-label.muted  { color:var(--muted); }
-.level-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
-.level-list li { font-size:12.5px; line-height:1.45; display:flex; align-items:flex-start; gap:8px; }
-.level-list li::before { content:""; flex-shrink:0; margin-top:6px; width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.4; }
-.level-list li.del { color:var(--red); font-weight:600; }
-.level-list li.del::before { background:var(--red); opacity:.7; }
-
-/* UPDATED BADGE */
 .updated-badge { font-size:10px; color:var(--muted); font-weight:500; margin-top:16px; padding-top:12px; border-top:1px solid var(--border); }
-
-/* SEARCH RESULTS */
 .search-count { font-size:12px; color:var(--muted); margin-bottom:10px; }
 .search-results { display:flex; flex-direction:column; gap:7px; }
 .search-hit { background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:11px 15px; cursor:pointer; transition:all .12s; display:flex; align-items:center; gap:11px; }
@@ -269,8 +179,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .search-hit-action.file { background:#eff8ff; color:var(--blue); }
 .search-hit-action.create-te { background:#fffbeb; color:var(--amber); }
 .search-hit-action.portal { background:#faf5ff; color:var(--purple); }
-
-/* ── TRIAGE OVERLAY ─────────────────────── */
 .overlay { display:none; position:fixed; inset:0; background:rgba(10,31,68,.55); z-index:200; align-items:center; justify-content:center; backdrop-filter:blur(3px); }
 .overlay.open { display:flex; }
 .triage-panel { background:var(--surface); border-radius:16px; padding:28px; width:min(520px,92vw); max-height:85vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
@@ -292,8 +200,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .triage-progress { display:flex; gap:4px; margin-bottom:18px; }
 .triage-progress span { height:3px; flex:1; border-radius:2px; background:var(--border); }
 .triage-progress span.done { background:var(--blue); }
-
-/* ── FLAG PANEL OVERLAY ─────────────────── */
 .flag-panel { background:var(--surface); border-radius:16px; padding:24px; width:min(560px,94vw); max-height:85vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
 .flag-panel h2 { font-size:16px; font-weight:800; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; }
 .flag-item { background:var(--bg); border:1.5px solid var(--border); border-radius:9px; padding:11px 14px; margin-bottom:8px; display:flex; align-items:flex-start; gap:12px; }
@@ -307,8 +213,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .flag-empty { text-align:center; color:var(--muted); font-size:13px; padding:30px 0; }
 .flag-clear { margin-top:14px; width:100%; padding:9px; border:1.5px solid var(--border); border-radius:8px; background:none; font-family:inherit; font-size:12.5px; font-weight:700; color:var(--muted); cursor:pointer; transition:all .12s; }
 .flag-clear:hover { border-color:var(--red); color:var(--red); }
-
-/* FLAG NOTE MODAL */
 .flag-note-panel { background:var(--surface); border-radius:16px; padding:24px; width:min(420px,94vw); box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; }
 .flag-note-panel h3 { font-size:15px; font-weight:800; margin-bottom:12px; }
 .flag-note-panel textarea { width:100%; padding:10px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:13px; resize:vertical; min-height:80px; outline:none; margin-bottom:12px; }
@@ -316,8 +220,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .flag-note-btns { display:flex; gap:8px; justify-content:flex-end; }
 .btn-cancel { padding:8px 16px; border:1.5px solid var(--border); border-radius:7px; background:none; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--muted); }
 .btn-submit { padding:8px 16px; border:none; border-radius:7px; background:var(--blue); color:#fff; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; }
-
-/* HELP PANEL */
 .help-panel { background:var(--surface); border-radius:16px; width:min(700px,95vw); max-height:88vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; display:flex; flex-direction:column; }
 .help-panel::-webkit-scrollbar { width:5px; }
 .help-panel::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
@@ -356,8 +258,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .help-rules { display:flex; flex-direction:column; gap:6px; }
 .help-rule { display:flex; gap:10px; align-items:flex-start; font-size:12.5px; line-height:1.5; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px 13px; }
 .help-rule-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
-
-/* WELCOME SCREEN */
 .welcome-panel { background:var(--surface); border-radius:16px; width:min(560px,94vw); box-shadow:0 24px 60px rgba(0,0,0,.3); animation:popIn .25s ease; overflow:hidden; }
 .welcome-hero { background:var(--navy); padding:28px 28px 22px; }
 .welcome-hero h2 { font-size:20px; font-weight:800; color:#fff; margin-bottom:6px; }
@@ -371,21 +271,17 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .btn-welcome-go:hover { background:#1450a0; }
 .btn-welcome-guide { padding:12px 16px; background:none; border:1.5px solid var(--border); border-radius:9px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; color:var(--muted); transition:all .12s; }
 .btn-welcome-guide:hover { border-color:var(--blue); color:var(--blue); }
-
-/* TE CHECKLIST */
+.welcome-workflow-link { display:block; width:100%; text-align:center; margin-top:14px; background:none; border:none; color:var(--blue); font-family:inherit; font-size:12.5px; font-weight:700; cursor:pointer; text-decoration:underline; }
+.welcome-workflow-link:hover { color:#1450a0; }
 .te-checklist { background:#fffbeb; border:1.5px solid #fcd34d; border-radius:10px; padding:13px 16px; margin-bottom:14px; }
 .te-checklist-title { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--amber); margin-bottom:9px; display:flex; align-items:center; gap:6px; }
 .te-checklist ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
 .te-checklist li { display:flex; align-items:flex-start; gap:9px; font-size:13px; font-weight:600; color:var(--text); }
-.te-checklist li::before { content:"☐"; font-size:15px; flex-shrink:0; color:var(--amber); line-height:1.2; }
+.te-checklist li::before { content:"\2610"; font-size:15px; flex-shrink:0; color:var(--amber); line-height:1.2; }
 .default-rule { background:#0a1f44; border-radius:10px; padding:11px 16px; margin-bottom:16px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
 .default-rule-text { flex:1; font-size:12px; color:rgba(255,255,255,.75); line-height:1.45; }
 .default-rule-text strong { color:#fff; font-size:12.5px; }
-
-/* 1-TOUCH GOAL */
 .one-touch { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:9px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:var(--green); font-weight:600; }
-
-/* JELLY + ROUTE BAR */
 .jelly-bar { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; align-items:center; }
 .jelly-chip { display:flex; align-items:center; gap:6px; padding:5px 12px; border-radius:7px; font-size:12px; font-weight:600; background:#1e293b; color:#e2e8f0; border:none; cursor:pointer; transition:opacity .12s; }
 .jelly-chip:hover { opacity:.8; }
@@ -393,14 +289,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .jelly-chip.route { background:#0f2241; }
 .jelly-arrow { font-size:13px; color:#94a3b8; }
 .jelly-step { background:rgba(255,255,255,.18); color:#fff; border-radius:50%; width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; }
-
-/* ACTION SUBJECT */
 .action-subject { background:#fafafa; border:1.5px solid var(--border); border-radius:9px; padding:11px 14px; margin-bottom:14px; }
 .action-subject-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:5px; }
 .action-subject-val { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text); font-weight:600; }
 .action-subject-eg { font-size:11px; color:var(--muted); font-style:italic; margin-top:3px; }
-
-/* TE NOTE TEMPLATE */
 .te-note-template { background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:9px; padding:12px 14px; margin-bottom:14px; }
 .te-note-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:#0369a1; margin-bottom:8px; }
 .te-note-scenario { font-size:12.5px; line-height:1.6; padding:8px 10px; background:#fff; border-radius:6px; border:1px solid #bae6fd; margin-bottom:6px; color:var(--text); }
@@ -410,29 +302,16 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .note-template-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:#92400e; margin-bottom:8px; }
 .note-template-row { font-size:12.5px; margin-bottom:5px; line-height:1.45; }
 .note-template-row strong { color:#92400e; font-family:'JetBrains Mono',monospace; font-size:12px; }
-
-/* LEVEL ACCORDIONS */
 .levels { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
 .level-block { border-radius:12px; border:1.5px solid var(--border); overflow:hidden; background:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.05); }
-.level-header {
-  display:flex; align-items:center; gap:12px;
-  padding:13px 16px; cursor:pointer; user-select:none;
-  background:var(--surface); transition:background .12s;
-}
+.level-header { display:flex; align-items:center; gap:12px; padding:13px 16px; cursor:pointer; user-select:none; background:var(--surface); transition:background .12s; }
 .level-header:hover { background:var(--bg); }
-.level-num {
-  width:26px; height:26px; border-radius:50%;
-  font-size:12px; font-weight:800; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-}
+.level-num { width:26px; height:26px; border-radius:50%; font-size:12px; font-weight:800; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
 .level-num.blue   { background:#dbeafe; color:#1d4ed8; }
 .level-num.purple { background:#ede9fe; color:#6d28d9; }
 .level-num.amber  { background:#fef3c7; color:#b45309; }
 .level-title { font-size:13.5px; font-weight:700; flex:1; color:var(--text); }
-.level-right-badge {
-  font-size:11px; font-weight:800; padding:3px 10px;
-  border-radius:12px; margin-left:auto;
-}
+.level-right-badge { font-size:11px; font-weight:800; padding:3px 10px; border-radius:12px; margin-left:auto; }
 .level-right-badge.blue   { background:#dbeafe; color:#1d4ed8; }
 .level-right-badge.purple { background:#ede9fe; color:#6d28d9; }
 .level-right-badge.amber  { background:#fef3c7; color:#b45309; }
@@ -440,7 +319,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .level-block.open .level-chevron { transform:rotate(180deg); }
 .level-body { display:none; border-top:1px solid var(--border); padding:14px 16px 16px; background:#fafbfd; }
 .level-block.open .level-body { display:block; }
-
 .lv-section { margin-bottom:12px; }
 .lv-section:last-child { margin-bottom:0; }
 .lv-label { font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px; }
@@ -448,30 +326,18 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .lv-label.green  { color:#166534; }
 .lv-label.blue   { color:#1d4ed8; }
 .lv-list { list-style:none; display:flex; flex-direction:column; gap:5px; }
-.lv-list li {
-  font-size:12.5px; line-height:1.45;
-  display:flex; align-items:flex-start; gap:8px;
-}
-.lv-list li::before { content:"•"; flex-shrink:0; color:var(--muted); font-size:14px; line-height:1.2; }
+.lv-list li { font-size:12.5px; line-height:1.45; display:flex; align-items:flex-start; gap:8px; }
+.lv-list li::before { content:"\2022"; flex-shrink:0; color:var(--muted); font-size:14px; line-height:1.2; }
 .lv-list li.lv-del { color:var(--red); font-weight:600; }
-.lv-list li.lv-del::before { content:"🗑"; font-size:13px; }
+.lv-list li.lv-del::before { content:"\1F5D1"; font-size:13px; }
 .lv-steps { list-style:none; display:flex; flex-direction:column; gap:6px; }
-.lv-steps li {
-  font-size:12.5px; line-height:1.45;
-  display:flex; align-items:flex-start; gap:9px;
-}
+.lv-steps li { font-size:12.5px; line-height:1.45; display:flex; align-items:flex-start; gap:9px; }
 .lv-step-num { font-size:11px; font-weight:800; color:var(--muted); flex-shrink:0; margin-top:1px; min-width:16px; }
 .lv-steps li.lv-del { color:var(--red); font-weight:600; }
 .lv-steps li.lv-del .lv-step-num { color:var(--red); }
-
-/* TRIGGERS */
 .triggers-bar { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; }
 .trigger-chip { padding:3px 9px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:12px; font-size:11px; font-weight:600; color:var(--muted); }
-
-/* DO NOT ROUTE FOR FIXES */
 .fix-rule { background:#fff7ed; border:1.5px solid #fed7aa; border-radius:9px; padding:10px 14px; font-size:12.5px; color:#c2410c; font-weight:600; margin-bottom:14px; display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
-
-/* LEVEL 1 QUICK REF CARD */
 .l1-panel { background:var(--surface); border-radius:16px; width:min(780px,96vw); max-height:90vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.25); animation:popIn .2s ease; display:flex; flex-direction:column; }
 .l1-panel::-webkit-scrollbar { width:4px; }
 .l1-panel::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
@@ -497,7 +363,31 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 .l1-num { width:20px; height:20px; border-radius:50%; background:#1a5fa8; color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
 .l1-golden { background:var(--navy); border-radius:10px; padding:12px 16px; }
 .l1-golden-title { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; color:rgba(255,255,255,.5); margin-bottom:7px; }
-
+.wf-flow { display:flex; flex-direction:column; gap:0; align-items:stretch; max-width:560px; margin:0 auto; }
+.wf-flow.narrow { max-width:420px; }
+.wf-box { border:1.5px solid var(--border); border-radius:10px; padding:11px 14px; font-size:13px; font-weight:700; text-align:center; line-height:1.4; }
+.wf-box .wf-sub { display:block; font-weight:500; font-size:11px; color:#64748b; margin-top:2px; }
+.wf-box.navy { border-color:#1e3a5f; background:#eef4fb; color:#0a1f44; }
+.wf-box.teal { border-color:#99f6e4; background:#ecfdf9; color:#0f766e; }
+.wf-box.purple { border-color:#ddd6fe; background:#f5f3ff; color:#6d28d9; }
+.wf-box.green { border-color:#bbf7d0; background:#f0fdf4; color:#15803d; }
+.wf-box.red { border-color:#fecaca; background:#fef2f2; color:#b91c1c; }
+.wf-box.orange { border-color:#fed7aa; background:#fff7ed; color:#c2410c; }
+.wf-box.sm { font-size:12.5px; padding:10px 12px; }
+.wf-arrow { text-align:center; color:#94a3b8; font-size:16px; line-height:1.4; }
+.wf-tagrow { display:flex; justify-content:center; gap:60px; margin:8px 0 6px; }
+.wf-tag { font-size:11px; font-weight:800; letter-spacing:.5px; border-radius:6px; padding:3px 12px; color:#fff; }
+.wf-tag.yes { background:#166534; }
+.wf-tag.no { background:#c0392b; }
+.wf-branch { display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
+.wf-col { display:flex; flex-direction:column; gap:0; }
+.wf-review { border:1.5px dashed #fed7aa; background:#fff7ed; border-radius:10px; padding:11px 12px; }
+.wf-review-h { font-size:11px; font-weight:800; letter-spacing:.4px; color:#c2410c; margin-bottom:8px; text-align:center; }
+.wf-ritem-h { font-size:11.5px; font-weight:700; margin-bottom:3px; }
+.wf-ritem-h.teal { color:#0f766e; }
+.wf-ritem-h.orange { color:#c2410c; }
+.wf-ritem-sub { font-size:11.5px; color:#64748b; margin-bottom:8px; }
+.wf-ritem-sub:last-child { margin-bottom:0; }
 @media print {
   .topbar, .left, .overlay, .triage-btn, .r-btn, .tb-btn, .result-actions { display:none !important; }
   .wrap { display:block; }
@@ -531,98 +421,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
   </div>
 </div>
 
-<!-- WORKFLOW MAP OVERLAY -->
-<div class="overlay" id="workflowMapOverlay">
-  <div class="help-panel">
-    <div class="help-hero">
-      <div class="help-hero-top">
-        <h2>📍 Workflow Map</h2>
-        <button class="help-close" onclick="closeOverlays()">✕</button>
-      </div>
-      <p>The big-picture flow. Touched Twice reviews, acts, and follows through so nothing falls through the cracks.</p>
-    </div>
-    <div class="help-body">
-
-      <!-- DOCUMENT WORKFLOW -->
-      <div class="help-section">
-        <h3>📠 Document Workflow</h3>
-        <div style="display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:560px;margin:0 auto;">
-
-          <div style="border:1.5px solid #1e3a5f;background:#eef4fb;color:#0a1f44;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">📥 Document received in fax inbox</div>
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
-          <div style="border:1.5px solid #99f6e4;background:#ecfdf9;color:#0f766e;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">👤 Attached to patient by Fax Delegation</div>
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
-          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🔀 Auto-routed to provider?</div>
-
-          <div style="display:flex;justify-content:center;gap:60px;margin:8px 0 6px;">
-            <span style="background:#166534;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">YES</span>
-            <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">NO</span>
-          </div>
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;">
-            <!-- YES -->
-            <div style="display:flex;flex-direction:column;gap:0;">
-              <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">🩺 Routed to Provider</div>
-              <div style="text-align:center;color:#94a3b8;font-size:15px;line-height:1.4;">↓</div>
-              <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">✅ No action by Touched Twice<br><span style="font-weight:500;font-size:11px;color:#64748b;">Provider reviews and acts.</span></div>
-            </div>
-            <!-- NO -->
-            <div style="display:flex;flex-direction:column;gap:0;">
-              <div style="border:1.5px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">📁 Sent to bucket (Touched Twice)</div>
-              <div style="text-align:center;color:#94a3b8;font-size:15px;line-height:1.4;">↓</div>
-              <div style="border:1.5px dashed #fed7aa;background:#fff7ed;border-radius:10px;padding:11px 12px;">
-                <div style="font-size:11px;font-weight:800;letter-spacing:.4px;color:#c2410c;margin-bottom:8px;text-align:center;">🔍 TOUCHED TWICE REVIEW</div>
-                <div style="font-size:11.5px;color:#0f766e;font-weight:700;margin-bottom:3px;">✅ No action needed</div>
-                <div style="font-size:11.5px;color:#64748b;margin-bottom:8px;">Notate and close review.</div>
-                <div style="font-size:11.5px;color:#c2410c;font-weight:700;margin-bottom:3px;">📝 TE needed</div>
-                <div style="font-size:11.5px;color:#64748b;">Create TE in Insights, send to recipient.</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;margin-top:6px;">↓</div>
-          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">💬 TE response received?</div>
-          <div style="display:flex;justify-content:center;gap:60px;margin:8px 0 6px;">
-            <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">NO</span>
-            <span style="background:#166534;color:#fff;font-size:11px;font-weight:800;letter-spacing:.5px;border-radius:6px;padding:3px 12px;">YES</span>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div style="border:1.5px solid #fecaca;background:#fef2f2;color:#b91c1c;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">🚫 No further action</div>
-            <div style="border:1.5px solid #bbf7d0;background:#f0fdf4;color:#15803d;border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:700;text-align:center;">👥 Sent to TE Team for further action</div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ER FOLLOW-UP PATH -->
-      <div class="help-section">
-        <h3>❤️ ER Follow-Up Path</h3>
-        <div style="display:flex;flex-direction:column;gap:0;align-items:stretch;max-width:420px;margin:0 auto;">
-          <div style="border:1.5px solid #1e3a5f;background:#eef4fb;color:#0a1f44;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🏥 ER Follow-Up received</div>
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
-          <div style="border:1.5px solid #99f6e4;background:#ecfdf9;color:#0f766e;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">🎧 Touched Twice creates TE<br><span style="font-weight:500;font-size:11px;color:#64748b;">Completes 1st outreach.</span></div>
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
-          <div style="border:1.5px solid #ddd6fe;background:#f5f3ff;color:#6d28d9;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">👥 Sent to TE Team</div>
-          <div style="text-align:center;color:#94a3b8;font-size:16px;line-height:1.4;">↓</div>
-          <div style="border:1.5px solid #fed7aa;background:#fff7ed;color:#c2410c;border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;text-align:center;">📞 TE Team completes remaining outreach attempts</div>
-        </div>
-      </div>
-
-      <!-- eCW NAME LEGEND -->
-      <div class="help-section">
-        <h3>What these names mean in eCW</h3>
-        <div class="help-rules">
-          <div class="help-rule"><span class="help-rule-icon">👤</span><div><strong>Fax Delegation</strong> = CA / Level 1</div></div>
-          <div class="help-rule"><span class="help-rule-icon">🔍</span><div><strong>Touched Twice</strong> = CA / Level 2</div></div>
-          <div class="help-rule"><span class="help-rule-icon">👥</span><div><strong>TE Team</strong> = separate CA team — triages and works TEs</div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- HELP PANEL OVERLAY -->
 <div class="overlay" id="helpOverlay">
   <div class="help-panel">
     <div class="help-hero">
@@ -633,50 +431,16 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <p>Get routing instructions for any fax in 2 clicks or less. No guessing, no asking, no delays.</p>
     </div>
     <div class="help-body">
-
       <div class="help-section">
         <h3>How to Use It</h3>
         <div class="help-steps">
-          <div class="help-step">
-            <div class="help-num">1</div>
-            <div class="help-step-body">
-              <strong>Identify the document type</strong>
-              <p>Look at the fax — is it a hospital record? A lab result? A PA request? Pick the matching category on the left panel.</p>
-            </div>
-          </div>
-          <div class="help-step">
-            <div class="help-num">2</div>
-            <div class="help-step-body">
-              <strong>Click the category — then the document type</strong>
-              <p>If only one item is in a category, it opens instantly. If multiple, a list drops down — pick the match. The colored pill next to each shows the action at a glance.</p>
-              <span class="help-tip"><strong>DEL</strong> = delete · <strong>FILE</strong> = file &amp; route · <strong>TE</strong> = create TE · <strong>SNIP</strong> = snip &amp; send to chat · <strong>ESC</strong> = escalate</span>
-            </div>
-          </div>
-          <div class="help-step">
-            <div class="help-num">3</div>
-            <div class="help-step-body">
-              <strong>Follow the action banner</strong>
-              <p>The big colored banner tells you exactly what to do. Document Name, Document Folder, and Assigned To are shown below it.</p>
-            </div>
-          </div>
-          <div class="help-step">
-            <div class="help-num">4</div>
-            <div class="help-step-body">
-              <strong>Fax to Electronic conversion request?</strong>
-              <p>Found under <strong>Signature Required</strong>. Snip the document and send to the team chat tagging <strong>@Megan</strong> and <strong>@Jaimie</strong>. No filing required — Level 1 action.</p>
-            </div>
-          </div>
-          <div class="help-step">
-            <div class="help-num">5</div>
-            <div class="help-step-body">
-              <strong>Not sure? Use Triage or Search</strong>
-              <p>Click <strong>"Not sure what this is?"</strong> for a guided yes/no walkthrough. Or type a keyword in the search bar — "discharge", "lab result", "PA denial".</p>
-              <span class="help-tip">Press <strong>/</strong> on your keyboard to jump straight to search. Press <strong>Esc</strong> to close anything.</span>
-            </div>
-          </div>
+          <div class="help-step"><div class="help-num">1</div><div class="help-step-body"><strong>Identify the document type</strong><p>Look at the fax — is it a hospital record? A lab result? A PA request? Pick the matching category on the left panel.</p></div></div>
+          <div class="help-step"><div class="help-num">2</div><div class="help-step-body"><strong>Click the category — then the document type</strong><p>If only one item is in a category, it opens instantly. If multiple, a list drops down — pick the match. The colored pill next to each shows the action at a glance.</p><span class="help-tip"><strong>DEL</strong> = delete · <strong>FILE</strong> = file &amp; route · <strong>TE</strong> = create TE · <strong>SNIP</strong> = snip &amp; send to chat · <strong>ESC</strong> = escalate</span></div></div>
+          <div class="help-step"><div class="help-num">3</div><div class="help-step-body"><strong>Follow the action banner</strong><p>The big colored banner tells you exactly what to do. Document Name, Document Folder, and Assigned To are shown below it.</p></div></div>
+          <div class="help-step"><div class="help-num">4</div><div class="help-step-body"><strong>Fax to Electronic conversion request?</strong><p>Found under <strong>Signature Required</strong>. Snip the document and send to the team chat tagging <strong>@Megan</strong> and <strong>@Jaimie</strong>. No filing required — Level 1 action.</p></div></div>
+          <div class="help-step"><div class="help-num">5</div><div class="help-step-body"><strong>Not sure? Use Triage or Search</strong><p>Click <strong>"Not sure what this is?"</strong> for a guided yes/no walkthrough. Or type a keyword in the search bar — "discharge", "lab result", "PA denial".</p><span class="help-tip">Press <strong>/</strong> on your keyboard to jump straight to search. Press <strong>Esc</strong> to close anything.</span></div></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>The 4 Actions</h3>
         <table class="help-actions-table">
@@ -688,7 +452,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <tr><td><span class="hbadge esc">🔺 ESCALATE</span></td><td>Requires Manager to process</td><td>Do NOT process. Flag and hand to your supervisor.</td></tr>
         </table>
       </div>
-
       <div class="help-section">
         <h3>Built-In Features</h3>
         <div class="help-grid">
@@ -700,7 +463,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div class="help-feat"><div class="hf-icon">🔴</div><strong>Execution Briefs</strong><p>Hospital/ER, Prior Auth, and Referrals include full route/close/do-not guides.</p></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>Golden Rules</h3>
         <div class="help-rules">
@@ -711,12 +473,80 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div class="help-rule"><span class="help-rule-icon">🚩</span><div><strong>Use the Flag button — not a chat message.</strong> Flag the fax with a note and keep processing. Don't hold it.</div></div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- WELCOME SCREEN OVERLAY -->
+<div class="overlay" id="workflowMapOverlay">
+  <div class="help-panel">
+    <div class="help-hero">
+      <div class="help-hero-top">
+        <h2>📍 Workflow Map</h2>
+        <button class="help-close" onclick="closeOverlays()">✕</button>
+      </div>
+      <p>The big-picture flow. Touched Twice reviews, acts, and follows through so nothing falls through the cracks.</p>
+    </div>
+    <div class="help-body">
+      <div class="help-section">
+        <h3>📠 Document Workflow</h3>
+        <div class="wf-flow">
+          <div class="wf-box navy">📥 Document received in fax inbox</div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-box teal">👤 Attached to patient by Fax Delegation</div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-box purple">🔀 Auto-routed to provider?</div>
+          <div class="wf-tagrow"><span class="wf-tag yes">YES</span><span class="wf-tag no">NO</span></div>
+          <div class="wf-branch">
+            <div class="wf-col">
+              <div class="wf-box green sm">🩺 Routed to Provider</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-box green sm">✅ No action by Touched Twice<span class="wf-sub">Provider reviews and acts.</span></div>
+            </div>
+            <div class="wf-col">
+              <div class="wf-box red sm">📁 Sent to bucket (Touched Twice)</div>
+              <div class="wf-arrow">↓</div>
+              <div class="wf-review">
+                <div class="wf-review-h">🔍 TOUCHED TWICE REVIEW</div>
+                <div class="wf-ritem-h teal">✅ No action needed</div>
+                <div class="wf-ritem-sub">Notate and close review.</div>
+                <div class="wf-ritem-h orange">📝 TE needed</div>
+                <div class="wf-ritem-sub">Create TE in Insights, send to recipient.</div>
+              </div>
+            </div>
+          </div>
+          <div class="wf-arrow" style="margin-top:6px;">↓</div>
+          <div class="wf-box purple">💬 TE response received?</div>
+          <div class="wf-tagrow"><span class="wf-tag no">NO</span><span class="wf-tag yes">YES</span></div>
+          <div class="wf-branch">
+            <div class="wf-box red sm">🚫 No further action</div>
+            <div class="wf-box green sm">👥 Sent to TE Team for further action</div>
+          </div>
+        </div>
+      </div>
+      <div class="help-section">
+        <h3>❤️ ER Follow-Up Path</h3>
+        <div class="wf-flow narrow">
+          <div class="wf-box navy">🏥 ER Follow-Up received</div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-box teal">🎧 Touched Twice creates TE<span class="wf-sub">Completes 1st outreach.</span></div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-box purple">👥 Sent to TE Team</div>
+          <div class="wf-arrow">↓</div>
+          <div class="wf-box orange">📞 TE Team completes remaining outreach attempts</div>
+        </div>
+      </div>
+      <div class="help-section">
+        <h3>What these names mean in eCW</h3>
+        <div class="help-rules">
+          <div class="help-rule"><span class="help-rule-icon">👤</span><div><strong>Fax Delegation</strong> = CA / Level 1</div></div>
+          <div class="help-rule"><span class="help-rule-icon">🔍</span><div><strong>Touched Twice</strong> = CA / Level 2</div></div>
+          <div class="help-rule"><span class="help-rule-icon">👥</span><div><strong>TE Team</strong> = separate CA team — triages and works TEs</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="welcomeOverlay">
   <div class="welcome-panel">
     <div class="welcome-hero">
@@ -736,11 +566,10 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
         <button class="btn-welcome-go" onclick="dismissWelcome()">Let's go →</button>
         <button class="btn-welcome-guide" onclick="showGuideFromWelcome()">Show me how it works</button>
       </div>
+      <button class="welcome-workflow-link" onclick="showWorkflowFromWelcome()">📍 New here? Start with the Workflow Map</button>
     </div>
   </div>
 </div>
-
-<!-- LEVEL 1 QUICK REF OVERLAY -->
 <div class="overlay" id="level1Overlay">
   <div class="l1-panel">
     <div class="l1-hero">
@@ -751,14 +580,9 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <p>Pick the closest category and move on. System + Clinical Admin handle the rest.</p>
     </div>
     <div class="l1-body">
-
       <div class="l1-grid">
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0f9ff;">
-            <span class="l1-card-icon">✍️</span>
-            <span class="l1-card-title" style="color:#0369a1;">Needs a Signature?</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0f9ff;"><span class="l1-card-icon">✍️</span><span class="l1-card-title" style="color:#0369a1;">Needs a Signature?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Forms, FMLA, PT/OT, Home Health, Plan of Care, Order forms</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -766,12 +590,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*PT/OT/HH Orders – sig needed</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#fdf2f8;">
-            <span class="l1-card-icon">💊</span>
-            <span class="l1-card-title" style="color:#be185d;">Medication / Pharmacy?</span>
-          </div>
+          <div class="l1-card-head" style="background:#fdf2f8;"><span class="l1-card-icon">💊</span><span class="l1-card-title" style="color:#be185d;">Medication / Pharmacy?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Refill request, pharmacy fax, medication name present</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -779,12 +599,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#fce7f3;color:#be185d;">*ePA Documents</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f5f3ff;">
-            <span class="l1-card-icon">🔐</span>
-            <span class="l1-card-title" style="color:#7c3aed;">Authorization / Insurance?</span>
-          </div>
+          <div class="l1-card-head" style="background:#f5f3ff;"><span class="l1-card-icon">🔐</span><span class="l1-card-title" style="color:#7c3aed;">Authorization / Insurance?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Prior Authorization, approval, denial, insurance request</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -793,12 +609,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#ede9fe;color:#7c3aed;">*Insurance Consideration</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0fdf4;">
-            <span class="l1-card-icon">↗️</span>
-            <span class="l1-card-title" style="color:#166534;">Referral / Specialist?</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0fdf4;"><span class="l1-card-icon">↗️</span><span class="l1-card-title" style="color:#166534;">Referral / Specialist?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Referral request, specialist communication, consult notes</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -806,12 +618,8 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Consult Notes</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#e8f2fc;">
-            <span class="l1-card-icon">🏥</span>
-            <span class="l1-card-title" style="color:#0f6ac0;">Clinical / Results / Visit?</span>
-          </div>
+          <div class="l1-card-head" style="background:#e8f2fc;"><span class="l1-card-icon">🏥</span><span class="l1-card-title" style="color:#0f6ac0;">Clinical / Results / Visit?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Lab results, imaging results, hospital/ER, pre-op, immunizations</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -822,36 +630,24 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Immunization Records/Notifications</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#fffbeb;">
-            <span class="l1-card-icon">🩺</span>
-            <span class="l1-card-title" style="color:#b45309;">DME / Supplies?</span>
-          </div>
+          <div class="l1-card-head" style="background:#fffbeb;"><span class="l1-card-icon">🩺</span><span class="l1-card-title" style="color:#b45309;">DME / Supplies?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Equipment, CGM, nebulizer, CPAP, PAP compliance report</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
             <span class="l1-folder" style="background:#fef3c7;color:#b45309;">*DME Requests</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f8fafc;">
-            <span class="l1-card-icon">📁</span>
-            <span class="l1-card-title" style="color:#64748b;">Records Only? (No Action)</span>
-          </div>
+          <div class="l1-card-head" style="background:#f8fafc;"><span class="l1-card-icon">📁</span><span class="l1-card-title" style="color:#64748b;">Records Only? (No Action)</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Old records, copies, informational — no next step needed</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
             <span class="l1-folder" style="background:#f1f5f9;color:#64748b;">*Records Request</span>
           </div>
         </div>
-
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0f9ff;">
-            <span class="l1-card-icon">❓</span>
-            <span class="l1-card-title" style="color:#0369a1;">Not Sure?</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0f9ff;"><span class="l1-card-icon">❓</span><span class="l1-card-title" style="color:#0369a1;">Not Sure?</span></div>
           <div class="l1-card-body">
             <div class="l1-trigger">Cannot identify document type after reviewing all categories above</div>
             <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Select folder</div>
@@ -860,9 +656,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
             <div style="font-size:11px;color:var(--muted);margin-top:5px;font-style:italic;">System will send to Clinical Admin for review</div>
           </div>
         </div>
-
       </div>
-
       <div class="l1-steps">
         <div class="l1-steps-title">✅ Step 2 — Complete These Every Time</div>
         <div class="l1-steps-list">
@@ -872,7 +666,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div><span class="l1-num">4</span><span>File under the selected category above</span></div>
         </div>
       </div>
-
       <div class="l1-stops" style="margin-bottom:12px;">
         <div class="l1-stops-title">🚫 Do NOT</div>
         <div style="display:flex;flex-direction:column;gap:4px;">
@@ -882,20 +675,14 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div style="font-size:12.5px;font-weight:600;color:#c0392b;">✕ &nbsp;Hold documents — route and move on</div>
         </div>
       </div>
-
       <div class="l1-golden">
         <div class="l1-golden-title">💡 Golden Rule</div>
-        <div style="font-size:13.5px;font-weight:700;color:#fff;line-height:1.6;">
-          Pick the closest category and move on.<br>
-          <span style="font-weight:400;font-size:12.5px;color:rgba(255,255,255,.65);">System + Clinical Admin will handle the rest. Your only job is fast, consistent filing.</span>
-        </div>
+        <div style="font-size:13.5px;font-weight:700;color:#fff;line-height:1.6;">Pick the closest category and move on.<br><span style="font-weight:400;font-size:12.5px;color:rgba(255,255,255,.65);">System + Clinical Admin will handle the rest. Your only job is fast, consistent filing.</span></div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- DIRECT TO PROVIDER OVERLAY -->
 <div class="overlay" id="directToProviderOverlay">
   <div class="l1-panel">
     <div class="l1-hero">
@@ -906,153 +693,83 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <p>These documents go straight to the provider after attaching. No TE. No Clinical Admin. Label correctly and send.</p>
     </div>
     <div class="l1-body">
-
-      <div style="background:#fef2f2;border:1.5px solid #fecaca;border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;color:#9f1239;font-weight:600;line-height:1.6;">
-        🚨 <strong>ER / Hospital records do NOT go directly to provider.</strong> Attach to chart, mark HP, route to Clinical Admin. See Patient Care / Visit in the left nav for the full workflow.
-      </div>
-
+      <div style="background:#fef2f2;border:1.5px solid #fecaca;border-radius:9px;padding:11px 14px;margin-bottom:14px;font-size:12.5px;color:#9f1239;font-weight:600;line-height:1.6;">🚨 <strong>ER / Hospital records do NOT go directly to provider.</strong> Attach to chart, mark HP, route to Clinical Admin. See Patient Care / Visit in the left nav for the full workflow.</div>
       <div style="background:#fff1f2;border-left:4px solid #e11d48;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:16px;font-size:15px;font-weight:800;color:#9f1239;">⚠️ Use the DATE on the document — NOT the fax received date</div>
-
       <div style="display:flex;flex-direction:column;gap:10px;">
-
-        <!-- Lab Results - Ordered -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0fdf4;">
-            <span class="l1-card-icon">🧪</span>
-            <span class="l1-card-title" style="color:#166534;">Lab Result — Ordered by Optima Provider</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0fdf4;"><span class="l1-card-icon">🧪</span><span class="l1-card-title" style="color:#166534;">Lab Result — Ordered by Optima Provider</span></div>
           <div class="l1-card-body">
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Lab Documents</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – CBC Results – LabCorp<br>
-              04/01/2026 – A1C Results – Quest Diagnostics<br>
-              04/01/2026 – Lipid Panel – Banner Lab
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – CBC Results – LabCorp<br>04/01/2026 – A1C Results – Quest Diagnostics<br>04/01/2026 – Lipid Panel – Banner Lab</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Attach to order. Send to ordering provider. Mark HP if abnormal.</div>
           </div>
         </div>
-
-        <!-- Lab Results - Not Ordered -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0fdf4;">
-            <span class="l1-card-icon">🧪</span>
-            <span class="l1-card-title" style="color:#166534;">Lab Result — NOT Ordered by Optima (Specialist CC to PCP)</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0fdf4;"><span class="l1-card-icon">🧪</span><span class="l1-card-title" style="color:#166534;">Lab Result — NOT Ordered by Optima (Specialist CC to PCP)</span></div>
           <div class="l1-card-body">
-            <div style="font-size:11.5px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:7px 10px;margin-bottom:8px;color:#166534;font-weight:600;line-height:1.6;">
-              Specialist ordered the lab and is cc'ing the Optima provider as FYI only. Confirmed this was NOT completed during an ER visit — ER results route to Clinical Admin, not directly to provider.
-            </div>
+            <div style="font-size:11.5px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:7px 10px;margin-bottom:8px;color:#166534;font-weight:600;line-height:1.6;">Specialist ordered the lab and is cc'ing the Optima provider as FYI only. Confirmed this was NOT completed during an ER visit — ER results route to Clinical Admin, not directly to provider.</div>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#dcfce7;color:#166534;">*Lab Documents</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – CBC Results – Quest Diagnostics<br>
-              04/01/2026 – Thyroid Panel – Outside Lab
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – CBC Results – Quest Diagnostics<br>04/01/2026 – Thyroid Panel – Outside Lab</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#166534;">Stamp document with FYI. Send directly to provider. No TE.</div>
           </div>
         </div>
-
-        <!-- Imaging - Ordered -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#eff6ff;">
-            <span class="l1-card-icon">🔬</span>
-            <span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — Ordered by Optima Provider</span>
-          </div>
+          <div class="l1-card-head" style="background:#eff6ff;"><span class="l1-card-icon">🔬</span><span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — Ordered by Optima Provider</span></div>
           <div class="l1-card-body">
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#dbeafe;color:#1a5fa8;">*Imaging – Xray/US/CT/MRI</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – MRI Lumbar Results – Banner Imaging<br>
-              04/01/2026 – CXR Results – Simon Med<br>
-              04/01/2026 – US Abdomen Results – Radiology Group
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – MRI Lumbar Results – Banner Imaging<br>04/01/2026 – CXR Results – Simon Med<br>04/01/2026 – US Abdomen Results – Radiology Group</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Attach to order. Send to ordering provider. Mark HP if abnormal. STAT = same day.</div>
           </div>
         </div>
-
-        <!-- Imaging - Not Ordered -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#eff6ff;">
-            <span class="l1-card-icon">🔬</span>
-            <span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — NOT Ordered by Optima (Specialist CC to PCP)</span>
-          </div>
+          <div class="l1-card-head" style="background:#eff6ff;"><span class="l1-card-icon">🔬</span><span class="l1-card-title" style="color:#1a5fa8;">Imaging Result — NOT Ordered by Optima (Specialist CC to PCP)</span></div>
           <div class="l1-card-body">
-            <div style="font-size:11.5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:7px 10px;margin-bottom:8px;color:#1a5fa8;font-weight:600;line-height:1.6;">
-              Specialist ordered the imaging and is cc'ing the Optima provider as FYI only. Confirmed this was NOT completed during an ER visit — ER results route to Clinical Admin, not directly to provider.
-            </div>
+            <div style="font-size:11.5px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:7px 10px;margin-bottom:8px;color:#1a5fa8;font-weight:600;line-height:1.6;">Specialist ordered the imaging and is cc'ing the Optima provider as FYI only. Confirmed this was NOT completed during an ER visit — ER results route to Clinical Admin, not directly to provider.</div>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#dbeafe;color:#1a5fa8;">*Imaging – Xray/US/CT/MRI</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – CT Chest – Banner Imaging<br>
-              04/01/2026 – X-Ray Right Knee – Simon Med
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – CT Chest – Banner Imaging<br>04/01/2026 – X-Ray Right Knee – Simon Med</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#1a5fa8;">Stamp document with FYI. Send directly to provider. No TE.</div>
           </div>
         </div>
-
-        <!-- Admit Notification -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#e8f2fc;">
-            <span class="l1-card-icon">🏥</span>
-            <span class="l1-card-title" style="color:#0f6ac0;">Admit Notification</span>
-          </div>
+          <div class="l1-card-head" style="background:#e8f2fc;"><span class="l1-card-icon">🏥</span><span class="l1-card-title" style="color:#0f6ac0;">Admit Notification</span></div>
           <div class="l1-card-body">
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#dbeafe;color:#0f6ac0;">*Admit/Discharge Notifications</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – Admit Notification – Banner Gateway<br>
-              04/01/2026 – Inpatient Admit – Honor Health
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – Admit Notification – Banner Gateway<br>04/01/2026 – Inpatient Admit – Honor Health</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0f6ac0;">Stamp document with FYI. Send directly to provider. No TE.</div>
           </div>
         </div>
-
-        <!-- Signature Needed -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#f0f9ff;">
-            <span class="l1-card-icon">✍️</span>
-            <span class="l1-card-title" style="color:#0369a1;">Signature Needed</span>
-          </div>
+          <div class="l1-card-head" style="background:#f0f9ff;"><span class="l1-card-icon">✍️</span><span class="l1-card-title" style="color:#0369a1;">Signature Needed</span></div>
           <div class="l1-card-body">
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*Forms Appt/Signature Requested</span>
             <span class="l1-folder" style="background:#e0f2fe;color:#0369a1;">*PT/OT/HH Orders – sig needed</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – FMLA Form – Banner Gateway<br>
-              04/01/2026 – Home Health Order – Amedisys<br>
-              04/01/2026 – PT Order – Arizona PT Group
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – FMLA Form – Banner Gateway<br>04/01/2026 – Home Health Order – Amedisys<br>04/01/2026 – PT Order – Arizona PT Group</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#0369a1;">Attach. Label. Route to provider. Mark HP if noted. No TE.</div>
           </div>
         </div>
-
-        <!-- PAP Compliance -->
         <div class="l1-card">
-          <div class="l1-card-head" style="background:#fffbeb;">
-            <span class="l1-card-icon">📋</span>
-            <span class="l1-card-title" style="color:#b45309;">PAP Compliance Report</span>
-          </div>
+          <div class="l1-card-head" style="background:#fffbeb;"><span class="l1-card-icon">📋</span><span class="l1-card-title" style="color:#b45309;">PAP Compliance Report</span></div>
           <div class="l1-card-body">
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">Document Folder</div>
             <span class="l1-folder" style="background:#fef3c7;color:#b45309;">*DME Requests</span>
             <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:8px 0 4px;">Document Name Examples</div>
-            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">
-              04/01/2026 – PAP Compliance Report – Apria<br>
-              04/01/2026 – CPAP Compliance – Lincare
-            </div>
+            <div style="font-family:var(--font-mono);font-size:11.5px;line-height:2;background:var(--bg);border-radius:6px;padding:7px 10px;color:var(--text);">04/01/2026 – PAP Compliance Report – Apria<br>04/01/2026 – CPAP Compliance – Lincare</div>
             <div style="margin-top:8px;font-size:12px;font-weight:700;color:#b45309;">Attach. Send directly to provider. No TE.</div>
           </div>
         </div>
-
       </div>
-
       <div style="margin-top:14px;background:var(--navy);border-radius:10px;padding:12px 16px;margin-bottom:10px;">
         <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">Exceptions to know</div>
         <div style="display:flex;flex-direction:column;gap:7px;">
@@ -1060,17 +777,13 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div style="font-size:12.5px;color:#fff;line-height:1.6;display:flex;gap:8px;"><span style="color:#4ade80;flex-shrink:0;">→</span><span><strong>Results for an out-of-office provider</strong> — do not leave in queue. Route to the <strong>Office Manager</strong> to reassign or hold.</span></div>
         </div>
       </div>
-
       <div style="background:var(--navy);border-radius:10px;padding:12px 16px;">
         <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:6px;">Always verify before marking FYI</div>
         <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.7;">Pull up the patient in eCW first. If the provider's name is in the system they are an internal provider — do NOT mark FYI. Only mark FYI if the ordering provider has no record in eCW.</div>
       </div>
-
     </div>
   </div>
 </div>
-
-<!-- GENERAL NOTES OVERLAY -->
 <div class="overlay" id="generalNotesOverlay">
   <div class="help-panel">
     <div class="help-hero" style="background:#0a1f44">
@@ -1081,77 +794,30 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
       <p>Applies to every fax, every time. These do not live on individual cards — they apply across the board.</p>
     </div>
     <div class="help-body">
-
       <div class="help-section">
         <div style="background:#fef2f2;border:2px solid #e11d48;border-radius:10px;overflow:hidden;margin-bottom:0;">
-          <div style="background:#e11d48;padding:10px 16px;display:flex;align-items:center;gap:8px;">
-            <span style="font-size:13px;font-weight:800;color:#fff;">TEMPORARY BACKLOG PROTOCOL — IN EFFECT UNTIL FURTHER NOTICE</span>
-          </div>
+          <div style="background:#e11d48;padding:10px 16px;display:flex;align-items:center;gap:8px;"><span style="font-size:13px;font-weight:800;color:#fff;">TEMPORARY BACKLOG PROTOCOL — IN EFFECT UNTIL FURTHER NOTICE</span></div>
           <div style="padding:14px 16px;">
             <p style="font-size:12.5px;color:#9f1239;font-weight:600;margin-bottom:4px;line-height:1.6;">Batch processing by category is not possible right now. Doc Category is not auto-populating and sender fax sorting is broken. The only usable sort is Date.</p>
             <p style="font-size:12.5px;color:#9f1239;font-weight:700;margin-bottom:14px;line-height:1.6;">Sort by Date ascending. Work oldest first. One touch per fax — make the call and move on.</p>
-
             <div style="background:var(--navy);border-radius:9px;padding:12px 16px;margin-bottom:12px;">
               <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">How to set up your view</div>
-              <div style="font-size:12.5px;color:#fff;line-height:1.8;">
-                1. Sort by <strong>DATE</strong> column — ascending (oldest first)<br>
-                2. Work top to bottom — do not skip, do not come back<br>
-                3. One decision per fax — see the decision tree below
-              </div>
+              <div style="font-size:12.5px;color:#fff;line-height:1.8;">1. Sort by <strong>DATE</strong> column — ascending (oldest first)<br>2. Work top to bottom — do not skip, do not come back<br>3. One decision per fax — see the decision tree below</div>
             </div>
-
             <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#9f1239;margin-bottom:8px;">When you open each fax — ask in this order:</div>
-
             <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;">
-                <div style="background:#e11d48;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 1</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it STAT, a discharge, ER record, or imaging result?</div>
-                  <div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Yes — process immediately. Mark HP. Do not set aside. Same-day, no exceptions.<br>No — move to Step 2.</div>
-                </div>
-              </div>
-
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;">
-                <div style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 2</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it a delete?</div>
-                  <div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Active provider Rx, Tango, non-adherence, confirmation of receipt, key listed PA, duplicate — delete it now and move on.<br>No — move to Step 3.</div>
-                </div>
-              </div>
-
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;">
-                <div style="background:#9f1239;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 3</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Which bucket does it belong to?</div>
-                  <div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Pick the closest category using the left nav. Attach, label, route. One touch — done. Move to the next fax.</div>
-                </div>
-              </div>
-
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;">
-                <div style="background:#64748b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 4</div>
-                <div>
-                  <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Still not sure?</div>
-                  <div style="font-size:12px;color:var(--muted);line-height:1.6;">File to *Important Notifications, create TE, assign to Clinical Admin. Do not hold it. Keep moving.</div>
-                </div>
-              </div>
-
+              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#e11d48;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 1</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it STAT, a discharge, ER record, or imaging result?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Yes — process immediately. Mark HP. Do not set aside. Same-day, no exceptions.<br>No — move to Step 2.</div></div></div>
+              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 2</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it a delete?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Active provider Rx, Tango, non-adherence, confirmation of receipt, key listed PA, duplicate — delete it now and move on.<br>No — move to Step 3.</div></div></div>
+              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#9f1239;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 3</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Which bucket does it belong to?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Pick the closest category using the left nav. Attach, label, route. One touch — done. Move to the next fax.</div></div></div>
+              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#64748b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 4</div><div><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Still not sure?</div><div style="font-size:12px;color:var(--muted);line-height:1.6;">File to *Important Notifications and route to Clinical Admin. Do NOT create a TE and do not hold it — CA reviews and creates the TE if one is needed. Keep moving.</div></div></div>
             </div>
-
-            <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:10px 14px;">
-              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Golden Rule for the Backlog</div>
-              <div style="font-size:12.5px;color:#92400e;font-weight:600;line-height:1.6;">Every fax gets one decision. You do not go back. You do not hold. You do not skip. Pick the closest category, route it, and move to the next one. Speed and consistency beats perfection right now.</div>
-            </div>
-
+            <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:10px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Golden Rule for the Backlog</div><div style="font-size:12.5px;color:#92400e;font-weight:600;line-height:1.6;">Every fax gets one decision. You do not go back. You do not hold. You do not skip. Pick the closest category, route it, and move to the next one. Speed and consistency beats perfection right now.</div></div>
           </div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>📋 Document Name — How to Label Every Fax</h3>
-        <div style="background:var(--navy);border-radius:9px;padding:14px 18px;margin-bottom:10px;text-align:center;">
-          <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px;">DATE – [Document Name] – WHERE</div>
-        </div>
+        <div style="background:var(--navy);border-radius:9px;padding:14px 18px;margin-bottom:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px;">DATE – [Document Name] – WHERE</div></div>
         <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 16px;font-family:var(--font-mono);font-size:12px;line-height:2.1;">
           <div><strong>01/15/2026</strong> – FMLA Form – Banner Gateway</div>
           <div><strong>01/15/2026</strong> – Ozempic PA Request – CVS Specialty</div>
@@ -1163,52 +829,24 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
         </div>
         <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6;">Use the date <strong>on the document</strong> — not today's date. <strong>WHERE</strong> = the facility or sender name. This is the Document Name field in eCW.</p>
       </div>
-
       <div class="help-section">
         <h3>🚨 Imaging Result Processing — Mandatory Rules</h3>
-        <div style="background:#fef2f2;border:2px solid #e11d48;border-radius:10px;padding:14px 16px;margin-bottom:10px;">
-          <div style="font-size:13px;font-weight:800;color:#9f1239;margin-bottom:6px;">⚡ STAT / CXR / CT Chest / Any Acute Study = SAME DAY</div>
-          <div style="font-size:12.5px;color:#9f1239;font-weight:600;">Cannot process same-day → escalate to lead immediately. No exceptions.</div>
-        </div>
+        <div style="background:#fef2f2;border:2px solid #e11d48;border-radius:10px;padding:14px 16px;margin-bottom:10px;"><div style="font-size:13px;font-weight:800;color:#9f1239;margin-bottom:6px;">⚡ STAT / CXR / CT Chest / Any Acute Study = SAME DAY</div><div style="font-size:12.5px;color:#9f1239;font-weight:600;">Cannot process same-day → escalate to lead immediately. No exceptions.</div></div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
-          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;">
-            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 1 — Verify Ordering Provider</div>
-            <div style="font-size:12.5px;line-height:1.6;">Pull up the patient in eCW. Confirm the ordering provider on the faxed result matches what is in the system. <strong>If their name is in eCW they are an internal provider — do NOT mark FYI.</strong></div>
-          </div>
-          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;">
-            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 2 — Label Correctly</div>
-            <div style="font-size:12.5px;line-height:1.6;">Imaging results are <strong>not consult notes.</strong> Label as the correct document type: X-ray, CT, MRI, Ultrasound. File to <span style="font-family:var(--font-mono);font-size:11.5px;">*Imaging – Xray/US/CT/MRI</span>.</div>
-          </div>
-          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;">
-            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 3 — Route to Ordering Provider</div>
-            <div style="font-size:12.5px;line-height:1.6;">After correct labeling, route to the provider — <strong>not records only.</strong></div>
-          </div>
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 1 — Verify Ordering Provider</div><div style="font-size:12.5px;line-height:1.6;">Pull up the patient in eCW. Confirm the ordering provider on the faxed result matches what is in the system. <strong>If their name is in eCW they are an internal provider — do NOT mark FYI.</strong></div></div>
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 2 — Label Correctly</div><div style="font-size:12.5px;line-height:1.6;">Imaging results are <strong>not consult notes.</strong> Label as the correct document type: X-ray, CT, MRI, Ultrasound. File to <span style="font-family:var(--font-mono);font-size:11.5px;">*Imaging – Xray/US/CT/MRI</span>.</div></div>
+          <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Check 3 — Route to Ordering Provider</div><div style="font-size:12.5px;line-height:1.6;">After correct labeling, route to the provider — <strong>not records only.</strong></div></div>
         </div>
-        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:9px;padding:12px 14px;">
-          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Processing SLA</div>
-          <div style="font-size:12.5px;line-height:1.8;font-weight:600;color:#92400e;">
-            STAT / urgent imaging → Same day<br>
-            Routine imaging → 24–48 business hours from receipt<br>
-            Beyond SLA → Lead is notified and manually processes it
-          </div>
-        </div>
+        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:9px;padding:12px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Processing SLA</div><div style="font-size:12.5px;line-height:1.8;font-weight:600;color:#92400e;">STAT / urgent imaging → Same day<br>Routine imaging → 24–48 business hours from receipt<br>Beyond SLA → Lead is notified and manually processes it</div></div>
       </div>
-
       <div class="help-section">
         <h3>🎯 One-Touch Goal</h3>
-        <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:9px;padding:12px 16px;font-size:13.5px;font-weight:600;color:#166534;line-height:1.6;">
-          Every document should be correctly categorized, routed once, and not require rework.<br>
-          <span style="font-weight:400;font-size:12.5px;">Route it right the first time. That is the only metric that matters at Level 1.</span>
-        </div>
+        <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:9px;padding:12px 16px;font-size:13.5px;font-weight:600;color:#166534;line-height:1.6;">Every document should be correctly categorized, routed once, and not require rework.<br><span style="font-weight:400;font-size:12.5px;">Route it right the first time. That is the only metric that matters at Level 1.</span></div>
       </div>
-
       <div class="help-section">
         <h3>🔧 Fix Before Routing</h3>
-        <div class="help-rules">
-          <div class="help-rule"><span class="help-rule-icon">🔧</span><div>If something is missing or needs a small correction — <strong>fix it before routing.</strong> Do NOT send to another team just to fix small issues. One touch, one action.</div></div>
-        </div>
+        <div class="help-rules"><div class="help-rule"><span class="help-rule-icon">🔧</span><div>If something is missing or needs a small correction — <strong>fix it before routing.</strong> Do NOT send to another team just to fix small issues. One touch, one action.</div></div></div>
       </div>
-
       <div class="help-section">
         <h3>⚑ HP Rules</h3>
         <div class="help-rules">
@@ -1218,7 +856,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div class="help-rule"><span class="help-rule-icon">⚑</span><div>CGM, end of life, and nebulizers under DME — <strong>always HP.</strong></div></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>📅 Date Rules</h3>
         <div class="help-rules">
@@ -1228,7 +865,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div class="help-rule"><span class="help-rule-icon">📅</span><div>When in doubt — use the date that appears on the actual document.</div></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>🚫 Hard Stops</h3>
         <div class="help-rules">
@@ -1241,273 +877,73 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
           <div class="help-rule"><span class="help-rule-icon">🚫</span><div><strong>Failure to Schedule with Specialist is NOT a delete.</strong> Route it to Referrals for follow-up.</div></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>📋 Standard Note Format — use this every time a TE is created</h3>
-        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:9px;padding:14px 16px;">
-          <div style="font-size:13px;line-height:1.8;">
-            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">WHAT:</span> &nbsp;What the document is</div>
-            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">NEEDED:</span> &nbsp;What action is required</div>
-            <div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">DONE:</span> &nbsp;What has already been completed</div>
-          </div>
-        </div>
+        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:9px;padding:14px 16px;"><div style="font-size:13px;line-height:1.8;"><div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">WHAT:</span> &nbsp;What the document is</div><div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">NEEDED:</span> &nbsp;What action is required</div><div><span style="font-family:var(--font-mono);font-weight:700;color:#92400e;font-size:12px;">DONE:</span> &nbsp;What has already been completed</div></div></div>
       </div>
-
       <div class="help-section">
         <h3>🏗️ eCW Jelly Structure</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;">
-            <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:6px;">Level 1 — Scan Team</div>
-            <div style="font-size:11.5px;font-family:var(--font-mono);line-height:2;color:#0369a1;">
-              INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN
-            </div>
-          </div>
+          <div style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:6px;">Level 1 — Scan Team</div><div style="font-size:11.5px;font-family:var(--font-mono);line-height:2;color:#0369a1;">INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN</div></div>
           <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;">
-              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:6px;">Level 2 — Clinical Admin</div>
-              <div style="font-size:11.5px;font-family:var(--font-mono);color:#166534;">TRIAGE – CLINICAL ADMIN</div>
-            </div>
-            <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:10px 12px;">
-              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:6px;">Level 3 — Work Queues</div>
-              <div style="font-size:11px;font-family:var(--font-mono);line-height:1.9;color:#7c3aed;">
-                WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – RX SUPPORT
-              </div>
-            </div>
-            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;">
-              <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:6px;">Level 4 — Provider</div>
-              <div style="font-size:11.5px;font-family:var(--font-mono);color:#b45309;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div>
-            </div>
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:6px;">Level 2 — Clinical Admin</div><div style="font-size:11.5px;font-family:var(--font-mono);color:#166534;">TRIAGE – CLINICAL ADMIN</div></div>
+            <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:6px;">Level 3 — Work Queues</div><div style="font-size:11px;font-family:var(--font-mono);line-height:1.9;color:#7c3aed;">WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – RX SUPPORT</div></div>
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:6px;">Level 4 — Provider</div><div style="font-size:11.5px;font-family:var(--font-mono);color:#b45309;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div></div>
           </div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>⚙️ Automation Roadmap — Top 5 eCW Rules</h3>
         <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">These 5 rules eliminate the most volume. Build in order — stop after each week and measure before adding more.</p>
-
         <div style="display:flex;flex-direction:column;gap:10px;">
-
-          <!-- Rule 1 -->
-          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;">
-            <div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span>
-              <span style="font-size:13px;font-weight:700;color:#166534;">1. Behavioral Health Auto-Routing</span>
-              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Removes triage entirely</span>
-            </div>
-            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF</div>Referral Type = Outgoing<br>To Provider = Optima Medical<br>Specialty = Behavioral Health</div>
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → Kimberlee (BH Pool)<br>Jelly → <span style="font-family:var(--font-mono);font-size:11px;">WORK – REFERRALS</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">REFERRAL</span></div>
-            </div>
-          </div>
-
-          <!-- Rule 2 -->
-          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;">
-            <div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span>
-              <span style="font-size:13px;font-weight:700;color:#166534;">2. Signature Document Auto-Route</span>
-              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Eliminates TE creation</span>
-            </div>
-            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>FMLA · Plan of Care · Home Health<br>PT/OT · Order Form · Signature Required</div>
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Route → <span style="font-family:var(--font-mono);font-size:11px;">PROVIDER – SIGN</span><br>No TE · No Clinical Admin</div>
-            </div>
-          </div>
-
-          <!-- Rule 3 -->
-          <div style="border:1.5px solid #e9d5ff;border-radius:10px;overflow:hidden;">
-            <div style="background:#faf5ff;padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <span style="background:#7c3aed;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span>
-              <span style="font-size:13px;font-weight:700;color:#7c3aed;">3. Medication PA Auto-Funnel</span>
-              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;">Huge volume reducer</span>
-            </div>
-            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>CoverMyMeds · Prior Authorization<br>Medication name · Pharmacy sender</div>
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">WORK – MED PA</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">MED PA</span><br>Skips triage entirely</div>
-            </div>
-          </div>
-
-          <!-- Rule 4 -->
-          <div style="border:1.5px solid #bfdbfe;border-radius:10px;overflow:hidden;">
-            <div style="background:#eff6ff;padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <span style="background:#1a5fa8;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span>
-              <span style="font-size:13px;font-weight:700;color:#1a5fa8;">4. Hospital / ER Auto-Priority</span>
-              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#dbeafe;color:#1a5fa8;padding:2px 8px;border-radius:6px;">Prevents delays</span>
-            </div>
-            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Discharge · ER · Hospital · Admission</div>
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">TRIAGE – CLINICAL ADMIN</span><br>Priority → <strong>HIGH</strong></div>
-            </div>
-          </div>
-
-          <!-- Rule 5 -->
-          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--bg);padding:10px 14px;display:flex;align-items:center;gap:10px;">
-              <span style="background:#64748b;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 3</span>
-              <span style="font-size:13px;font-weight:700;color:var(--text);">5. Duplicate / Record-Only Filter</span>
-              <span style="margin-left:auto;font-size:11px;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:6px;">Cuts noise</span>
-            </div>
-            <div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Records · Medical Records<br>For Review Only · Copy</div>
-              <div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Attach only<br>No routing · No action</div>
-            </div>
-          </div>
-
+          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;"><div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;"><span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span><span style="font-size:13px;font-weight:700;color:#166534;">1. Behavioral Health Auto-Routing</span><span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Removes triage entirely</span></div><div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF</div>Referral Type = Outgoing<br>To Provider = Optima Medical<br>Specialty = Behavioral Health</div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → Kimberlee (BH Pool)<br>Jelly → <span style="font-family:var(--font-mono);font-size:11px;">WORK – REFERRALS</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">REFERRAL</span></div></div></div>
+          <div style="border:1.5px solid #bbf7d0;border-radius:10px;overflow:hidden;"><div style="background:#f0fdf4;padding:10px 14px;display:flex;align-items:center;gap:10px;"><span style="background:#166534;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 1</span><span style="font-size:13px;font-weight:700;color:#166534;">2. Signature Document Auto-Route</span><span style="margin-left:auto;font-size:11px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:6px;">Eliminates TE creation</span></div><div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>FMLA · Plan of Care · Home Health<br>PT/OT · Order Form · Signature Required</div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Route → <span style="font-family:var(--font-mono);font-size:11px;">PROVIDER – SIGN</span><br>No TE · No Clinical Admin</div></div></div>
+          <div style="border:1.5px solid #e9d5ff;border-radius:10px;overflow:hidden;"><div style="background:#faf5ff;padding:10px 14px;display:flex;align-items:center;gap:10px;"><span style="background:#7c3aed;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span><span style="font-size:13px;font-weight:700;color:#7c3aed;">3. Medication PA Auto-Funnel</span><span style="margin-left:auto;font-size:11px;font-weight:700;background:#ede9fe;color:#7c3aed;padding:2px 8px;border-radius:6px;">Huge volume reducer</span></div><div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>CoverMyMeds · Prior Authorization<br>Medication name · Pharmacy sender</div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">WORK – MED PA</span><br>Action Type → <span style="font-family:var(--font-mono);font-size:11px;">MED PA</span><br>Skips triage entirely</div></div></div>
+          <div style="border:1.5px solid #bfdbfe;border-radius:10px;overflow:hidden;"><div style="background:#eff6ff;padding:10px 14px;display:flex;align-items:center;gap:10px;"><span style="background:#1a5fa8;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 2</span><span style="font-size:13px;font-weight:700;color:#1a5fa8;">4. Hospital / ER Auto-Priority</span><span style="margin-left:auto;font-size:11px;font-weight:700;background:#dbeafe;color:#1a5fa8;padding:2px 8px;border-radius:6px;">Prevents delays</span></div><div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Discharge · ER · Hospital · Admission</div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Assign → <span style="font-family:var(--font-mono);font-size:11px;">TRIAGE – CLINICAL ADMIN</span><br>Priority → <strong>HIGH</strong></div></div></div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;"><div style="background:var(--bg);padding:10px 14px;display:flex;align-items:center;gap:10px;"><span style="background:#64748b;color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">WEEK 3</span><span style="font-size:13px;font-weight:700;color:var(--text);">5. Duplicate / Record-Only Filter</span><span style="margin-left:auto;font-size:11px;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:6px;">Cuts noise</span></div><div style="padding:10px 14px;font-size:12px;line-height:1.7;display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">IF document contains</div>Records · Medical Records<br>For Review Only · Copy</div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;">THEN</div>Attach only<br>No routing · No action</div></div></div>
         </div>
-
-        <div style="margin-top:12px;background:#fff7ed;border:1.5px solid #fed7aa;border-radius:9px;padding:10px 14px;font-size:12px;color:#c2410c;line-height:1.6;">
-          <strong>After each week — stop and measure before adding more.</strong> Target: &lt;5% duplicate action rate · &lt;10% misroute rate · &lt;30 sec triage time per doc.
-        </div>
+        <div style="margin-top:12px;background:#fff7ed;border:1.5px solid #fed7aa;border-radius:9px;padding:10px 14px;font-size:12px;color:#c2410c;line-height:1.6;"><strong>After each week — stop and measure before adding more.</strong> Target: &lt;5% duplicate action rate · &lt;10% misroute rate · &lt;30 sec triage time per doc.</div>
       </div>
-
       <div class="help-section">
         <h3>🔧 eCW Build Instructions — For IT</h3>
         <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Hand this directly to IT. Written so it can be executed without interpretation. Builds 1–2 can be done immediately. Build 3 requires routing rule configuration.</p>
-
         <div style="display:flex;flex-direction:column;gap:10px;">
-
-          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy);padding:9px 14px;display:flex;align-items:center;gap:8px;">
-              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 1 — Jelly Bean Setup</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.5);">Admin → Messaging / Jelly Bean Setup</span>
-            </div>
-            <div style="padding:12px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:11px;">
-              <div>
-                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Level 1 — Inbound</div>
-                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN</div>
-              </div>
-              <div>
-                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:5px;">Level 2 — Triage</div>
-                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">TRIAGE – CLINICAL ADMIN</div>
-              </div>
-              <div>
-                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:5px;">Level 3 — Work Queues</div>
-                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – DME<br>WORK – RX SUPPORT<br>WORK – SCHEDULING</div>
-              </div>
-              <div>
-                <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Level 4 — Provider</div>
-                <div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy);padding:9px 14px;">
-              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 2 — Action Type Standardization</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Action Item Configuration</span>
-            </div>
-            <div style="padding:12px 14px;">
-              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;">
-                ${["MED PA","IMAGING PA","REFERRAL","DME","RX","PROVIDER REVIEW","SCHEDULING"].map(t=>`<span style="font-family:var(--font-mono);font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 9px;">${t}</span>`).join("")}
-              </div>
-              <div style="font-size:11.5px;color:#c0392b;font-weight:600;">⚠ Remove or hide any extras. This prevents free-text documentation.</div>
-            </div>
-          </div>
-
-          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy);padding:9px 14px;">
-              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 3 — Auto-Routing Rules</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Document Routing Rules</span>
-            </div>
-            <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
-              ${[
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;"><div style="background:var(--navy);padding:9px 14px;display:flex;align-items:center;gap:8px;"><span style="color:#fff;font-size:12.5px;font-weight:700;">Build 1 — Jelly Bean Setup</span><span style="font-size:11px;color:rgba(255,255,255,.5);">Admin → Messaging / Jelly Bean Setup</span></div><div style="padding:12px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:11px;"><div><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#0369a1;margin-bottom:5px;">Level 1 — Inbound</div><div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">INBOUND – SIGNATURE<br>INBOUND – RX<br>INBOUND – AUTH<br>INBOUND – REFERRAL<br>INBOUND – CLINICAL<br>INBOUND – RECORD ONLY<br>INBOUND – UNKNOWN</div></div><div><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#7c3aed;margin-bottom:5px;">Level 2 — Triage</div><div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">TRIAGE – CLINICAL ADMIN</div></div><div><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#166534;margin-bottom:5px;">Level 3 — Work Queues</div><div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">WORK – MED PA<br>WORK – IMAGING PA<br>WORK – REFERRALS<br>WORK – DME<br>WORK – RX SUPPORT<br>WORK – SCHEDULING</div></div><div><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Level 4 — Provider</div><div style="font-family:var(--font-mono);line-height:2;color:var(--text);font-size:10.5px;">PROVIDER – REVIEW<br>PROVIDER – SIGN</div></div></div></div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;"><div style="background:var(--navy);padding:9px 14px;"><span style="color:#fff;font-size:12.5px;font-weight:700;">Build 2 — Action Type Standardization</span><span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Action Item Configuration</span></div><div style="padding:12px 14px;"><div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px;">${["MED PA","IMAGING PA","REFERRAL","DME","RX","PROVIDER REVIEW","SCHEDULING"].map(t=>`<span style="font-family:var(--font-mono);font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 9px;">${t}</span>`).join("")}</div><div style="font-size:11.5px;color:#c0392b;font-weight:600;">⚠ Remove or hide any extras. This prevents free-text documentation.</div></div></div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;"><div style="background:var(--navy);padding:9px 14px;"><span style="color:#fff;font-size:12.5px;font-weight:700;">Build 3 — Auto-Routing Rules</span><span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Document Routing Rules</span></div><div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;">${[
                 {week:"W1",name:"BH Referrals",if_:"Referral Type = Outgoing · To Provider = Optima Medical · Specialty = Behavioral Health",then:"Assign → Kimberlee / BH Pool · Jelly → WORK – REFERRALS · Action → REFERRAL"},
                 {week:"W1",name:"Signature Docs",if_:"Doc name contains: FMLA · Plan of Care · PT · OT · Home Health · Order",then:"Jelly → PROVIDER – SIGN · No action created"},
                 {week:"W2",name:"Med PA",if_:"Doc contains: CoverMyMeds · Prior Authorization · Pharmacy sender",then:"Jelly → WORK – MED PA · Action Type → MED PA"},
                 {week:"W2",name:"Hospital / ER",if_:"Doc contains: ER · Discharge · Admission · Hospital",then:"Jelly → TRIAGE – CLINICAL ADMIN · Priority → HIGH"},
                 {week:"W3",name:"Record Only",if_:"Doc contains: Medical Records · Copy · Records",then:"Attach only · No routing · No action"},
-              ].map(r=>`<div style="display:grid;grid-template-columns:40px 1fr 1fr 1fr;gap:8px;align-items:start;font-size:11.5px;background:var(--bg);border-radius:8px;padding:9px 11px;">
-                <span style="background:var(--navy);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:5px;text-align:center;">${r.week}</span>
-                <strong>${r.name}</strong>
-                <div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">IF</span><br>${r.if_}</div>
-                <div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">THEN</span><br>${r.then}</div>
-              </div>`).join("")}
-            </div>
-          </div>
-
-          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;">
-            <div style="background:var(--navy);padding:9px 14px;">
-              <span style="color:#fff;font-size:12.5px;font-weight:700;">Build 4 — Smart Phrase Macro</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Smart Phrases / Macros</span>
-            </div>
-            <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;">
-              <div>
-                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Macro name</div>
-                <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#0369a1;">.CAACTION</div>
-              </div>
-              <div>
-                <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Expands to</div>
-                <div style="font-family:var(--font-mono);font-size:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 10px;line-height:2;color:#92400e;">WHAT:<br>NEEDED:<br>DONE:</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="border:1.5px solid #fecaca;border-radius:10px;overflow:hidden;">
-            <div style="background:#fef2f2;padding:9px 14px;">
-              <span style="color:#c0392b;font-size:12.5px;font-weight:700;">Build 5 — User Permissions (Critical)</span>
-              <span style="font-size:11px;color:#c0392b;opacity:.6;margin-left:8px;">Protects the system long-term</span>
-            </div>
-            <div style="padding:12px 14px;font-size:12.5px;line-height:1.7;">
-              Restrict access to <strong>TRIAGE – CLINICAL ADMIN</strong> jelly and action creation rights.<br>
-              <strong>Only:</strong> Managers · Top performers<br>
-              <span style="color:#c0392b;font-weight:600;">Not everyone should be able to touch triage. This is what prevents the system from drifting back to chaos.</span>
-            </div>
-          </div>
-
+              ].map(r=>`<div style="display:grid;grid-template-columns:40px 1fr 1fr 1fr;gap:8px;align-items:start;font-size:11.5px;background:var(--bg);border-radius:8px;padding:9px 11px;"><span style="background:var(--navy);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:5px;text-align:center;">${r.week}</span><strong>${r.name}</strong><div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">IF</span><br>${r.if_}</div><div><span style="font-size:9px;font-weight:800;text-transform:uppercase;color:var(--muted);">THEN</span><br>${r.then}</div></div>`).join("")}</div></div>
+          <div style="border:1.5px solid var(--border);border-radius:10px;overflow:hidden;"><div style="background:var(--navy);padding:9px 14px;"><span style="color:#fff;font-size:12.5px;font-weight:700;">Build 4 — Smart Phrase Macro</span><span style="font-size:11px;color:rgba(255,255,255,.5);margin-left:8px;">Admin → Smart Phrases / Macros</span></div><div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;"><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Macro name</div><div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:#0369a1;">.CAACTION</div></div><div><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px;">Expands to</div><div style="font-family:var(--font-mono);font-size:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:8px 10px;line-height:2;color:#92400e;">WHAT:<br>NEEDED:<br>DONE:</div></div></div></div>
+          <div style="border:1.5px solid #fecaca;border-radius:10px;overflow:hidden;"><div style="background:#fef2f2;padding:9px 14px;"><span style="color:#c0392b;font-size:12.5px;font-weight:700;">Build 5 — User Permissions (Critical)</span><span style="font-size:11px;color:#c0392b;opacity:.6;margin-left:8px;">Protects the system long-term</span></div><div style="padding:12px 14px;font-size:12.5px;line-height:1.7;">Restrict access to <strong>TRIAGE – CLINICAL ADMIN</strong> jelly and action creation rights.<br><strong>Only:</strong> Managers · Top performers<br><span style="color:#c0392b;font-weight:600;">Not everyone should be able to touch triage. This is what prevents the system from drifting back to chaos.</span></div></div>
         </div>
       </div>
-
       <div class="help-section">
         <h3>📊 KPI Dashboard — Prove It's Working</h3>
         <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;">Don't show leadership workflows — show them numbers. These 5 metrics tell the whole story.</p>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-          ${[
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">${[
             {k:"KPI 1",name:"Triage Volume Reduction",metric:"# docs hitting TRIAGE per day/week",goal:"↓ 30–50% after automation",color:"#166534",bg:"#f0fdf4",border:"#bbf7d0"},
             {k:"KPI 2",name:"Duplicate Action Rate",metric:"Patients with >1 open action for same issue",goal:"< 5%",color:"#c0392b",bg:"#fef2f2",border:"#fecaca"},
             {k:"KPI 3",name:"Turnaround Time by Type",metric:"Date received → completed (Med PA, Referrals, Imaging)",goal:"Downward trend within 2–3 weeks",color:"#0369a1",bg:"#eff6ff",border:"#bfdbfe"},
             {k:"KPI 4",name:"Provider Touch Rate",metric:"# items routed to provider · % sent back",goal:"Near-zero bouncebacks",color:"#b45309",bg:"#fffbeb",border:"#fde68a"},
-          ].map(k=>`<div style="background:${k.bg};border:1.5px solid ${k.border};border-radius:10px;padding:12px 14px;">
-            <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:${k.color};margin-bottom:4px;">${k.k}</div>
-            <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text);">${k.name}</div>
-            <div style="font-size:11.5px;color:var(--muted);margin-bottom:5px;">${k.metric}</div>
-            <div style="font-size:12px;font-weight:700;color:${k.color};">Goal: ${k.goal}</div>
-          </div>`).join("")}
-        </div>
-
-        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;">
-          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px;">KPI 5 — Document Touch Count (Most Powerful)</div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;">How many teams touched the same document</div>
-          <div style="font-size:12px;color:var(--muted);">Goal: 1–2 touches max · Source: eCW EBO exports · This is your strongest efficiency story for leadership.</div>
-        </div>
-
-        <div style="margin-top:10px;background:var(--navy);border-radius:10px;padding:12px 16px;">
-          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">What to say to leadership</div>
-          <div style="display:flex;flex-direction:column;gap:5px;">
-            ${[
+          ].map(k=>`<div style="background:${k.bg};border:1.5px solid ${k.border};border-radius:10px;padding:12px 14px;"><div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:${k.color};margin-bottom:4px;">${k.k}</div><div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--text);">${k.name}</div><div style="font-size:11.5px;color:var(--muted);margin-bottom:5px;">${k.metric}</div><div style="font-size:12px;font-weight:700;color:${k.color};">Goal: ${k.goal}</div></div>`).join("")}</div>
+        <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px;">KPI 5 — Document Touch Count (Most Powerful)</div><div style="font-size:13px;font-weight:700;margin-bottom:4px;">How many teams touched the same document</div><div style="font-size:12px;color:var(--muted);">Goal: 1–2 touches max · Source: eCW EBO exports · This is your strongest efficiency story for leadership.</div></div>
+        <div style="margin-top:10px;background:var(--navy);border-radius:10px;padding:12px 16px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">What to say to leadership</div><div style="display:flex;flex-direction:column;gap:5px;">${[
               "We reduced manual triage volume by 42%",
               "We eliminated duplicate work by X%",
               "We improved turnaround time by X days",
               "We reduced provider interruptions to near zero"
-            ].map(s=>`<div style="font-size:12.5px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px;"><span style="color:#4ade80;font-size:14px;">→</span>${s}</div>`).join("")}
-          </div>
-        </div>
+            ].map(s=>`<div style="font-size:12.5px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px;"><span style="color:#4ade80;font-size:14px;">→</span>${s}</div>`).join("")}</div></div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- TRIAGE OVERLAY -->
-<div class="overlay" id="triageOverlay">
-  <div class="triage-panel" id="triagePanel"></div>
-</div>
-
-<!-- FLAG PANEL OVERLAY -->
-<div class="overlay" id="flagOverlay">
-  <div class="flag-panel" id="flagPanel"></div>
-</div>
-
-<!-- FLAG NOTE OVERLAY -->
+<div class="overlay" id="triageOverlay"><div class="triage-panel" id="triagePanel"></div></div>
+<div class="overlay" id="flagOverlay"><div class="flag-panel" id="flagPanel"></div></div>
 <div class="overlay" id="flagNoteOverlay">
   <div class="flag-note-panel">
     <h3>🚩 Flag for Review</h3>
@@ -1523,9 +959,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
 <div class="wrap">
   <div class="left">
     <div class="left-top">
-      <div class="search-row">
-        <input type="text" id="globalSearch" placeholder="Search any fax type…" oninput="handleSearch(this.value)">
-      </div>
+      <div class="search-row"><input type="text" id="globalSearch" placeholder="Search any fax type…" oninput="handleSearch(this.value)"></div>
       <div class="search-hint">Press <kbd>/</kbd> to search instantly</div>
       <button class="triage-btn" onclick="openTriage()">🤔 Not sure what this is? Start here</button>
       <div style="display:flex;flex-direction:column;gap:5px;margin-top:2px;">
@@ -1538,12 +972,7 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
     <div id="guidedFlow" class="gf-wrap"></div>
     <div id="navTree" style="display:none;"></div>
     <div style="padding:12px 14px 20px;">
-      <div class="default-rule">
-        <div class="default-rule-text">
-          <strong>🔵 Default Rule</strong><br>
-          Not sure? → Send to <strong>Other / Unknown</strong>. Do NOT guess between categories.
-        </div>
-      </div>
+      <div class="default-rule"><div class="default-rule-text"><strong>🔵 Default Rule</strong><br>Not sure? → Send to <strong>Other / Unknown</strong>. Do NOT guess between categories.</div></div>
     </div>
   </div>
   <div class="right" id="right">
@@ -1615,60 +1044,26 @@ const SECTIONS = [
     routes: [
       {
         doc: "Medication Related",
-        action: "create-te",
+        action: "delete",
         docCategory: "INBOUND – RX",
         actionType: "RX",
-        actionSubject: "DATE – [Medication Name, Dose] – WHERE",
-        actionSubjectExample: "01/15/2026 – Ozempic 0.5mg Rx Request – CVS Specialty",
-        assignTo: "Clinical Admin",
-        sendTo: "Clinical Admin",
-        assignTo: "Clinical Admin",
         fileTo: "*RX",
-        noteFormat: true,
-        notes: "Doc gets reviewed and closed by Clinical Admin. TE team preps TE for provider using the standard note below.",
-        teNoteTemplate: [
-          "Received faxed Rx request for [medication, dose]. Patient last seen by you on [date] — please send loaded Rx if OK (Level 2 to load).",
-          "— OR — Patient has not been seen by an active Optima provider. Needs to schedule follow-up. Bridge request can be sent to provider with appointment date once scheduled if needed.",
-          "— OR — Patient has an upcoming appointment with you on [date]. Please advise if OK to refill now, or send to MA to add to HPI to review and discuss at visit."
-        ],
+        notes: "All faxed Rx requests are deleted. Pharmacies should be sending refill requests electronically, so the faxed request is redundant. If a new Rx needs to be sent by a new provider, the patient must first establish with that provider. Level 1 does NOT create a TE.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
-            routeIfStyle: "green",
-            routeIf: [
-              "Rx request for a previous / offboarded Optima provider — Create TE, route to Clinical Admin"
-            ],
             deleteIf: [
-              "Rx Request — Active Optima Provider — delete",
-              "Temporary Rx Supplies — delete",
+              "Rx request — active Optima provider — delete",
+              "Rx request — previous / offboarded provider — delete (patient must establish with a new provider)",
+              "Temporary Rx supplies — delete",
               "Medication Non-Adherence Notice — delete",
-              "Tango Approval — see Referrals bucket"
+              "Tango Approval — delete (see Referrals bucket)"
             ],
             steps: [
-              "Is this for an active Optima provider? → Delete. Done. (Tango Approvals also delete — see Referrals)",
-              "Is this for a previous / offboarded provider? → Create TE, route to Clinical Admin",
-              "All other Rx requests not yet sent: Create TE → Clinical Admin — while we get caught up",
-              "Level 1 stops here"
-            ]
-          },
-          {
-            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
-            steps: [
-              "Review and close the document",
-              "Check if patient is established with a current Optima provider",
-              "If patient has upcoming appointment — send TE to that provider using standard note",
-              "If patient has not established with a new provider — reach out to schedule",
-              "Once scheduled — send bridge request to provider with appointment date",
-              "Assign TE to current provider for review"
-            ]
-          },
-          {
-            num: 3, title: "Provider", badge: "Provider", color: "amber",
-            steps: [
-              "Review TE from Clinical Admin",
-              "Approve refill — Level 2 will load",
-              "Or advise to schedule follow-up / bridge request",
-              "Or send to MA to add to HPI for upcoming visit"
+              "All faxed Rx requests → Delete. Done.",
+              "Pharmacies should send refill requests electronically — the faxed request is redundant",
+              "If a new Rx is needed from a new provider, the patient must establish with that provider first",
+              "Do NOT create a TE — Level 1 stops here"
             ]
           }
         ]
@@ -2269,16 +1664,15 @@ const SECTIONS = [
     routes: [
       {
         doc: "Still Confused",
-        action: "create-te",
+        action: "file",
         docCategory: "INBOUND – UNKNOWN",
         actionType: "PROVIDER REVIEW",
         actionSubject: "DATE – [Description of what you see] – WHERE",
         assignTo: "Clinical Admin",
         sendTo: "Clinical Admin",
-        assignTo: "Clinical Admin",
         fileTo: "*Important Notifications",
         noteFormat: true,
-        notes: "Reviewed all buckets and still unsure? Send to Clinical Admin. Do NOT guess. Clinical Admin is the brain — they determine correct routing.",
+        notes: "Reviewed all buckets and still unsure? Attach, label, and route to Clinical Admin. Do NOT guess and do NOT create a TE — Clinical Admin (Level 2) reviews and creates the TE if one is needed.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
@@ -2290,16 +1684,17 @@ const SECTIONS = [
             ],
             steps: [
               "Attach to patient chart if patient is identifiable",
-              "Create TE — note what you see on the fax",
-              "Assign to Clinical Admin",
-              "Route to TRIAGE – CLINICAL ADMIN"
+              "Label: DATE – [Description of what you see] – WHERE",
+              "Route to TRIAGE – CLINICAL ADMIN",
+              "Do NOT create a TE — Level 1 stops here"
             ]
           },
           {
             num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
             steps: [
-              "Review flagged document",
+              "Review the routed document",
               "Determine correct routing or action",
+              "Create the TE if one is needed",
               "If routing gap identified — flag for SOP update"
             ]
           }
@@ -2535,7 +1930,6 @@ function submitFlag() {
   });
   saveFlags(flags);
   closeFlagNote();
-  // update button state
   const fb = document.getElementById("flagResultBtn");
   if (fb) { fb.textContent = "🚩 Flagged"; fb.classList.add("flagged"); }
 }
@@ -2574,7 +1968,6 @@ function removeFlagItem(i) {
   flags.splice(i, 1);
   saveFlags(flags);
   openFlagPanel();
-  // refresh flag button if showing current
   if (_currentRoute) {
     const fb = document.getElementById("flagResultBtn");
     if (fb && !flags.some(f => f.key === _currentRoute.doc)) {
@@ -2638,7 +2031,6 @@ function buildNav() {
   const tree = document.getElementById("navTree");
   tree.innerHTML = "";
   SECTIONS.forEach((sec, si) => {
-    // Manager-only divider
     if (sec.managerOnly) {
       const divider = document.createElement("div");
       divider.className = "nav-manager-divider";
@@ -2750,7 +2142,6 @@ function showResult(r, sec) {
           <span class="jelly-step">3</span> Assign to ${r.assignTo}</span>` : ""}
       </div>` : "";
 
-  // Action subject format
   const actionSubjectHTML = (r.actionSubject && !r.label)
     ? `<div class="action-subject">
         <div class="action-subject-label">Document Name</div>
@@ -2758,7 +2149,6 @@ function showResult(r, sec) {
         ${r.actionSubjectExample ? `<div class="action-subject-eg">e.g. ${r.actionSubjectExample}</div>` : ""}
       </div>` : "";
 
-  // Note format template (WHAT / NEEDED / DONE)
   const noteTemplateHTML = r.noteFormat
     ? `<div class="note-template">
         <div class="note-template-label">📋 Note Format — use this every time</div>
@@ -2767,7 +2157,6 @@ function showResult(r, sec) {
         <div class="note-template-row"><strong>DONE:</strong> &nbsp;What has already been completed</div>
       </div>` : "";
 
-  // TE Note Template (Rx scenarios)
   const teNoteTemplateHTML = (r.teNoteTemplate && r.teNoteTemplate.length)
     ? `<div class="te-note-template">
         <div class="te-note-label">✚ Standard TE Note — pick the scenario that applies</div>
@@ -2789,7 +2178,6 @@ function showResult(r, sec) {
         : `<div class="note-box">${r.notes}</div>`
     : "";
 
-  // TE checklist
   const teChecklistHTML = (r.teChecklist && r.teChecklist.length)
     ? `<div class="te-checklist">
         <div class="te-checklist-title">✚ Include in TE — required fields</div>
@@ -2807,7 +2195,6 @@ function showResult(r, sec) {
     briefHTML += `</div>`;
   }
 
-  // Levels accordion
   let levelsHTML = "";
   if (r.levels && r.levels.length) {
     const colorMap = { blue:"blue", purple:"purple", amber:"amber", "1":"blue", "2":"purple", "3":"amber", 1:"blue", 2:"purple", 3:"amber" };
@@ -2885,7 +2272,6 @@ function showResult(r, sec) {
 
   const portalHTML = r.portal ? `<a href="${r.portal}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:10px 17px;background:#0369a1;color:#fff;text-decoration:none;border-radius:8px;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(3,105,161,.3);">🌐 Open Portal →</a><div style="font-size:10.5px;color:var(--muted);margin-top:5px;">${r.portal}</div>` : "";
 
-  // Snip block
   const snipHTML = (r.snipIf && r.snipIf.length) ? `
     <div class="brief-block" style="background:#fff7ed;border-color:#fed7aa;margin-top:12px;">
       <div class="brief-label" style="color:#c2410c;">✂️ SNIP if you see ANY of these — Level 1 action</div>
@@ -2896,15 +2282,11 @@ function showResult(r, sec) {
   const isFlagged = getFlags().some(f => f.key === r.doc);
   const updatedHTML = sec.updated ? `<div class="updated-badge">Last updated: ${sec.updated}</div>` : "";
 
-  // Trigger chips for this section
   const triggersHTML = (sec.triggers && sec.triggers.length)
     ? `<div class="triggers-bar">${sec.triggers.map(t => `<span class="trigger-chip">⚡ ${t}</span>`).join("")}</div>`
     : "";
 
-  // Do-not-route-for-fixes (show on all file/create-te actions)
   const fixRuleHTML = "";
-
-  // 1-touch goal reminder
   const oneTouchHTML = `<div class="one-touch" style="margin-top:14px">🎯 One-Touch Goal — route it correctly, route it once.</div>`;
 
   right.innerHTML = `
@@ -2955,7 +2337,6 @@ function scrollToLevel(idx) {
   }
 }
 
-// ── LEVEL ACCORDION ────────────────────────
 function toggleLevel(idx) {
   const block = document.getElementById(`lvl-block-${idx}`);
   if (block) block.classList.toggle("open");
@@ -3075,7 +2456,6 @@ function triageBack() {
 }
 
 // ── PRINT ──────────────────────────────────
-// Override print to show a full cheat sheet instead of current view
 window.addEventListener("beforeprint", () => {
   document.getElementById("right").innerHTML = buildPrintView();
 });
@@ -3117,7 +2497,7 @@ function openWorkflowMap() {
   document.getElementById("workflowMapOverlay").classList.add("open");
 }
 
-// ── GUIDED FLOW ────────────────────────────
+// ── GUIDED FLOW ───────────────────────────
 const GF_STAGE1 = [
   { id:"sig",      icon:"✍️", label:"Needs a Signature",       sub:"FMLA, forms, orders" },
   { id:"rx",       icon:"💊", label:"Medication / Pharmacy",    sub:"Rx, refill, pharmacy fax" },
@@ -3133,11 +2513,11 @@ const GF_STAGE2 = {
   sig: [
     { id:"sig_form",   icon:"📝", label:"Form / FMLA / Consent",   sub:"Needs provider sign-off" },
     { id:"sig_ptot",   icon:"🏃", label:"PT / OT / Home Health",    sub:"Therapy or home health order" },
-    { id:"sig_dme",    icon:"🩺", label:"DME with Signature Line",  sub:"Equipment needing provider sign-off" },
+    { id:"sig_dme",    icon:"🦺", label:"DME with Signature Line",  sub:"Equipment needing provider sign-off" },
   ],
   rx: [
     { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider Rx",    sub:"Delete — no action needed" },
-    { id:"rx_off",       icon:"✚",  label:"Offboarded Provider Rx",        sub:"Create TE → Clinical Admin" },
+    { id:"rx_off",       icon:"🗑️",  label:"Offboarded Provider Rx",        sub:"Delete — establish with new provider" },
     { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",         sub:"Delete — no action needed" },
     { id:"rx_concern",   icon:"⚠️", label:"Potential Clinical Concern",    sub:"PBM report — direct to provider" },
   ],
@@ -3149,7 +2529,7 @@ const GF_STAGE2 = {
     { id:"auth_imgpa_appr",   icon:"✅", label:"Imaging PA — Approval",           sub:"Close at Level 1 — no action needed" },
     { id:"auth_imgpa_denial", icon:"🚫", label:"Imaging PA — Denial / Appeal / P2P", sub:"HP — assign to staff working action" },
     { id:"auth_order",        icon:"📋", label:"Order Change / Correction",       sub:"Goes directly to provider" },
-    { id:"auth_dme",          icon:"🩺", label:"DME / Equipment Auth",            sub:"Each case different" },
+    { id:"auth_dme",          icon:"🦺", label:"DME / Equipment Auth",            sub:"Each case different" },
     { id:"auth_key",          icon:"🗑️", label:"PA — Key Already Listed",         sub:"Delete — already actioned" },
   ],
   clinical: [
@@ -3168,7 +2548,7 @@ const GF_STAGE2 = {
   referral: [
     { id:"ref_req",      icon:"↗️", label:"Referral Request / Response", sub:"File → Referrals bucket" },
     { id:"ref_fail",     icon:"⚠️", label:"Failure to Schedule",          sub:"Do NOT delete → Referrals" },
-    { id:"ref_labauth",  icon:"🧪", label:"Lab Auth — Insurance Requires Provider", sub:"TE → Clinical Admin" },
+    { id:"ref_labauth",  icon:"🧪", label:"Lab Auth — Insurance Requires Provider", sub:"Needs provider sig/direction → provider" },
     { id:"ref_conf",     icon:"🗑️", label:"Confirmation of Receipt / Scheduled Date", sub:"Delete" },
   ],
   records: [
@@ -3194,8 +2574,8 @@ const GF_RESULT = {
   ins_concern: { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"Use the concern type listed on the document in the label. Route directly to provider. No TE, no Clinical Admin." },
   ins_care:    { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Notice Type] – WHERE", example:"04/02/2026 – Coordination of Care Notice – UHC", hp:"Always mark HP", note:"Any insurance or PBM clinical notice. Route directly to provider. No TE, no Clinical Admin." },
   rx_concern:  { action:"FILE & ROUTE", folder:"*RX", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"PBM clinical concern report (Optum Rx, UHC, Express Scripts, CVS Caremark). Goes directly to provider. No TE, no Clinical Admin. Provider reviews and adjusts prescribing as needed." },
-  rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. No action needed." },
-  rx_off:      { action:"CREATE TE", folder:"*RX", assignTo:"Clinical Admin", label:"DATE – [Medication Name] – WHERE", example:"04/01/2026 – Ozempic Rx – CVS Specialty", hp:null, note:"Clinical Admin checks for upcoming appt. If none — deny and schedule. Bridge request once scheduled." },
+  rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. Pharmacies should send refill requests electronically." },
+  rx_off:      { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Delete. Pharmacies should send refill requests electronically. If a new Rx is needed from a new provider, the patient must first establish with that provider — no TE." },
   rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval / Non-Adherence Notice — delete. No action needed." },
   auth_medpa_new:    { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP/STAT if noted on form", note:"Use the ORDER date — not today's date. Route to Clinical Admin for triage." },
   auth_medpa_appr:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Med PA Approval — close at Level 1. No action needed." },
@@ -3221,14 +2601,14 @@ const GF_RESULT = {
   cl_pap:      { action:"FILE & ROUTE", folder:"*DME Requests", assignTo:"Provider", label:"DATE – PAP Compliance Report – WHERE", example:"04/01/2026 – PAP Compliance Report – Apria", hp:null, note:"Attach and send directly to provider. No TE." },
   ref_req:     { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – [Referral Request / Response] – WHERE", example:"04/01/2026 – Referral Response – East Valley Urology", hp:null, note:"Clinical Admin works out of referrals pool." },
   ref_fail:    { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – Referral Scheduling Issue – WHERE", example:"04/01/2026 – Referral Scheduling Issue – AZ Cardiology", hp:null, note:"Do NOT delete. Assign to Referrals for follow-up with specialist." },
-  ref_labauth: { action:"CREATE TE", folder:"*Referral Correspondence", assignTo:"Clinical Admin", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance requires provider to submit. Scan team: attach, label, send. Clinical Admin documents CPT, Dx, DOS and sends to provider." },
+  ref_labauth: { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Provider (direct)", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance won't process the auth unless the ordering provider submits or signs it. Needs provider signature or direction — route straight to provider. No TE." },
   ref_conf:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Confirmation of receipt or scheduled date notification — delete. No action needed." },
   rec_labclaim: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Office Manager", label:"DATE Received – Lab Order Claim Info Update – WHERE", example:"03/30/2026 – Lab Order Claim Info Update – Labcorp", hp:"Always mark HP", note:"Lab requesting billing/claims info. Goes to Office Manager — not provider, not Clinical Admin. Fax response to number on document." },
   rec_img:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – Simon Med", hp:"ALWAYS mark HP — all regions", note:"All imaging records requests go to AMS regardless of region. If Level 2 charts: Name = DATE – PA Needed – [Facility] · Description = [Last, First] Date Time > AMS please send records for [imaging type] ordered [date] · Check High Priority · Assign to AMS." },
   rec_in:      { action:"FILE ONLY", folder:"*Records Request", assignTo:"No Assignment", label:"DATE – Incoming Records – WHERE", example:"04/01/2026 – Incoming Records – Banner Health", hp:null, note:"Attach, label, close. No TE, no routing." },
   rec_out:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – AMS", hp:null, note:"Route to AMS. Does not need to be attached to a patient." },
   rec_consult: { action:"FILE ONLY", folder:"*Consult Notes", assignTo:"No Assignment", label:"DATE – Consult Note – WHERE", example:"04/01/2026 – Consult Note – East Valley Urology", hp:null, note:"Attach and close. Level 1 stops here." },
-  confused:    { action:"CREATE TE", folder:"*Important Notifications", assignTo:"Clinical Admin", label:"DATE – Unknown Document – WHERE", example:"04/01/2026 – Unknown Document – Unknown Sender", hp:null, note:"Do not guess. Attach, create TE, assign to Clinical Admin. Note what you see on the fax." },
+  confused:    { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Clinical Admin", label:"DATE – Unknown Document – WHERE", example:"04/01/2026 – Unknown Document – Unknown Sender", hp:null, note:"Do not guess and do not create a TE. Attach, label, and route to Clinical Admin (Level 2) — CA reviews and creates the TE if one is needed." },
 };
 
 let _gfStage = 1;
@@ -3385,7 +2765,6 @@ function gfBack() {
 }
 
 function gfShowDetail() {
-  // Find the matching section and show in nav
   const map = {
     sig_form:"Signature Needed", sig_ptot:"Signature Needed", sig_dme:"Prior Auths",
     ins_retro:"Insurance / PBM Notices", ins_concern:"Insurance / PBM Notices", ins_care:"Insurance / PBM Notices",
@@ -3414,7 +2793,7 @@ function gfShowDetail() {
 let _gfResult = null;
 let _gfResultId = null;
 
-// ── QUICK REFERENCE POPUP ──────────────────────────────
+// ── QUICK REFERENCE POPUP ──────────────────
 function openQuickRef() {
   const mo = new Date().toLocaleString('default',{month:'long',year:'numeric'});
   const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
@@ -3462,8 +2841,8 @@ body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;colo
 <div class="card-body">
 <div><div class="sec-lbl">Document Folder</div><div class="sec-val">*RX</div></div>
 <div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Ozempic Rx – CVS Specialty</div></div>
-<div><div class="sec-lbl">Assign To</div><div class="sec-val">Clinical Admin</div></div>
-<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Active provider Rx · Non-Adherence · Temp Rx<br>All Rx not yet sent: Create TE → Clinical Admin<br>Offboarded provider: Create TE → Clinical Admin</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">No assignment</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE all faxed Rx requests — active provider, offboarded provider, non-adherence, temp Rx, Tango<br>Pharmacies should send refills electronically<br>New provider Rx: patient must establish first<br>No TE at Level 1</div></div>
 </div></div>
 
 <div class="card" style="--c:#6d28d9;--bg:#f3f0ff;">
@@ -3492,7 +2871,7 @@ body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;colo
 <div><div class="sec-lbl">Document Folder</div><div class="sec-val">*Referral Correspondence</div></div>
 <div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Referral Response – East Valley Urology</div></div>
 <div><div class="sec-lbl">Assign To</div><div class="sec-val">Referrals Bucket (pool)</div></div>
-<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Confirmation of receipt · Scheduled date notifications · Tango Approval<br>Failure to schedule: DO NOT delete → Referrals<br>Lab auth (insurance requires provider): TE → Clinical Admin</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE: Confirmation of receipt · Scheduled date notifications · Tango Approval<br>Failure to schedule: DO NOT delete → Referrals<br>Lab auth (insurance requires provider): route straight to provider</div></div>
 </div></div>
 
 <div class="card" style="--c:#475569;--bg:#f8fafc;">
@@ -3506,7 +2885,7 @@ body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;colo
 </div></div>
 
 </div>
-<div class="footer">NOT SURE? → File to *Important Notifications · Create TE · Assign to Clinical Admin · Note what you see on the fax</div>
+<div class="footer">NOT SURE? → File to *Important Notifications · Route to Clinical Admin · CA creates the TE · Note what you see on the fax</div>
 </div></body></html>`;
   const w = window.open('','_blank','width=1080,height=800,scrollbars=yes');
   w.document.write(html);
@@ -3519,7 +2898,7 @@ function openHelp() {
   document.getElementById("helpOverlay").classList.add("open");
 }
 
-// ── WELCOME SCREEN ──────────────────────────
+// ── WELCOME SCREEN ─────────────────────────
 function dismissWelcome() {
   document.getElementById("welcomeOverlay").classList.remove("open");
   try { localStorage.setItem("fax_welcomed", "1"); } catch {}
@@ -3528,6 +2907,11 @@ function showGuideFromWelcome() {
   document.getElementById("welcomeOverlay").classList.remove("open");
   try { localStorage.setItem("fax_welcomed", "1"); } catch {}
   document.getElementById("helpOverlay").classList.add("open");
+}
+function showWorkflowFromWelcome() {
+  document.getElementById("welcomeOverlay").classList.remove("open");
+  try { localStorage.setItem("fax_welcomed", "1"); } catch {}
+  document.getElementById("workflowMapOverlay").classList.add("open");
 }
 
 // Show welcome on first visit
@@ -3539,7 +2923,6 @@ try {
 
 buildNav();
 renderGuidedFlow();
-// Dynamic date in topbar
 const _mo = new Date().toLocaleString('default',{month:'long',year:'numeric'});
 const _dateEl = document.getElementById('topbarDate');
 if (_dateEl) _dateEl.textContent = `Optima Medical · ${_mo}`;
