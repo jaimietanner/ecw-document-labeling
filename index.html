@@ -1035,8 +1035,8 @@ const SECTIONS = [
               "Rx request — active Optima provider — delete",
               "Rx request — previous / offboarded provider — delete (patient must establish with a new provider)",
               "Temporary Rx supplies — delete",
-              "Medication Non-Adherence Notice — delete",
-              "Tango Approval — delete (see Referrals bucket)"
+              "Medication Non-Adherence Notice — generic notice, comes from several sources — delete",
+              "Tango Approval — referral document — delete (see Referrals)"
             ],
             steps: [
               "All faxed Rx requests → Delete. Done.",
@@ -1610,6 +1610,7 @@ const SECTIONS = [
               "Lab auth request where insurance requires provider to submit"
             ],
             deleteIf: [
+              "Tango Approval — referral document — delete, no action",
               "Referral confirmation of receipt — delete",
               "Referral scheduled date notification — delete"
             ],
@@ -2493,7 +2494,7 @@ const GF_STAGE2 = {
   rx: [
     { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider Rx",    sub:"Delete — no action needed" },
     { id:"rx_off",       icon:"🗑️",  label:"Offboarded Provider Rx",        sub:"Delete — establish with new provider" },
-    { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",         sub:"Delete — no action needed" },
+    { id:"rx_delete",    icon:"🗑️", label:"Medication Non-Adherence",       sub:"Delete — generic, several sources" },
     { id:"rx_clarify",   icon:"💬", label:"Rx Clarification",    sub:"HP → Level 2 (Clinical Admin)" },
   ],
   auth: [
@@ -2527,6 +2528,7 @@ const GF_STAGE2 = {
     { id:"ref_req",      icon:"↗️", label:"Referral Request / Response", sub:"File → Referrals bucket" },
     { id:"ref_fail",     icon:"⚠️", label:"Failure to Schedule",          sub:"Do NOT delete → Referrals" },
     { id:"ref_labauth",  icon:"🧪", label:"Lab Auth — Insurance Requires Provider", sub:"Needs provider sig/direction → provider" },
+    { id:"ref_tango",    icon:"🗑️", label:"Tango Approval", sub:"Referral document — delete" },
     { id:"ref_conf",     icon:"🗑️", label:"Confirmation of Receipt / Scheduled Date", sub:"Delete" },
   ],
   records: [
@@ -2554,7 +2556,7 @@ const GF_RESULT = {
   rx_clarify:  { action:"FILE & ROUTE", folder:"*RX", assignTo:"Clinical Admin (Level 2)", label:"DATE – [Medication Name, Dose] Rx Clarification – WHERE", example:"01/15/2026 – Metformin 500mg Rx Clarification – Walgreens", hp:"ALWAYS mark HP — pharmacy is holding the fill", note:"Pharmacy is asking the provider to clarify an existing prescription. This is the only Rx item that is not deleted. Attach, label, and route to Clinical Admin (Level 2). No TE at Level 1 — CA creates the TE and sends the clarification to the provider." },
   rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. Pharmacies should send refill requests electronically." },
   rx_off:      { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Delete. Pharmacies should send refill requests electronically. If a new Rx is needed from a new provider, the patient must first establish with that provider — no TE." },
-  rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval / Non-Adherence Notice — delete. No action needed." },
+  rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Medication Non-Adherence Notice — a generic document that arrives from several sources (pharmacies, PBMs, plans). Delete. No action needed." },
   auth_medpa_new:    { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Clinical Admin", label:"DATE – [Medication Name] PA Request – WHERE", example:"04/01/2026 – Ozempic PA Request – CVS Specialty", hp:"Mark HP/STAT if noted on form", note:"Use the ORDER date — not today's date. Route to Clinical Admin for triage." },
   auth_medpa_appr:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Med PA Approval — close at Level 1. No action needed." },
   auth_medpa_denial: { action:"FILE & ROUTE", folder:"*Medication Prior Authorization", assignTo:"Staff currently working the action", label:"DATE – [Medication Name] PA Denial – WHERE", example:"04/01/2026 – Ozempic PA Denial – CVS Specialty", hp:"ALWAYS mark HP on denials and peer-to-peer", note:"Do NOT route to Clinical Admin. Find the existing action and assign to the staff member working it. Update the existing action — do not create a new one." },
@@ -2580,6 +2582,7 @@ const GF_RESULT = {
   ref_req:     { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – [Referral Request / Response] – WHERE", example:"04/01/2026 – Referral Response – East Valley Urology", hp:null, note:"Clinical Admin works out of referrals pool." },
   ref_fail:    { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Referrals Bucket", label:"DATE – Referral Scheduling Issue – WHERE", example:"04/01/2026 – Referral Scheduling Issue – AZ Cardiology", hp:null, note:"Do NOT delete. Assign to Referrals for follow-up with specialist." },
   ref_labauth: { action:"FILE & ROUTE", folder:"*Referral Correspondence", assignTo:"Provider (direct)", label:"DATE – [Lab Name] Auth Request – WHERE", example:"04/01/2026 – Myriad BRCA Auth Request – Myriad Genetics", hp:null, note:"Insurance won't process the auth unless the ordering provider submits or signs it. Needs provider signature or direction — route straight to provider. No TE." },
+  ref_tango:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval is a referral document — delete. No action needed." },
   ref_conf:    { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Confirmation of receipt or scheduled date notification — delete. No action needed." },
   rec_labclaim: { action:"FILE & ROUTE", folder:"*Lab Documents", assignTo:"Office Manager", label:"DATE Received – Lab Order Claim Info Update – WHERE", example:"03/30/2026 – Lab Order Claim Info Update – Labcorp", hp:"Always mark HP", note:"Lab requesting billing/claims info. Goes to Office Manager — not provider, not Clinical Admin. Fax response to number on document." },
   rec_img:     { action:"FILE & ROUTE", folder:"*Records Request", assignTo:"AMS (AmericanMedicalRecords)", label:"DATE – Records Request – WHERE", example:"04/01/2026 – Records Request – Simon Med", hp:"ALWAYS mark HP — all regions", note:"All imaging records requests go to AMS regardless of region. If Level 2 charts: Name = DATE – PA Needed – [Facility] · Description = [Last, First] Date Time > AMS please send records for [imaging type] ordered [date] · Check High Priority · Assign to AMS." },
@@ -2754,7 +2757,7 @@ function gfShowDetail() {
     cl_img_in:"Patient Care / Visit", cl_img_out:"Patient Care / Visit",
     cl_admit:"Patient Care / Visit", cl_discharge:"Discharge Notification / Record / Summary",
     cl_pap:"Patient Care / Visit",
-    ref_req:"Referral Related", ref_fail:"Referral Related", ref_labauth:"Referral Related", ref_conf:"Referral Related",
+    ref_req:"Referral Related", ref_fail:"Referral Related", ref_labauth:"Referral Related", ref_tango:"Referral Related", ref_conf:"Referral Related",
     rec_labclaim:"No Action / File Only", rec_img:"No Action / File Only", rec_in:"No Action / File Only", rec_out:"No Action / File Only", rec_consult:"No Action / File Only",
     confused:"Still Confused",
   };
@@ -2820,7 +2823,7 @@ body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;colo
 <div><div class="sec-lbl">Document Folder</div><div class="sec-val">*RX</div></div>
 <div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Ozempic Rx – CVS Specialty</div></div>
 <div><div class="sec-lbl">Assign To</div><div class="sec-val">No assignment (Rx requests)<br>Clinical Admin / Level 2 (Rx Clarification)</div></div>
-<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE all faxed Rx requests — active provider, offboarded provider, non-adherence, temp Rx, Tango<br>Pharmacies should send refills electronically<br>New provider Rx: patient must establish first<br><strong>Only exception:</strong> Rx Clarification — mark HP, route to Level 2 (CA creates the TE)<br>No TE at Level 1</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE all faxed Rx requests — active provider, offboarded provider, non-adherence (generic), temp Rx<br>Pharmacies should send refills electronically<br>New provider Rx: patient must establish first<br><strong>Only exception:</strong> Rx Clarification — mark HP, route to Level 2 (CA creates the TE)<br>No TE at Level 1</div></div>
 </div></div>
 
 <div class="card" style="--c:#6d28d9;--bg:#f3f0ff;">
