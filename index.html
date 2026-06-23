@@ -795,27 +795,6 @@ body { font-family: "Plus Jakarta Sans", sans-serif; background: var(--bg); colo
     </div>
     <div class="help-body">
       <div class="help-section">
-        <div style="background:#fef2f2;border:2px solid #e11d48;border-radius:10px;overflow:hidden;margin-bottom:0;">
-          <div style="background:#e11d48;padding:10px 16px;display:flex;align-items:center;gap:8px;"><span style="font-size:13px;font-weight:800;color:#fff;">TEMPORARY BACKLOG PROTOCOL — IN EFFECT UNTIL FURTHER NOTICE</span></div>
-          <div style="padding:14px 16px;">
-            <p style="font-size:12.5px;color:#9f1239;font-weight:600;margin-bottom:4px;line-height:1.6;">Batch processing by category is not possible right now. Doc Category is not auto-populating and sender fax sorting is broken. The only usable sort is Date.</p>
-            <p style="font-size:12.5px;color:#9f1239;font-weight:700;margin-bottom:14px;line-height:1.6;">Sort by Date ascending. Work oldest first. One touch per fax — make the call and move on.</p>
-            <div style="background:var(--navy);border-radius:9px;padding:12px 16px;margin-bottom:12px;">
-              <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.5);margin-bottom:8px;">How to set up your view</div>
-              <div style="font-size:12.5px;color:#fff;line-height:1.8;">1. Sort by <strong>DATE</strong> column — ascending (oldest first)<br>2. Work top to bottom — do not skip, do not come back<br>3. One decision per fax — see the decision tree below</div>
-            </div>
-            <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#9f1239;margin-bottom:8px;">When you open each fax — ask in this order:</div>
-            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#e11d48;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 1</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it STAT, a discharge, ER record, or imaging result?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Yes — process immediately. Mark HP. Do not set aside. Same-day, no exceptions.<br>No — move to Step 2.</div></div></div>
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#c0392b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 2</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Is it a delete?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Active provider Rx, Tango, non-adherence, confirmation of receipt, key listed PA, duplicate — delete it now and move on.<br>No — move to Step 3.</div></div></div>
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#9f1239;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 3</div><div><div style="font-size:13px;font-weight:700;color:#9f1239;margin-bottom:3px;">Which bucket does it belong to?</div><div style="font-size:12px;color:#7f1d1d;line-height:1.6;">Pick the closest category using the left nav. Attach, label, route. One touch — done. Move to the next fax.</div></div></div>
-              <div style="background:#fff;border:1.5px solid #fecaca;border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:12px;"><div style="background:#64748b;color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;">STEP 4</div><div><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Still not sure?</div><div style="font-size:12px;color:var(--muted);line-height:1.6;">File to *Important Notifications and route to Clinical Admin. Do NOT create a TE and do not hold it — CA reviews and creates the TE if one is needed. Keep moving.</div></div></div>
-            </div>
-            <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;padding:10px 14px;"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:5px;">Golden Rule for the Backlog</div><div style="font-size:12.5px;color:#92400e;font-weight:600;line-height:1.6;">Every fax gets one decision. You do not go back. You do not hold. You do not skip. Pick the closest category, route it, and move to the next one. Speed and consistency beats perfection right now.</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="help-section">
         <h3>📋 Document Name — How to Label Every Fax</h3>
         <div style="background:var(--navy);border-radius:9px;padding:14px 18px;margin-bottom:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:.5px;">DATE – [Document Name] – WHERE</div></div>
         <div style="background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:12px 16px;font-family:var(--font-mono);font-size:12px;line-height:2.1;">
@@ -1069,38 +1048,52 @@ const SECTIONS = [
         ]
       },
       {
-        doc: "Potential Clinical Concern / Retrospective Intervention",
+        doc: "Rx Clarification",
         action: "file",
         docCategory: "INBOUND – RX",
-        actionType: "PROVIDER REVIEW",
-        assignTo: "Provider (direct)",
-        sendTo: "Provider",
+        actionType: "RX",
+        actionSubject: "DATE – [Medication Name, Dose] Rx Clarification – WHERE",
+        actionSubjectExample: "01/15/2026 – Metformin 500mg Rx Clarification – Walgreens",
+        assignTo: "Clinical Admin",
+        sendTo: "Clinical Admin (Level 2)",
         fileTo: "*RX",
         flags: ["hp"],
-        notes: "PBM clinical concern report (UHC/Optum Rx, etc.). Goes directly to provider. No TE needed. Examples: opioid risk management, polypharmacy concern, retrospective intervention program.",
+        label: "DATE – [Medication Name, Dose] Rx Clarification – WHERE",
+        example: "01/15/2026 – Metformin 500mg Rx Clarification – Walgreens",
+        notes: "Pharmacy is asking the provider to clarify an existing prescription — dose, quantity, days supply, sig/directions, or which drug. This is the ONLY Rx item that is not deleted. ALWAYS mark HP — the pharmacy is holding the fill. Attach, label, and route to Clinical Admin (Level 2). Level 1 does NOT create a TE — CA creates the TE and sends the clarification to the provider.",
         levels: [
           {
             num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
             routeIfStyle: "green",
             routeIf: [
-              "Document says Potential Clinical Concern, Retrospective Intervention, or Opioid Risk Management",
-              "Sender is a PBM — Optum Rx, UHC, Express Scripts, CVS Caremark",
-              "Document lists patient medications, fill dates, and multiple prescribers"
+              "Pharmacy faxing a clarification request on an existing prescription",
+              "Document asks to confirm dose, quantity, days supply, sig/directions, or drug name",
+              "Sender is a pharmacy (CVS, Walgreens, Walmart, etc.) referencing a specific medication"
             ],
             steps: [
               "Attach to patient chart",
-              "Label: DATE – [Clinical Concern Type] – WHERE  e.g. 04/02/2026 – Opioid Risk Management – UHC",
-              "Route directly to provider — no TE, no Clinical Admin",
-              "Level 1 stops here"
+              "Label: DATE – [Medication Name, Dose] Rx Clarification – WHERE",
+              "Mark HP — always",
+              "Route to Clinical Admin (Level 2)",
+              "Do NOT create a TE — Level 1 stops here"
+            ],
+            notes: "⚠️ Rx Clarifications are ALWAYS HP. Do not delay — the pharmacy is holding the fill until the provider clarifies."
+          },
+          {
+            num: 2, title: "Clinical Admin", badge: "Clinical Admin", color: "purple",
+            steps: [
+              "Review and confirm the medication and patient",
+              "Confirm the patient is established with a current Optima provider",
+              "Create the TE and send to the provider with the exact clarification the pharmacy is asking for",
+              "Once the provider responds — relay the clarification back to the pharmacy"
             ]
           },
           {
-            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            num: 3, title: "Provider", badge: "Provider", color: "amber",
             steps: [
-              "Review PBM clinical concern report",
-              "If already aware — disregard per document instructions",
-              "If action needed — create TE and assign to Clinical Admin",
-              "Adjust prescribing as clinically appropriate"
+              "Review the clarification request from Clinical Admin",
+              "Confirm the correct dose, quantity, days supply, sig, or drug",
+              "Respond so Clinical Admin can relay the answer back to the pharmacy"
             ]
           }
         ]
@@ -1467,6 +1460,123 @@ const SECTIONS = [
             ]
           }
         ]
+      },
+      {
+        doc: "Retrospective Intervention Program",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – Retrospective Intervention – WHERE",
+        example: "04/02/2026 – Retrospective Intervention – Optum Rx",
+        notes: "PBM-generated program notice. File to *Important Notifications. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Sender is a PBM or insurance company — Optum Rx, UHC, Express Scripts, CVS Caremark",
+              "Document references Retrospective Intervention Program"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – Retrospective Intervention – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review intervention notice",
+              "If already aware — disregard per document instructions",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Adjust prescribing as clinically appropriate"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Potential Clinical Concern",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – [Clinical Concern Type] – WHERE",
+        example: "04/02/2026 – Opioid Risk Management – UHC",
+        notes: "PBM clinical concern report. Mark HP. Route directly to provider. No TE, no Clinical Admin. Concern type appears on the document — use it in the label.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Document says Potential Clinical Concern, Opioid Risk Management, or similar",
+              "Sender is a PBM or insurance company",
+              "Document lists patient medications, fill dates, or multiple prescribers"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Clinical Concern Type] – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review PBM clinical concern report",
+              "If already aware — disregard per document instructions",
+              "If action needed — create TE and assign to Clinical Admin",
+              "Adjust prescribing as clinically appropriate"
+            ]
+          }
+        ]
+      },
+      {
+        doc: "Coordination of Care / Insurance Clinical Notice",
+        action: "file",
+        docCategory: "INBOUND – CLINICAL",
+        actionType: "PROVIDER REVIEW",
+        assignTo: "Provider (direct)",
+        sendTo: "Provider",
+        fileTo: "*Important Notifications",
+        flags: ["hp"],
+        label: "DATE – [Notice Type] – WHERE",
+        example: "04/02/2026 – Coordination of Care Notice – UHC",
+        notes: "Any other insurance or PBM-generated clinical notice. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
+        levels: [
+          {
+            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
+            routeIfStyle: "green",
+            routeIf: [
+              "Any insurance or PBM notice not covered by the two types above",
+              "Coordination of care, quality alert, or clinical program notice"
+            ],
+            steps: [
+              "Attach to patient chart",
+              "Label: DATE – [Notice Type] – WHERE",
+              "File to *Important Notifications",
+              "Mark HP",
+              "Route directly to provider — Level 1 stops here"
+            ]
+          },
+          {
+            num: 2, title: "Provider", badge: "Provider", color: "purple",
+            steps: [
+              "Review insurance clinical notice",
+              "If action needed — create TE and assign to Clinical Admin",
+              "If no action needed — close"
+            ]
+          }
+        ]
       }
     ]
   },
@@ -1652,6 +1762,23 @@ const SECTIONS = [
             ]
           }
         ]
+      },
+      {
+        doc: "Fax Opt-Out / Electronic Delivery Request",
+        action: "snip",
+        sendTo: "@Megan and @Jaimie (team chat)",
+        routeIf: [
+          "Fax says Tired of receiving fax documents or similar",
+          "Any fax requesting sign-up for electronic delivery",
+          "Opt-in or paperless delivery request from facility or vendor"
+        ],
+        nextSteps: [
+          "Snip the document",
+          "Send screenshot to team chat",
+          "Tag @Megan and @Jaimie",
+          "Process doc as normal"
+        ],
+        notes: "Level 1 action only. Snip, tag, done."
       }
     ]
   },
@@ -1702,157 +1829,6 @@ const SECTIONS = [
       }
     ]
   },
-
-  {
-    name: "Insurance / PBM Notices", icon: "📨", color: "#0e7490", bg: "#ecfeff",
-    docCategory: "INBOUND – CLINICAL",
-    assignTo: "Provider (direct)",
-    triggers: ["insurance notice", "PBM", "retrospective", "intervention program", "clinical concern", "opioid risk", "coordination of care", "Optum Rx", "polypharmacy", "UHC notice", "Express Scripts", "CVS Caremark", "important notification"],
-    routes: [
-      {
-        doc: "Retrospective Intervention Program",
-        action: "file",
-        docCategory: "INBOUND – CLINICAL",
-        actionType: "PROVIDER REVIEW",
-        assignTo: "Provider (direct)",
-        sendTo: "Provider",
-        fileTo: "*Important Notifications",
-        flags: ["hp"],
-        label: "DATE – Retrospective Intervention – WHERE",
-        example: "04/02/2026 – Retrospective Intervention – Optum Rx",
-        notes: "PBM-generated program notice. File to *Important Notifications. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
-        levels: [
-          {
-            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
-            routeIfStyle: "green",
-            routeIf: [
-              "Sender is a PBM or insurance company — Optum Rx, UHC, Express Scripts, CVS Caremark",
-              "Document references Retrospective Intervention Program"
-            ],
-            steps: [
-              "Attach to patient chart",
-              "Label: DATE – Retrospective Intervention – WHERE",
-              "File to *Important Notifications",
-              "Mark HP",
-              "Route directly to provider — Level 1 stops here"
-            ]
-          },
-          {
-            num: 2, title: "Provider", badge: "Provider", color: "purple",
-            steps: [
-              "Review intervention notice",
-              "If already aware — disregard per document instructions",
-              "If action needed — create TE and assign to Clinical Admin",
-              "Adjust prescribing as clinically appropriate"
-            ]
-          }
-        ]
-      },
-      {
-        doc: "Potential Clinical Concern",
-        action: "file",
-        docCategory: "INBOUND – CLINICAL",
-        actionType: "PROVIDER REVIEW",
-        assignTo: "Provider (direct)",
-        sendTo: "Provider",
-        fileTo: "*Important Notifications",
-        flags: ["hp"],
-        label: "DATE – [Clinical Concern Type] – WHERE",
-        example: "04/02/2026 – Opioid Risk Management – UHC",
-        notes: "PBM clinical concern report. Mark HP. Route directly to provider. No TE, no Clinical Admin. Concern type appears on the document — use it in the label.",
-        levels: [
-          {
-            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
-            routeIfStyle: "green",
-            routeIf: [
-              "Document says Potential Clinical Concern, Opioid Risk Management, or similar",
-              "Sender is a PBM or insurance company",
-              "Document lists patient medications, fill dates, or multiple prescribers"
-            ],
-            steps: [
-              "Attach to patient chart",
-              "Label: DATE – [Clinical Concern Type] – WHERE",
-              "File to *Important Notifications",
-              "Mark HP",
-              "Route directly to provider — Level 1 stops here"
-            ]
-          },
-          {
-            num: 2, title: "Provider", badge: "Provider", color: "purple",
-            steps: [
-              "Review PBM clinical concern report",
-              "If already aware — disregard per document instructions",
-              "If action needed — create TE and assign to Clinical Admin",
-              "Adjust prescribing as clinically appropriate"
-            ]
-          }
-        ]
-      },
-      {
-        doc: "Coordination of Care / Insurance Clinical Notice",
-        action: "file",
-        docCategory: "INBOUND – CLINICAL",
-        actionType: "PROVIDER REVIEW",
-        assignTo: "Provider (direct)",
-        sendTo: "Provider",
-        fileTo: "*Important Notifications",
-        flags: ["hp"],
-        label: "DATE – [Notice Type] – WHERE",
-        example: "04/02/2026 – Coordination of Care Notice – UHC",
-        notes: "Any other insurance or PBM-generated clinical notice. Mark HP. Route directly to provider. No TE, no Clinical Admin.",
-        levels: [
-          {
-            num: 1, title: "Scan Team", badge: "Scan Team", color: "blue",
-            routeIfStyle: "green",
-            routeIf: [
-              "Any insurance or PBM notice not covered by the two types above",
-              "Coordination of care, quality alert, or clinical program notice"
-            ],
-            steps: [
-              "Attach to patient chart",
-              "Label: DATE – [Notice Type] – WHERE",
-              "File to *Important Notifications",
-              "Mark HP",
-              "Route directly to provider — Level 1 stops here"
-            ]
-          },
-          {
-            num: 2, title: "Provider", badge: "Provider", color: "purple",
-            steps: [
-              "Review insurance clinical notice",
-              "If action needed — create TE and assign to Clinical Admin",
-              "If no action needed — close"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-
-  {
-    name: "Snip & Notify", icon: "✂️", color: "#16a34a", bg: "#f0fdf4",
-    triggers: ["tired of receiving", "opt in", "electronic delivery", "go paperless", "unsubscribe", "fax opt out"],
-    routes: [
-      {
-        doc: "Fax Opt-Out / Electronic Delivery Request",
-        action: "snip",
-        sendTo: "@Megan and @Jaimie (team chat)",
-        routeIf: [
-          "Fax says Tired of receiving fax documents or similar",
-          "Any fax requesting sign-up for electronic delivery",
-          "Opt-in or paperless delivery request from facility or vendor"
-        ],
-        nextSteps: [
-          "Snip the document",
-          "Send screenshot to team chat",
-          "Tag @Megan and @Jaimie",
-          "Process doc as normal"
-        ],
-        notes: "Level 1 action only. Snip, tag, done."
-      }
-    ]
-  }
-
 ];
 // ── FLATTEN ────────────────────────────────
 const ALL_ROUTES = [];
@@ -2505,7 +2481,6 @@ const GF_STAGE1 = [
   { id:"clinical", icon:"🏥", label:"Patient Care / Results",   sub:"Lab, imaging, hospital" },
   { id:"referral", icon:"↗️", label:"Referral",                 sub:"Specialist, consult, scheduling" },
   { id:"records",  icon:"📁", label:"Records / No Action",      sub:"Old records, informational" },
-  { id:"insurance", icon:"📨", label:"Insurance / PBM Notice",     sub:"Clinical concern, intervention, care notice" },
   { id:"confused",  icon:"❓", label:"Not Sure",                   sub:"Route to Clinical Admin" },
 ];
 
@@ -2519,7 +2494,7 @@ const GF_STAGE2 = {
     { id:"rx_active",    icon:"🗑️", label:"Active Optima Provider Rx",    sub:"Delete — no action needed" },
     { id:"rx_off",       icon:"🗑️",  label:"Offboarded Provider Rx",        sub:"Delete — establish with new provider" },
     { id:"rx_delete",    icon:"🗑️", label:"Tango / Non-Adherence",         sub:"Delete — no action needed" },
-    { id:"rx_concern",   icon:"⚠️", label:"Potential Clinical Concern",    sub:"PBM report — direct to provider" },
+    { id:"rx_clarify",   icon:"💬", label:"Rx Clarification",    sub:"HP → Level 2 (Clinical Admin)" },
   ],
   auth: [
     { id:"auth_medpa_new",    icon:"💊", label:"Med PA — New Request",           sub:"New submission from pharmacy or payer" },
@@ -2544,6 +2519,9 @@ const GF_STAGE2 = {
     { id:"cl_admit",     icon:"🏥", label:"Admit Notification",        sub:"Stamp FYI → provider" },
     { id:"cl_discharge", icon:"🚨", label:"Discharge / ER Records",   sub:"HP → Clinical Admin" },
     { id:"cl_pap",       icon:"📋", label:"PAP Compliance Report",    sub:"Attach → provider" },
+    { id:"ins_retro",   icon:"📋", label:"Retrospective Intervention Program", sub:"HP → provider direct" },
+    { id:"ins_concern", icon:"⚠️", label:"Potential Clinical Concern",          sub:"Opioid risk, polypharmacy — HP → provider" },
+    { id:"ins_care",    icon:"📨", label:"Coordination of Care / Other Notice", sub:"HP → provider direct" },
   ],
   referral: [
     { id:"ref_req",      icon:"↗️", label:"Referral Request / Response", sub:"File → Referrals bucket" },
@@ -2573,7 +2551,7 @@ const GF_RESULT = {
   ins_retro:   { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – Retrospective Intervention – WHERE", example:"04/02/2026 – Retrospective Intervention – Optum Rx", hp:"Always mark HP", note:"Route directly to provider. No TE, no Clinical Admin. Provider reviews and acts if needed." },
   ins_concern: { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"Use the concern type listed on the document in the label. Route directly to provider. No TE, no Clinical Admin." },
   ins_care:    { action:"FILE & ROUTE", folder:"*Important Notifications", assignTo:"Provider (direct)", label:"DATE – [Notice Type] – WHERE", example:"04/02/2026 – Coordination of Care Notice – UHC", hp:"Always mark HP", note:"Any insurance or PBM clinical notice. Route directly to provider. No TE, no Clinical Admin." },
-  rx_concern:  { action:"FILE & ROUTE", folder:"*RX", assignTo:"Provider (direct)", label:"DATE – [Clinical Concern Type] – WHERE", example:"04/02/2026 – Opioid Risk Management – UHC", hp:"Always mark HP", note:"PBM clinical concern report (Optum Rx, UHC, Express Scripts, CVS Caremark). Goes directly to provider. No TE, no Clinical Admin. Provider reviews and adjusts prescribing as needed." },
+  rx_clarify:  { action:"FILE & ROUTE", folder:"*RX", assignTo:"Clinical Admin (Level 2)", label:"DATE – [Medication Name, Dose] Rx Clarification – WHERE", example:"01/15/2026 – Metformin 500mg Rx Clarification – Walgreens", hp:"ALWAYS mark HP — pharmacy is holding the fill", note:"Pharmacy is asking the provider to clarify an existing prescription. This is the only Rx item that is not deleted. Attach, label, and route to Clinical Admin (Level 2). No TE at Level 1 — CA creates the TE and sends the clarification to the provider." },
   rx_active:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Active Optima provider Rx — delete. Pharmacies should send refill requests electronically." },
   rx_off:      { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Delete. Pharmacies should send refill requests electronically. If a new Rx is needed from a new provider, the patient must first establish with that provider — no TE." },
   rx_delete:   { action:"DELETE", folder:null, assignTo:null, label:null, example:null, hp:null, note:"Tango Approval / Non-Adherence Notice — delete. No action needed." },
@@ -2767,8 +2745,8 @@ function gfBack() {
 function gfShowDetail() {
   const map = {
     sig_form:"Signature Needed", sig_ptot:"Signature Needed", sig_dme:"Prior Auths",
-    ins_retro:"Insurance / PBM Notices", ins_concern:"Insurance / PBM Notices", ins_care:"Insurance / PBM Notices",
-    rx_concern:"Medication Related", rx_active:"Medication Related", rx_off:"Medication Related", rx_delete:"Medication Related",
+    ins_retro:"Patient Care / Visit", ins_concern:"Patient Care / Visit", ins_care:"Patient Care / Visit",
+    rx_clarify:"Medication Related", rx_active:"Medication Related", rx_off:"Medication Related", rx_delete:"Medication Related",
     auth_medpa_new:"Prior Auths", auth_medpa_appr:"Prior Auths", auth_medpa_denial:"Prior Auths",
     auth_imgpa_new:"Prior Auths", auth_imgpa_appr:"Prior Auths", auth_imgpa_denial:"Prior Auths",
     auth_order:"Prior Auths", auth_medpa:"Prior Auths", auth_imgpa:"Prior Auths", auth_dme:"Prior Auths", auth_key:"Prior Auths",
@@ -2841,8 +2819,8 @@ body{font-family:Helvetica,Arial,sans-serif;font-size:9.5pt;background:#fff;colo
 <div class="card-body">
 <div><div class="sec-lbl">Document Folder</div><div class="sec-val">*RX</div></div>
 <div><div class="sec-lbl">Label Example</div><div class="sec-val ital">04/01/2026 – Ozempic Rx – CVS Specialty</div></div>
-<div><div class="sec-lbl">Assign To</div><div class="sec-val">No assignment</div></div>
-<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE all faxed Rx requests — active provider, offboarded provider, non-adherence, temp Rx, Tango<br>Pharmacies should send refills electronically<br>New provider Rx: patient must establish first<br>No TE at Level 1</div></div>
+<div><div class="sec-lbl">Assign To</div><div class="sec-val">No assignment (Rx requests)<br>Clinical Admin / Level 2 (Rx Clarification)</div></div>
+<div><div class="sec-lbl">Rules</div><div class="sec-val">DELETE all faxed Rx requests — active provider, offboarded provider, non-adherence, temp Rx, Tango<br>Pharmacies should send refills electronically<br>New provider Rx: patient must establish first<br><strong>Only exception:</strong> Rx Clarification — mark HP, route to Level 2 (CA creates the TE)<br>No TE at Level 1</div></div>
 </div></div>
 
 <div class="card" style="--c:#6d28d9;--bg:#f3f0ff;">
